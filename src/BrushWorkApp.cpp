@@ -14,14 +14,14 @@
 using std::cout;
 using std::endl;
 
-BrushWorkApp::BrushWorkApp(int argc, char* argv[], int width, int height, ColorData backgroundColor) : 
+BrushWorkApp::BrushWorkApp(int argc, char* argv[], int width, int height, ColorData backgroundColor) :
 	BaseGfxApp(argc, argv, width, height, 50, 50, GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH, true, width+51, 50) {
 	// Set the name of the window
 	setCaption("BrushWork");
-		
+
 	// Initialize Interface
 	initializeBuffers(backgroundColor, width, height);
-	
+
 	initGlui();
 	initGraphics();
 }
@@ -41,11 +41,11 @@ BrushWorkApp::~BrushWorkApp() {
 
 
 void BrushWorkApp::mouseDragged(int x, int y) {
-	
+
 }
 
 void BrushWorkApp::mouseMoved(int x, int y) {
-	
+
 }
 
 
@@ -64,27 +64,27 @@ void BrushWorkApp::initializeBuffers(ColorData backgroundColor, int width, int h
 void BrushWorkApp::initGlui() {
 	// Select first tool (this activates the first radio button in glui)
 	m_curTool = 0;
-	
+
 	GLUI_Panel *toolPanel = new GLUI_Panel(m_glui, "Tool Type");
 	GLUI_RadioGroup *radio = new GLUI_RadioGroup(toolPanel, &m_curTool, UI_TOOLTYPE, s_gluicallback);
-	
+
 	// Create interface buttons for different tools:
 	new GLUI_RadioButton(radio, "Pen");
 	new GLUI_RadioButton(radio, "Eraser");
 	new GLUI_RadioButton(radio, "Spray Can");
 	new GLUI_RadioButton(radio, "Caligraphy Pen");
 	new GLUI_RadioButton(radio, "Highlighter");
-	
+
 	GLUI_Panel *colPanel = new GLUI_Panel(m_glui, "Tool Color");
-	
+
 	m_curColorRed = 0;
 	m_spinnerR  = new GLUI_Spinner(colPanel, "Red:", &m_curColorRed, UI_COLOR_R, s_gluicallback);
 	m_spinnerR->set_float_limits(0, 1.0);
-	
+
 	m_curColorGreen = 0;
 	m_spinnerG  = new GLUI_Spinner(colPanel, "Green:", &m_curColorGreen, UI_COLOR_G, s_gluicallback);
 	m_spinnerG->set_float_limits(0, 1.0);
-	
+
 	m_curColorBlue = 0;
 	m_spinnerB  = new GLUI_Spinner(colPanel, "Blue:", &m_curColorBlue, UI_COLOR_B, s_gluicallback);
 	m_spinnerB->set_float_limits(0, 1.0);
@@ -96,8 +96,8 @@ void BrushWorkApp::initGlui() {
 	new GLUI_Button(colPanel, "Purple", UI_PRESET_PURPLE, s_gluicallback);
 	new GLUI_Button(colPanel, "White", UI_PRESET_WHITE, s_gluicallback);
 	new GLUI_Button(colPanel, "Black", UI_PRESET_BLACK, s_gluicallback);
-	
-	
+
+
 	new GLUI_Button(m_glui, "Quit", UI_QUIT, (GLUI_Update_CB)exit);
 }
 
@@ -162,8 +162,8 @@ void BrushWorkApp::gluiControl(int controlID) {
 		default:
 			break;
 	}
-	
+
 	m_spinnerB->set_float_val(m_curColorBlue);
 	m_spinnerG->set_float_val(m_curColorGreen);
-	m_spinnerR->set_float_val(m_curColorRed);	
+        m_spinnerR->set_float_val(m_curColorRed);
 }

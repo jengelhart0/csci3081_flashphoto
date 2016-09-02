@@ -25,7 +25,7 @@ PixelBuffer::~PixelBuffer() {
 
 ColorData PixelBuffer::getPixel(int x, int y) const {
 	ColorData pixelData;
-	
+
 	if ((x < 0) || (x >= m_width) || (y < 0) || (y >= m_height)) {
 		cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
 	}
@@ -46,7 +46,7 @@ void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
 	}
 }
 
-ColorData const * const PixelBuffer::getData() const {
+ColorData const * PixelBuffer::getData() const {
 	return m_pixels;
 }
 
@@ -72,6 +72,5 @@ void PixelBuffer::copyPixelBuffer(PixelBuffer * sourceBuffer, PixelBuffer * dest
 	}
 	else {
 		memcpy ( (void*)destinationBuffer->m_pixels, (void*) sourceBuffer->m_pixels, sizeof(ColorData)*destinationBuffer->m_height*destinationBuffer->m_width );
-	}	
+        }
 }
-
