@@ -1,4 +1,8 @@
+# Analysis results
+analysis/*
+
 # Compiled Object files
+obj/*
 *.slo
 *.lo
 *.o
@@ -23,7 +27,8 @@
 *.a
 *.lib
 
-# Executables
+# Compiled binaries
+bin/*
 *.exe
 *.out
 *.app
