@@ -51,7 +51,9 @@ float ColorData::getAlpha() const {
 }
 
 float ColorData::getLuminance() const {
-        return 0.2126*m_red + 0.7152*m_green + 0.0722*m_blue;
+    return static_cast<float>(0.2126)*m_red +
+        static_cast<float>(0.7152)*m_green +
+        static_cast<float>(0.0722)*m_blue;
 }
 
 ColorData ColorData::clampedColor() const {

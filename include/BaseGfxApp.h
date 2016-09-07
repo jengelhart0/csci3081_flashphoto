@@ -20,7 +20,7 @@
 class BaseGfxApp
 {
 public:
-	BaseGfxApp(int argc, char* argv[], int width, int height, int x, int y, int glutFlags,
+        BaseGfxApp(int argc, char* argv[], int width, int height, int x, int y, unsigned glutFlags,
 		bool createGLUIWin, int gluiWinX, int gluiWinY);
 	virtual ~BaseGfxApp();
 
@@ -107,7 +107,10 @@ protected:
 	bool m_drag;
 	int m_width;
         int m_height;
-	int m_milliseconds;
+        int m_milliseconds;
+private:
+    BaseGfxApp(const BaseGfxApp &rhs) = delete;
+    BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
 
 

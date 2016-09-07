@@ -18,17 +18,27 @@ BrushWorkApp::BrushWorkApp(int argc,
                            char* argv[],
                            int width,
                            int height,
-                           ColorData backgroundColor) :
-    BaseGfxApp(argc,
-               argv,
-               width,
-               height,
-               50,
-               50,
-               GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
-               true,
-               width+51,
-               50) {
+                           ColorData backgroundColor)
+    : BaseGfxApp(argc,
+                 argv,
+                 width,
+                 height,
+                 50,
+                 50,
+                 GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
+                 true,
+                 width+51,
+                 50),
+      m_displayBuffer(nullptr),
+      m_curTool(0.0),
+      m_curColorRed(0.0),
+      m_curColorGreen(0.0),
+      m_curColorBlue(0.0),
+      m_spinnerR(nullptr),
+      m_spinnerG(nullptr),
+      m_spinnerB(nullptr)
+
+{
     // Set the name of the window
     setCaption("BrushWork");
 
@@ -117,7 +127,7 @@ void BrushWorkApp::initGlui() {
     new GLUI_Button(colPanel, "Black", UI_PRESET_BLACK, s_gluicallback);
 
 
-    new GLUI_Button(m_glui, "Quit", UI_QUIT, (GLUI_Update_CB)exit);
+    new GLUI_Button(m_glui, "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
 

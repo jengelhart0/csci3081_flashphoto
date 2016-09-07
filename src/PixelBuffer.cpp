@@ -14,10 +14,11 @@ using std::fill;
 
 PixelBuffer::PixelBuffer(int w,
                          int h,
-                         ColorData backgroundColor) : m_width(w),
-                                                      m_height(h) {
-    m_backgroundColor = new ColorData(backgroundColor);
-    m_pixels = new ColorData[w*h];
+                         ColorData backgroundColor)
+    : m_width(w),
+      m_height(h),
+      m_pixels(new ColorData[w*h]),
+      m_backgroundColor(new ColorData(backgroundColor)) {
     fillPixelBufferWithColor(backgroundColor);
 }
 
@@ -74,8 +75,9 @@ void PixelBuffer::copyPixelBuffer(
         destBuffer->getHeight() != sourceBuffer->getHeight()) {
         cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
     } else {
-        memcpy(reinterpret_cast<void*>destBuffer->m_pixels,
-               reinterpret_cast<void*>sourceBuffer->m_pixels,
-               sizeof(ColorData)*destBuffer->m_height*destBuffer->m_width);
+        memcpy(reinterpret_cast<void*>(destBuffer->m_pixels),
+               reinterpret_cast<void*>(sourceBuffer->m_pixels),
+               sizeof(ColorData)*static_cast<unsigned>(destBuffer->m_height)*
+               static_cast<unsigned>(destBuffer->m_width));
     }
 }

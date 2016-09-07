@@ -11,24 +11,24 @@
 BaseGfxApp* BaseGfxApp::s_currentApp = NULL;
 bool BaseGfxApp::s_glutInitialized = false;
 
-#define INIT_WIDTH 800
-#define INIT_HEIGHT 600
-
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
                        int width,
                        int height,
                        int x,
                        int y,
-                       int glutFlags,
+                       unsigned glutFlags,
                        bool createGLUIWin,
                        int gluiWinX,
-                       int gluiWinY) {
+                       int gluiWinY)
+    : m_glutWindowHandle(0),
+      m_glui(nullptr),
+      m_drag(false),
+      m_width(width),
+      m_height(height),
+      m_milliseconds(0)
+{
     s_currentApp = this;
-    m_glui = NULL;
-    m_drag = false;
-    m_width = width;
-    m_height = height;
 
     // Set window size and position
     glutInitWindowSize(width, height);
@@ -101,7 +101,7 @@ void BaseGfxApp::drawPixels(int start_x, int start_y, int width,
     glRasterPos2i(start_x, start_y);
     glDrawPixels(width, height, GL_RGBA, GL_FLOAT, pixels);
 
-    int err;
+    unsigned err;
     if ((err = glGetError()) != GL_NO_ERROR) {
         std::cerr << "GL is in an error state after call to glDrawPixels()\n";
         std::cerr << "(GL error code " << err << ")\n";
