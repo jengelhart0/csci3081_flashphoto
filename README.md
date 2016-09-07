@@ -10,6 +10,18 @@ run the following command on all source files in your repository:
 And that this command will report 0 errors found. You will be evaluated on an
 all-or-nothing basis for this part of the project, so take care to do this.
 
+## Makefile guidelines
+When compiling, we suggest you use the following set of compile flags:
+
+    -W -Wall -Wextra -Weffc++
+
+We will not enforce this, but compiling with all compiler warnings enabled as
+above will help reduce the amount of headaches you have to endure for
+overlooking something simple in the code (especially the effc++ one). If you
+want to be hardcore, add the following flag:
+
+    -pedantic
+
 ## git commit messages
 
 - There should only ever be ONE scope/module affected per commit message.
