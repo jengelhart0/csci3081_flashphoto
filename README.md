@@ -21,6 +21,12 @@ overlooking something simple in the code (especially the effc++ one). If you
 want to be hardcore, add the following flag:
 
     -pedantic
+## Makefile rules
+All submitted makefiles must build the main target when invoked exactly as
+follows:
+
+    make
+
 
 ## git commit messages
 
