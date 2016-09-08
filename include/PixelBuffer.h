@@ -1,19 +1,17 @@
 //
 //  PixelBuffer.h
-//  Originally created by the CSci-3081W TAs.
+//  Copyright 2016 CSCI3081W TAs
 //
 
-#ifndef PIXELBUFFER_H
-#define PIXELBUFFER_H
+#ifndef INCLUDE_PIXELBUFFER_H_
+#define INCLUDE_PIXELBUFFER_H_
 
 class ColorData;
 
 /** The PixelBuffer class stores an array of ColorData, such as an image that
     can be drawn to the screen. */
-class PixelBuffer
-{
-public:
-
+class PixelBuffer {
+ public:
     PixelBuffer(int w, int h, ColorData backgroundColor);
     virtual ~PixelBuffer();
 
@@ -37,10 +35,11 @@ public:
     int getWidth() const;
 
     // A static method to copy one pixel buffer to another
-    static void copyPixelBuffer(PixelBuffer * sourceBuffer, PixelBuffer * destinationBuffer);
+    static void copyPixelBuffer(
+        PixelBuffer *sourceBuffer,
+        PixelBuffer *destinationBuffer);
 
-private:
-
+ private:
     // Dimensions
     const int m_width;
     const int m_height;
@@ -48,13 +47,13 @@ private:
     // Array of pixel colors
     ColorData * m_pixels;
 
-    // Pointer to the single color used as the "background color" to initialize the PixelBuffer
+    // Pointer to the single color used as the "background color" to initialize
+    // the PixelBuffer
     ColorData * m_backgroundColor;
 
 
     PixelBuffer(const PixelBuffer&rhs) = delete;
     PixelBuffer& operator=(const PixelBuffer&rhs) = delete;
-
 };
 
-#endif
+#endif  // INCLUDE_PIXELBUFFER_H_

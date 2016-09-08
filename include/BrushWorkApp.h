@@ -1,11 +1,11 @@
 //
 //  BrushWorkApp.h
-//  Originally created by the CSci-3081W TAs.
+//  Copyright 2016 CSCI3081W TAs
 //
 
 
-#ifndef BRUSHWORKAPP_H
-#define BRUSHWORKAPP_H
+#ifndef INCLUDE_BRUSHWORKAPP_H_
+#define INCLUDE_BRUSHWORKAPP_H_
 
 #include "BaseGfxApp.h"
 
@@ -13,19 +13,22 @@ class ColorData;
 class PixelBuffer;
 
 
-/** This is the main class for BrushWork.  It is a graphics app that derives from BaseGfxApp.
-    It creates two graphics windows, one for 2D painting and one for the buttons and other
-    UI widgets to control the brushes.
+/** This is the main class for BrushWork.  It is a graphics app that derives
+    from BaseGfxApp. It creates two graphics windows, one for 2D painting and
+    one for the buttons and other UI widgets to control the brushes.
 */
-class BrushWorkApp : public BaseGfxApp
-{
-public:
-
-    BrushWorkApp(int argc, char* argv[], int width, int height, ColorData backgroundColor);
+class BrushWorkApp : public BaseGfxApp {
+ public:
+    BrushWorkApp(
+        int argc,
+        char* argv[],
+        int width,
+        int height,
+        ColorData backgroundColor);
     virtual ~BrushWorkApp();
 
     // Glut overrided function
-    void mouseDragged(int x, int y) ;
+    void mouseDragged(int x, int y);
     void mouseMoved(int x, int y);
     void leftMouseDown(int x, int y);
     void leftMouseUp(int x, int y);
@@ -33,11 +36,9 @@ public:
     void gluiControl(int controlID);
 
 
-private:
-
+ private:
     // GLUI INTERFACE ELEMENTS
-    enum UIControlType
-    {
+    enum UIControlType {
         UI_TOOLTYPE,
         UI_COLOR_R,
         UI_COLOR_G,
@@ -68,9 +69,9 @@ private:
     GLUI_Spinner *m_spinnerG;
     GLUI_Spinner *m_spinnerB;
 
-private:
+ private:
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
 
-#endif
+#endif  // INCLUDE_BRUSHWORKAPP_H_
