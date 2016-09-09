@@ -3,14 +3,23 @@
 //  Copyright 2016 CSci-3081W TAs.
 //
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BaseGfxApp.h"
 #include <assert.h>
 #include <iostream>
 #include <string>
 
-BaseGfxApp* BaseGfxApp::s_current_app_ = NULL;
+/*******************************************************************************
+ * Global Variables
+ ******************************************************************************/
+BaseGfxApp* BaseGfxApp::s_current_app_ = nullptr;
 bool BaseGfxApp::s_glut_initialized_ = false;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
                        int width,
@@ -58,27 +67,28 @@ BaseGfxApp::BaseGfxApp(int argc,
         glui_->set_main_gfx_window(glut_window_handle_);
         // Note: if using a glut idle func, it may need to be registered
         // with glui rather than glut.
-        GLUI_Master.set_glutIdleFunc(NULL);
+        GLUI_Master.set_glutIdleFunc(nullptr);
     }
 }
 
 BaseGfxApp::~BaseGfxApp() {
-    s_current_app_ = NULL;
+    s_current_app_ = nullptr;
     glutDestroyWindow(glut_window_handle_);
 }
 
-void BaseGfxApp::setCaption(const std::string& caption) {
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
+void BaseGfxApp::set_caption(const std::string& caption) {
     glutSetWindowTitle(caption.c_str());
     glutSetIconTitle(caption.c_str());
 }
 
-void BaseGfxApp::runMainLoop() {
+void BaseGfxApp::RunMainLoop() {
     glutMainLoop();
 }
 
-
-
-void BaseGfxApp::reshape(int width, int height) {
+void BaseGfxApp::Reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
     // the graphics window. BaseGfxApp defaults to a window that cannot be
     // resized by dragging the corner with the mouse.
@@ -88,15 +98,15 @@ void BaseGfxApp::reshape(int width, int height) {
     }
 }
 
-void BaseGfxApp::renderOneFrame() {
+void BaseGfxApp::RenderOneFrame() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    display();
+    Display();
     glutSwapBuffers();
 }
 
 
 
-void BaseGfxApp::drawPixels(int start_x, int start_y, int width,
+void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
                             int height, void const * const pixels) {
     glRasterPos2i(start_x, start_y);
     glDrawPixels(width, height, GL_RGBA, GL_FLOAT, pixels);
@@ -109,20 +119,20 @@ void BaseGfxApp::drawPixels(int start_x, int start_y, int width,
     }
 }
 
+int BaseGfxApp::width() const { return width_; }
+int BaseGfxApp::height() const { return height_; }
 
-
-int BaseGfxApp::width() const {
-    return width_;
+void BaseGfxApp::SetWindowDimensions(int width, int height) {
+    height_ = height;
+    width_ = width;
+    glutReshapeWindow(width_, height_);
 }
 
-int BaseGfxApp::height() const {
-    return height_;
-}
-
-
-
+/*******************************************************************************
+ * Static Member Functions
+ ******************************************************************************/
 void BaseGfxApp::s_reshape(int width, int height) {
-    s_current_app_->reshape(width, height);
+    s_current_app_->Reshape(width, height);
 }
 
 void BaseGfxApp::s_keyboard(unsigned char c, int x, int y) {
@@ -174,7 +184,7 @@ void BaseGfxApp::s_mousebtn(int b, int s, int x, int y) {
 }
 
 void BaseGfxApp::s_draw() {
-    s_current_app_->renderOneFrame();
+    s_current_app_->RenderOneFrame();
 }
 
 void BaseGfxApp::s_gluicallback(int controlID) {
@@ -188,10 +198,4 @@ void BaseGfxApp::s_idle() {
         s_current_app_->milliseconds_ = timeSinceStart;
         s_current_app_->update(delta);
     }
-}
-
-void BaseGfxApp::setWindowDimensions(int width, int height) {
-    height_ = height;
-    width_ = width;
-    glutReshapeWindow(width_, height_);
 }

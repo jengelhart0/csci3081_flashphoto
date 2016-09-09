@@ -6,6 +6,9 @@
 #ifndef INCLUDE_COLORDATA_H_
 #define INCLUDE_COLORDATA_H_
 
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
 /** This color data class stores color in floating point format.
     The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0. */
 class ColorData {

@@ -6,8 +6,14 @@
 #ifndef INCLUDE_PIXELBUFFER_H_
 #define INCLUDE_PIXELBUFFER_H_
 
+/*******************************************************************************
+ * Forward Declarations
+ ******************************************************************************/
 class ColorData;
 
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
 /** The PixelBuffer class stores an array of ColorData, such as an image that
     can be drawn to the screen. */
 class PixelBuffer {

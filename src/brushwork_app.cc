@@ -3,7 +3,9 @@
 //  Copyright 2016 CSci-3081W TAs.
 //
 
-
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
@@ -14,6 +16,9 @@
 using std::cout;
 using std::endl;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 BrushWorkApp::BrushWorkApp(int argc,
                            char* argv[],
                            int width,
@@ -36,11 +41,9 @@ BrushWorkApp::BrushWorkApp(int argc,
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
-      spinner_b_(nullptr)
-
-{
+      spinner_b_(nullptr) {
     // Set the name of the window
-    setCaption("BrushWork");
+    set_caption("BrushWork");
 
     // Initialize Interface
     initializeBuffers(backgroundColor, width, height);
@@ -49,25 +52,20 @@ BrushWorkApp::BrushWorkApp(int argc,
     initGraphics();
 }
 
-void BrushWorkApp::display() {
-    drawPixels(0, 0, width(), height(), display_buffer_->getData());
-}
-
-
-
 BrushWorkApp::~BrushWorkApp() {
     if (display_buffer_) {
         delete display_buffer_;
     }
 }
 
-
-void BrushWorkApp::mouseDragged(int x, int y) {
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
+void BrushWorkApp::display() {
+    DrawPixels(0, 0, width(), height(), display_buffer_->getData());
 }
-
-void BrushWorkApp::mouseMoved(int x, int y) {
-}
-
+void BrushWorkApp::mouseDragged(int x, int y) {}
+void BrushWorkApp::mouseMoved(int x, int y) {}
 
 void BrushWorkApp::leftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
@@ -130,7 +128,6 @@ void BrushWorkApp::initGlui() {
     new GLUI_Button(glui(), "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
-
 void BrushWorkApp::initGraphics() {
     // Initialize OpenGL for 2D graphics as used in the BrushWork app
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -143,8 +140,6 @@ void BrushWorkApp::initGraphics() {
     gluOrtho2D(0, width(), 0, height());
     glViewport(0, 0, width(), height());
 }
-
-
 
 void BrushWorkApp::gluiControl(int controlID) {
     switch (controlID) {

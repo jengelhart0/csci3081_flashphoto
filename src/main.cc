@@ -3,7 +3,9 @@
 //  Copyright 2016 CSci-3081W TAs.
 //
 
-
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 
@@ -13,7 +15,7 @@ int main(int argc, char* argv[]) {
                                                    1,
                                                    static_cast<float>(0.95)));
     // runMainLoop returns when the user closes the graphics window.
-    app->runMainLoop();
+    app->RunMainLoop();
     delete app;
     exit(0);
 }

@@ -2,6 +2,9 @@
 //  PixelBuffer.cpp
 //  Copyright 2016 CSci-3081W TAs.
 //
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "PixelBuffer.h"
 #include "ColorData.h"
 
@@ -12,6 +15,9 @@ using std::cerr;
 using std::endl;
 using std::fill;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
                          ColorData backgroundColor)
@@ -27,6 +33,9 @@ PixelBuffer::~PixelBuffer() {
     delete background_color_;
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 ColorData PixelBuffer::getPixel(int x, int y) const {
     ColorData pixelData;
 
