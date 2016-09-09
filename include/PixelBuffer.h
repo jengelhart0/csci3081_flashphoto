@@ -12,7 +12,7 @@ class ColorData;
     can be drawn to the screen. */
 class PixelBuffer {
  public:
-    PixelBuffer(int w, int h, ColorData backgroundColor);
+    PixelBuffer(int w, int h, ColorData background_color);
     virtual ~PixelBuffer();
 
     // Sets the color of a specific pixel
@@ -41,15 +41,15 @@ class PixelBuffer {
 
  private:
     // Dimensions
-    const int m_width;
-    const int m_height;
+    const int width_;
+    const int height_;
 
     // Array of pixel colors
-    ColorData * m_pixels;
+    ColorData * pixels_;
 
     // Pointer to the single color used as the "background color" to initialize
     // the PixelBuffer
-    ColorData * m_backgroundColor;
+    ColorData * background_color_;
 
 
     PixelBuffer(const PixelBuffer&rhs) = delete;

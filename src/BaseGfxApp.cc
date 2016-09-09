@@ -8,8 +8,8 @@
 #include <iostream>
 #include <string>
 
-BaseGfxApp* BaseGfxApp::s_currentApp = NULL;
-bool BaseGfxApp::s_glutInitialized = false;
+BaseGfxApp* BaseGfxApp::s_current_app_ = NULL;
+bool BaseGfxApp::s_glut_initialized_ = false;
 
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
@@ -21,26 +21,25 @@ BaseGfxApp::BaseGfxApp(int argc,
                        bool createGLUIWin,
                        int gluiWinX,
                        int gluiWinY)
-    : m_glutWindowHandle(0),
-      m_glui(nullptr),
-      m_drag(false),
-      m_width(width),
-      m_height(height),
-      m_milliseconds(0)
-{
-    s_currentApp = this;
+    : glut_window_handle_(0),
+      glui_(nullptr),
+      drag_(false),
+      width_(width),
+      height_(height),
+      milliseconds_(0) {
+    s_current_app_ = this;
 
     // Set window size and position
     glutInitWindowSize(width, height);
     glutInitWindowPosition(x, y);
     glutInitDisplayMode(glutFlags);
 
-    if (!s_glutInitialized) {
+    if (!s_glut_initialized_) {
         glutInit(&argc, argv);
-        s_glutInitialized = true;
+        s_glut_initialized_ = true;
     }
 
-    m_glutWindowHandle = glutCreateWindow("Graphics Window");
+    glut_window_handle_ = glutCreateWindow("Graphics Window");
 
     glutReshapeFunc(s_reshape);
     glutKeyboardFunc(s_keyboard);
@@ -54,9 +53,9 @@ BaseGfxApp::BaseGfxApp(int argc,
     glutIdleFunc(s_idle);
 
     if (createGLUIWin) {
-        m_glui = GLUI_Master.create_glui("Controls", 0,
+        glui_ = GLUI_Master.create_glui("Controls", 0,
                                          gluiWinX, gluiWinY);
-        m_glui->set_main_gfx_window(m_glutWindowHandle);
+        glui_->set_main_gfx_window(glut_window_handle_);
         // Note: if using a glut idle func, it may need to be registered
         // with glui rather than glut.
         GLUI_Master.set_glutIdleFunc(NULL);
@@ -64,8 +63,8 @@ BaseGfxApp::BaseGfxApp(int argc,
 }
 
 BaseGfxApp::~BaseGfxApp() {
-    s_currentApp = NULL;
-    glutDestroyWindow(m_glutWindowHandle);
+    s_current_app_ = NULL;
+    glutDestroyWindow(glut_window_handle_);
 }
 
 void BaseGfxApp::setCaption(const std::string& caption) {
@@ -83,8 +82,9 @@ void BaseGfxApp::reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
     // the graphics window. BaseGfxApp defaults to a window that cannot be
     // resized by dragging the corner with the mouse.
-    if (s_currentApp->width() != width || s_currentApp->height() != height) {
-        glutReshapeWindow(s_currentApp->width(), s_currentApp->height());
+    if (s_current_app_->width() != width ||
+        s_current_app_->height() != height) {
+        glutReshapeWindow(s_current_app_->width(), s_current_app_->height());
     }
 }
 
@@ -112,86 +112,86 @@ void BaseGfxApp::drawPixels(int start_x, int start_y, int width,
 
 
 int BaseGfxApp::width() const {
-    return m_width;
+    return width_;
 }
 
 int BaseGfxApp::height() const {
-    return m_height;
+    return height_;
 }
 
 
 
 void BaseGfxApp::s_reshape(int width, int height) {
-    s_currentApp->reshape(width, height);
+    s_current_app_->reshape(width, height);
 }
 
 void BaseGfxApp::s_keyboard(unsigned char c, int x, int y) {
-    s_currentApp->keyboard(c, x, y);
+    s_current_app_->keyboard(c, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardspecial(int key, int x, int y) {
-    s_currentApp->keyboardSpecial(key, x, y);
+    s_current_app_->keyboardSpecial(key, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardup(unsigned char c, int x, int y) {
-    s_currentApp->keyboardUp(c, x, y);
+    s_current_app_->keyboardUp(c, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardspecialup(int key, int x, int y) {
-    s_currentApp->keyboardSpecialUp(key, x, y);
+    s_current_app_->keyboardSpecialUp(key, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_mousemotion(int x, int y) {
-    if (s_currentApp->m_drag == true) {
-        s_currentApp->mouseDragged(x, y);
+    if (s_current_app_->drag_ == true) {
+        s_current_app_->mouseDragged(x, y);
     } else {
-        s_currentApp->mouseMoved(x, y);
+        s_current_app_->mouseMoved(x, y);
     }
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_mousebtn(int b, int s, int x, int y) {
     if ((b == GLUT_LEFT_BUTTON) && (s == GLUT_UP)) {
-        s_currentApp->leftMouseUp(x, y);
-        s_currentApp->m_drag = false;
+        s_current_app_->leftMouseUp(x, y);
+        s_current_app_->drag_ = false;
     } else if ((b == GLUT_LEFT_BUTTON) && (s == GLUT_DOWN)) {
-        s_currentApp->leftMouseDown(x, y);
-        s_currentApp->m_drag = true;
+        s_current_app_->leftMouseDown(x, y);
+        s_current_app_->drag_ = true;
     } else if ((b == GLUT_RIGHT_BUTTON) && (s == GLUT_UP)) {
-        s_currentApp->rightMouseUp(x, y);
+        s_current_app_->rightMouseUp(x, y);
     } else if ((b == GLUT_RIGHT_BUTTON) && (s == GLUT_DOWN)) {
-        s_currentApp->rightMouseDown(x, y);
+        s_current_app_->rightMouseDown(x, y);
     } else if ((b == GLUT_MIDDLE_BUTTON) && (s == GLUT_UP)) {
-        s_currentApp->middleMouseUp(x, y);
+        s_current_app_->middleMouseUp(x, y);
     } else if ((b == GLUT_MIDDLE_BUTTON) && (s == GLUT_DOWN)) {
-        s_currentApp->middleMouseDown(x, y);
+        s_current_app_->middleMouseDown(x, y);
     }
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_draw() {
-    s_currentApp->renderOneFrame();
+    s_current_app_->renderOneFrame();
 }
 
 void BaseGfxApp::s_gluicallback(int controlID) {
-    s_currentApp->gluiControl(controlID);
+    s_current_app_->gluiControl(controlID);
 }
 
 void BaseGfxApp::s_idle() {
     int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-    int delta = timeSinceStart - s_currentApp->m_milliseconds;
+    int delta = timeSinceStart - s_current_app_->milliseconds_;
     if (delta > 0) {
-        s_currentApp->m_milliseconds = timeSinceStart;
-        s_currentApp->update(delta);
+        s_current_app_->milliseconds_ = timeSinceStart;
+        s_current_app_->update(delta);
     }
 }
 
 void BaseGfxApp::setWindowDimensions(int width, int height) {
-    m_height = height;
-    m_width = width;
-    glutReshapeWindow(m_width, m_height);
+    height_ = height;
+    width_ = width;
+    glutReshapeWindow(width_, height_);
 }

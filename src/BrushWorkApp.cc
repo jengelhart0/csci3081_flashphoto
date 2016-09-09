@@ -29,14 +29,14 @@ BrushWorkApp::BrushWorkApp(int argc,
                  true,
                  width+51,
                  50),
-      m_displayBuffer(nullptr),
-      m_curTool(0.0),
-      m_curColorRed(0.0),
-      m_curColorGreen(0.0),
-      m_curColorBlue(0.0),
-      m_spinnerR(nullptr),
-      m_spinnerG(nullptr),
-      m_spinnerB(nullptr)
+      display_buffer_(nullptr),
+      cur_tool_(0.0),
+      cur_color_red_(0.0),
+      cur_color_green_(0.0),
+      cur_color_blue_(0.0),
+      spinner_r_(nullptr),
+      spinner_g_(nullptr),
+      spinner_b_(nullptr)
 
 {
     // Set the name of the window
@@ -50,14 +50,14 @@ BrushWorkApp::BrushWorkApp(int argc,
 }
 
 void BrushWorkApp::display() {
-    drawPixels(0, 0, m_width, m_height, m_displayBuffer->getData());
+    drawPixels(0, 0, width(), height(), display_buffer_->getData());
 }
 
 
 
 BrushWorkApp::~BrushWorkApp() {
-    if (m_displayBuffer) {
-        delete m_displayBuffer;
+    if (display_buffer_) {
+        delete display_buffer_;
     }
 }
 
@@ -81,16 +81,16 @@ void BrushWorkApp::initializeBuffers(
     ColorData backgroundColor,
     int width,
     int height) {
-    m_displayBuffer = new PixelBuffer(width, height, backgroundColor);
+    display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
 void BrushWorkApp::initGlui() {
     // Select first tool (this activates the first radio button in glui)
-    m_curTool = 0;
+    cur_tool_ = 0;
 
-    GLUI_Panel *toolPanel = new GLUI_Panel(m_glui, "Tool Type");
+    GLUI_Panel *toolPanel = new GLUI_Panel(glui(), "Tool Type");
     GLUI_RadioGroup *radio = new GLUI_RadioGroup(toolPanel,
-                                                 &m_curTool,
+                                                 &cur_tool_,
                                                  UI_TOOLTYPE,
                                                  s_gluicallback);
 
@@ -101,22 +101,22 @@ void BrushWorkApp::initGlui() {
     new GLUI_RadioButton(radio, "Caligraphy Pen");
     new GLUI_RadioButton(radio, "Highlighter");
 
-    GLUI_Panel *colPanel = new GLUI_Panel(m_glui, "Tool Color");
+    GLUI_Panel *colPanel = new GLUI_Panel(glui(), "Tool Color");
 
-    m_curColorRed = 0;
-    m_spinnerR  = new GLUI_Spinner(colPanel, "Red:", &m_curColorRed,
+    cur_color_red_ = 0;
+    spinner_r_  = new GLUI_Spinner(colPanel, "Red:", &cur_color_red_,
                                    UI_COLOR_R, s_gluicallback);
-    m_spinnerR->set_float_limits(0, 1.0);
+    spinner_r_->set_float_limits(0, 1.0);
 
-    m_curColorGreen = 0;
-    m_spinnerG  = new GLUI_Spinner(colPanel, "Green:", &m_curColorGreen,
+    cur_color_green_ = 0;
+    spinner_g_ = new GLUI_Spinner(colPanel, "Green:", &cur_color_green_,
                                    UI_COLOR_G, s_gluicallback);
-    m_spinnerG->set_float_limits(0, 1.0);
+    spinner_g_->set_float_limits(0, 1.0);
 
-    m_curColorBlue = 0;
-    m_spinnerB  = new GLUI_Spinner(colPanel, "Blue:", &m_curColorBlue,
+    cur_color_blue_ = 0;
+    spinner_b_  = new GLUI_Spinner(colPanel, "Blue:", &cur_color_blue_,
                                    UI_COLOR_B, s_gluicallback);
-    m_spinnerB->set_float_limits(0, 1.0);
+    spinner_b_->set_float_limits(0, 1.0);
     new GLUI_Button(colPanel, "Red", UI_PRESET_RED, s_gluicallback);
     new GLUI_Button(colPanel, "Orange", UI_PRESET_ORANGE, s_gluicallback);
     new GLUI_Button(colPanel, "Yellow", UI_PRESET_YELLOW, s_gluicallback);
@@ -127,7 +127,7 @@ void BrushWorkApp::initGlui() {
     new GLUI_Button(colPanel, "Black", UI_PRESET_BLACK, s_gluicallback);
 
 
-    new GLUI_Button(m_glui, "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
+    new GLUI_Button(glui(), "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
 
@@ -140,8 +140,8 @@ void BrushWorkApp::initGraphics() {
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluOrtho2D(0, m_width, 0, m_height);
-    glViewport(0, 0, m_width, m_height);
+    gluOrtho2D(0, width(), 0, height());
+    glViewport(0, 0, width(), height());
 }
 
 
@@ -149,50 +149,50 @@ void BrushWorkApp::initGraphics() {
 void BrushWorkApp::gluiControl(int controlID) {
     switch (controlID) {
     case UI_PRESET_RED:
-        m_curColorRed = 1;
-        m_curColorGreen = 0;
-        m_curColorBlue = 0;
+        cur_color_red_ = 1;
+        cur_color_green_ = 0;
+        cur_color_blue_ = 0;
         break;
     case UI_PRESET_ORANGE:
-        m_curColorRed = 1;
-        m_curColorGreen = 0.5;
-        m_curColorBlue = 0;
+        cur_color_red_ = 1;
+        cur_color_green_ = 0.5;
+        cur_color_blue_ = 0;
         break;
     case UI_PRESET_YELLOW:
-        m_curColorRed = 1;
-        m_curColorGreen = 1;
-        m_curColorBlue = 0;
+        cur_color_red_ = 1;
+        cur_color_green_ = 1;
+        cur_color_blue_ = 0;
         break;
     case UI_PRESET_GREEN:
-        m_curColorRed = 0;
-        m_curColorGreen = 1;
-        m_curColorBlue = 0;
+        cur_color_red_ = 0;
+        cur_color_green_ = 1;
+        cur_color_blue_ = 0;
         break;
     case UI_PRESET_BLUE:
-        m_curColorRed = 0;
-        m_curColorGreen = 0;
-        m_curColorBlue = 1;
+        cur_color_red_ = 0;
+        cur_color_green_ = 0;
+        cur_color_blue_ = 1;
         break;
     case UI_PRESET_PURPLE:
-        m_curColorRed = 0.5;
-        m_curColorGreen = 0;
-        m_curColorBlue = 1;
+        cur_color_red_ = 0.5;
+        cur_color_green_ = 0;
+        cur_color_blue_ = 1;
         break;
     case UI_PRESET_WHITE:
-        m_curColorRed = 1;
-        m_curColorGreen = 1;
-        m_curColorBlue = 1;
+        cur_color_red_ = 1;
+        cur_color_green_ = 1;
+        cur_color_blue_ = 1;
         break;
     case UI_PRESET_BLACK:
-        m_curColorRed = 0;
-        m_curColorGreen = 0;
-        m_curColorBlue = 0;
+        cur_color_red_ = 0;
+        cur_color_green_ = 0;
+        cur_color_blue_ = 0;
         break;
     default:
         break;
     }
 
-    m_spinnerB->set_float_val(m_curColorBlue);
-    m_spinnerG->set_float_val(m_curColorGreen);
-    m_spinnerR->set_float_val(m_curColorRed);
+    spinner_b_->set_float_val(cur_color_blue_);
+    spinner_g_->set_float_val(cur_color_green_);
+    spinner_r_->set_float_val(cur_color_red_);
 }

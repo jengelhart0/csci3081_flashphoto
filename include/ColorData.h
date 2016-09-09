@@ -43,10 +43,10 @@ class ColorData {
     static inline float clampValue(float input, float a, float b)
         { return input < a ? a : (input > b ? b : input);}
 
-    float m_red;
-    float m_green;
-    float m_blue;
-    float m_alpha;
+    float red_;
+    float green_;
+    float blue_;
+    float alpha_;
 };
 
 #endif  // INCLUDE_COLORDATA_H_

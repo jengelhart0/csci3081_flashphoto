@@ -5,55 +5,27 @@
 
 #include "ColorData.h"
 
-
-ColorData::ColorData() : m_red(1), m_green(1), m_blue(1), m_alpha(1) {
-}
+ColorData::ColorData() : red_(1), green_(1), blue_(1), alpha_(1) {}
 
 ColorData::ColorData(float r, float g, float b) :
-    m_red(r), m_green(g), m_blue(b), m_alpha(1) {
-}
+    red_(r), green_(g), blue_(b), alpha_(1) {}
 
 ColorData::ColorData(float r, float g, float b, float a) :
-    m_red(r), m_green(g), m_blue(b), m_alpha(a)  {
-}
+    red_(r), green_(g), blue_(b), alpha_(a)  {}
 
-void ColorData::setRed(float r) {
-        m_red = r;
-}
-
-void ColorData::setGreen(float g) {
-        m_green = g;
-}
-
-void ColorData::setBlue(float b) {
-        m_blue = b;
-}
-
-void ColorData::setAlpha(float a) {
-        m_alpha = a;
-}
-
-
-float ColorData::getRed() const {
-        return m_red;
-}
-
-float ColorData::getGreen() const {
-        return m_green;
-}
-
-float ColorData::getBlue() const {
-        return m_blue;
-}
-
-float ColorData::getAlpha() const {
-        return m_alpha;
-}
+void ColorData::setRed(float r) { red_ = r; }
+void ColorData::setGreen(float g) { green_ = g; }
+void ColorData::setBlue(float b) { blue_ = b; }
+void ColorData::setAlpha(float a) { alpha_ = a; }
+float ColorData::getRed() const { return red_; }
+float ColorData::getGreen() const { return green_; }
+float ColorData::getBlue() const { return blue_; }
+float ColorData::getAlpha() const { return alpha_;}
 
 float ColorData::getLuminance() const {
-    return static_cast<float>(0.2126)*m_red +
-        static_cast<float>(0.7152)*m_green +
-        static_cast<float>(0.0722)*m_blue;
+    return static_cast<float>(0.2126)*red_ +
+        static_cast<float>(0.7152)*green_ +
+        static_cast<float>(0.0722)*blue_;
 }
 
 ColorData ColorData::clampedColor() const {
@@ -68,15 +40,15 @@ ColorData ColorData::clampedColor() const {
 
 // Apply component-wise arithmatic operations
 ColorData operator* (const ColorData& a, float f) {
-        return ColorData(a.m_red*f, a.m_green*f, a.m_blue*f, a.m_alpha*f);
+        return ColorData(a.red_*f, a.green_*f, a.blue_*f, a.alpha_*f);
 }
 
 ColorData operator+ (const ColorData& a, const ColorData& b) {
-        return ColorData(a.m_red + b.m_red, a.m_green + b.m_green,
-                         a.m_blue + b.m_blue, a.m_alpha + b.m_alpha);
+        return ColorData(a.red_ + b.red_, a.green_ + b.green_,
+                         a.blue_ + b.blue_, a.alpha_ + b.alpha_);
 }
 
 ColorData operator- (const ColorData& a, const ColorData& b) {
-        return ColorData(a.m_red - b.m_red, a.m_green - b.m_green,
-                         a.m_blue - b.m_blue, a.m_alpha - b.m_alpha);
+        return ColorData(a.red_ - b.red_, a.green_ - b.green_,
+                         a.blue_ - b.blue_, a.alpha_ - b.alpha_);
 }

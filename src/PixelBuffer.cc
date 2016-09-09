@@ -15,57 +15,46 @@ using std::fill;
 PixelBuffer::PixelBuffer(int w,
                          int h,
                          ColorData backgroundColor)
-    : m_width(w),
-      m_height(h),
-      m_pixels(new ColorData[w*h]),
-      m_backgroundColor(new ColorData(backgroundColor)) {
+    : width_(w),
+      height_(h),
+      pixels_(new ColorData[w*h]),
+      background_color_(new ColorData(backgroundColor)) {
     fillPixelBufferWithColor(backgroundColor);
 }
 
 PixelBuffer::~PixelBuffer() {
-    delete [] m_pixels;
-    delete m_backgroundColor;
+    delete [] pixels_;
+    delete background_color_;
 }
 
 ColorData PixelBuffer::getPixel(int x, int y) const {
     ColorData pixelData;
 
-    if ((x < 0) || (x >= m_width) || (y < 0) || (y >= m_height)) {
+    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
         cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
     } else {
-        int index = x + m_width*(y);
-        pixelData = m_pixels[index];
+        int index = x + width_*(y);
+        pixelData = pixels_[index];
     }
     return pixelData;
 }
 
 void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
-    if ((x < 0) || (x >= m_width) || (y < 0) || (y >= m_height)) {
+    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
         cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
     } else {
-        int index = x + m_width*(y);  // x + m_width*(m_height-(y+1));
-        m_pixels[index] = newPixel;
+        int index = x + width_*(y);  // x + width*(height-(y+1));
+        pixels_[index] = newPixel;
     }
 }
 
-ColorData const * PixelBuffer::getData() const {
-    return m_pixels;
-}
-
-int PixelBuffer::getHeight() const {
-    return m_height;
-}
-
-int PixelBuffer::getWidth() const {
-    return m_width;
-}
-
-ColorData PixelBuffer::getBackgroundColor() {
-    return *m_backgroundColor;
-}
+ColorData const * PixelBuffer::getData() const { return pixels_; }
+int PixelBuffer::getHeight() const { return height_; }
+int PixelBuffer::getWidth() const { return width_; }
+ColorData PixelBuffer::getBackgroundColor() { return *background_color_; }
 
 void PixelBuffer::fillPixelBufferWithColor(ColorData color) {
-    fill(m_pixels, m_pixels+m_width*m_height, color);
+    fill(pixels_, pixels_+width_*height_, color);
 }
 
 void PixelBuffer::copyPixelBuffer(
@@ -75,9 +64,9 @@ void PixelBuffer::copyPixelBuffer(
         destBuffer->getHeight() != sourceBuffer->getHeight()) {
         cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
     } else {
-        memcpy(reinterpret_cast<void*>(destBuffer->m_pixels),
-               reinterpret_cast<void*>(sourceBuffer->m_pixels),
-               sizeof(ColorData)*static_cast<unsigned>(destBuffer->m_height)*
-               static_cast<unsigned>(destBuffer->m_width));
+        memcpy(reinterpret_cast<void*>(destBuffer->pixels_),
+               reinterpret_cast<void*>(sourceBuffer->pixels_),
+               sizeof(ColorData)*static_cast<unsigned>(destBuffer->height_)*
+               static_cast<unsigned>(destBuffer->width_));
     }
 }

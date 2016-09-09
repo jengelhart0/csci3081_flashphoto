@@ -35,8 +35,12 @@ class BrushWorkApp : public BaseGfxApp {
     void display();
     void gluiControl(int controlID);
 
-
  private:
+    // BrushWork-specific functions
+    void initGlui();
+    void initGraphics();
+    void initializeBuffers(ColorData initialColor, int width, int height);
+
     // GLUI INTERFACE ELEMENTS
     enum UIControlType {
         UI_TOOLTYPE,
@@ -54,22 +58,17 @@ class BrushWorkApp : public BaseGfxApp {
         UI_QUIT
     };
 
-    // BrushWork-specific functions
-    void initGlui();
-    void initGraphics();
-    void initializeBuffers(ColorData initialColor, int width, int height);
 
     // This is the pointer to the buffer where the display PixelBuffer is stored
-    PixelBuffer* m_displayBuffer;
+    PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
-    int m_curTool;
-    float m_curColorRed, m_curColorGreen, m_curColorBlue;
-    GLUI_Spinner *m_spinnerR;
-    GLUI_Spinner *m_spinnerG;
-    GLUI_Spinner *m_spinnerB;
+    int cur_tool_;
+    float cur_color_red_, cur_color_green_, cur_color_blue_;
+    GLUI_Spinner *spinner_r_;
+    GLUI_Spinner *spinner_g_;
+    GLUI_Spinner *spinner_b_;
 
- private:
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
