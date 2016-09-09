@@ -23,14 +23,14 @@
 class ColorData;
 class PixelBuffer;
 
-/** This is the main class for BrushWork.  It is a graphics app that derives
-    from BaseGfxApp. It creates two graphics windows, one for 2D painting and
-    one for the buttons and other UI widgets to control the brushes.
-*/
-
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
+/**
+ * This is the main class for BrushWork. It is a graphics app that derives
+ * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
+ * one for the buttons and other UI widgets to control the brushes.
+ **/
 class BrushWorkApp : public BaseGfxApp {
  public:
     BrushWorkApp(

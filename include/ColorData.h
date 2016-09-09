@@ -15,8 +15,10 @@
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/** This color data class stores color in floating point format.
-    The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0. */
+/**
+ * This color data class stores color in floating point format.
+ * The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0.
+ **/
 class ColorData {
  public:
     ColorData();

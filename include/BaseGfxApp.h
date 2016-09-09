@@ -24,13 +24,14 @@
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/** This is a base class for graphics applications built on top of the GLUT and
-    GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
-    is to wrap the funcationality they provide in a class structure that lends
-    itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
-    render graphics and respond to user interface events, simply override the
-    virtual methods in this class within your own subclass.
-*/
+/**
+ * This is a base class for graphics applications built on top of the GLUT and
+ * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
+ * is to wrap the funcationality they provide in a class structure that lends
+ * itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
+ * render graphics and respond to user interface events, simply override the
+ * virtual methods in this class within your own subclass.
+ **/
 class BaseGfxApp {
  public:
     BaseGfxApp(
