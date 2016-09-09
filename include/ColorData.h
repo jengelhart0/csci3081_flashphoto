@@ -1,7 +1,13 @@
-//
-//  ColorData.h
-//  Copyright 2016 CSCI3081W TAs
-//
+/*******************************************************************************
+ * Name            : ColorData.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Class definition for storing colors in floating point format
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_COLORDATA_H_
 #define INCLUDE_COLORDATA_H_

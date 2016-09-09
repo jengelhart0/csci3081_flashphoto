@@ -1,7 +1,13 @@
-//
-//  BrushWorkApp.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : brushwork_app.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Bare bones implementation of BrushWork app
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 /*******************************************************************************
  * Includes
@@ -13,6 +19,9 @@
 #include <cmath>
 #include <iostream>
 
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
 using std::cout;
 using std::endl;
 

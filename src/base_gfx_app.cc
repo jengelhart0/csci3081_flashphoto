@@ -1,7 +1,14 @@
-//
-//  BaseGfxApp.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : base_gfx_app.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of common behaviors for all apps built on
+ *                   GLUI/GLUT toolkits
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 /*******************************************************************************
  * Includes

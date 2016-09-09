@@ -1,7 +1,13 @@
-//
-//  ColorData.cpp
-//  //  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : color_data.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation ColorData class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 /*******************************************************************************
  * Includes

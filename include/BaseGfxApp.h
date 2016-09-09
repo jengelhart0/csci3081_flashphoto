@@ -1,8 +1,14 @@
-//
-//  BaseGfxApp.h
-//  Copyright 2016 CSCI3081W TAs
-//  Originally created by the CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : BaseGfxApp.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Base class for  graphics applications built on top of
+ *                   GLUI/GLUT toolkits
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_BASEGFXAPP_H_
 #define INCLUDE_BASEGFXAPP_H_

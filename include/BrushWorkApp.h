@@ -1,8 +1,13 @@
-//
-//  BrushWorkApp.h
-//  Copyright 2016 CSCI3081W TAs
-//
-
+/*******************************************************************************
+ * Name            : BrushWorkApp.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Main class for BrushWork
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_BRUSHWORKAPP_H_
 #define INCLUDE_BRUSHWORKAPP_H_

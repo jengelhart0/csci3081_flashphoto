@@ -1,7 +1,14 @@
-//
-//  PixelBuffer.h
-//  Copyright 2016 CSCI3081W TAs
-//
+/*******************************************************************************
+ * Name            : PixelBuffer.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Class definition for Pixel buffers, which stores an array
+ *                   of ColorData
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_PIXELBUFFER_H_
 #define INCLUDE_PIXELBUFFER_H_
@@ -56,7 +63,6 @@ class PixelBuffer {
     // Pointer to the single color used as the "background color" to initialize
     // the PixelBuffer
     ColorData * background_color_;
-
 
     PixelBuffer(const PixelBuffer&rhs) = delete;
     PixelBuffer& operator=(const PixelBuffer&rhs) = delete;

@@ -1,7 +1,15 @@
-//
-//  PixelBuffer.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : pixel_buffer.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementationo of a collection rectangular array of pixels
+ *                   for the graphics application
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
+
 /*******************************************************************************
  * Includes
  ******************************************************************************/
@@ -11,6 +19,9 @@
 #include <iostream>
 #include <cstring>
 
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
 using std::cerr;
 using std::endl;
 using std::fill;
