@@ -28,7 +28,7 @@ class ColorData;
 class PixelBuffer {
  public:
     PixelBuffer(int w, int h, ColorData background_color);
-    virtual ~PixelBuffer();
+    virtual ~PixelBuffer(void);
 
     // Sets the color of a specific pixel
     void setPixel(int x, int y, const ColorData& color);
@@ -41,13 +41,13 @@ class PixelBuffer {
     ColorData getPixel(int x, int y) const;
 
     // Returns a pointer to the raw ColorData array for fast access to ColorData
-    ColorData const * getData() const;
+    ColorData const * getData(void) const;
 
     // Returns the background color that was used to initialize the PixelBuffer
-    ColorData getBackgroundColor();
+    ColorData getBackgroundColor(void);
 
-    int getHeight() const;
-    int getWidth() const;
+    int getHeight(void) const;
+    int getWidth(void) const;
 
     // A static method to copy one pixel buffer to another
     static void copyPixelBuffer(

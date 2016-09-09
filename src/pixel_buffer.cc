@@ -39,7 +39,7 @@ PixelBuffer::PixelBuffer(int w,
     fillPixelBufferWithColor(backgroundColor);
 }
 
-PixelBuffer::~PixelBuffer() {
+PixelBuffer::~PixelBuffer(void) {
     delete [] pixels_;
     delete background_color_;
 }
@@ -68,10 +68,10 @@ void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
     }
 }
 
-ColorData const * PixelBuffer::getData() const { return pixels_; }
-int PixelBuffer::getHeight() const { return height_; }
-int PixelBuffer::getWidth() const { return width_; }
-ColorData PixelBuffer::getBackgroundColor() { return *background_color_; }
+ColorData const * PixelBuffer::getData(void) const { return pixels_; }
+int PixelBuffer::getHeight(void) const { return height_; }
+int PixelBuffer::getWidth(void) const { return width_; }
+ColorData PixelBuffer::getBackgroundColor(void) { return *background_color_; }
 
 void PixelBuffer::fillPixelBufferWithColor(ColorData color) {
     fill(pixels_, pixels_+width_*height_, color);

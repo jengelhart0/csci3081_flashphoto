@@ -78,7 +78,7 @@ BaseGfxApp::BaseGfxApp(int argc,
     }
 }
 
-BaseGfxApp::~BaseGfxApp() {
+BaseGfxApp::~BaseGfxApp(void) {
     s_current_app_ = nullptr;
     glutDestroyWindow(glut_window_handle_);
 }
@@ -91,7 +91,7 @@ void BaseGfxApp::set_caption(const std::string& caption) {
     glutSetIconTitle(caption.c_str());
 }
 
-void BaseGfxApp::RunMainLoop() {
+void BaseGfxApp::RunMainLoop(void) {
     glutMainLoop();
 }
 
@@ -105,7 +105,7 @@ void BaseGfxApp::Reshape(int width, int height) {
     }
 }
 
-void BaseGfxApp::RenderOneFrame() {
+void BaseGfxApp::RenderOneFrame(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Display();
     glutSwapBuffers();
@@ -126,8 +126,8 @@ void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
     }
 }
 
-int BaseGfxApp::width() const { return width_; }
-int BaseGfxApp::height() const { return height_; }
+int BaseGfxApp::width(void) const { return width_; }
+int BaseGfxApp::height(void) const { return height_; }
 
 void BaseGfxApp::SetWindowDimensions(int width, int height) {
     height_ = height;
@@ -190,7 +190,7 @@ void BaseGfxApp::s_mousebtn(int b, int s, int x, int y) {
     glutPostRedisplay();
 }
 
-void BaseGfxApp::s_draw() {
+void BaseGfxApp::s_draw(void) {
     s_current_app_->RenderOneFrame();
 }
 
@@ -198,7 +198,7 @@ void BaseGfxApp::s_gluicallback(int controlID) {
     s_current_app_->gluiControl(controlID);
 }
 
-void BaseGfxApp::s_idle() {
+void BaseGfxApp::s_idle(void) {
     int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
     int delta = timeSinceStart - s_current_app_->milliseconds_;
     if (delta > 0) {

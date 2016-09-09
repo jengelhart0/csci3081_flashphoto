@@ -21,7 +21,7 @@
  **/
 class ColorData {
  public:
-    ColorData();
+    ColorData(void);
     ColorData(float r, float g, float b);
     ColorData(float r, float g, float b, float a);
 
@@ -30,18 +30,18 @@ class ColorData {
     void setGreen(float g);
     void setAlpha(float a);
 
-    float getRed() const;
-    float getBlue() const;
-    float getGreen() const;
-    float getAlpha() const;
+    float getRed(void) const;
+    float getBlue(void) const;
+    float getGreen(void) const;
+    float getAlpha(void) const;
 
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
     // non-uniformly.
-    float getLuminance() const;
+    float getLuminance(void) const;
 
     // Return a clamped version of this ColorData
-    ColorData clampedColor() const;
+    ColorData clampedColor(void) const;
 
     // Arithmatic operators (friends so that non-member functions can access
     // private variables)

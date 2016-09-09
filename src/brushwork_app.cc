@@ -61,7 +61,7 @@ BrushWorkApp::BrushWorkApp(int argc,
     initGraphics();
 }
 
-BrushWorkApp::~BrushWorkApp() {
+BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
@@ -70,7 +70,7 @@ BrushWorkApp::~BrushWorkApp() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void BrushWorkApp::display() {
+void BrushWorkApp::display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->getData());
 }
 void BrushWorkApp::mouseDragged(int x, int y) {}
@@ -91,7 +91,7 @@ void BrushWorkApp::initializeBuffers(
     display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
-void BrushWorkApp::initGlui() {
+void BrushWorkApp::initGlui(void) {
     // Select first tool (this activates the first radio button in glui)
     cur_tool_ = 0;
 
@@ -137,7 +137,7 @@ void BrushWorkApp::initGlui() {
     new GLUI_Button(glui(), "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
-void BrushWorkApp::initGraphics() {
+void BrushWorkApp::initGraphics(void) {
     // Initialize OpenGL for 2D graphics as used in the BrushWork app
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_BLEND);

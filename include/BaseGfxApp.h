@@ -119,9 +119,9 @@ class BaseGfxApp {
     static void s_keyboardspecialup(int key, int x, int y);
     static void s_mousemotion(int x, int y);
     static void s_mousebtn(int b, int s, int x, int y);
-    static void s_draw();
+    static void s_draw(void);
     static void s_gluicallback(int controlID);
-    static void s_idle();
+    static void s_idle(void);
 
     bool drag(void) { return drag_; }
     int width(void) { return width_; }
