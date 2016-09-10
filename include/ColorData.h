@@ -25,14 +25,14 @@ class ColorData {
     ColorData(float r, float g, float b);
     ColorData(float r, float g, float b, float a);
 
-    void set_red(float r) { red_ = r; }
-    void set_green(float g) { green_ = g; }
-    void set_blue(float b) { blue_ = b; }
-    void set_alpha(float a) { alpha_ = a; }
-    float get_red(void) const { return red_; }
-    float get_green(void) const { return green_; }
-    float get_blue(void) const { return blue_; }
-    float get_alpha(void) const { return alpha_;}
+    inline void set_red(float r) { red_ = r; }
+    inline void set_green(float g) { green_ = g; }
+    inline void set_blue(float b) { blue_ = b; }
+    inline void set_alpha(float a) { alpha_ = a; }
+    inline float get_red(void) const { return red_; }
+    inline float get_green(void) const { return green_; }
+    inline float get_blue(void) const { return blue_; }
+    inline float get_alpha(void) const { return alpha_;}
 
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
@@ -40,7 +40,7 @@ class ColorData {
     float get_luminance(void) const;
 
     // Return a clamped version of this ColorData
-    ColorData clamped_color(void) const;
+    inline ColorData clamped_color(void) const;
 
     // Arithmatic operators (friends so that non-member functions can access
     // private variables)

@@ -130,11 +130,11 @@ class BaseGfxApp {
     static void s_gluicallback(int controlID);
     static void s_idle(void);
 
-    bool drag(void) { return drag_; };
-    int width(void) { return width_; };
-    int height(void) { return height_; };
-    int milliseconds(void) { return milliseconds_; };
-    BaseGfxApp* s_current_app(void) { return s_current_app_; };
+    inline bool drag(void) { return drag_; }
+    inline int width(void) { return width_; }
+    inline int height(void) { return height_; }
+    inline int milliseconds(void) { return milliseconds_; }
+    inline BaseGfxApp* s_current_app(void) { return s_current_app_; }
 
  private:
     // Underlying glut window handle

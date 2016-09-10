@@ -33,9 +33,9 @@ class PixelBuffer {
     void set_pixel(int x, int y, const ColorData& color);
 
     // Returns a pointer to the raw ColorData array for fast access to ColorData
-    ColorData const * get_data(void) const { return pixels_; }
-    int get_height(void) const { return height_; }
-    int get_width(void) const { return width_; }
+    inline ColorData const * get_data(void) const { return pixels_; }
+    inline int get_height(void) const { return height_; }
+    inline int get_width(void) const { return width_; }
 
     // Returns the background color that was used to initialize the PixelBuffer
     ColorData get_background_color(void) { return *background_color_; }
