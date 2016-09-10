@@ -1,10 +1,22 @@
-//
-//  ColorData.cpp
-//  //  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : color_data.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of ColorData class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "ColorData.h"
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 ColorData::ColorData(void) : red_(1), green_(1), blue_(1), alpha_(1) {}
 
 ColorData::ColorData(float r, float g, float b) :
@@ -13,6 +25,9 @@ ColorData::ColorData(float r, float g, float b) :
 ColorData::ColorData(float r, float g, float b, float a) :
     red_(r), green_(g), blue_(b), alpha_(a)  {}
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 void ColorData::set_red(float r) { red_ = r; }
 void ColorData::set_green(float g) { green_ = g; }
 void ColorData::set_blue(float b) { blue_ = b; }

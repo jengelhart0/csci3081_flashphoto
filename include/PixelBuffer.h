@@ -1,15 +1,29 @@
-//
-//  PixelBuffer.h
-//  Copyright 2016 CSCI3081W TAs
-//
+/*******************************************************************************
+ * Name            : PixelBuffer.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Header file for PixelBuffer class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+******************************************************************************/
 
 #ifndef INCLUDE_PIXELBUFFER_H_
 #define INCLUDE_PIXELBUFFER_H_
 
+/*******************************************************************************
+ * Forward Declarations
+ ******************************************************************************/
 class ColorData;
 
-/** The PixelBuffer class stores an array of ColorData, such as an image that
-    can be drawn to the screen. */
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * The PixelBuffer class stores an array of ColorData, such as an image that
+ * can be drawn to the screen.
+ **/
 class PixelBuffer {
  public:
     PixelBuffer(int w, int h, ColorData background_color);

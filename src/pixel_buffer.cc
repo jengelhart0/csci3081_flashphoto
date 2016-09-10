@@ -1,17 +1,33 @@
-//
-//  PixelBuffer.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : pixel_buffer.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of PixelBuffer class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "PixelBuffer.h"
 #include "ColorData.h"
 
 #include <iostream>
 #include <cstring>
 
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
 using std::cerr;
 using std::endl;
 using std::fill;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
                          ColorData backgroundColor)
@@ -27,6 +43,9 @@ PixelBuffer::~PixelBuffer(void) {
     delete background_color_;
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 ColorData PixelBuffer::get_pixel(int x, int y) const {
     ColorData pixelData;
 

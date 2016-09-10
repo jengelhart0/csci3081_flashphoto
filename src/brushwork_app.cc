@@ -1,9 +1,17 @@
-//
-//  BrushWorkApp.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : brushwork_app.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of BrushWrok
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
-
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
@@ -11,9 +19,15 @@
 #include <cmath>
 #include <iostream>
 
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
 using std::cout;
 using std::endl;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 BrushWorkApp::BrushWorkApp(int argc,
                            char* argv[],
                            int width,
@@ -49,16 +63,17 @@ BrushWorkApp::BrushWorkApp(int argc,
     InitGraphics();
 }
 
-void BrushWorkApp::Display(void) {
-    DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
-}
-
-
-
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
+}
+
+void BrushWorkApp::Display(void) {
+    DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }
 
 

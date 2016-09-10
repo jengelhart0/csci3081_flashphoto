@@ -1,8 +1,13 @@
-//
-//  main.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
-
+/*******************************************************************************
+ * Name            : main.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Do ALL THE THINGS!
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #include "BrushWorkApp.h"
 #include "ColorData.h"

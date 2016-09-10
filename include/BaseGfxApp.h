@@ -1,27 +1,41 @@
-//
-//  BaseGfxApp.h
-//  Copyright 2016 CSCI3081W TAs
-//  Originally created by the CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : BaseGfxApp.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Base class for  graphics applications built on top of
+ *                   GLUI/GLUT toolkits
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+******************************************************************************/
 
 #ifndef INCLUDE_BASEGFXAPP_H_
 #define INCLUDE_BASEGFXAPP_H_
+
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 
 #include <string>
 
 // The GLUI library, which in turn will include gl.h and glut.h
 #include "GL/glui.h"
 
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
 
-/** This is a base class for graphics applications built on top of the GLUT and
-    GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
-    is to wrap the funcationality they provide in a class structure that lends
-    itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
-    render graphics and respond to user interface events, simply override the
-    virtual methods in this class within your own subclass.
-*/
+/**
+ * This is a base class for graphics applications built on top of the GLUT and
+ * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
+ * is to wrap the funcationality they provide in a class structure that lends
+ * itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
+ * render graphics and respond to user interface events, simply override the
+ * virtual methods in this class within your own subclass.
+ **/
 class BaseGfxApp {
-public:
+ public:
     BaseGfxApp(
         int argc,
         char* argv[],

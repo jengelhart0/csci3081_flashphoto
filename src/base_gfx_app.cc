@@ -1,16 +1,32 @@
-//
-//  BaseGfxApp.cpp
-//  Copyright 2016 CSci-3081W TAs.
-//
+/*******************************************************************************
+ * Name            : base_gfx_app.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of things common to all graphics
+ *                   applications built on top of GLUI/GLUT toolkits
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BaseGfxApp.h"
 #include <assert.h>
 #include <iostream>
 #include <string>
 
+/*******************************************************************************
+ * Global Variables
+ ******************************************************************************/
 BaseGfxApp* BaseGfxApp::s_current_app_ = NULL;
 bool BaseGfxApp::s_glut_initialized_ = false;
 
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
                        int width,
@@ -67,6 +83,9 @@ BaseGfxApp::~BaseGfxApp() {
     glutDestroyWindow(glut_window_handle_);
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 void BaseGfxApp::set_caption(const std::string& caption) {
     glutSetWindowTitle(caption.c_str());
     glutSetIconTitle(caption.c_str());
@@ -75,8 +94,6 @@ void BaseGfxApp::set_caption(const std::string& caption) {
 void BaseGfxApp::RunMainLoop(void) {
     glutMainLoop();
 }
-
-
 
 void BaseGfxApp::Reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
