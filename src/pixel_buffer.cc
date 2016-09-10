@@ -19,15 +19,15 @@ PixelBuffer::PixelBuffer(int w,
       height_(h),
       pixels_(new ColorData[w*h]),
       background_color_(new ColorData(backgroundColor)) {
-    fillPixelBufferWithColor(backgroundColor);
+    FillPixelBufferWithColor(backgroundColor);
 }
 
-PixelBuffer::~PixelBuffer() {
+PixelBuffer::~PixelBuffer(void) {
     delete [] pixels_;
     delete background_color_;
 }
 
-ColorData PixelBuffer::getPixel(int x, int y) const {
+ColorData PixelBuffer::get_pixel(int x, int y) const {
     ColorData pixelData;
 
     if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
@@ -39,7 +39,7 @@ ColorData PixelBuffer::getPixel(int x, int y) const {
     return pixelData;
 }
 
-void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
+void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
     if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
         cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
     } else {
@@ -48,20 +48,20 @@ void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
     }
 }
 
-ColorData const * PixelBuffer::getData() const { return pixels_; }
-int PixelBuffer::getHeight() const { return height_; }
-int PixelBuffer::getWidth() const { return width_; }
-ColorData PixelBuffer::getBackgroundColor() { return *background_color_; }
+ColorData const * PixelBuffer::get_data(void) const { return pixels_; }
+int PixelBuffer::get_height(void) const { return height_; }
+int PixelBuffer::get_width(void) const { return width_; }
+ColorData PixelBuffer::get_background_color(void) { return *background_color_; }
 
-void PixelBuffer::fillPixelBufferWithColor(ColorData color) {
+void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     fill(pixels_, pixels_+width_*height_, color);
 }
 
-void PixelBuffer::copyPixelBuffer(
+void PixelBuffer::CopyPixelBuffer(
     PixelBuffer *sourceBuffer,
     PixelBuffer *destBuffer) {
-    if (destBuffer->getWidth() != sourceBuffer->getWidth() ||
-        destBuffer->getHeight() != sourceBuffer->getHeight()) {
+    if (destBuffer->get_width() != sourceBuffer->get_width() ||
+        destBuffer->get_height() != sourceBuffer->get_height()) {
         cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
     } else {
         memcpy(reinterpret_cast<void*>(destBuffer->pixels_),

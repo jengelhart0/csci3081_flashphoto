@@ -33,22 +33,22 @@ public:
         bool createGLUIWin,
         int gluiWinX,
         int gluiWinY);
-    virtual ~BaseGfxApp();
+    virtual ~BaseGfxApp(void);
 
-    void setCaption(const std::string& caption);
-    void setWindowDimensions(int width, int height);
+    void set_caption(const std::string& caption);
+    void SetWindowDimensions(int width, int height);
 
     // Call this function to start the program.  It will not return until
     // the graphics window is closed.
-    void runMainLoop();
+    void RunMainLoop(void);
 
     // Subclasses should override this method in order to draw graphics to
     // the screen.
-    virtual void display() {}
+    virtual void Display(void) {}
 
     // This is a convenience function that draws an array of pixel data to
     // the screen.
-    void drawPixels(
+    void DrawPixels(
         int start_x,
         int start_y,
         int width,
@@ -57,28 +57,28 @@ public:
 
     // It can be useful to override this method when doing animation.  The
     // argument tells you the time since the last redraw of the screen.
-    virtual void update(int delta_time_ms) {}
+    virtual void Update(int delta_time_ms) {}
 
     // The following functions provide callbacks for user interface events
     // in the GLUT window.
-    virtual void mouseMoved(int x, int y) {}
-    virtual void mouseDragged(int x, int y) {}
+    virtual void MouseMoved(int x, int y) {}
+    virtual void MouseDragged(int x, int y) {}
 
-    virtual void leftMouseDown(int x, int y) {}
-    virtual void leftMouseUp(int x, int y) {}
-    virtual void rightMouseDown(int x, int y) {}
-    virtual void rightMouseUp(int x, int y) {}
-    virtual void middleMouseDown(int x, int y) {}
-    virtual void middleMouseUp(int x, int y) {}
+    virtual void LeftMouseDown(int x, int y) {}
+    virtual void LeftMouseUp(int x, int y) {}
+    virtual void RightMouseDown(int x, int y) {}
+    virtual void RightMouseUp(int x, int y) {}
+    virtual void MiddleMouseDown(int x, int y) {}
+    virtual void MiddleMouseUp(int x, int y) {}
 
-    virtual void keyboard(unsigned char c, int x, int y) {}
-    virtual void keyboardSpecial(int key, int x, int y) {}
-    virtual void keyboardUp(unsigned char c, int x, int y) {}
-    virtual void keyboardSpecialUp(int key, int x, int y) {}
+    virtual void Keyboard(unsigned char c, int x, int y) {}
+    virtual void KeyboardSpecial(int key, int x, int y) {}
+    virtual void KeyboardUp(unsigned char c, int x, int y) {}
+    virtual void KeyboardSpecialUp(int key, int x, int y) {}
 
     // This is the callback that tells you when the user has interacted with
     // a GLUI widget
-    virtual void gluiControl(int controlID) {}
+    virtual void GluiControl(int controlID) {}
 
 
     // Glut calls this when the user resizes the graphics window by dragging
@@ -86,17 +86,17 @@ public:
     // ignore this interaction and force the window to remain the same size.
     // But, if desired, subclasses can override this method and implement
     // the logic to allow for interactive resizing of windows.
-    virtual void reshape(int width, int height);
+    virtual void Reshape(int width, int height);
 
     // Clears the screen and calls display(). Subclasses would only need to
     // override this method if they need direct control over clearing the
     // screen, which is usually not the case.
-    virtual void renderOneFrame();
+    virtual void RenderOneFrame(void);
 
-    int width() const;
-    int height() const;
-    int handle() { return glut_window_handle_; }
-    GLUI* glui() { return glui_; }
+    int width(void) const;
+    int height(void) const;
+    int handle(void) { return glut_window_handle_; }
+    GLUI* glui(void) { return glui_; }
 
  protected:
 
@@ -108,9 +108,9 @@ public:
     static void s_keyboardspecialup(int key, int x, int y);
     static void s_mousemotion(int x, int y);
     static void s_mousebtn(int b, int s, int x, int y);
-    static void s_draw();
+    static void s_draw(void);
     static void s_gluicallback(int controlID);
-    static void s_idle();
+    static void s_idle(void);
 
     bool drag(void) { return drag_; };
     int width(void) { return width_; };

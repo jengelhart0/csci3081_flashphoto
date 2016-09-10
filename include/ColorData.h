@@ -10,27 +10,27 @@
     The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0. */
 class ColorData {
  public:
-    ColorData();
+    ColorData(void);
     ColorData(float r, float g, float b);
     ColorData(float r, float g, float b, float a);
 
-    void setRed(float r);
-    void setBlue(float b);
-    void setGreen(float g);
-    void setAlpha(float a);
+    void set_red(float r);
+    void set_blue(float b);
+    void set_green(float g);
+    void set_alpha(float a);
 
-    float getRed() const;
-    float getBlue() const;
-    float getGreen() const;
-    float getAlpha() const;
+    float get_red(void) const;
+    float get_blue(void) const;
+    float get_green(void) const;
+    float get_alpha(void) const;
 
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
     // non-uniformly.
-    float getLuminance() const;
+    float get_luminance(void) const;
 
     // Return a clamped version of this ColorData
-    ColorData clampedColor() const;
+    ColorData clamped_color(void) const;
 
     // Arithmatic operators (friends so that non-member functions can access
     // private variables)

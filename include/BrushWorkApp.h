@@ -25,21 +25,21 @@ class BrushWorkApp : public BaseGfxApp {
         int width,
         int height,
         ColorData backgroundColor);
-    virtual ~BrushWorkApp();
+    virtual ~BrushWorkApp(void);
 
     // Glut overrided function
-    void mouseDragged(int x, int y);
-    void mouseMoved(int x, int y);
-    void leftMouseDown(int x, int y);
-    void leftMouseUp(int x, int y);
-    void display();
-    void gluiControl(int controlID);
+    void MouseDragged(int x, int y);
+    void MouseMoved(int x, int y);
+    void LeftMouseDown(int x, int y);
+    void LeftMouseUp(int x, int y);
+    void Display(void);
+    void GluiControl(int controlID);
 
  private:
     // BrushWork-specific functions
-    void initGlui();
-    void initGraphics();
-    void initializeBuffers(ColorData initialColor, int width, int height);
+    void InitGlui(void);
+    void InitGraphics(void);
+    void InitializeBuffers(ColorData initialColor, int width, int height);
 
     // GLUI INTERFACE ELEMENTS
     enum UIControlType {

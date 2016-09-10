@@ -40,51 +40,49 @@ BrushWorkApp::BrushWorkApp(int argc,
 
 {
     // Set the name of the window
-    setCaption("BrushWork");
+    set_caption("BrushWork");
 
     // Initialize Interface
-    initializeBuffers(backgroundColor, width, height);
+    InitializeBuffers(backgroundColor, width, height);
 
-    initGlui();
-    initGraphics();
+    InitGlui();
+    InitGraphics();
 }
 
-void BrushWorkApp::display() {
-    drawPixels(0, 0, width(), height(), display_buffer_->getData());
+void BrushWorkApp::Display(void) {
+    DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }
 
 
 
-BrushWorkApp::~BrushWorkApp() {
+BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
 }
 
 
-void BrushWorkApp::mouseDragged(int x, int y) {
-}
+void BrushWorkApp::MouseDragged(int x, int y) {}
 
-void BrushWorkApp::mouseMoved(int x, int y) {
-}
+void BrushWorkApp::MouseMoved(int x, int y) {}
 
 
-void BrushWorkApp::leftMouseDown(int x, int y) {
+void BrushWorkApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
 }
 
-void BrushWorkApp::leftMouseUp(int x, int y) {
+void BrushWorkApp::LeftMouseUp(int x, int y) {
     std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
-void BrushWorkApp::initializeBuffers(
+void BrushWorkApp::InitializeBuffers(
     ColorData backgroundColor,
     int width,
     int height) {
     display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
-void BrushWorkApp::initGlui() {
+void BrushWorkApp::InitGlui(void) {
     // Select first tool (this activates the first radio button in glui)
     cur_tool_ = 0;
 
@@ -131,7 +129,7 @@ void BrushWorkApp::initGlui() {
 }
 
 
-void BrushWorkApp::initGraphics() {
+void BrushWorkApp::InitGraphics(void) {
     // Initialize OpenGL for 2D graphics as used in the BrushWork app
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_BLEND);
@@ -146,7 +144,7 @@ void BrushWorkApp::initGraphics() {
 
 
 
-void BrushWorkApp::gluiControl(int controlID) {
+void BrushWorkApp::GluiControl(int controlID) {
     switch (controlID) {
     case UI_PRESET_RED:
         cur_color_red_ = 1;
