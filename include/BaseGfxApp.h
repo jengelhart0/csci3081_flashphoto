@@ -1,39 +1,27 @@
-/*******************************************************************************
- * Name            : BaseGfxApp.h
- * Project         : BrushWork
- * Module          : ??
- * Description     : Base class for  graphics applications built on top of
- *                   GLUI/GLUT toolkits
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BaseGfxApp.h
+//  Copyright 2016 CSCI3081W TAs
+//  Originally created by the CSci-3081W TAs.
+//
 
 #ifndef INCLUDE_BASEGFXAPP_H_
 #define INCLUDE_BASEGFXAPP_H_
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
 #include <string>
 
 // The GLUI library, which in turn will include gl.h and glut.h
 #include "GL/glui.h"
 
-/*******************************************************************************
- * Class Definitions
- ******************************************************************************/
-/**
- * This is a base class for graphics applications built on top of the GLUT and
- * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
- * is to wrap the funcationality they provide in a class structure that lends
- * itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
- * render graphics and respond to user interface events, simply override the
- * virtual methods in this class within your own subclass.
- **/
+
+/** This is a base class for graphics applications built on top of the GLUT and
+    GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
+    is to wrap the funcationality they provide in a class structure that lends
+    itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
+    render graphics and respond to user interface events, simply override the
+    virtual methods in this class within your own subclass.
+*/
 class BaseGfxApp {
- public:
+public:
     BaseGfxApp(
         int argc,
         char* argv[],
@@ -45,22 +33,22 @@ class BaseGfxApp {
         bool createGLUIWin,
         int gluiWinX,
         int gluiWinY);
-    virtual ~BaseGfxApp(void);
+    virtual ~BaseGfxApp();
 
-    void set_caption(const std::string& caption);
-    void SetWindowDimensions(int width, int height);
+    void setCaption(const std::string& caption);
+    void setWindowDimensions(int width, int height);
 
     // Call this function to start the program.  It will not return until
     // the graphics window is closed.
-    void RunMainLoop(void);
+    void runMainLoop();
 
     // Subclasses should override this method in order to draw graphics to
     // the screen.
-    virtual void Display(void) {}
+    virtual void display() {}
 
     // This is a convenience function that draws an array of pixel data to
     // the screen.
-    void DrawPixels(
+    void drawPixels(
         int start_x,
         int start_y,
         int width,
@@ -98,19 +86,20 @@ class BaseGfxApp {
     // ignore this interaction and force the window to remain the same size.
     // But, if desired, subclasses can override this method and implement
     // the logic to allow for interactive resizing of windows.
-    virtual void Reshape(int width, int height);
+    virtual void reshape(int width, int height);
 
     // Clears the screen and calls display(). Subclasses would only need to
     // override this method if they need direct control over clearing the
     // screen, which is usually not the case.
-    virtual void RenderOneFrame(void);
+    virtual void renderOneFrame();
 
-    int width(void) const;
-    int height(void) const;
-    int handle(void) { return glut_window_handle_; }
-    GLUI* glui(void) { return glui_; }
+    int width() const;
+    int height() const;
+    int handle() { return glut_window_handle_; }
+    GLUI* glui() { return glui_; }
 
  protected:
+
     // Glut callbacks:
     static void s_reshape(int width, int height);
     static void s_keyboard(unsigned char c, int x, int y);
@@ -119,15 +108,15 @@ class BaseGfxApp {
     static void s_keyboardspecialup(int key, int x, int y);
     static void s_mousemotion(int x, int y);
     static void s_mousebtn(int b, int s, int x, int y);
-    static void s_draw(void);
+    static void s_draw();
     static void s_gluicallback(int controlID);
-    static void s_idle(void);
+    static void s_idle();
 
-    bool drag(void) { return drag_; }
-    int width(void) { return width_; }
-    int height(void) { return height_; }
-    int milliseconds(void) { return milliseconds_; }
-    BaseGfxApp* s_current_app(void) { return s_current_app_; }
+    bool drag(void) { return drag_; };
+    int width(void) { return width_; };
+    int height(void) { return height_; };
+    int milliseconds(void) { return milliseconds_; };
+    BaseGfxApp* s_current_app(void) { return s_current_app_; };
 
  private:
     // Underlying glut window handle
@@ -150,10 +139,11 @@ class BaseGfxApp {
     static BaseGfxApp *s_current_app_;
 
     // Has glutInit been called? (only allowed once per program)
-    static bool s_glut_initialized_;
+    static bool     s_glut_initialized_;
 
     BaseGfxApp(const BaseGfxApp &rhs) = delete;
     BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
+
 
 #endif  // INCLUDE_BASEGFXAPP_H_

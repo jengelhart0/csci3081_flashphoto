@@ -1,32 +1,16 @@
-/*******************************************************************************
- * Name            : base_gfx_app.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementation of common behaviors for all apps built on
- *                   GLUI/GLUT toolkits
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BaseGfxApp.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
 #include "BaseGfxApp.h"
 #include <assert.h>
 #include <iostream>
 #include <string>
 
-/*******************************************************************************
- * Global Variables
- ******************************************************************************/
-BaseGfxApp* BaseGfxApp::s_current_app_ = nullptr;
+BaseGfxApp* BaseGfxApp::s_current_app_ = NULL;
 bool BaseGfxApp::s_glut_initialized_ = false;
 
-/*******************************************************************************
- * Constructors/Destructors
- ******************************************************************************/
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
                        int width,
@@ -74,28 +58,27 @@ BaseGfxApp::BaseGfxApp(int argc,
         glui_->set_main_gfx_window(glut_window_handle_);
         // Note: if using a glut idle func, it may need to be registered
         // with glui rather than glut.
-        GLUI_Master.set_glutIdleFunc(nullptr);
+        GLUI_Master.set_glutIdleFunc(NULL);
     }
 }
 
-BaseGfxApp::~BaseGfxApp(void) {
-    s_current_app_ = nullptr;
+BaseGfxApp::~BaseGfxApp() {
+    s_current_app_ = NULL;
     glutDestroyWindow(glut_window_handle_);
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-void BaseGfxApp::set_caption(const std::string& caption) {
+void BaseGfxApp::setCaption(const std::string& caption) {
     glutSetWindowTitle(caption.c_str());
     glutSetIconTitle(caption.c_str());
 }
 
-void BaseGfxApp::RunMainLoop(void) {
+void BaseGfxApp::runMainLoop() {
     glutMainLoop();
 }
 
-void BaseGfxApp::Reshape(int width, int height) {
+
+
+void BaseGfxApp::reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
     // the graphics window. BaseGfxApp defaults to a window that cannot be
     // resized by dragging the corner with the mouse.
@@ -105,15 +88,15 @@ void BaseGfxApp::Reshape(int width, int height) {
     }
 }
 
-void BaseGfxApp::RenderOneFrame(void) {
+void BaseGfxApp::renderOneFrame() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    Display();
+    display();
     glutSwapBuffers();
 }
 
 
 
-void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
+void BaseGfxApp::drawPixels(int start_x, int start_y, int width,
                             int height, void const * const pixels) {
     glRasterPos2i(start_x, start_y);
     glDrawPixels(width, height, GL_RGBA, GL_FLOAT, pixels);
@@ -126,20 +109,20 @@ void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
     }
 }
 
-int BaseGfxApp::width(void) const { return width_; }
-int BaseGfxApp::height(void) const { return height_; }
 
-void BaseGfxApp::SetWindowDimensions(int width, int height) {
-    height_ = height;
-    width_ = width;
-    glutReshapeWindow(width_, height_);
+
+int BaseGfxApp::width() const {
+    return width_;
 }
 
-/*******************************************************************************
- * Static Member Functions
- ******************************************************************************/
+int BaseGfxApp::height() const {
+    return height_;
+}
+
+
+
 void BaseGfxApp::s_reshape(int width, int height) {
-    s_current_app_->Reshape(width, height);
+    s_current_app_->reshape(width, height);
 }
 
 void BaseGfxApp::s_keyboard(unsigned char c, int x, int y) {
@@ -190,19 +173,25 @@ void BaseGfxApp::s_mousebtn(int b, int s, int x, int y) {
     glutPostRedisplay();
 }
 
-void BaseGfxApp::s_draw(void) {
-    s_current_app_->RenderOneFrame();
+void BaseGfxApp::s_draw() {
+    s_current_app_->renderOneFrame();
 }
 
 void BaseGfxApp::s_gluicallback(int controlID) {
     s_current_app_->gluiControl(controlID);
 }
 
-void BaseGfxApp::s_idle(void) {
+void BaseGfxApp::s_idle() {
     int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
     int delta = timeSinceStart - s_current_app_->milliseconds_;
     if (delta > 0) {
         s_current_app_->milliseconds_ = timeSinceStart;
         s_current_app_->update(delta);
     }
+}
+
+void BaseGfxApp::setWindowDimensions(int width, int height) {
+    height_ = height;
+    width_ = width;
+    glutReshapeWindow(width_, height_);
 }

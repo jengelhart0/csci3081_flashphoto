@@ -1,36 +1,22 @@
-/*******************************************************************************
- * Name            : BrushWorkApp.h
- * Project         : BrushWork
- * Module          : ??
- * Description     : Main class for BrushWork
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BrushWorkApp.h
+//  Copyright 2016 CSCI3081W TAs
+//
+
 
 #ifndef INCLUDE_BRUSHWORKAPP_H_
 #define INCLUDE_BRUSHWORKAPP_H_
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
 #include "BaseGfxApp.h"
 
-/*******************************************************************************
- * Forward Declarations
- ******************************************************************************/
 class ColorData;
 class PixelBuffer;
 
-/*******************************************************************************
- * Class Definitions
- ******************************************************************************/
-/**
- * This is the main class for BrushWork. It is a graphics app that derives
- * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
- * one for the buttons and other UI widgets to control the brushes.
- **/
+
+/** This is the main class for BrushWork.  It is a graphics app that derives
+    from BaseGfxApp. It creates two graphics windows, one for 2D painting and
+    one for the buttons and other UI widgets to control the brushes.
+*/
 class BrushWorkApp : public BaseGfxApp {
  public:
     BrushWorkApp(
@@ -39,20 +25,20 @@ class BrushWorkApp : public BaseGfxApp {
         int width,
         int height,
         ColorData backgroundColor);
-    virtual ~BrushWorkApp(void);
+    virtual ~BrushWorkApp();
 
     // Glut overrided function
     void mouseDragged(int x, int y);
     void mouseMoved(int x, int y);
     void leftMouseDown(int x, int y);
     void leftMouseUp(int x, int y);
-    void display(void);
+    void display();
     void gluiControl(int controlID);
 
  private:
     // BrushWork-specific functions
-    void initGlui(void);
-    void initGraphics(void);
+    void initGlui();
+    void initGraphics();
     void initializeBuffers(ColorData initialColor, int width, int height);
 
     // GLUI INTERFACE ELEMENTS

@@ -1,30 +1,19 @@
-/*******************************************************************************
- * Name            : main.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Do ALL THE THINGS!
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  main.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
+
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 
-/*******************************************************************************
- * Non-Member Functions
- ******************************************************************************/
 int main(int argc, char* argv[]) {
     BrushWorkApp *app = new BrushWorkApp(argc, argv, 800, 800,
                                          ColorData(1,
                                                    1,
                                                    static_cast<float>(0.95)));
     // runMainLoop returns when the user closes the graphics window.
-    app->RunMainLoop();
+    app->runMainLoop();
     delete app;
     exit(0);
 }

@@ -1,17 +1,9 @@
-/*******************************************************************************
- * Name            : brushwork_app.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Bare bones implementation of BrushWork app
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BrushWorkApp.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
+
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
@@ -19,15 +11,9 @@
 #include <cmath>
 #include <iostream>
 
-/*******************************************************************************
- * Namespace Definitions
- ******************************************************************************/
 using std::cout;
 using std::endl;
 
-/*******************************************************************************
- * Constructors/Destructors
- ******************************************************************************/
 BrushWorkApp::BrushWorkApp(int argc,
                            char* argv[],
                            int width,
@@ -50,9 +36,11 @@ BrushWorkApp::BrushWorkApp(int argc,
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
-      spinner_b_(nullptr) {
+      spinner_b_(nullptr)
+
+{
     // Set the name of the window
-    set_caption("BrushWork");
+    setCaption("BrushWork");
 
     // Initialize Interface
     initializeBuffers(backgroundColor, width, height);
@@ -61,20 +49,25 @@ BrushWorkApp::BrushWorkApp(int argc,
     initGraphics();
 }
 
-BrushWorkApp::~BrushWorkApp(void) {
+void BrushWorkApp::display() {
+    drawPixels(0, 0, width(), height(), display_buffer_->getData());
+}
+
+
+
+BrushWorkApp::~BrushWorkApp() {
     if (display_buffer_) {
         delete display_buffer_;
     }
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-void BrushWorkApp::display(void) {
-    DrawPixels(0, 0, width(), height(), display_buffer_->getData());
+
+void BrushWorkApp::mouseDragged(int x, int y) {
 }
-void BrushWorkApp::mouseDragged(int x, int y) {}
-void BrushWorkApp::mouseMoved(int x, int y) {}
+
+void BrushWorkApp::mouseMoved(int x, int y) {
+}
+
 
 void BrushWorkApp::leftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
@@ -91,7 +84,7 @@ void BrushWorkApp::initializeBuffers(
     display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
-void BrushWorkApp::initGlui(void) {
+void BrushWorkApp::initGlui() {
     // Select first tool (this activates the first radio button in glui)
     cur_tool_ = 0;
 
@@ -137,7 +130,8 @@ void BrushWorkApp::initGlui(void) {
     new GLUI_Button(glui(), "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
-void BrushWorkApp::initGraphics(void) {
+
+void BrushWorkApp::initGraphics() {
     // Initialize OpenGL for 2D graphics as used in the BrushWork app
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_BLEND);
@@ -149,6 +143,8 @@ void BrushWorkApp::initGraphics(void) {
     gluOrtho2D(0, width(), 0, height());
     glViewport(0, 0, width(), height());
 }
+
+
 
 void BrushWorkApp::gluiControl(int controlID) {
     switch (controlID) {

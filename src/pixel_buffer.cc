@@ -1,34 +1,17 @@
-/*******************************************************************************
- * Name            : pixel_buffer.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementationo of a collection rectangular array of pixels
- *                   for the graphics application
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
-
-/*******************************************************************************
- * Includes
- ******************************************************************************/
+//
+//  PixelBuffer.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 #include "PixelBuffer.h"
 #include "ColorData.h"
 
 #include <iostream>
 #include <cstring>
 
-/*******************************************************************************
- * Namespace Definitions
- ******************************************************************************/
 using std::cerr;
 using std::endl;
 using std::fill;
 
-/*******************************************************************************
- * Constructors/Destructors
- ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
                          ColorData backgroundColor)
@@ -39,14 +22,11 @@ PixelBuffer::PixelBuffer(int w,
     fillPixelBufferWithColor(backgroundColor);
 }
 
-PixelBuffer::~PixelBuffer(void) {
+PixelBuffer::~PixelBuffer() {
     delete [] pixels_;
     delete background_color_;
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
 ColorData PixelBuffer::getPixel(int x, int y) const {
     ColorData pixelData;
 
@@ -68,10 +48,10 @@ void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
     }
 }
 
-ColorData const * PixelBuffer::getData(void) const { return pixels_; }
-int PixelBuffer::getHeight(void) const { return height_; }
-int PixelBuffer::getWidth(void) const { return width_; }
-ColorData PixelBuffer::getBackgroundColor(void) { return *background_color_; }
+ColorData const * PixelBuffer::getData() const { return pixels_; }
+int PixelBuffer::getHeight() const { return height_; }
+int PixelBuffer::getWidth() const { return width_; }
+ColorData PixelBuffer::getBackgroundColor() { return *background_color_; }
 
 void PixelBuffer::fillPixelBufferWithColor(ColorData color) {
     fill(pixels_, pixels_+width_*height_, color);
