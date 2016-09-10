@@ -63,24 +63,21 @@ BrushWorkApp::BrushWorkApp(int argc,
     InitGraphics();
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }
 
-
 void BrushWorkApp::MouseDragged(int x, int y) {}
-
 void BrushWorkApp::MouseMoved(int x, int y) {}
-
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
@@ -156,8 +153,6 @@ void BrushWorkApp::InitGraphics(void) {
     gluOrtho2D(0, width(), 0, height());
     glViewport(0, 0, width(), height());
 }
-
-
 
 void BrushWorkApp::GluiControl(int controlID) {
     switch (controlID) {

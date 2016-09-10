@@ -25,7 +25,6 @@
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-
 /**
  * This is a base class for graphics applications built on top of the GLUT and
  * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
@@ -49,7 +48,10 @@ class BaseGfxApp {
         int gluiWinY);
     virtual ~BaseGfxApp(void);
 
+    // Set the window/icon title for the application
     void set_caption(const std::string& caption);
+
+    // Set the dimensions of the application window.
     void SetWindowDimensions(int width, int height);
 
     // Call this function to start the program.  It will not return until
@@ -94,7 +96,6 @@ class BaseGfxApp {
     // a GLUI widget
     virtual void GluiControl(int controlID) {}
 
-
     // Glut calls this when the user resizes the graphics window by dragging
     // on it with the mouse. The default implementation in BaseGfxApp is to
     // ignore this interaction and force the window to remain the same size.
@@ -107,8 +108,11 @@ class BaseGfxApp {
     // screen, which is usually not the case.
     virtual void RenderOneFrame(void);
 
-    int width(void) const;
-    int height(void) const;
+    // Get the width/height of the application
+    int width(void) const { return width_; }
+    int height(void) const { return height_; }
+
+    // Get handles on object internals
     int handle(void) { return glut_window_handle_; }
     GLUI* glui(void) { return glui_; }
 
@@ -143,18 +147,20 @@ class BaseGfxApp {
     int width_;
     int height_;
     int milliseconds_;
-    /* GLUT and GLUI event callbacks are sent to the current
-       window/app. Right now, there is only one window anyway (not counting
-       the GLUI UI window.. in the future could be extended to support more
-       windows.  In any case, some structure like this is always needed when
-       using glut with C++, since the glut callbacks must be either global or
-       static functions.
-    */
+    /**
+     * GLUT and GLUI event callbacks are sent to the current
+     * window/app. Right now, there is only one window anyway (not counting
+     * the GLUI UI window.. in the future could be extended to support more
+     * windows.  In any case, some structure like this is always needed when
+     * using glut with C++, since the glut callbacks must be either global or
+     * static functions.
+     **/
     static BaseGfxApp *s_current_app_;
 
     // Has glutInit been called? (only allowed once per program)
-    static bool     s_glut_initialized_;
+    static bool s_glut_initialized_;
 
+    // Copy assignment/construction is disallowed
     BaseGfxApp(const BaseGfxApp &rhs) = delete;
     BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };

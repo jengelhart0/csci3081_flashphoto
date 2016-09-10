@@ -111,8 +111,6 @@ void BaseGfxApp::RenderOneFrame(void) {
     glutSwapBuffers();
 }
 
-
-
 void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
                             int height, void const * const pixels) {
     glRasterPos2i(start_x, start_y);
@@ -125,11 +123,6 @@ void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
         assert(0);
     }
 }
-
-
-
-int BaseGfxApp::width(void) const { return width_; }
-int BaseGfxApp::height(void) const { return height_; }
 
 void BaseGfxApp::s_reshape(int width, int height) {
     s_current_app_->Reshape(width, height);

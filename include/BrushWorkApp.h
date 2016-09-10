@@ -73,17 +73,19 @@ class BrushWorkApp : public BaseGfxApp {
         UI_QUIT
     };
 
-
-    // This is the pointer to the buffer where the display PixelBuffer is stored
+    // Pointer to the buffer where the display PixelBuffer is stored
     PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
-    int cur_tool_;
-    float cur_color_red_, cur_color_green_, cur_color_blue_;
+    int cur_tool_; // current tool
+    float cur_color_red_;
+    float cur_color_green_;
+    float cur_color_blue_;
     GLUI_Spinner *spinner_r_;
     GLUI_Spinner *spinner_g_;
     GLUI_Spinner *spinner_b_;
 
+    // Copy assignment/construction disallowed
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };

@@ -67,25 +67,26 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
     }
 }
 
-ColorData const * PixelBuffer::get_data(void) const { return pixels_; }
-int PixelBuffer::get_height(void) const { return height_; }
-int PixelBuffer::get_width(void) const { return width_; }
-ColorData PixelBuffer::get_background_color(void) { return *background_color_; }
-
 void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     fill(pixels_, pixels_+width_*height_, color);
 }
 
-void PixelBuffer::CopyPixelBuffer(
-    PixelBuffer *sourceBuffer,
-    PixelBuffer *destBuffer) {
-    if (destBuffer->get_width() != sourceBuffer->get_width() ||
-        destBuffer->get_height() != sourceBuffer->get_height()) {
-        cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
-    } else {
-        memcpy(reinterpret_cast<void*>(destBuffer->pixels_),
-               reinterpret_cast<void*>(sourceBuffer->pixels_),
-               sizeof(ColorData)*static_cast<unsigned>(destBuffer->height_)*
-               static_cast<unsigned>(destBuffer->width_));
+/*******************************************************************************
+ * Operator Definitions
+ ******************************************************************************/
+PixelBuffer& PixelBuffer::operator=(
+    const PixelBuffer &rhs) {
+    /* Check for self-assignment! */
+    if (this == &rhs) {
+        return *this;
     }
-}
+    if (this->get_width() != rhs.get_width() ||
+        this->get_height() != rhs.get_height()) {
+        cerr << "CopyPixelBuffer: dimension mismatch" << endl;
+    } else {
+        std::copy(this->pixels_,
+                  this->pixels_+(sizeof(ColorData)*width_*height_),
+                  rhs.pixels_);
+    }
+    return *this;
+} /* operator=() */
