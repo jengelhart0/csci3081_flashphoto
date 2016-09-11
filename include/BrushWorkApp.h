@@ -89,6 +89,7 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     float cur_color_red_;
     float cur_color_green_;
     float cur_color_blue_;
+
     GLUI_Spinner *spinner_r_;
     GLUI_Spinner *spinner_g_;
     GLUI_Spinner *spinner_b_;
