@@ -25,6 +25,8 @@
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
+namespace csci3081 {
+
 /**
  * This is a base class for graphics applications built on top of the GLUT and
  * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
@@ -165,6 +167,6 @@ class BaseGfxApp {
     BaseGfxApp(const BaseGfxApp &rhs) = delete;
     BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
-
+}  // namespace csci3081
 
 #endif  // INCLUDE_BASEGFXAPP_H_

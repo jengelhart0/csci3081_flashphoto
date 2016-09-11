@@ -24,11 +24,12 @@
  ******************************************************************************/
 using std::cout;
 using std::endl;
+namespace brushwork = csci3081::brushwork;
 
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-BrushWorkApp::BrushWorkApp(int width,
+brushwork::BrushWorkApp::BrushWorkApp(int width,
                            int height)
     : BaseGfxApp(width,
                  height),
@@ -41,7 +42,7 @@ BrushWorkApp::BrushWorkApp(int width,
       spinner_g_(nullptr),
       spinner_b_(nullptr) {}
 
-BrushWorkApp::~BrushWorkApp(void) {
+brushwork::BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
@@ -50,7 +51,7 @@ BrushWorkApp::~BrushWorkApp(void) {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void BrushWorkApp::Init(
+void brushwork::BrushWorkApp::Init(
     int argc,
     char* argv[],
     int x,
@@ -74,29 +75,29 @@ void BrushWorkApp::Init(
     InitGraphics();
 
 }
-void BrushWorkApp::Display(void) {
+void brushwork::BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }
 
-void BrushWorkApp::MouseDragged(int x, int y) {}
-void BrushWorkApp::MouseMoved(int x, int y) {}
+void brushwork::BrushWorkApp::MouseDragged(int x, int y) {}
+void brushwork::BrushWorkApp::MouseMoved(int x, int y) {}
 
-void BrushWorkApp::LeftMouseDown(int x, int y) {
+void brushwork::BrushWorkApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
 }
 
-void BrushWorkApp::LeftMouseUp(int x, int y) {
+void brushwork::BrushWorkApp::LeftMouseUp(int x, int y) {
     std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
-void BrushWorkApp::InitializeBuffers(
+void brushwork::BrushWorkApp::InitializeBuffers(
     ColorData backgroundColor,
     int width,
     int height) {
     display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
-void BrushWorkApp::InitGlui(void) {
+void brushwork::BrushWorkApp::InitGlui(void) {
     // Select first tool (this activates the first radio button in glui)
     cur_tool_ = 0;
 
@@ -143,7 +144,7 @@ void BrushWorkApp::InitGlui(void) {
 }
 
 
-void BrushWorkApp::InitGraphics(void) {
+void brushwork::BrushWorkApp::InitGraphics(void) {
     // Initialize OpenGL for 2D graphics as used in the BrushWork app
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_BLEND);
@@ -156,7 +157,7 @@ void BrushWorkApp::InitGraphics(void) {
     glViewport(0, 0, width(), height());
 }
 
-void BrushWorkApp::GluiControl(int controlID) {
+void brushwork::BrushWorkApp::GluiControl(int controlID) {
     switch (controlID) {
     case UI_PRESET_RED:
         cur_color_red_ = 1;

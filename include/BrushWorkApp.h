@@ -17,22 +17,25 @@
  * Includes
  ******************************************************************************/
 #include "BaseGfxApp.h"
+#include "ColorData.h"
+#include "PixelBuffer.h"
 
 /*******************************************************************************
- * Forward Declarations
+ * Namespace Definitions
  ******************************************************************************/
-class ColorData;
-class PixelBuffer;
+namespace csci3081 {
+namespace brushwork {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
+
 /**
  * This is the main class for BrushWork.  It is a graphics app that derives
  * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
  * one for the buttons and other UI widgets to control the brushes.
  **/
-class BrushWorkApp : public BaseGfxApp {
+class BrushWorkApp : public csci3081::BaseGfxApp {
  public:
     BrushWorkApp(
         int width,
@@ -53,13 +56,13 @@ class BrushWorkApp : public BaseGfxApp {
         char* argv[],
         int x,
         int y,
-        ColorData backgroundColor);
+        ::csci3081::ColorData backgroundColor);
 
  private:
     // BrushWork-specific functions
     void InitGlui(void);
     void InitGraphics(void);
-    void InitializeBuffers(ColorData initialColor, int width, int height);
+    void InitializeBuffers(::csci3081::ColorData initialColor, int width, int height);
 
     // GLUI INTERFACE ELEMENTS
     enum UIControlType {
@@ -79,7 +82,7 @@ class BrushWorkApp : public BaseGfxApp {
     };
 
     // Pointer to the buffer where the display PixelBuffer is stored
-    PixelBuffer *display_buffer_;
+    ::csci3081::PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
     int cur_tool_; // current tool
@@ -94,5 +97,7 @@ class BrushWorkApp : public BaseGfxApp {
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
+}  // namespace brushwork
+}  // namespace csci3081
 
 #endif  // INCLUDE_BRUSHWORKAPP_H_

@@ -24,6 +24,7 @@
 using std::cerr;
 using std::endl;
 using std::fill;
+namespace csci3081 {
 
 /*******************************************************************************
  * Constructors/Destructors
@@ -80,8 +81,8 @@ PixelBuffer& PixelBuffer::operator=(
     if (this == &rhs) {
         return *this;
     }
-    if (this->get_width() != rhs.get_width() ||
-        this->get_height() != rhs.get_height()) {
+    if (this->width() != rhs.width() ||
+        this->height() != rhs.height()) {
         cerr << "CopyPixelBuffer: dimension mismatch" << endl;
     } else {
         std::copy(this->pixels_,
@@ -90,3 +91,5 @@ PixelBuffer& PixelBuffer::operator=(
     }
     return *this;
 } /* operator=() */
+
+}  // namespace csci3081

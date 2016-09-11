@@ -15,6 +15,11 @@
 #include "ColorData.h"
 
 /*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
 ColorData::ColorData(void)
@@ -34,17 +39,17 @@ float ColorData::get_luminance(void) const {
 }
 
 ColorData ColorData::clamped_color(void) const {
-        float clampedRed = ColorData::clampValue(this->get_red(), 0.f, 1.f);
-        float clampedGreen = ColorData::clampValue(this->get_green(), 0.f, 1.f);
-        float clampedBlue = ColorData::clampValue(this->get_blue(), 0.f, 1.f);
-        float clampedAlpha = ColorData::clampValue(this->get_alpha(), 0.f, 1.f);
+        float clampedRed = ColorData::clampValue(this->red(), 0.f, 1.f);
+        float clampedGreen = ColorData::clampValue(this->green(), 0.f, 1.f);
+        float clampedBlue = ColorData::clampValue(this->blue(), 0.f, 1.f);
+        float clampedAlpha = ColorData::clampValue(this->alpha(), 0.f, 1.f);
 
         return ColorData(clampedRed, clampedGreen, clampedBlue, clampedAlpha);
 }
 
 // Apply component-wise arithmatic operations
 ColorData operator* (const ColorData& a, float f) {
-        return ColorData(a.red_*f, a.green_*f, a.blue_*f, a.alpha_*f);
+    return ColorData(a.red_*f, a.green_*f, a.blue_*f, a.alpha_*f);
 }
 
 ColorData operator+ (const ColorData& a, const ColorData& b) {
@@ -55,4 +60,5 @@ ColorData operator+ (const ColorData& a, const ColorData& b) {
 ColorData operator- (const ColorData& a, const ColorData& b) {
         return ColorData(a.red_ - b.red_, a.green_ - b.green_,
                          a.blue_ - b.blue_, a.alpha_ - b.alpha_);
+}
 }

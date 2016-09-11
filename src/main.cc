@@ -12,14 +12,15 @@
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 
+namespace brushwork = csci3081::brushwork;
 int main(int argc, char* argv[]) {
-    BrushWorkApp *app = new BrushWorkApp(800,800);
+    brushwork::BrushWorkApp *app = new brushwork::BrushWorkApp(800,800);
         app->Init(argc, argv,
                   50,
                   50,
-                  ColorData(1,
-                            1,
-                            static_cast<float>(0.95)));
+                  csci3081::ColorData(1,
+                                      1,
+                                      static_cast<float>(0.95)));
     // runMainLoop returns when the user closes the graphics window.
     app->RunMainLoop();
     delete app;

@@ -13,6 +13,11 @@
 #define INCLUDE_COLORDATA_H_
 
 /*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
@@ -25,14 +30,14 @@ class ColorData {
     ColorData(float r, float g, float b);
     ColorData(float r, float g, float b, float a);
 
-    inline void set_red(float r) { red_ = r; }
-    inline void set_green(float g) { green_ = g; }
-    inline void set_blue(float b) { blue_ = b; }
-    inline void set_alpha(float a) { alpha_ = a; }
-    inline float get_red(void) const { return red_; }
-    inline float get_green(void) const { return green_; }
-    inline float get_blue(void) const { return blue_; }
-    inline float get_alpha(void) const { return alpha_;}
+    inline void red(float r) { red_ = r; }
+    inline void green(float g) { green_ = g; }
+    inline void blue(float b) { blue_ = b; }
+    inline void alpha(float a) { alpha_ = a; }
+    inline float red(void) const { return red_; }
+    inline float green(void) const { return green_; }
+    inline float blue(void) const { return blue_; }
+    inline float alpha(void) const { return alpha_;}
 
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
@@ -58,5 +63,6 @@ class ColorData {
     float blue_;
     float alpha_;
 };
+}  // namespace csci3081
 
 #endif  // INCLUDE_COLORDATA_H_

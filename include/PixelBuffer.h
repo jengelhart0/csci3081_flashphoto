@@ -18,6 +18,11 @@
 #include "ColorData.h"
 
 /*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
@@ -34,8 +39,8 @@ class PixelBuffer {
 
     // Returns a pointer to the raw ColorData array for fast access to ColorData
     inline ColorData const * get_data(void) const { return pixels_; }
-    inline int get_height(void) const { return height_; }
-    inline int get_width(void) const { return width_; }
+    inline int height(void) const { return height_; }
+    inline int width(void) const { return width_; }
 
     // Returns the background color that was used to initialize the PixelBuffer
     ColorData get_background_color(void) { return *background_color_; }
@@ -63,5 +68,5 @@ class PixelBuffer {
     PixelBuffer(const PixelBuffer&rhs) = delete;
     PixelBuffer& operator=(const PixelBuffer &rhs);
 };
-
+}  // namespace csci3081
 #endif  // INCLUDE_PIXELBUFFER_H_
