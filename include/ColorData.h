@@ -42,7 +42,7 @@ class ColorData {
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
     // non-uniformly.
-    float get_luminance(void) const;
+    float luminance(void) const;
 
     // Return a clamped version of this ColorData
     inline ColorData clamped_color(void) const;
@@ -55,7 +55,7 @@ class ColorData {
 
  private:
     // General helper function for clamping values between 0 and 1
-    static inline float clampValue(float input, float a, float b)
+    static inline float clamp_value(float input, float a, float b)
         { return input < a ? a : (input > b ? b : input);}
 
     float red_;

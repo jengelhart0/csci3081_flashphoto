@@ -76,7 +76,7 @@ void brushwork::BrushWorkApp::Init(
 
 }
 void brushwork::BrushWorkApp::Display(void) {
-    DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
+    DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
 void brushwork::BrushWorkApp::MouseDragged(int x, int y) {}

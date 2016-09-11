@@ -32,17 +32,17 @@ ColorData::ColorData(float r, float g, float b, float a)
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-float ColorData::get_luminance(void) const {
+float ColorData::luminance(void) const {
     return static_cast<float>(0.2126)*red_ +
         static_cast<float>(0.7152)*green_ +
         static_cast<float>(0.0722)*blue_;
 }
 
 ColorData ColorData::clamped_color(void) const {
-        float clampedRed = ColorData::clampValue(this->red(), 0.f, 1.f);
-        float clampedGreen = ColorData::clampValue(this->green(), 0.f, 1.f);
-        float clampedBlue = ColorData::clampValue(this->blue(), 0.f, 1.f);
-        float clampedAlpha = ColorData::clampValue(this->alpha(), 0.f, 1.f);
+        float clampedRed = ColorData::clamp_value(this->red(), 0.f, 1.f);
+        float clampedGreen = ColorData::clamp_value(this->green(), 0.f, 1.f);
+        float clampedBlue = ColorData::clamp_value(this->blue(), 0.f, 1.f);
+        float clampedAlpha = ColorData::clamp_value(this->alpha(), 0.f, 1.f);
 
         return ColorData(clampedRed, clampedGreen, clampedBlue, clampedAlpha);
 }

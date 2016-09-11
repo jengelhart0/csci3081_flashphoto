@@ -23,7 +23,6 @@
  ******************************************************************************/
 using std::cerr;
 using std::endl;
-using std::fill;
 namespace csci3081 {
 
 /*******************************************************************************
@@ -69,7 +68,7 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
 }
 
 void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
-    fill(pixels_, pixels_+width_*height_, color);
+    std::fill(pixels_, pixels_+width_*height_, color);
 }
 
 /*******************************************************************************
