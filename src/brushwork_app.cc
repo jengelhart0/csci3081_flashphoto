@@ -28,21 +28,10 @@ using std::endl;
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-BrushWorkApp::BrushWorkApp(int argc,
-                           char* argv[],
-                           int width,
-                           int height,
-                           ColorData backgroundColor)
-    : BaseGfxApp(argc,
-                 argv,
-                 width,
-                 height,
-                 50,
-                 50,
-                 GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
-                 true,
-                 width+51,
-                 50),
+BrushWorkApp::BrushWorkApp(int width,
+                           int height)
+    : BaseGfxApp(width,
+                 height),
       display_buffer_(nullptr),
       cur_tool_(0.0),
       cur_color_red_(0.0),
@@ -50,18 +39,7 @@ BrushWorkApp::BrushWorkApp(int argc,
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
-      spinner_b_(nullptr)
-
-{
-    // Set the name of the window
-    set_caption("BrushWork");
-
-    // Initialize Interface
-    InitializeBuffers(backgroundColor, width, height);
-
-    InitGlui();
-    InitGraphics();
-}
+      spinner_b_(nullptr) {}
 
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
@@ -72,6 +50,30 @@ BrushWorkApp::~BrushWorkApp(void) {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
+void BrushWorkApp::Init(
+    int argc,
+    char* argv[],
+    int x,
+    int y,
+    ColorData backgroundColor) {
+
+    BaseGfxApp::Init(argc,argv,
+                     x,y,
+                     GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
+                     true,
+                     width()+51,
+                     50);
+
+    // Set the name of the window
+    set_caption("BrushWork");
+
+    // Initialize Interface
+    InitializeBuffers(backgroundColor, width(), height());
+
+    InitGlui();
+    InitGraphics();
+
+}
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }

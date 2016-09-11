@@ -27,16 +27,8 @@ bool BaseGfxApp::s_glut_initialized_ = false;
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-BaseGfxApp::BaseGfxApp(int argc,
-                       char* argv[],
-                       int width,
-                       int height,
-                       int x,
-                       int y,
-                       unsigned glutFlags,
-                       bool createGLUIWin,
-                       int gluiWinX,
-                       int gluiWinY)
+BaseGfxApp::BaseGfxApp(int width,
+                       int height)
     : glut_window_handle_(0),
       glui_(nullptr),
       drag_(false),
@@ -44,10 +36,27 @@ BaseGfxApp::BaseGfxApp(int argc,
       height_(height),
       milliseconds_(0) {
     s_current_app_ = this;
+}
 
+BaseGfxApp::~BaseGfxApp() {
+    s_current_app_ = NULL;
+    glutDestroyWindow(glut_window_handle_);
+}
+
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
+void BaseGfxApp::Init(int argc,
+                      char* argv[],
+                      int x,
+                      int y,
+                      unsigned glutFlags,
+                      bool createGLUIWin,
+                      int gluiWinX,
+                      int gluiWinY) {
     // Set window size and position
-    glutInitWindowSize(width, height);
-    glutInitWindowPosition(x, y);
+    glutInitWindowSize(width_,height_);
+    glutInitWindowPosition(x,y);
     glutInitDisplayMode(glutFlags);
 
     if (!s_glut_initialized_) {
@@ -77,15 +86,6 @@ BaseGfxApp::BaseGfxApp(int argc,
         GLUI_Master.set_glutIdleFunc(NULL);
     }
 }
-
-BaseGfxApp::~BaseGfxApp() {
-    s_current_app_ = NULL;
-    glutDestroyWindow(glut_window_handle_);
-}
-
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
 void BaseGfxApp::set_caption(const std::string& caption) {
     glutSetWindowTitle(caption.c_str());
     glutSetIconTitle(caption.c_str());
@@ -116,8 +116,8 @@ void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
     glRasterPos2i(start_x, start_y);
     glDrawPixels(width, height, GL_RGBA, GL_FLOAT, pixels);
 
-    unsigned err;
-    if ((err = glGetError()) != GL_NO_ERROR) {
+    unsigned err = glGetError();
+    if (err != GL_NO_ERROR) {
         std::cerr << "GL is in an error state after call to glDrawPixels()\n";
         std::cerr << "(GL error code " << err << ")\n";
         assert(0);

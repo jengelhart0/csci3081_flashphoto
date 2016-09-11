@@ -13,10 +13,13 @@
 #include "ColorData.h"
 
 int main(int argc, char* argv[]) {
-    BrushWorkApp *app = new BrushWorkApp(argc, argv, 800, 800,
-                                         ColorData(1,
-                                                   1,
-                                                   static_cast<float>(0.95)));
+    BrushWorkApp *app = new BrushWorkApp(800,800);
+        app->Init(argc, argv,
+                  50,
+                  50,
+                  ColorData(1,
+                            1,
+                            static_cast<float>(0.95)));
     // runMainLoop returns when the user closes the graphics window.
     app->RunMainLoop();
     delete app;

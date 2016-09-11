@@ -36,17 +36,18 @@
 class BaseGfxApp {
  public:
     BaseGfxApp(
-        int argc,
-        char* argv[],
         int width,
-        int height,
-        int x,
-        int y,
-        unsigned glutFlags,
-        bool createGLUIWin,
-        int gluiWinX,
-        int gluiWinY);
+        int height);
     virtual ~BaseGfxApp(void);
+
+    virtual void Init(int argc,
+                      char* argv[],
+                      int x,
+                      int y,
+                      unsigned glutFlags,
+                      bool createGLUIWin,
+                      int gluiWinX,
+                      int gluiWinY);
 
     // Set the window/icon title for the application
     void set_caption(const std::string& caption);

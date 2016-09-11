@@ -35,11 +35,9 @@ class PixelBuffer;
 class BrushWorkApp : public BaseGfxApp {
  public:
     BrushWorkApp(
-        int argc,
-        char* argv[],
         int width,
-        int height,
-        ColorData backgroundColor);
+        int height);
+
     virtual ~BrushWorkApp(void);
 
     // Glut overrided function
@@ -49,6 +47,13 @@ class BrushWorkApp : public BaseGfxApp {
     void LeftMouseUp(int x, int y);
     void Display(void);
     void GluiControl(int controlID);
+
+    virtual void Init(
+        int argc,
+        char* argv[],
+        int x,
+        int y,
+        ColorData backgroundColor);
 
  private:
     // BrushWork-specific functions
