@@ -100,6 +100,10 @@ class BaseGfxApp {
 
   /**
    * @brief Callback for mouse moving interface event in the GLUT window
+   * Note that (0,0) is in the lower right corner of the image, (this is what is
+   * returned from GLUT), which is NOT the same as the coordinate system
+   * definition for the PixelBuffer class. Your implementation will need to
+   * account for this.
    */
   virtual void MouseMoved(int x, int y) {}
 
@@ -178,7 +182,7 @@ class BaseGfxApp {
    * subclasses can override this method and implement the logic to allow for
    * interactive resizing of windows.
    */
-   virtual void Reshape(int width, int height);
+  virtual void Reshape(int width, int height);
 
   /**
    * @brief Clear the screen and call display().
@@ -256,18 +260,18 @@ class BaseGfxApp {
   inline BaseGfxApp* s_current_app(void) { return s_current_app_; }
 
  private:
-  int glut_window_handle_; /** Underlying glut window handle */
+  int glut_window_handle_; /**< Underlying glut window handle */
 
-  GLUI *glui_; /** Pointer to GLUI master */
+  GLUI *glui_; /**< Pointer to GLUI master */
 
-  bool drag_; /** SETH FILL THIS IN  */
+  bool drag_; /**< SETH FILL THIS IN  */
   int width_;
   int height_;
-  int milliseconds_; /** ms since last update  */
+  int milliseconds_; /**< ms since last update  */
 
   static BaseGfxApp *s_current_app_;
 
-  /* Has glutInit been called? (only allowed once per program) */
+  /** Has glutInit been called? (only allowed once per program) */
   static bool s_glut_initialized_;
 
   /* Copy assignment/construction is disallowed */

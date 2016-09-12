@@ -63,7 +63,8 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     /**
      * @brief Initialize the buffers for the main window
      */
-    void InitializeBuffers(::csci3081::ColorData initialColor, int width, int height);
+    void InitializeBuffers(::csci3081::ColorData initialColor,
+                           int width, int height);
 
     /**
      * @brief Set of values used to differentiate between what radio buttons is
@@ -85,16 +86,17 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         UI_QUIT
     };
 
-    csci3081::PixelBuffer *display_buffer_; /** Array of pixel data for the screen  */
+    /** Array of pixel data for the screen */
+    csci3081::PixelBuffer *display_buffer_;
 
-    int cur_tool_; /** Currently selected tool from UI  */
+    int cur_tool_; /**< Currently selected tool from UI  */
     float cur_color_red_;
     float cur_color_green_;
     float cur_color_blue_;
 
-    GLUI_Spinner *spinner_r_; /** SETH FILL THIS IN  */
-    GLUI_Spinner *spinner_g_;
-    GLUI_Spinner *spinner_b_;
+    GLUI_Spinner *spinner_r_; /**< SETH FILL THIS IN  */
+    GLUI_Spinner *spinner_g_; /**< SETH FILL THIS IN  */
+    GLUI_Spinner *spinner_b_; /**< SETH FILL THIS IN  */
 
     /* Copy/move assignment/construction disallowed */
     BrushWorkApp(const BrushWorkApp &rhs) = delete;

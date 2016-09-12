@@ -28,6 +28,10 @@ namespace csci3081 {
 /**
  * @brief Stores an array of ColorData, such as an image that can be drawn to
  * the screen.
+ * In this class, (0,0) is the top left corner of the screen/image, which is the
+ * not the same as the coordinate system defined by GLUT, where (0,0) is the
+ * bottom left corner of the screen. Your implementation will need to account
+ * for this.
  */
 class PixelBuffer {
  public:
@@ -62,11 +66,11 @@ class PixelBuffer {
 
 
  private:
-  const int width_; /** X dimension--cannot be changed  */
-  const int height_; /** Y dimension--cannot be changed  */
+  const int width_; /**< X dimension--cannot be changed  */
+  const int height_; /**< Y dimension--cannot be changed  */
 
-  ColorData *pixels_; /** Raw pixel data */
-  ColorData *background_color_; /** Color used to initialize the pixel buffer  */
+  ColorData *pixels_; /**< Raw pixel data */
+  ColorData *background_color_; /** Color used to initialize the pixel buffer */
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs);
