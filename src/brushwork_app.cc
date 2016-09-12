@@ -20,7 +20,7 @@
 #include <iostream>
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
 using std::cout;
 using std::endl;
@@ -58,8 +58,8 @@ void brushwork::BrushWorkApp::Init(
     int y,
     ColorData backgroundColor) {
 
-    BaseGfxApp::Init(argc,argv,
-                     x,y,
+    BaseGfxApp::Init(argc, argv,
+                     x, y,
                      GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
                      true,
                      width()+51,
@@ -73,8 +73,8 @@ void brushwork::BrushWorkApp::Init(
 
     InitGlui();
     InitGraphics();
-
 }
+
 void brushwork::BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }

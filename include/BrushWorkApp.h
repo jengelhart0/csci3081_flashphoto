@@ -9,7 +9,6 @@
  *
  ******************************************************************************/
 
-
 #ifndef INCLUDE_BRUSHWORKAPP_H_
 #define INCLUDE_BRUSHWORKAPP_H_
 
@@ -21,7 +20,7 @@
 #include "PixelBuffer.h"
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
 namespace csci3081 {
 namespace brushwork {
@@ -29,11 +28,11 @@ namespace brushwork {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-
 /**
- * This is the main class for BrushWork.  It is a graphics app that derives
- * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
- * one for the buttons and other UI widgets to control the brushes.
+ * @brief The main class for BrushWork.
+ * It is a graphics app that derives from BaseGfxApp. It creates two graphics
+ * windows, one for 2D painting and one for the buttons and other UI widgets to
+ * control the brushes.
  **/
 class BrushWorkApp : public csci3081::BaseGfxApp {
  public:
@@ -43,7 +42,6 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
 
     virtual ~BrushWorkApp(void);
 
-    // Glut overrided function
     void MouseDragged(int x, int y);
     void MouseMoved(int x, int y);
     void LeftMouseDown(int x, int y);
@@ -56,15 +54,21 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         char* argv[],
         int x,
         int y,
-        ::csci3081::ColorData backgroundColor);
+        csci3081::ColorData backgroundColor);
 
  private:
-    // BrushWork-specific functions
     void InitGlui(void);
     void InitGraphics(void);
+
+    /**
+     * @brief Initialize the buffers for the main window
+     */
     void InitializeBuffers(::csci3081::ColorData initialColor, int width, int height);
 
-    // GLUI INTERFACE ELEMENTS
+    /**
+     * @brief Set of values used to differentiate between what radio buttons is
+     * pressed by the user.
+     */
     enum UIControlType {
         UI_TOOLTYPE,
         UI_COLOR_R,
@@ -81,20 +85,18 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         UI_QUIT
     };
 
-    // Pointer to the buffer where the display PixelBuffer is stored
-    ::csci3081::PixelBuffer *display_buffer_;
+    csci3081::PixelBuffer *display_buffer_; /** Array of pixel data for the screen  */
 
-    // These are used to store the selections from the GLUI user interface
-    int cur_tool_; // current tool
+    int cur_tool_; /** Currently selected tool from UI  */
     float cur_color_red_;
     float cur_color_green_;
     float cur_color_blue_;
 
-    GLUI_Spinner *spinner_r_;
+    GLUI_Spinner *spinner_r_; /** SETH FILL THIS IN  */
     GLUI_Spinner *spinner_g_;
     GLUI_Spinner *spinner_b_;
 
-    // Copy assignment/construction disallowed
+    /* Copy/move assignment/construction disallowed */
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
