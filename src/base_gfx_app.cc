@@ -101,8 +101,8 @@ void csci3081::BaseGfxApp::RunMainLoop(void) {
 
 void csci3081::BaseGfxApp::Reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
-    // the graphics window. csci3081::BaseGfxApp defaults to a window that cannot be
-    // resized by dragging the corner with the mouse.
+    // the graphics window. csci3081::BaseGfxApp defaults to a window that
+    // cannot be resized by dragging the corner with the mouse.
     if (s_current_app_->width() != width ||
         s_current_app_->height() != height) {
         glutReshapeWindow(s_current_app_->width(), s_current_app_->height());
