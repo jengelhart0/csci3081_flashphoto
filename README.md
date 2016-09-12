@@ -51,6 +51,15 @@ All submitted makefiles must build the main target when invoked exactly as
 follows:
 
     make
+    
+The main target must be named exactly "BrushWork" and be built in a "bin/"
+directory within your project root
+
+## Invocation rules
+Your BrushWork executable must not take any arguments, and be invoked exactly as
+follows:
+
+    bin/BrushWork
 
 ## git commit messages
 
@@ -74,6 +83,6 @@ These are examples of the quality of the commit messages we will be expecting.
 
 ## Generating documentation
 The following command can be used to generate html documentation for the code
-(assuming current directory is project root): 
+(assuming current directory is project root):
 
     cd doc && doxygen Doxyfile
