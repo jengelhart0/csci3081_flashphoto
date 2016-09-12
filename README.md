@@ -71,3 +71,9 @@ These are examples of the quality of the commit messages we will be expecting.
   - batchLogbatchLog -> batchLog
   - start periodic checking
   - missing brace
+
+## Generating documentation
+The following command can be used to generate html documentation for the code
+(assuming current directory is project root): 
+
+    cd doc && doxygen Doxyfile
