@@ -23,7 +23,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -278,6 +278,6 @@ class BaseGfxApp {
   BaseGfxApp(const BaseGfxApp &rhs) = delete;
   BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
 #endif  // INCLUDE_BASEGFXAPP_H_

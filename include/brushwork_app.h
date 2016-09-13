@@ -22,8 +22,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
-namespace brushwork {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -34,7 +33,7 @@ namespace brushwork {
  * windows, one for 2D painting and one for the buttons and other UI widgets to
  * control the brushes.
  **/
-class BrushWorkApp : public csci3081::BaseGfxApp {
+class BrushWorkApp : public BaseGfxApp {
  public:
     BrushWorkApp(
         int width,
@@ -54,7 +53,7 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         char* argv[],
         int x,
         int y,
-        csci3081::ColorData backgroundColor);
+        ColorData backgroundColor);
 
  private:
     void InitGlui(void);
@@ -63,7 +62,7 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     /**
      * @brief Initialize the buffers for the main window
      */
-    void InitializeBuffers(::csci3081::ColorData initialColor,
+    void InitializeBuffers(ColorData initialColor,
                            int width, int height);
 
     /**
@@ -86,8 +85,8 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         UI_QUIT
     };
 
-    /** Array of pixel data for the screen */
-    csci3081::PixelBuffer *display_buffer_;
+    /** Pointer to pixel data for the screen */
+    PixelBuffer *display_buffer_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
     float cur_color_red_;
@@ -102,7 +101,6 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
-}  // namespace brushwork
-}  // namespace csci3081
+}  // namespace image_tools
 
 #endif  // INCLUDE_BRUSHWORKAPP_H_

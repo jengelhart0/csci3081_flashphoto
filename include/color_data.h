@@ -15,7 +15,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -69,6 +69,6 @@ class ColorData {
   float blue_;
   float alpha_;
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
 #endif  // INCLUDE_COLORDATA_H_
