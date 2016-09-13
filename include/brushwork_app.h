@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : BrushWorkApp.h
+ * Name            : brushwork_app.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : App
  * Description     : Header file for BrushWork application.
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -9,15 +9,15 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BRUSHWORKAPP_H_
-#define INCLUDE_BRUSHWORKAPP_H_
+#ifndef INCLUDE_BRUSHWORK_APP_H_
+#define INCLUDE_BRUSHWORK_APP_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "BaseGfxApp.h"
-#include "ColorData.h"
-#include "PixelBuffer.h"
+#include "include/base_gfx_app.h"
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -103,4 +103,4 @@ class BrushWorkApp : public BaseGfxApp {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BRUSHWORKAPP_H_
+#endif  // INCLUDE_BRUSHWORK_APP_H_

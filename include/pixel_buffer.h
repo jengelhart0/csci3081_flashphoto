@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : PixelBuffer.h
+ * Name            : pixel_buffer.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Header file for PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_PIXELBUFFER_H_
-#define INCLUDE_PIXELBUFFER_H_
+#ifndef INCLUDE_PIXEL_BUFFER_H_
+#define INCLUDE_PIXEL_BUFFER_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "ColorData.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces
@@ -76,4 +76,4 @@ class PixelBuffer {
   PixelBuffer& operator=(const PixelBuffer &rhs);
 };
 }  // namespace image_tools
-#endif  // INCLUDE_PIXELBUFFER_H_
+#endif  // INCLUDE_PIXEL_BUFFER_H_

@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : ColorData.h
+ * Name            : color_data.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Header file for ColorData class.
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_COLORDATA_H_
-#define INCLUDE_COLORDATA_H_
+#ifndef INCLUDE_COLOR_DATA_H_
+#define INCLUDE_COLOR_DATA_H_
 
 /*******************************************************************************
  * Namespaces
@@ -71,4 +71,4 @@ class ColorData {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_COLORDATA_H_
+#endif  // INCLUDE_COLOR_DATA_H_
