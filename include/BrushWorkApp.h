@@ -94,9 +94,9 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     float cur_color_green_;
     float cur_color_blue_;
 
-    GLUI_Spinner *spinner_r_; /**< SETH FILL THIS IN  */
-    GLUI_Spinner *spinner_g_; /**< SETH FILL THIS IN  */
-    GLUI_Spinner *spinner_b_; /**< SETH FILL THIS IN  */
+    GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
+    GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
+    GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
     /* Copy/move assignment/construction disallowed */
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
