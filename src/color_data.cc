@@ -17,7 +17,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors
@@ -61,4 +61,4 @@ ColorData operator- (const ColorData& a, const ColorData& b) {
         return ColorData(a.red_ - b.red_, a.green_ - b.green_,
                          a.blue_ - b.blue_, a.alpha_ - b.alpha_);
 }
-}  // namespace csci3081
+}  // namespace image_tools

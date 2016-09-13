@@ -23,7 +23,7 @@
  ******************************************************************************/
 using std::cerr;
 using std::endl;
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors
@@ -91,4 +91,4 @@ PixelBuffer& PixelBuffer::operator=(
     return *this;
 } /* operator=() */
 
-}  // namespace csci3081
+}  // namespace image_tools

@@ -20,7 +20,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -75,5 +75,5 @@ class PixelBuffer {
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs);
 };
-}  // namespace csci3081
+}  // namespace image_tools
 #endif  // INCLUDE_PIXELBUFFER_H_
