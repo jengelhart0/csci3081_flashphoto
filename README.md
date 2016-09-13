@@ -72,8 +72,12 @@ These are examples of the quality of the commit messages we will be expecting.
   - start periodic checking
   - missing brace
 
-## Generating documentation
-The following command can be used to generate html documentation for the code
-(assuming current directory is project root): 
+## Documenting your project
+Students, you do not need to worry about documenting the code with doxygen style
+comments until iteration 3. However, you certainly can if you want.
+
+This is more so I don't forget how to do it. The following command can be used
+to generate html documentation for the code (assuming current directory is
+project root):
 
     cd doc && doxygen Doxyfile
