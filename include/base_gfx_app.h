@@ -264,7 +264,7 @@ class BaseGfxApp {
 
   GLUI *glui_; /**< Pointer to GLUI master */
 
-  bool drag_; /**< SETH FILL THIS IN  */
+  bool drag_; /**< Indicates whether the mouse is currently pressed  */
   int width_;
   int height_;
   int milliseconds_; /**< ms since last update  */
