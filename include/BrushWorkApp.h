@@ -86,7 +86,7 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
         UI_QUIT
     };
 
-    /** Array of pixel data for the screen */
+    /** Pointer to pixel data for the screen */
     csci3081::PixelBuffer *display_buffer_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
