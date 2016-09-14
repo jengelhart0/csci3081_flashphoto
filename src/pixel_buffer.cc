@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : pixel_buffer.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Implementation of PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -70,25 +70,5 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
 void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     std::fill(pixels_, pixels_+width_*height_, color);
 }
-
-/*******************************************************************************
- * Operator Definitions
- ******************************************************************************/
-PixelBuffer& PixelBuffer::operator=(
-    const PixelBuffer &rhs) {
-    /* Check for self-assignment! */
-    if (this == &rhs) {
-        return *this;
-    }
-    if (this->width() != rhs.width() ||
-        this->height() != rhs.height()) {
-        cerr << "CopyPixelBuffer: dimension mismatch" << endl;
-    } else {
-        std::copy(this->pixels_,
-                  this->pixels_+(sizeof(ColorData)*width_*height_),
-                  rhs.pixels_);
-    }
-    return *this;
-} /* operator=() */
 
 }  // namespace image_tools

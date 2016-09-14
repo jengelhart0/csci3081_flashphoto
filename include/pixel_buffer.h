@@ -73,7 +73,7 @@ class PixelBuffer {
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
-  PixelBuffer& operator=(const PixelBuffer &rhs);
+  PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PIXEL_BUFFER_H_
