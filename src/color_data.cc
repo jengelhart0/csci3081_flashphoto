@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : color_data.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : image_tools
  * Description     : Implementation of ColorData class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "ColorData.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces

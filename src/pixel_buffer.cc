@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "PixelBuffer.h"
-#include "ColorData.h"
-
+#include "include/pixel_buffer.h"
 #include <iostream>
 #include <cstring>
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespace Definitions

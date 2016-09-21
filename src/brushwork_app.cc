@@ -12,12 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "BrushWorkApp.h"
-#include "ColorData.h"
-#include "PixelBuffer.h"
-
+#include "include/brushwork_app.h"
 #include <cmath>
 #include <iostream>
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
