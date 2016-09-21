@@ -35,71 +35,71 @@ namespace image_tools {
  **/
 class BrushWorkApp : public BaseGfxApp {
  public:
-    BrushWorkApp(
-        int width,
-        int height);
+  BrushWorkApp(
+      int width,
+      int height);
 
-    virtual ~BrushWorkApp(void);
+  virtual ~BrushWorkApp(void);
 
-    void MouseDragged(int x, int y);
-    void MouseMoved(int x, int y);
-    void LeftMouseDown(int x, int y);
-    void LeftMouseUp(int x, int y);
-    void Display(void);
-    void GluiControl(int controlID);
+  void MouseDragged(int x, int y);
+  void MouseMoved(int x, int y);
+  void LeftMouseDown(int x, int y);
+  void LeftMouseUp(int x, int y);
+  void Display(void);
+  void GluiControl(int controlID);
 
-    virtual void Init(
-        int argc,
-        char* argv[],
-        int x,
-        int y,
-        ColorData backgroundColor);
+  virtual void Init(
+      int argc,
+      char* argv[],
+      int x,
+      int y,
+      ColorData background_color);
 
  private:
-    void InitGlui(void);
-    void InitGraphics(void);
+  void InitGlui(void);
+  void InitGraphics(void);
 
-    /**
-     * @brief Initialize the buffers for the main window
-     */
-    void InitializeBuffers(ColorData initialColor,
-                           int width, int height);
+  /**
+   * @brief Initialize the buffers for the main window
+   */
+  void InitializeBuffers(ColorData initial_color,
+                         int width, int height);
 
-    /**
-     * @brief Set of values used to differentiate between what radio buttons is
-     * pressed by the user.
-     */
-    enum UIControlType {
-        UI_TOOLTYPE,
-        UI_COLOR_R,
-        UI_COLOR_G,
-        UI_COLOR_B,
-        UI_PRESET_RED,
-        UI_PRESET_ORANGE,
-        UI_PRESET_YELLOW,
-        UI_PRESET_GREEN,
-        UI_PRESET_BLUE,
-        UI_PRESET_PURPLE,
-        UI_PRESET_WHITE,
-        UI_PRESET_BLACK,
-        UI_QUIT
-    };
+  /* Copy/move assignment/construction disallowed */
+  BrushWorkApp(const BrushWorkApp &rhs) = delete;
+  BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
+  /**
+   * @brief Set of values used to differentiate between what radio buttons is
+   * pressed by the user.
+   */
+  enum UIControlType {
+    UI_TOOLTYPE,
+    UI_COLOR_R,
+    UI_COLOR_G,
+    UI_COLOR_B,
+    UI_PRESET_RED,
+    UI_PRESET_ORANGE,
+    UI_PRESET_YELLOW,
+    UI_PRESET_GREEN,
+    UI_PRESET_BLUE,
+    UI_PRESET_PURPLE,
+    UI_PRESET_WHITE,
+    UI_PRESET_BLACK,
+    UI_QUIT
+  };
 
-    /** Pointer to pixel data for the screen */
-    PixelBuffer *display_buffer_;
+  /** Pointer to pixel data for the screen */
+  PixelBuffer *display_buffer_;
 
-    int cur_tool_; /**< Currently selected tool from UI  */
-    float cur_color_red_;
-    float cur_color_green_;
-    float cur_color_blue_;
+  int cur_tool_; /**< Currently selected tool from UI  */
+  float cur_color_red_;
+  float cur_color_green_;
+  float cur_color_blue_;
 
-    GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
-    GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
-    GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
+  GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
+  GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
+  GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
-    /* Copy/move assignment/construction disallowed */
-    BrushWorkApp(const BrushWorkApp &rhs) = delete;
-    BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
 }  // namespace image_tools
 
