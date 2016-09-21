@@ -77,6 +77,7 @@ class FlashPhotoApp : public BaseGfxApp {
   void RedoOperation(void);
   void InitGlui(void);
   void InitGraphics(void);
+
   /**
    * @brief Initialize the buffers for the main window
    */
@@ -87,7 +88,9 @@ class FlashPhotoApp : public BaseGfxApp {
   FlashPhotoApp(const FlashPhotoApp &rhs) = delete;
   FlashPhotoApp& operator=(const FlashPhotoApp &rhs) = delete;
 
-  // GLUI INTERFACE ELEMENTS
+  /**
+   * @brief GLUI interface elements
+   */
   enum UIControlType {
     UI_TOOLTYPE,
     UI_COLOR_R,
@@ -121,6 +124,9 @@ class FlashPhotoApp : public BaseGfxApp {
     UI_QUIT
   };
 
+  /**
+   * @brief TODO: Fill this in
+   */
   enum UIMotionBlurDirections {
     DIR_N_S,
     DIR_E_W,
@@ -128,6 +134,10 @@ class FlashPhotoApp : public BaseGfxApp {
     DIR_NW_SE
   };
 
+  /**
+   * @brief A collection of filter parameters for manipulating photos
+   * TODO: Add more detail, and add comments/doc for the members below
+   */
   struct {
     float channel_color_red;
     float channel_color_green;
@@ -139,30 +149,35 @@ class FlashPhotoApp : public BaseGfxApp {
     float motion_blur_amount;
     int motion_blur_direction;
     int quantize_bins;
-  } filter_parameters_;
+  } filter_params_;
 
+  /**
+   * @brief A collection of various GLUI control elements.
+   * TODO: Add more detail, and add comments/doc for the members below
+   */
   struct {
-    GLUI_FileBrowser* file_browser;
-    GLUI_Button *load_canvas_button;
-    GLUI_Button *load_stamp_button;
-    GLUI_Button *save_canvas_button;
-    GLUI_Button *redo_button;
-    GLUI_Button *undo_button;
-    GLUI_StaticText * current_file_label;
-    GLUI_EditText* file_name_box;
-    GLUI_StaticText * save_file_label;
-
+    GLUI_FileBrowser *file_browser;
+    GLUI_Button *load_canvas_btn;
+    GLUI_Button *load_stamp_btn;
+    GLUI_Button *save_canvas_btn;
+    GLUI_Button *redo_btn;
+    GLUI_Button *undo_btn;
+    GLUI_StaticText *current_file_label;
+    GLUI_EditText *file_name_box;
+    GLUI_StaticText *save_file_label;
     GLUI_Spinner *spinner_red;
     GLUI_Spinner *spinner_green;
     GLUI_Spinner *spinner_blue;
-  } glui_control_hooks_;
+  } glui_ctrl_hooks_;
 
-  // This is the pointer to the buffer where the display PixelBuffer is stored
-  PixelBuffer* display_buffer_;
+  /** Pointer to pixel data for the screen */
+  PixelBuffer *display_buffer_;
 
   // These are used to store the selections from the GLUI user interface
-  int cur_tool_;
-  float cur_color_red_, cur_color_green_, cur_color_blue_;
+  int cur_tool_;  /**< Currently selected tool from UI */
+  float cur_color_red_;
+  float cur_color_green_;
+  float cur_color_blue_;
   std::string file_name_;
 };
 }  // namespace image_tools
