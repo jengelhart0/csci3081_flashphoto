@@ -31,7 +31,7 @@ namespace image_tools {
 class FilterHandler {
  public:
   FilterHandler();
-  ~FilterHandler() {};
+  ~FilterHandler() {}
 
   void ApplyBlur(void);
   void ApplySharpen(void);
@@ -45,10 +45,7 @@ class FilterHandler {
   void ApplySpecial(void);
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
-  void GluiControl(int controlID);
-
  private:
-  static void s_gluicallback(int controlID);
 
   /* data members */
   float channel_color_red_;

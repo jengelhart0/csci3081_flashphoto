@@ -20,6 +20,7 @@
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "filter_handler.h"
+#include "io_handler.h"
 #include "ui_ctrl.h"
 
 /*******************************************************************************
@@ -49,16 +50,8 @@ class FlashPhotoApp : public BaseGfxApp {
       ColorData background_color);
 
  private:
-  void set_image_file(const std::string & filepath);
-  bool is_valid_image_file_name(const std::string & name);
-  bool is_valid_image_file(const std::string & name);
-  bool has_suffix(const std::string & str, const std::string & suffix);
-  void button_enabled(GLUI_Button * button, bool enabled);
   void undo_enabled(bool enabled);
   void redo_enabled(bool enabled);
-  void save_canvas_enabled(bool enabled);
-  void load_canvas_enabled(bool enabled);
-  void load_stamp_enabled(bool enabled);
   void update_colors(void);
 
   void LoadImageToCanvas(void);
@@ -91,10 +84,16 @@ class FlashPhotoApp : public BaseGfxApp {
   };
 
   /**
-   * @brief A collection of filter parameters for manipulating photos
+   * @brief A collection of filter parameters/operations for manipulating photos
    * TODO: Add more detail
    */
   FilterHandler filter_handler_;
+
+  /**
+   * @brief A collection of I/O parameters for manipulating photos
+   * TODO: Add more detail
+   */
+  IOHandler io_handler_;
 
   /**
    * @brief A collection of various GLUI control elements.
@@ -107,9 +106,6 @@ class FlashPhotoApp : public BaseGfxApp {
     GLUI_Button *save_canvas_btn;
     GLUI_Button *redo_btn;
     GLUI_Button *undo_btn;
-    GLUI_StaticText *current_file_label;
-    GLUI_EditText *file_name_box;
-    GLUI_StaticText *save_file_label;
     GLUI_Spinner *spinner_red;
     GLUI_Spinner *spinner_green;
     GLUI_Spinner *spinner_blue;
@@ -123,7 +119,6 @@ class FlashPhotoApp : public BaseGfxApp {
   float cur_color_red_;
   float cur_color_green_;
   float cur_color_blue_;
-  std::string file_name_;
 };
 }  // namespace image_tools
 

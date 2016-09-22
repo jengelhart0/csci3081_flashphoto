@@ -29,13 +29,13 @@ namespace image_tools {
  ******************************************************************************/
 FlashPhotoApp::FlashPhotoApp(int width,int height) : BaseGfxApp(width, height),
                                                      filter_handler_(),
+                                                     io_handler_(),
                                                      glui_ctrl_hooks_(),
                                                      display_buffer_(nullptr),
                                                      cur_tool_(0),
                                                      cur_color_red_(0.0),
                                                      cur_color_green_(0.0),
-                                                     cur_color_blue_(0.0),
-                                                     file_name_() {}
+                                                     cur_color_blue_(0.0){}
 
 /*******************************************************************************
  * Member Functions
@@ -167,52 +167,7 @@ void FlashPhotoApp::InitGlui(void) {
   filter_handler_.InitGlui(glui(),s_gluicallback);
 
   /* Initialize image I/O */
-  new GLUI_Column(glui(), true);
-
-  GLUI_Panel *imagePanel = new GLUI_Panel(glui(), "Image I/O");
-  {
-    glui_ctrl_hooks_.file_browser = new GLUI_FileBrowser(imagePanel,
-                                                         "Choose Image",
-                                                         false,
-                                                         UICtrl::UI_FILE_BROWSER,
-                                                         s_gluicallback);
-
-    glui_ctrl_hooks_.file_browser->set_h(400);
-
-    glui_ctrl_hooks_.file_name_box = new GLUI_EditText(imagePanel ,
-                                                       "Image:",
-                                                       file_name_,
-                                                       UICtrl::UI_FILE_NAME,
-                                                       s_gluicallback);
-    glui_ctrl_hooks_.file_name_box->set_w(200);
-
-    new GLUI_Separator(imagePanel);
-
-    glui_ctrl_hooks_.current_file_label = new GLUI_StaticText(imagePanel,
-                                                              "Will load image: none");
-    glui_ctrl_hooks_.load_canvas_btn = new GLUI_Button(imagePanel,
-                                                          "Load Canvas",
-                                                          UICtrl::UI_LOAD_CANVAS_BUTTON,
-                                                          s_gluicallback);
-    glui_ctrl_hooks_.load_stamp_btn = new GLUI_Button(imagePanel,
-                                                         "Load Stamp",
-                                                         UICtrl::UI_LOAD_STAMP_BUTTON,
-                                                         s_gluicallback);
-
-    new GLUI_Separator(imagePanel);
-
-    glui_ctrl_hooks_.save_file_label = new GLUI_StaticText(imagePanel,
-                                                           "Will save image: none");
-
-    glui_ctrl_hooks_.save_canvas_btn = new GLUI_Button(imagePanel,
-                                                          "Save Canvas",
-                                                          UICtrl::UI_SAVE_CANVAS_BUTTON,
-                                                          s_gluicallback);
-
-    load_canvas_enabled(false);
-    load_stamp_enabled(false);
-    save_canvas_enabled(false);
-  }
+  io_handler_.InitGlui(glui(),s_gluicallback);
   return;
 }
 
@@ -297,7 +252,7 @@ void FlashPhotoApp::GluiControl(int controlID) {
       filter_handler_.ApplySpecial();
       break;
     case UICtrl::UI_FILE_BROWSER:
-      set_image_file(glui_ctrl_hooks_.file_browser->get_file());
+      io_handler_.set_image_file(glui_ctrl_hooks_.file_browser->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
       LoadImageToCanvas();
@@ -311,7 +266,7 @@ void FlashPhotoApp::GluiControl(int controlID) {
       glui_ctrl_hooks_.file_browser->fbreaddir(".");
       break;
     case UICtrl::UI_FILE_NAME:
-      set_image_file(file_name_);
+      io_handler_.set_image_file(io_handler_.file_name());
       break;
     case UICtrl::UI_UNDO:
       UndoOperation();
@@ -331,15 +286,18 @@ void FlashPhotoApp::GluiControl(int controlID) {
  * Member Functions For Handling Button Presses (GLUI callbacks)
  ******************************************************************************/
 void FlashPhotoApp::LoadImageToCanvas(void) {
-  std::cout << "Load Canvas has been clicked for file " << file_name_ << std::endl;
+  std::cout << "Load Canvas has been clicked for file " << io_handler_.file_name()
+            << std::endl;
 }
 
 void FlashPhotoApp::LoadImageToStamp(void) {
-  std::cout << "Load Stamp has been clicked for file " << file_name_ << std::endl;
+  std::cout << "Load Stamp has been clicked for file " << io_handler_.file_name()
+            << std::endl;
 }
 
 void FlashPhotoApp::SaveCanvasToFile(void) {
-  std::cout << "Save Canvas been clicked for file " << file_name_ << std::endl;
+  std::cout << "Save Canvas been clicked for file " << io_handler_.file_name()
+            << std::endl;
 }
 
 void FlashPhotoApp::UndoOperation(void) {
@@ -353,33 +311,12 @@ void FlashPhotoApp::RedoOperation(void) {
 /*******************************************************************************
  * Member Functions For Managing GLUI Interface
  ******************************************************************************/
-void FlashPhotoApp::button_enabled(GLUI_Button * button, bool enabled) {
-  if (enabled) {
-    button->enable();
-  } else {
-    button->disable();
-  }
-  button->redraw();
-}
-
 void FlashPhotoApp::redo_enabled(bool enabled) {
-  button_enabled(glui_ctrl_hooks_.redo_btn, enabled);
+  ui_ctrl_.button_toggle(glui_ctrl_hooks_.redo_btn, enabled);
 }
 
 void FlashPhotoApp::undo_enabled(bool enabled) {
-  button_enabled(glui_ctrl_hooks_.undo_btn, enabled);
-}
-
-void FlashPhotoApp::save_canvas_enabled(bool enabled) {
-  button_enabled(glui_ctrl_hooks_.save_canvas_btn, enabled);
-}
-
-void FlashPhotoApp::load_stamp_enabled(bool enabled) {
-  button_enabled(glui_ctrl_hooks_.load_stamp_btn, enabled);
-}
-
-void FlashPhotoApp::load_canvas_enabled(bool enabled) {
-  button_enabled(glui_ctrl_hooks_.load_canvas_btn, enabled);
+  ui_ctrl_.button_toggle(glui_ctrl_hooks_.undo_btn, enabled);
 }
 
 void FlashPhotoApp::update_colors(void) {
@@ -388,72 +325,6 @@ void FlashPhotoApp::update_colors(void) {
   glui_ctrl_hooks_.spinner_red->set_float_val(cur_color_red_);
 }
 
-bool FlashPhotoApp::has_suffix(const std::string & str,
-                               const std::string & suffix) {
-  return str.find(suffix, str.length()-suffix.length()) != std::string::npos;
-}
-
-
-bool FlashPhotoApp::is_valid_image_file_name(const std::string & name) {
-  if (has_suffix(name, ".png") || has_suffix(name, ".jpg")
-      || has_suffix(name, ".jpeg")) {
-    return true;
-  }
-  return false;
-}
-
-bool FlashPhotoApp::is_valid_image_file(const std::string & name) {
-  FILE *f;
-  bool isValid = false;
-  if (is_valid_image_file_name(name)) {
-    if ((f = fopen(name.c_str(), "r"))) {
-      isValid = true;
-      fclose(f);
-    }
-  }
-  return isValid;
-}
-
-void FlashPhotoApp::set_image_file(const std::string & fileName) {
-  // If a directory was selected
-  // instead of a file, use the
-  // latest file typed or selected.
-  std::string imageFile = fileName;
-  if (!is_valid_image_file_name(imageFile)) {
-    imageFile = file_name_;
-  }
-
-
-  // TOGGLE SAVE FEATURE
-  // If no file is selected or typed,
-  // don't allow file to be saved. If
-  // there is a file name, then allow
-  // file to be saved to that name.
-
-  if (!is_valid_image_file_name(imageFile)) {
-    glui_ctrl_hooks_.save_file_label->set_text("Will save image: none");
-    save_canvas_enabled(false);
-  } else {
-    glui_ctrl_hooks_.save_file_label->set_text((std::string("Will save image: ") + imageFile).c_str());
-    save_canvas_enabled(true);
-  }
-
-  // TOGGLE LOAD FEATURE
-
-  // If the file specified cannot be opened,
-  // then disable stamp and canvas loading.
-  if (is_valid_image_file(imageFile)) {
-    load_stamp_enabled(true);
-    load_canvas_enabled(true);
-
-    glui_ctrl_hooks_.current_file_label->set_text((std::string("Will load: ") + imageFile).c_str());
-    glui_ctrl_hooks_.file_name_box->set_text(imageFile);
-  } else {
-    load_stamp_enabled(false);
-    load_canvas_enabled(false);
-    glui_ctrl_hooks_.current_file_label->set_text("Will load: none");
-  }
-}
 
 void FlashPhotoApp::InitGraphics(void) {
   // Initialize OpenGL for 2D graphics as used in the BrushWork app

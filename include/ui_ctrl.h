@@ -2,7 +2,7 @@
  * Name            : ui_ctrl.h
  * Project         : image_tools
  * Module          : utils
- * Description     : General UI constant definitions
+ * Description     : General UI definitions
  * Creation Date   : Wed Sep 21 19:04:44 2016
  * Original Author : jharwell
  *
@@ -14,13 +14,20 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include "GL/glui.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
 namespace image_tools {
 class UICtrl {
+
  public:
+  static void button_toggle(GLUI_Button * button, bool enabled) {
+    (enabled)?button->enable():button->disable();
+    button->redraw();
+  }
+
   /**
    * @brief GLUI interface elements
    */
@@ -46,7 +53,7 @@ class UICtrl {
     UI_APPLY_SHARP,
     UI_APPLY_EDGE,
     UI_APPLY_THRESHOLD,
-    UI_APPLY_DITHER,
+   UI_APPLY_DITHER,
     UI_APPLY_SATURATE,
     UI_APPLY_CHANNEL,
     UI_APPLY_QUANTIZE,
