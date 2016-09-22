@@ -70,4 +70,31 @@ void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     std::fill(pixels_, pixels_+width_*height_, color);
 }
 
+void PixelBuffer::copyPixelBuffer(const PixelBuffer * sourceBuffer,
+                                  PixelBuffer * destinationBuffer)
+{
+  if (destinationBuffer->width() != sourceBuffer->width()
+      || destinationBuffer->height() != sourceBuffer->height())
+  {
+    cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
+
+  }
+  else
+  {
+    memcpy ( (void*)destinationBuffer->pixels_, (void*) sourceBuffer->pixels_,
+             sizeof(ColorData)*destinationBuffer->height()*destinationBuffer->width() );
+
+  }
+
+}
+
+
+PixelBuffer* PixelBuffer::duplicatePixelBuffer(const PixelBuffer* sourceBuffer)
+{
+  PixelBuffer* d = new PixelBuffer(sourceBuffer->width(),
+                                   sourceBuffer->height(), sourceBuffer->get_background_color());
+  PixelBuffer::copyPixelBuffer(sourceBuffer, d);
+  return d;
+}
+
 }  // namespace image_tools

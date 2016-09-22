@@ -63,6 +63,7 @@ class PixelBuffer {
    * @return The color associated with a specific pixel
    */
   ColorData get_pixel(int x, int y) const;
+  PixelBuffer* duplicatePixelBuffer(const PixelBuffer* sourceBuffer)
 
 
  private:
@@ -71,6 +72,8 @@ class PixelBuffer {
 
   ColorData *pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
+  void copyPixelBuffer(const PixelBuffer * sourceBuffer,
+                                    PixelBuffer * destinationBuffer)
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
