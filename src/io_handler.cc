@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : _handler.cc
+ * Name            : io_handler.cc
  * Project         : FlashPhoto
  * Module          : io_handler
  * Description     : Implementation of IOHandler class
@@ -100,23 +100,23 @@ bool IOHandler::is_valid_image_file_name(const std::string & name) {
 
 bool IOHandler::is_valid_image_file(const std::string & name) {
   FILE *f;
-  bool isValid = false;
+  bool is_valid = false;
   if (is_valid_image_file_name(name)) {
     if ((f = fopen(name.c_str(), "r"))) {
-      isValid = true;
+      is_valid = true;
       fclose(f);
     }
   }
-  return isValid;
+  return is_valid;
 }
 
-void IOHandler::set_image_file(const std::string & fileName) {
+void IOHandler::set_image_file(const std::string & file_name) {
   // If a directory was selected
   // instead of a file, use the
   // latest file typed or selected.
-  std::string imageFile = fileName;
-  if (!is_valid_image_file_name(imageFile)) {
-    imageFile = file_name_;
+  std::string image_file = file_name;
+  if (!is_valid_image_file_name(image_file)) {
+    image_file = file_name_;
   }
 
 
@@ -126,11 +126,11 @@ void IOHandler::set_image_file(const std::string & fileName) {
   // there is a file name, then allow
   // file to be saved to that name.
 
-  if (!is_valid_image_file_name(imageFile)) {
+  if (!is_valid_image_file_name(image_file)) {
     save_file_label_->set_text("Will save image: none");
     save_canvas_toggle(false);
   } else {
-    save_file_label_->set_text((std::string("Will save image: ") + imageFile).c_str());
+    save_file_label_->set_text((std::string("Will save image: ") + image_file).c_str());
     save_canvas_toggle(true);
   }
 
@@ -138,12 +138,12 @@ void IOHandler::set_image_file(const std::string & fileName) {
 
   // If the file specified cannot be opened,
   // then disable stamp and canvas loading.
-  if (is_valid_image_file(imageFile)) {
+  if (is_valid_image_file(image_file)) {
     load_stamp_toggle(true);
     load_canvas_toggle(true);
 
-    current_file_label_->set_text((std::string("Will load: ") + imageFile).c_str());
-    file_name_box_->set_text(imageFile);
+    current_file_label_->set_text((std::string("Will load: ") + image_file).c_str());
+    file_name_box_->set_text(image_file);
   } else {
     load_stamp_toggle(false);
     load_canvas_toggle(false);

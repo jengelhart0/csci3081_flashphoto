@@ -109,44 +109,44 @@ void FlashPhotoApp::InitGlui(void) {
     new GLUI_RadioButton(radio, "Blur");
   }
 
-  GLUI_Panel *colorPanel = new GLUI_Panel(glui(), "Tool Color");
+  GLUI_Panel *color_panel = new GLUI_Panel(glui(), "Tool Color");
   {
     cur_color_red_ = 0;
-    glui_ctrl_hooks_.spinner_red  = new GLUI_Spinner(colorPanel, "Red:",
+    glui_ctrl_hooks_.spinner_red  = new GLUI_Spinner(color_panel, "Red:",
                                                      &cur_color_red_,
                                                      UICtrl::UI_COLOR_R,
                                                      s_gluicallback);
     glui_ctrl_hooks_.spinner_red->set_float_limits(0, 1.0);
 
     cur_color_green_ = 0;
-    glui_ctrl_hooks_.spinner_green = new GLUI_Spinner(colorPanel, "Green_:",
+    glui_ctrl_hooks_.spinner_green = new GLUI_Spinner(color_panel, "Green_:",
                                                       &cur_color_green_,
                                                       UICtrl::UI_COLOR_G,
                                                       s_gluicallback);
     glui_ctrl_hooks_.spinner_green->set_float_limits(0, 1.0);
 
     cur_color_blue_ = 0;
-    glui_ctrl_hooks_.spinner_blue  = new GLUI_Spinner(colorPanel, "Blue:",
+    glui_ctrl_hooks_.spinner_blue  = new GLUI_Spinner(color_panel, "Blue:",
                                                       &cur_color_blue_,
                                                       UICtrl::UI_COLOR_B,
                                                       s_gluicallback);
     glui_ctrl_hooks_.spinner_blue->set_float_limits(0, 1.0);
 
-    new GLUI_Button(colorPanel, "Red", UICtrl::UI_PRESET_RED,
+    new GLUI_Button(color_panel, "Red", UICtrl::UI_PRESET_RED,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Orange", UICtrl::UI_PRESET_ORANGE,
+    new GLUI_Button(color_panel, "Orange", UICtrl::UI_PRESET_ORANGE,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Yellow", UICtrl::UI_PRESET_YELLOW,
+    new GLUI_Button(color_panel, "Yellow", UICtrl::UI_PRESET_YELLOW,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Green", UICtrl::UI_PRESET_GREEN,
+    new GLUI_Button(color_panel, "Green", UICtrl::UI_PRESET_GREEN,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Blue", UICtrl::UI_PRESET_BLUE,
+    new GLUI_Button(color_panel, "Blue", UICtrl::UI_PRESET_BLUE,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Purple", UICtrl::UI_PRESET_PURPLE,
+    new GLUI_Button(color_panel, "Purple", UICtrl::UI_PRESET_PURPLE,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "White", UICtrl::UI_PRESET_WHITE,
+    new GLUI_Button(color_panel, "White", UICtrl::UI_PRESET_WHITE,
                     s_gluicallback);
-    new GLUI_Button(colorPanel, "Black", UICtrl::UI_PRESET_BLACK,
+    new GLUI_Button(color_panel, "Black", UICtrl::UI_PRESET_BLACK,
                     s_gluicallback);
   }
 
@@ -171,8 +171,8 @@ void FlashPhotoApp::InitGlui(void) {
   return;
 }
 
-void FlashPhotoApp::GluiControl(int controlID) {
-  switch (controlID) {
+void FlashPhotoApp::GluiControl(int control_id) {
+  switch (control_id) {
     case UICtrl::UI_PRESET_RED:
       cur_color_red_ = 1;
       cur_color_green_ = 0;

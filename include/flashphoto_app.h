@@ -41,7 +41,7 @@ class FlashPhotoApp : public BaseGfxApp {
   void LeftMouseDown(int x, int y);
   void LeftMouseUp(int x, int y);
   void Display(void);
-  void GluiControl(int controlID);
+  void GluiControl(int control_id);
   void Init(
       int argc,
       char* argv[],
@@ -66,7 +66,7 @@ class FlashPhotoApp : public BaseGfxApp {
   /**
    * @brief Initialize the buffers for the main window
    */
-  void InitializeBuffers(ColorData initialColor,
+  void InitializeBuffers(ColorData initial_color,
                          int width, int height);
 
   /* Copy/move assignment/construction disallowed */

@@ -86,122 +86,120 @@ void FilterHandler::ApplySpecial(void) {
 void FilterHandler::InitGlui(const GLUI *const glui,
                              void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
-  GLUI_Panel *filterPanel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
+  GLUI_Panel *filter_panel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
   {
-    GLUI_Panel *blurPanel = new GLUI_Panel(filterPanel, "Blur");
+    GLUI_Panel *blur_panel = new GLUI_Panel(filter_panel, "Blur");
     {
-      GLUI_Spinner * filterBlurAmount = new GLUI_Spinner(blurPanel, "Amount:",
+      GLUI_Spinner * blur_amount = new GLUI_Spinner(blur_panel, "Amount:",
                                                          &blur_amount_);
-      filterBlurAmount->set_int_limits(0, 20);
+      blur_amount->set_int_limits(0, 20);
+      blur_amount->set_int_val(5);
 
-      filterBlurAmount->set_int_val(5);
-
-      new GLUI_Button(blurPanel, "Apply",
+      new GLUI_Button(blur_panel, "Apply",
                       UICtrl::UI_APPLY_BLUR, s_gluicallback);
     }
 
-    GLUI_Panel *motionBlurPanel = new GLUI_Panel(filterPanel, "MotionBlur");
+    GLUI_Panel *motion_blur_panel = new GLUI_Panel(filter_panel, "MotionBlur");
     {
-      GLUI_Spinner*filterMotionBlurAmount = new GLUI_Spinner(motionBlurPanel,
+      GLUI_Spinner*motion_blur_amount = new GLUI_Spinner(motion_blur_panel,
                                                              "Amount:",
                                                              &motion_blur_amount_);
-      filterMotionBlurAmount->set_int_limits(0, 100);
-      filterMotionBlurAmount->set_int_val(5);
+      motion_blur_amount->set_int_limits(0, 100);
+      motion_blur_amount->set_int_val(5);
 
       motion_blur_direction_ = 0;
-      GLUI_RadioGroup *dirBlur = new GLUI_RadioGroup(motionBlurPanel,
+      GLUI_RadioGroup *dir_blur = new GLUI_RadioGroup(motion_blur_panel,
                                                      &motion_blur_direction_);
-      new GLUI_RadioButton(dirBlur, "North/South");
-      new GLUI_RadioButton(dirBlur, "East/West");
-      new GLUI_RadioButton(dirBlur, "NorthEast/SouthWest");
-      new GLUI_RadioButton(dirBlur, "NorthWest/SouthEast");
+      new GLUI_RadioButton(dir_blur, "North/South");
+      new GLUI_RadioButton(dir_blur, "East/West");
+      new GLUI_RadioButton(dir_blur, "NorthEast/SouthWest");
+      new GLUI_RadioButton(dir_blur, "NorthWest/SouthEast");
 
-      new GLUI_Button(motionBlurPanel, "Apply",
+      new GLUI_Button(motion_blur_panel, "Apply",
                       UICtrl::UI_APPLY_MOTION_BLUR, s_gluicallback);
     }
-    GLUI_Panel *sharpenPanel = new GLUI_Panel(filterPanel, "Sharpen");
+    GLUI_Panel *sharpen_panel = new GLUI_Panel(filter_panel, "Sharpen");
     {
-      GLUI_Spinner * filterSharpAmount = new GLUI_Spinner(sharpenPanel,
-                                                          "Amount:",
-                                                          &sharpen_amount_);
-      filterSharpAmount->set_int_limits(0, 100);
+      GLUI_Spinner * sharp_amount = new GLUI_Spinner(sharpen_panel,
+                                                     "Amount:",
+                                                     &sharpen_amount_);
+      sharp_amount->set_int_limits(0, 100);
+      sharp_amount->set_int_val(5);
 
-      filterSharpAmount->set_int_val(5);
-
-      new GLUI_Button(sharpenPanel, "Apply",
+      new GLUI_Button(sharpen_panel, "Apply",
                       UICtrl::UI_APPLY_SHARP, s_gluicallback);
     }
-    GLUI_Panel *edgeDetPanel = new GLUI_Panel(filterPanel, "Edge Detect");
+    GLUI_Panel *edge_det_panel = new GLUI_Panel(filter_panel, "Edge Detect");
 
     {
-      new GLUI_Button(edgeDetPanel, "Apply",
+      new GLUI_Button(edge_det_panel, "Apply",
                       UICtrl::UI_APPLY_EDGE, s_gluicallback);
     }
-    GLUI_Panel *thresPanel = new GLUI_Panel(filterPanel, "Threshold");
+    GLUI_Panel *thres_panel = new GLUI_Panel(filter_panel, "Threshold");
     {
-      GLUI_Spinner * filterThresholdAmount = new GLUI_Spinner(thresPanel,
-                                                              "Level:",
-                                                              &threshold_amount_);
-      filterThresholdAmount->set_float_limits(0, 1);
-      filterThresholdAmount->set_float_val(0.5);
+      GLUI_Spinner *threshold_amount = new GLUI_Spinner(thres_panel,
+                                                        "Level:",
+                                                        &threshold_amount_);
+      threshold_amount->set_float_limits(0, 1);
+      threshold_amount->set_float_val(0.5);
 
-      new GLUI_Button(thresPanel, "Apply",
+      new GLUI_Button(thres_panel, "Apply",
                       UICtrl::UI_APPLY_THRESHOLD, s_gluicallback);
     }
 
-    new GLUI_Column(filterPanel, true);
+    new GLUI_Column(filter_panel, true);
 
-    GLUI_Panel *saturPanel = new GLUI_Panel(filterPanel, "Saturation");
+    GLUI_Panel *satur_panel = new GLUI_Panel(filter_panel, "Saturation");
     {
-      GLUI_Spinner * filterSaturationAmount = new GLUI_Spinner(saturPanel,
+      GLUI_Spinner * saturation_amount = new GLUI_Spinner(satur_panel,
                                                                "Amount:",
                                                                &saturation_amount_);
-      filterSaturationAmount->set_float_limits(-10, 10);
-      filterSaturationAmount->set_float_val(1);
+      saturation_amount->set_float_limits(-10, 10);
+      saturation_amount->set_float_val(1);
 
-      new GLUI_Button(saturPanel, "Apply",
+      new GLUI_Button(satur_panel, "Apply",
                       UICtrl::UI_APPLY_SATURATE,
                       s_gluicallback);
     }
 
-    GLUI_Panel *channelPanel = new GLUI_Panel(filterPanel, "Channels");
+    GLUI_Panel *channel_panel = new GLUI_Panel(filter_panel, "Channels");
     {
-      GLUI_Spinner *filterChannel_red_ = new GLUI_Spinner(channelPanel, "_red_:",
+      GLUI_Spinner *channel_red = new GLUI_Spinner(channel_panel, "_red_:",
                                                            &channel_color_red_);
-      GLUI_Spinner *filterChannel_green_ = new GLUI_Spinner(channelPanel,
+      GLUI_Spinner *channel_green = new GLUI_Spinner(channel_panel,
                                                              "_green_:",
                                                              &channel_color_green_);
-      GLUI_Spinner *filterChannel_blue_ = new GLUI_Spinner(channelPanel,
+      GLUI_Spinner *channel_blue = new GLUI_Spinner(channel_panel,
                                                             "_blue_:",
                                                             &channel_color_blue_);
 
-      filterChannel_red_->set_float_limits(0, 10);
-      filterChannel_red_->set_float_val(1);
-      filterChannel_green_->set_float_limits(0, 10);
-      filterChannel_green_->set_float_val(1);
-      filterChannel_blue_->set_float_limits(0, 10);
-      filterChannel_blue_->set_float_val(1);
+      channel_red->set_float_limits(0, 10);
+      channel_red->set_float_val(1);
+      channel_green->set_float_limits(0, 10);
+      channel_green->set_float_val(1);
+      channel_blue->set_float_limits(0, 10);
+      channel_blue->set_float_val(1);
 
-      new GLUI_Button(channelPanel, "Apply",
+      new GLUI_Button(channel_panel, "Apply",
                       UICtrl::UI_APPLY_CHANNEL,
                       s_gluicallback);
     }
 
-    GLUI_Panel *quantPanel = new GLUI_Panel(filterPanel, "Quantize");
+    GLUI_Panel *quant_panel = new GLUI_Panel(filter_panel, "Quantize");
     {
-      GLUI_Spinner * filterQuantizeBins = new GLUI_Spinner(quantPanel, "Bins:",
+      GLUI_Spinner * quantize_bins = new GLUI_Spinner(quant_panel, "Bins:",
                                                            &quantize_bins_);
-      filterQuantizeBins->set_int_limits(2, 256);
-      filterQuantizeBins->set_int_val(8);
-      filterQuantizeBins->set_speed(0.1);
+      quantize_bins->set_int_limits(2, 256);
+      quantize_bins->set_int_val(8);
+      quantize_bins->set_speed(0.1);
 
-      new GLUI_Button(quantPanel, "Apply",
+      new GLUI_Button(quant_panel, "Apply",
                       UICtrl::UI_APPLY_QUANTIZE,
                       s_gluicallback);
     }
 
     // YOUR SPECIAL FILTER PANEL
-    GLUI_Panel *specialFilterPanel = new GLUI_Panel(filterPanel,
+    GLUI_Panel *specialFilterPanel = new GLUI_Panel(filter_panel,
                                                     "Special Filter");
     {
       new GLUI_Button(specialFilterPanel,

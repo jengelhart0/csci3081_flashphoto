@@ -23,7 +23,7 @@ namespace image_tools {
 class UICtrl {
 
  public:
-  static void button_toggle(GLUI_Button * button, bool enabled) {
+  static void button_toggle(GLUI_Button *button, bool enabled) {
     (enabled)?button->enable():button->disable();
     button->redraw();
   }
