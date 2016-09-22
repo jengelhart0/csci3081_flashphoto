@@ -17,7 +17,6 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "GL/glui.h"
 
 /*******************************************************************************
@@ -54,10 +53,10 @@ class BaseGfxApp {
                     char* argv[],
                     int x,
                     int y,
-                    unsigned glutFlags,
-                    bool createGLUIWin,
-                    int gluiWinX,
-                    int gluiWinY);
+                    unsigned glut_flags,
+                    bool create_glui_win,
+                    int glui_win_x,
+                    int glui_win_y);
 
   /**
    * @brief Set the window/icon title for the application
@@ -172,7 +171,7 @@ class BaseGfxApp {
    * @brief Callback that tells you when the user has interacted with a GLUI
    * widget
    */
-  virtual void GluiControl(int controlID) {}
+  virtual void GluiControl(int control_id) {}
 
   /**
    * @brief resize the graphics window on the screen.
@@ -232,7 +231,7 @@ class BaseGfxApp {
   static void s_mousemotion(int x, int y);
   static void s_mousebtn(int b, int s, int x, int y);
   static void s_draw(void);
-  static void s_gluicallback(int controlID);
+  static void s_gluicallback(int control_id);
   static void s_idle(void);
 
   /**

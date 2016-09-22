@@ -46,14 +46,14 @@ class BrushWorkApp : public BaseGfxApp {
     void LeftMouseDown(int x, int y);
     void LeftMouseUp(int x, int y);
     void Display(void);
-    void GluiControl(int controlID);
+    void GluiControl(int control_id);
 
     virtual void Init(
         int argc,
         char* argv[],
         int x,
         int y,
-        ColorData backgroundColor);
+        ColorData background_color);
 
  private:
     void InitGlui(void);
@@ -62,7 +62,7 @@ class BrushWorkApp : public BaseGfxApp {
     /**
      * @brief Initialize the buffers for the main window
      */
-    void InitializeBuffers(ColorData initialColor,
+    void InitializeBuffers(ColorData initial_color,
                            int width, int height);
 
     /**
