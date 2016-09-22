@@ -127,7 +127,7 @@ void FlashPhotoApp::InitGlui(void) {
 
     cur_color_blue_ = 0;
     glui_ctrl_hooks_.spinner_blue  = new GLUI_Spinner(colorPanel, "Blue:",
-                                                      cur_color_blue_,
+                                                      &cur_color_blue_,
                                                       UICtrl::UI_COLOR_B,
                                                       s_gluicallback);
     glui_ctrl_hooks_.spinner_blue->set_float_limits(0, 1.0);
@@ -252,7 +252,7 @@ void FlashPhotoApp::GluiControl(int controlID) {
       filter_handler_.ApplySpecial();
       break;
     case UICtrl::UI_FILE_BROWSER:
-      io_handler_.set_image_file(glui_ctrl_hooks_.file_browser->get_file());
+      io_handler_.set_image_file(io_handler_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
       LoadImageToCanvas();
@@ -263,7 +263,7 @@ void FlashPhotoApp::GluiControl(int controlID) {
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       SaveCanvasToFile();
       // Reload the current directory:
-      glui_ctrl_hooks_.file_browser->fbreaddir(".");
+      io_handler_.file_browser()->fbreaddir(".");
       break;
     case UICtrl::UI_FILE_NAME:
       io_handler_.set_image_file(io_handler_.file_name());
@@ -312,11 +312,11 @@ void FlashPhotoApp::RedoOperation(void) {
  * Member Functions For Managing GLUI Interface
  ******************************************************************************/
 void FlashPhotoApp::redo_enabled(bool enabled) {
-  ui_ctrl_.button_toggle(glui_ctrl_hooks_.redo_btn, enabled);
+  UICtrl::button_toggle(glui_ctrl_hooks_.redo_btn, enabled);
 }
 
 void FlashPhotoApp::undo_enabled(bool enabled) {
-  ui_ctrl_.button_toggle(glui_ctrl_hooks_.undo_btn, enabled);
+  UICtrl::button_toggle(glui_ctrl_hooks_.undo_btn, enabled);
 }
 
 void FlashPhotoApp::update_colors(void) {

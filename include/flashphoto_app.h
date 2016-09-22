@@ -100,7 +100,6 @@ class FlashPhotoApp : public BaseGfxApp {
    * TODO: Add more detail, and add comments/doc for the members below
    */
   struct {
-    GLUI_FileBrowser *file_browser;
     GLUI_Button *load_canvas_btn;
     GLUI_Button *load_stamp_btn;
     GLUI_Button *save_canvas_btn;

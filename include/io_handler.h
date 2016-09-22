@@ -50,7 +50,12 @@ class IOHandler {
   }
   void set_image_file(const std::string & filepath);
   const std::string& file_name(void) { return file_name_;}
+  GLUI_FileBrowser* file_browser(void) { return file_browser_;}
+
  private:
+  /* Copy/move assignment/construction disallowed */
+  IOHandler(const IOHandler &rhs) = delete;
+  IOHandler& operator=(const IOHandler &rhs) = delete;
 
   bool is_valid_image_file_name(const std::string & name);
   bool is_valid_image_file(const std::string & name);
