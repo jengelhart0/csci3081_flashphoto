@@ -19,6 +19,8 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "filter_handler.h"
+#include "ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces
@@ -63,16 +65,6 @@ class FlashPhotoApp : public BaseGfxApp {
   void LoadImageToStamp(void);
   void SaveCanvasToFile(void);
 
-  void ApplyFilterBlur(void);
-  void ApplyFilterSharpen(void);
-  void ApplyFilterMotionBlur(void);
-  void ApplyFilterEdgeDetect(void);
-  void ApplyFilterThreshold(void);
-  void ApplyFilterChannel(void);
-  void ApplyFilterSaturate(void);
-  void ApplyFilterQuantize(void);
-  void ApplyFilterSpecial(void);
-
   void UndoOperation(void);
   void RedoOperation(void);
   void InitGlui(void);
@@ -89,42 +81,6 @@ class FlashPhotoApp : public BaseGfxApp {
   FlashPhotoApp& operator=(const FlashPhotoApp &rhs) = delete;
 
   /**
-   * @brief GLUI interface elements
-   */
-  enum UIControlType {
-    UI_TOOLTYPE,
-    UI_COLOR_R,
-    UI_COLOR_G,
-    UI_COLOR_B,
-    UI_PRESET_RED,
-    UI_PRESET_ORANGE,
-    UI_PRESET_YELLOW,
-    UI_PRESET_GREEN,
-    UI_PRESET_BLUE,
-    UI_PRESET_PURPLE,
-    UI_PRESET_WHITE,
-    UI_PRESET_BLACK,
-    UI_FILE_BROWSER,
-    UI_LOAD_CANVAS_BUTTON,
-    UI_LOAD_STAMP_BUTTON,
-    UI_SAVE_CANVAS_BUTTON,
-    UI_FILE_NAME,
-    UI_APPLY_BLUR,
-    UI_APPLY_SHARP,
-    UI_APPLY_EDGE,
-    UI_APPLY_THRESHOLD,
-    UI_APPLY_DITHER,
-    UI_APPLY_SATURATE,
-    UI_APPLY_CHANNEL,
-    UI_APPLY_QUANTIZE,
-    UI_APPLY_MOTION_BLUR,
-    UI_APPLY_SPECIAL_FILTER,
-    UI_UNDO,
-    UI_REDO,
-    UI_QUIT
-  };
-
-  /**
    * @brief TODO: Fill this in
    */
   enum UIMotionBlurDirections {
@@ -136,20 +92,9 @@ class FlashPhotoApp : public BaseGfxApp {
 
   /**
    * @brief A collection of filter parameters for manipulating photos
-   * TODO: Add more detail, and add comments/doc for the members below
+   * TODO: Add more detail
    */
-  struct {
-    float channel_color_red;
-    float channel_color_green;
-    float channel_color_blue;
-    float saturation_amount;
-    float threshold_amount;
-    float blur_amount;
-    float sharpen_amount;
-    float motion_blur_amount;
-    int motion_blur_direction;
-    int quantize_bins;
-  } filter_params_;
+  FilterHandler filter_handler_;
 
   /**
    * @brief A collection of various GLUI control elements.

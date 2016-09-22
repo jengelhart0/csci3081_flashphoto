@@ -17,19 +17,18 @@
 #include <iostream>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-using std::cout;
-using std::endl;
 namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
 FlashPhotoApp::FlashPhotoApp(int width,int height) : BaseGfxApp(width, height),
-                                                     filter_params_(),
+                                                     filter_handler_(),
                                                      glui_ctrl_hooks_(),
                                                      display_buffer_(nullptr),
                                                      cur_tool_(0),
@@ -98,7 +97,8 @@ void FlashPhotoApp::InitGlui(void) {
   GLUI_Panel *toolPanel = new GLUI_Panel(glui(), "Tool Type");
   {
     GLUI_RadioGroup *radio = new GLUI_RadioGroup(toolPanel, &cur_tool_,
-                                                 UI_TOOLTYPE, s_gluicallback);
+                                                 UICtrl::UI_TOOLTYPE,
+                                                 s_gluicallback);
     // Create interface buttons for different tools:
     new GLUI_RadioButton(radio, "Pen");
     new GLUI_RadioButton(radio, "Eraser");
@@ -114,159 +114,59 @@ void FlashPhotoApp::InitGlui(void) {
     cur_color_red_ = 0;
     glui_ctrl_hooks_.spinner_red  = new GLUI_Spinner(colorPanel, "Red:",
                                                      &cur_color_red_,
-                                                     UI_COLOR_R,
+                                                     UICtrl::UI_COLOR_R,
                                                      s_gluicallback);
     glui_ctrl_hooks_.spinner_red->set_float_limits(0, 1.0);
 
     cur_color_green_ = 0;
     glui_ctrl_hooks_.spinner_green = new GLUI_Spinner(colorPanel, "Green_:",
                                                       &cur_color_green_,
-                                                      UI_COLOR_G,
+                                                      UICtrl::UI_COLOR_G,
                                                       s_gluicallback);
     glui_ctrl_hooks_.spinner_green->set_float_limits(0, 1.0);
 
     cur_color_blue_ = 0;
     glui_ctrl_hooks_.spinner_blue  = new GLUI_Spinner(colorPanel, "Blue:",
                                                       cur_color_blue_,
-                                                      UI_COLOR_B,
+                                                      UICtrl::UI_COLOR_B,
                                                       s_gluicallback);
     glui_ctrl_hooks_.spinner_blue->set_float_limits(0, 1.0);
 
-    new GLUI_Button(colorPanel, "Red", UI_PRESET_RED, s_gluicallback);
-    new GLUI_Button(colorPanel, "Orange", UI_PRESET_ORANGE, s_gluicallback);
-    new GLUI_Button(colorPanel, "Yellow", UI_PRESET_YELLOW, s_gluicallback);
-    new GLUI_Button(colorPanel, "Green", UI_PRESET_GREEN, s_gluicallback);
-    new GLUI_Button(colorPanel, "Blue", UI_PRESET_BLUE, s_gluicallback);
-    new GLUI_Button(colorPanel, "Purple", UI_PRESET_PURPLE, s_gluicallback);
-    new GLUI_Button(colorPanel, "White", UI_PRESET_WHITE, s_gluicallback);
-    new GLUI_Button(colorPanel, "Black", UI_PRESET_BLACK, s_gluicallback);
+    new GLUI_Button(colorPanel, "Red", UICtrl::UI_PRESET_RED,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Orange", UICtrl::UI_PRESET_ORANGE,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Yellow", UICtrl::UI_PRESET_YELLOW,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Green", UICtrl::UI_PRESET_GREEN,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Blue", UICtrl::UI_PRESET_BLUE,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Purple", UICtrl::UI_PRESET_PURPLE,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "White", UICtrl::UI_PRESET_WHITE,
+                    s_gluicallback);
+    new GLUI_Button(colorPanel, "Black", UICtrl::UI_PRESET_BLACK,
+                    s_gluicallback);
   }
 
-  // UNDO,REDO,QUIT
+  /* Initialize undo, redo, quit */
   {
-    glui_ctrl_hooks_.undo_btn = new GLUI_Button(glui(), "Undo", UI_UNDO,
+    glui_ctrl_hooks_.undo_btn = new GLUI_Button(glui(), "Undo", UICtrl::UI_UNDO,
                                                    s_gluicallback);
     undo_enabled(false);
-    glui_ctrl_hooks_.redo_btn  = new GLUI_Button(glui(), "Redo", UI_REDO,
+    glui_ctrl_hooks_.redo_btn  = new GLUI_Button(glui(), "Redo", UICtrl::UI_REDO,
                                                     s_gluicallback);
     redo_enabled(false);
 
     new GLUI_Separator(glui());
-    new GLUI_Button(glui(), "Quit", UI_QUIT, (GLUI_Update_CB)exit);
+    new GLUI_Button(glui(), "Quit", UICtrl::UI_QUIT, (GLUI_Update_CB)exit);
   }
 
-  new GLUI_Column(glui(), true);
-  GLUI_Panel *filterPanel = new GLUI_Panel(glui(), "Filters");
-  {
-    GLUI_Panel *blurPanel = new GLUI_Panel(filterPanel, "Blur");
-    {
-      GLUI_Spinner * filterBlurAmount = new GLUI_Spinner(blurPanel, "Amount:",
-                                                         &filter_params_.blur_amount);
-      filterBlurAmount->set_int_limits(0, 20);
+  /* Initialize Filtering */
+  filter_handler_.InitGlui(glui(),s_gluicallback);
 
-      filterBlurAmount->set_int_val(5);
-
-      new GLUI_Button(blurPanel, "Apply", UI_APPLY_BLUR, s_gluicallback);
-    }
-
-    GLUI_Panel *motionBlurPanel = new GLUI_Panel(filterPanel, "MotionBlur");
-    {
-      GLUI_Spinner * filterMotionBlurAmount = new GLUI_Spinner(motionBlurPanel,
-                                                               "Amount:",
-                                                               &filter_params_.motion_blur_amount);
-      filterMotionBlurAmount->set_int_limits(0, 100);
-
-      filterMotionBlurAmount->set_int_val(5);
-
-      filter_params_.motion_blur_direction = 0;
-      GLUI_RadioGroup *dirBlur = new GLUI_RadioGroup(motionBlurPanel,
-                                                     &filter_params_.motion_blur_direction);
-      new GLUI_RadioButton(dirBlur, "North/South");
-      new GLUI_RadioButton(dirBlur, "East/West");
-      new GLUI_RadioButton(dirBlur, "NorthEast/SouthWest");
-      new GLUI_RadioButton(dirBlur, "NorthWest/SouthEast");
-
-      new GLUI_Button(motionBlurPanel, "Apply", UI_APPLY_MOTION_BLUR, s_gluicallback);
-    }
-    GLUI_Panel *sharpenPanel = new GLUI_Panel(filterPanel, "Sharpen");
-    {
-      GLUI_Spinner * filterSharpAmount = new GLUI_Spinner(sharpenPanel, "Amount:",
-                                                          &filter_params_.sharpen_amount);
-      filterSharpAmount->set_int_limits(0, 100);
-
-      filterSharpAmount->set_int_val(5);
-
-      new GLUI_Button(sharpenPanel, "Apply", UI_APPLY_SHARP, s_gluicallback);
-    }
-    GLUI_Panel *edgeDetPanel = new GLUI_Panel(filterPanel, "Edge Detect");
-
-    {
-      new GLUI_Button(edgeDetPanel, "Apply", UI_APPLY_EDGE, s_gluicallback);
-    }
-    GLUI_Panel *thresPanel = new GLUI_Panel(filterPanel, "Threshold");
-    {
-      GLUI_Spinner * filterThresholdAmount = new GLUI_Spinner(thresPanel, "Level:",
-                                                              &filter_params_.threshold_amount);
-      filterThresholdAmount->set_float_limits(0, 1);
-      filterThresholdAmount->set_float_val(0.5);
-
-      new GLUI_Button(thresPanel, "Apply", UI_APPLY_THRESHOLD, s_gluicallback);
-    }
-
-    new GLUI_Column(filterPanel, true);
-
-    GLUI_Panel *saturPanel = new GLUI_Panel(filterPanel, "Saturation");
-    {
-      GLUI_Spinner * filterSaturationAmount = new GLUI_Spinner(saturPanel,
-                                                               "Amount:",
-                                                               &filter_params_.saturation_amount);
-      filterSaturationAmount->set_float_limits(-10, 10);
-      filterSaturationAmount->set_float_val(1);
-
-      new GLUI_Button(saturPanel, "Apply", UI_APPLY_SATURATE, s_gluicallback);
-    }
-
-    GLUI_Panel *channelPanel = new GLUI_Panel(filterPanel, "Channels");
-    {
-      GLUI_Spinner * filterChannel_red_ = new GLUI_Spinner(channelPanel, "_red_:",
-                                                           &filter_params_.channel_color_red);
-      GLUI_Spinner * filterChannel_green_ = new GLUI_Spinner(channelPanel,
-                                                             "_green_:",
-                                                             &filter_params_.channel_color_green);
-      GLUI_Spinner * filterChannel_blue_ = new GLUI_Spinner(channelPanel,
-                                                            "_blue_:",
-                                                            &filter_params_.channel_color_blue);
-
-      filterChannel_red_->set_float_limits(0, 10);
-      filterChannel_red_->set_float_val(1);
-      filterChannel_green_->set_float_limits(0, 10);
-      filterChannel_green_->set_float_val(1);
-      filterChannel_blue_->set_float_limits(0, 10);
-      filterChannel_blue_->set_float_val(1);
-
-      new GLUI_Button(channelPanel, "Apply", UI_APPLY_CHANNEL, s_gluicallback);
-    }
-
-    GLUI_Panel *quantPanel = new GLUI_Panel(filterPanel, "Quantize");
-    {
-      GLUI_Spinner * filterQuantizeBins = new GLUI_Spinner(quantPanel, "Bins:",
-                                                           &filter_params_.quantize_bins);
-      filterQuantizeBins->set_int_limits(2, 256);
-      filterQuantizeBins->set_int_val(8);
-      filterQuantizeBins->set_speed(0.1);
-
-      new GLUI_Button(quantPanel, "Apply", UI_APPLY_QUANTIZE, s_gluicallback);
-    }
-
-    // YOUR SPECIAL FILTER PANEL
-    GLUI_Panel *specialFilterPanel = new GLUI_Panel(filterPanel,
-                                                    "Special Filter");
-    {
-      new GLUI_Button(specialFilterPanel, "Apply", UI_APPLY_SPECIAL_FILTER,
-                      s_gluicallback);
-    }
-  }
-
+  /* Initialize image I/O */
   new GLUI_Column(glui(), true);
 
   GLUI_Panel *imagePanel = new GLUI_Panel(glui(), "Image I/O");
@@ -274,7 +174,7 @@ void FlashPhotoApp::InitGlui(void) {
     glui_ctrl_hooks_.file_browser = new GLUI_FileBrowser(imagePanel,
                                                          "Choose Image",
                                                          false,
-                                                         UI_FILE_BROWSER,
+                                                         UICtrl::UI_FILE_BROWSER,
                                                          s_gluicallback);
 
     glui_ctrl_hooks_.file_browser->set_h(400);
@@ -282,7 +182,7 @@ void FlashPhotoApp::InitGlui(void) {
     glui_ctrl_hooks_.file_name_box = new GLUI_EditText(imagePanel ,
                                                        "Image:",
                                                        file_name_,
-                                                       UI_FILE_NAME,
+                                                       UICtrl::UI_FILE_NAME,
                                                        s_gluicallback);
     glui_ctrl_hooks_.file_name_box->set_w(200);
 
@@ -292,11 +192,11 @@ void FlashPhotoApp::InitGlui(void) {
                                                               "Will load image: none");
     glui_ctrl_hooks_.load_canvas_btn = new GLUI_Button(imagePanel,
                                                           "Load Canvas",
-                                                          UI_LOAD_CANVAS_BUTTON,
+                                                          UICtrl::UI_LOAD_CANVAS_BUTTON,
                                                           s_gluicallback);
     glui_ctrl_hooks_.load_stamp_btn = new GLUI_Button(imagePanel,
                                                          "Load Stamp",
-                                                         UI_LOAD_STAMP_BUTTON,
+                                                         UICtrl::UI_LOAD_STAMP_BUTTON,
                                                          s_gluicallback);
 
     new GLUI_Separator(imagePanel);
@@ -306,7 +206,7 @@ void FlashPhotoApp::InitGlui(void) {
 
     glui_ctrl_hooks_.save_canvas_btn = new GLUI_Button(imagePanel,
                                                           "Save Canvas",
-                                                          UI_SAVE_CANVAS_BUTTON,
+                                                          UICtrl::UI_SAVE_CANVAS_BUTTON,
                                                           s_gluicallback);
 
     load_canvas_enabled(false);
@@ -318,105 +218,105 @@ void FlashPhotoApp::InitGlui(void) {
 
 void FlashPhotoApp::GluiControl(int controlID) {
   switch (controlID) {
-    case UI_PRESET_RED:
+    case UICtrl::UI_PRESET_RED:
       cur_color_red_ = 1;
       cur_color_green_ = 0;
       cur_color_blue_ = 0;
       update_colors();
       break;
-    case UI_PRESET_ORANGE:
+    case UICtrl::UI_PRESET_ORANGE:
       cur_color_red_ = 1;
       cur_color_green_ = 0.5;
       cur_color_blue_ = 0;
       update_colors();
       break;
-    case UI_PRESET_YELLOW:
+    case UICtrl::UI_PRESET_YELLOW:
       cur_color_red_ = 1;
       cur_color_green_ = 1;
       cur_color_blue_ = 0;
       update_colors();
       break;
-    case UI_PRESET_GREEN:
+    case UICtrl::UI_PRESET_GREEN:
       cur_color_red_ = 0;
       cur_color_green_ = 1;
       cur_color_blue_ = 0;
       update_colors();
       break;
-    case UI_PRESET_BLUE:
+    case UICtrl::UI_PRESET_BLUE:
       cur_color_red_ = 0;
       cur_color_green_ = 0;
       cur_color_blue_ = 1;
       update_colors();
       break;
-    case UI_PRESET_PURPLE:
+    case UICtrl::UI_PRESET_PURPLE:
       cur_color_red_ = 0.5;
       cur_color_green_ = 0;
       cur_color_blue_ = 1;
       update_colors();
       break;
-    case UI_PRESET_WHITE:
+    case UICtrl::UI_PRESET_WHITE:
       cur_color_red_ = 1;
       cur_color_green_ = 1;
       cur_color_blue_ = 1;
       update_colors();
       break;
-    case UI_PRESET_BLACK:
+    case UICtrl::UI_PRESET_BLACK:
       cur_color_red_ = 0;
       cur_color_green_ = 0;
       cur_color_blue_ = 0;
       update_colors();
       break;
-    case UI_APPLY_BLUR:
-      ApplyFilterBlur();
+    case UICtrl::UI_APPLY_BLUR:
+      filter_handler_.ApplyBlur();
       break;
-    case UI_APPLY_SHARP:
-      ApplyFilterSharpen();
+    case UICtrl::UI_APPLY_SHARP:
+      filter_handler_.ApplySharpen();
       break;
-    case UI_APPLY_MOTION_BLUR:
-      ApplyFilterMotionBlur();
+    case UICtrl::UI_APPLY_MOTION_BLUR:
+      filter_handler_.ApplyMotionBlur();
       break;
-    case UI_APPLY_EDGE:
-      ApplyFilterEdgeDetect();
+    case UICtrl::UI_APPLY_EDGE:
+      filter_handler_.ApplyEdgeDetect();
       break;
-    case UI_APPLY_THRESHOLD:
-      ApplyFilterThreshold();
+    case UICtrl::UI_APPLY_THRESHOLD:
+      filter_handler_.ApplyThreshold();
       break;
-    case UI_APPLY_DITHER:
-      ApplyFilterThreshold();
+    case UICtrl::UI_APPLY_DITHER:
+      filter_handler_.ApplyThreshold();
       break;
-    case UI_APPLY_SATURATE:
-      ApplyFilterSaturate();
+    case UICtrl::UI_APPLY_SATURATE:
+      filter_handler_.ApplySaturate();
       break;
-    case UI_APPLY_CHANNEL:
-      ApplyFilterChannel();
+    case UICtrl::UI_APPLY_CHANNEL:
+      filter_handler_.ApplyChannel();
       break;
-    case UI_APPLY_QUANTIZE:
-      ApplyFilterQuantize();
+    case UICtrl::UI_APPLY_QUANTIZE:
+      filter_handler_.ApplyQuantize();
       break;
-    case UI_APPLY_SPECIAL_FILTER:
-      ApplyFilterSpecial();
+    case UICtrl::UI_APPLY_SPECIAL_FILTER:
+      filter_handler_.ApplySpecial();
       break;
-    case UI_FILE_BROWSER:
+    case UICtrl::UI_FILE_BROWSER:
       set_image_file(glui_ctrl_hooks_.file_browser->get_file());
       break;
-    case UI_LOAD_CANVAS_BUTTON:
+    case UICtrl::UI_LOAD_CANVAS_BUTTON:
       LoadImageToCanvas();
       break;
-    case UI_LOAD_STAMP_BUTTON:
+    case UICtrl::UI_LOAD_STAMP_BUTTON:
       LoadImageToStamp();
       break;
-    case UI_SAVE_CANVAS_BUTTON:
+    case UICtrl::UI_SAVE_CANVAS_BUTTON:
       SaveCanvasToFile();
       // Reload the current directory:
       glui_ctrl_hooks_.file_browser->fbreaddir(".");
       break;
-    case UI_FILE_NAME:
+    case UICtrl::UI_FILE_NAME:
       set_image_file(file_name_);
       break;
-    case UI_UNDO:
+    case UICtrl::UI_UNDO:
       UndoOperation();
       break;
-    case UI_REDO:
+    case UICtrl::UI_REDO:
       RedoOperation();
       break;
     default:
@@ -431,69 +331,23 @@ void FlashPhotoApp::GluiControl(int controlID) {
  * Member Functions For Handling Button Presses (GLUI callbacks)
  ******************************************************************************/
 void FlashPhotoApp::LoadImageToCanvas(void) {
-  cout << "Load Canvas has been clicked for file " << file_name_ << endl;
+  std::cout << "Load Canvas has been clicked for file " << file_name_ << std::endl;
 }
 
 void FlashPhotoApp::LoadImageToStamp(void) {
-  cout << "Load Stamp has been clicked for file " << file_name_ << endl;
+  std::cout << "Load Stamp has been clicked for file " << file_name_ << std::endl;
 }
 
 void FlashPhotoApp::SaveCanvasToFile(void) {
-  cout << "Save Canvas been clicked for file " << file_name_ << endl;
-}
-
-void FlashPhotoApp::ApplyFilterThreshold(void) {
-  cout << "Apply has been clicked for Threshold has been clicked with amount ="
-       << filter_params_.threshold_amount << endl;
-}
-
-void FlashPhotoApp::ApplyFilterChannel(void) {
-  cout << "Apply has been clicked for Channels with red = "
-       << filter_params_.channel_color_red
-       << ", green = " << filter_params_.channel_color_green
-       << ", blue = " << filter_params_.channel_color_blue << endl;
-}
-
-void FlashPhotoApp::ApplyFilterSaturate(void) {
-  cout << "Apply has been clicked for Saturate with amount = "
-       << filter_params_.saturation_amount << endl;
-}
-
-void FlashPhotoApp::ApplyFilterBlur(void) {
-  cout << "Apply has been clicked for Blur with amount = "
-       << filter_params_.blur_amount << endl;
-}
-
-void FlashPhotoApp::ApplyFilterSharpen(void) {
-  cout << "Apply has been clicked for Sharpen with amount = "
-       << filter_params_.sharpen_amount << endl;
-}
-
-void FlashPhotoApp::ApplyFilterMotionBlur(void) {
-  cout << "Apply has been clicked for Sharpen with amount = "
-       << filter_params_.motion_blur_amount
-       << " and direction " << filter_params_.motion_blur_direction << endl;
-}
-
-void FlashPhotoApp::ApplyFilterEdgeDetect(void) {
-  cout << "Apply has been clicked for Edge Detect" << endl;
-}
-
-void FlashPhotoApp::ApplyFilterQuantize(void) {
-  cout << "Apply has been clicked for Quantize with bins = "
-       << filter_params_.quantize_bins << endl;
-}
-
-void FlashPhotoApp::ApplyFilterSpecial(void) {
-  cout << "Apply has been clicked for Special" << endl;
+  std::cout << "Save Canvas been clicked for file " << file_name_ << std::endl;
 }
 
 void FlashPhotoApp::UndoOperation(void) {
-  cout << "Undoing..." << endl;
+  std::cout << "Undoing..." << std::endl;
 }
 
 void FlashPhotoApp::RedoOperation(void) {
-  cout << "Redoing..." << endl;
+  std::cout << "Redoing..." << std::endl;
 }
 
 /*******************************************************************************
