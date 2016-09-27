@@ -32,18 +32,19 @@ and 2. We will be expecting reasonable class, function, variable, and
 algorithmic comments. If you have questions on the level we are expecting, look
 at the iteration 1/iteration 2 base code. If you still have questions, see John.
 
-## Configuration steps
+## Configuration requirements
 Configuration (via auto tools) is how a large project bootstraps itself; that
 is, figures out how to build itself on a given platform. For us, this means
 figuring out how to build the external libraries on your machine.
 
 Configuration only happens once, after you checkout something from git.
 
-To configure the project you will need to do the following:
+In the config folder, we have given you the building blocks for how to create a
+configuration process for your project, and integrate it with your build
+process. For our example config, to configure the project you could do something
+like this:
 
     cd config
-    autoconf configure.ac > configure
-    chmod +x configure
     ./configure --enabled-shared=no --libdir=$(realpath ../lib) --prefix=$(realpath ../ext)
 
 Those lines do the following:
@@ -55,10 +56,16 @@ Those lines do the following:
    for everything else besides the libraries (we picked ../ext, but you can pick
    anything).
 
+Your configure process can differ from what is above, but it MUST BE
+DOCUMENTED IN YOUR README (just like the steps above). If we cannot configure
+your project based on what is in your README, you will receive a zero for this
+part of the grade.
+
+DO NOT PUT THE CONFIGURATION PROCESS IN THE MAKEFILE.
+
 You should not have to modify anything in the config/ directory. If you think
 you do, you are probably doing something wrong. Configuration is trickier than
 using make, so if you have questions, please ask John.
-
 
 ### Running the linter
 It is assumed that prior to handing in any iteration of the project, you will
