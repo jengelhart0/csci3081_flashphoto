@@ -44,16 +44,21 @@ To configure the project you will need to do the following:
     cd config
     autoconf configure.ac > configure
     chmod +x configure
-    ./configure --enabled-shared=no --prefix=$(realpath ..)
+    ./configure --enabled-shared=no --libdir=$(realpath ../lib) --prefix=$(realpath ../ext)
 
 Those lines do the following:
-1. Configure your project to build (this is just a simple Makefile generation)
-2. Configure the PNG and JPEG libraries so that they can be built and installed
-   to the proper location (we recommend ./lib, though it can be anywhere, so
-   long as your Makefile knows it).
+1. Configure your project to build. This does nothing at the moment (stub).
+2. Configure the PNG and JPEG libraries so that they can be built.
+3. Configure the PNG and JPEG libraries so they canf be installed to where your
+   Makefile will look for theme (we chose ./lib via the --libdir prefix), though
+   it can be anywhere. The --prefix argument tells configure the install prefix
+   for everything else besides the libraries (we picked ../ext, but you can pick
+   anything).
 
 You should not have to modify anything in the config/ directory. If you think
-you do, you are probably doing something wrong.
+you do, you are probably doing something wrong. Configuration is trickier than
+using make, so if you have questions, please ask John.
+
 
 ### Running the linter
 It is assumed that prior to handing in any iteration of the project, you will
