@@ -34,8 +34,9 @@ will NOT catch everything that is needed for Google C++ style, so reference to
 the manual and the list above. Other tools are available that can check more
 than cpplint--see John for details.
 
-## Makefile guidelines
-When compiling, we suggest you use the following set of compile flags:
+## Makefile hints
+When compiling, we suggest you use the following set of compile flags in your
+Makefile:
 
     -W -Wall -Wextra -Weffc++
 
@@ -46,7 +47,7 @@ want to be hardcore, add the following flag:
 
     -pedantic
 
-## Makefile rules
+## Makefile target rules
 All submitted makefiles must build the main target when invoked exactly as
 follows:
 
@@ -61,10 +62,10 @@ follows:
 
     bin/BrushWork
 
-## git commit messages
-
+## git commit message guidelines/rules
 - There should only ever be ONE scope/module affected per commit message.
-- If you have an 'and' in a commit subject, consider breaking it into 2 commits.
+- If you have an 'and' in a commit subject, break it into 2 commits.
+- No "In progress coding/debugging" commit messages
 
 These are examples of the quality of the commit messages we will be expecting.
 
@@ -81,12 +82,15 @@ These are examples of the quality of the commit messages we will be expecting.
   - start periodic checking
   - missing brace
 
+
+If you have questions about whether something is appropriate, see John.
+
 ## Documenting your project
 Students, you do not need to worry about documenting the code with doxygen style
-comments until iteration 3. However, you certainly can if you want.
+comments until iteration 3. However, I would encourage you to document as you
+go, to avoid having to document EVERYTHING all at once for iteration 3.
 
-This is more so I don't forget how to do it. The following command can be used
-to generate html documentation for the code (assuming current directory is
-project root):
-
-    cd doc && doxygen Doxyfile
+This does NOT mean that you can submit code without any comments for iteration 1
+and 2. We will be expecting reasonable class, function, variable, and
+algorithmic comments. If you have questions on the level we are expecting, look
+at the iteration 1/iteration 2 base code. If you still have questions, see John.
