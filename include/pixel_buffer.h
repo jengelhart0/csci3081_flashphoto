@@ -51,7 +51,7 @@ class PixelBuffer {
    * @brief Get the background color that was used to initialize the PixelBuffer
    * @return The background color
    */
-  ColorData background_color(void) { return *background_color_; }
+  ColorData background_color(void) const { return *background_color_; }
 
   /**
    * @brief Fill the pixel buffer with the specified color
@@ -63,7 +63,7 @@ class PixelBuffer {
    * @return The color associated with a specific pixel
    */
   ColorData get_pixel(int x, int y) const;
-  PixelBuffer* duplicatePixelBuffer(const PixelBuffer* sourceBuffer)
+  PixelBuffer* duplicatePixelBuffer(const PixelBuffer* sourceBuffer);
 
 
  private:
@@ -73,7 +73,7 @@ class PixelBuffer {
   ColorData *pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
   void copyPixelBuffer(const PixelBuffer * sourceBuffer,
-                                    PixelBuffer * destinationBuffer)
+                       PixelBuffer * destinationBuffer);
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
