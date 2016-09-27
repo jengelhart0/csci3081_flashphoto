@@ -22,6 +22,29 @@ checking the code for. They are others--RTFM.
  - Not using exceptions
  - Proper commenting throughout the header files and source files
 
+## Configuration steps
+Configuration (via auto tools) is how a large project bootstraps itself; that
+is, figures out how to build itself on a given platform. For us, this means
+figuring out how to build the external libraries on your machine.
+
+Configuration only happens once, after you checkout something from git.
+
+To configure the project you will need to do the following:
+
+    cd config
+    autoconf configure.ac > configure
+    chmod +x configure
+    ./configure --enabled-shared=no --prefix=$(realpath ..)
+
+Those lines do the following:
+1. Configure your project to build (this is just a simple Makefile generation)
+2. Configure the PNG and JPEG libraries so that they can be built and installed
+   to the proper location (we recommend ./lib, though it can be anywhere, so
+   long as your Makefile knows it).
+
+You should not have to modify anything in the config/ directory. If you think
+you do, you are probably doing something wrong.
+
 ### Running the linter
 It is assumed that prior to handing in any iteration of the project, you will
 run the following command on all source files in your repository:
@@ -46,20 +69,34 @@ want to be hardcore, add the following flag:
 
     -pedantic
 
+For building the external libraries, we recommend you have a line like this:
+
+    $(JPEGDIR)/lib/libjpeg.a:
+        @$(MAKE) -C$(JPEGDIR) install
+
+Note that you are building AND installing the JPEG library. Remember in the
+configuration step when you passed the prefix? That told the external libraries
+to copy the libraries they built to ./lib when they are built (it also copies a
+bunch of other files, which you can add to your clean target if you wish to
+remove them).
+
+If you don't want to do this, you will just have to add the directory where the
+libraries live to the linker search path.
+
 ## Makefile rules
 All submitted makefiles must build the main target when invoked exactly as
 follows:
 
     make
-    
-The main target must be named exactly "BrushWork" and be built in a "bin/"
+
+The main target must be named exactly "FlashPhoto" and be built in a "bin/"
 directory within your project root
 
 ## Invocation rules
-Your BrushWork executable must not take any arguments, and be invoked exactly as
+Your FlashPhoto executable must not take any arguments, and be invoked exactly as
 follows:
 
-    bin/BrushWork
+    bin/FlashPhoto
 
 ## git commit messages
 
