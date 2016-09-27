@@ -164,13 +164,13 @@ void FilterHandler::InitGlui(const GLUI *const glui,
 
     GLUI_Panel *channel_panel = new GLUI_Panel(filter_panel, "Channels");
     {
-      GLUI_Spinner *channel_red = new GLUI_Spinner(channel_panel, "_red_:",
+      GLUI_Spinner *channel_red = new GLUI_Spinner(channel_panel, "Red:",
                                                            &channel_color_red_);
       GLUI_Spinner *channel_green = new GLUI_Spinner(channel_panel,
-                                                             "_green_:",
+                                                             "Green:",
                                                              &channel_color_green_);
       GLUI_Spinner *channel_blue = new GLUI_Spinner(channel_panel,
-                                                            "_blue_:",
+                                                            "Blue:",
                                                             &channel_color_blue_);
 
       channel_red->set_float_limits(0, 10);
