@@ -92,7 +92,7 @@ void PixelBuffer::copyPixelBuffer(const PixelBuffer * sourceBuffer,
 PixelBuffer* PixelBuffer::duplicatePixelBuffer(const PixelBuffer* sourceBuffer)
 {
   PixelBuffer* d = new PixelBuffer(sourceBuffer->width(),
-                                   sourceBuffer->height(), sourceBuffer->get_background_color());
+                                   sourceBuffer->height(), sourceBuffer->background_color());
   PixelBuffer::copyPixelBuffer(sourceBuffer, d);
   return d;
 }
