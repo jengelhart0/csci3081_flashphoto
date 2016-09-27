@@ -119,7 +119,7 @@ void FlashPhotoApp::InitGlui(void) {
     glui_ctrl_hooks_.spinner_red->set_float_limits(0, 1.0);
 
     cur_color_green_ = 0;
-    glui_ctrl_hooks_.spinner_green = new GLUI_Spinner(color_panel, "Green_:",
+    glui_ctrl_hooks_.spinner_green = new GLUI_Spinner(color_panel, "Green:",
                                                       &cur_color_green_,
                                                       UICtrl::UI_COLOR_G,
                                                       s_gluicallback);
