@@ -88,8 +88,8 @@ Makefile:
 
 We will not enforce this, but compiling with all compiler warnings enabled as
 above will help reduce the amount of headaches you have to endure for
-overlooking something simple in the code (especially the -effc++ one). If you
-want to be hardcore, add the following flag:
+overlooking something simple in the code (especially the -Weffc++ one). If you
+want to be hardcore, add the following flags:
 
     -pedantic -Werror -Wswitch-default -Wfloat-equal -Wold-style-cast
 
