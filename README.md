@@ -49,14 +49,14 @@ automated checking into your workflow.
 When compiling, we suggest you use the following set of compile flags in your
 Makefile:
 
-    -W -Wall -Wextra -Weffc++
+    -W -Wall -Wextra -Weffc++ -std=c++11
 
 We will not enforce this, but compiling with all compiler warnings enabled as
 above will help reduce the amount of headaches you have to endure for
 overlooking something simple in the code (especially the -effc++ one). If you
 want to be hardcore, add the following flag:
 
-    -pedantic
+    -pedantic -Werror -Wswitch-default -Wfloat-equal -Wold-style-cast
 
 ## Makefile target rules
 All submitted makefiles must build the main target when invoked exactly as
