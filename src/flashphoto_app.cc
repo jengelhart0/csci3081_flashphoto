@@ -160,7 +160,7 @@ void FlashPhotoApp::InitGlui(void) {
     redo_enabled(false);
 
     new GLUI_Separator(glui());
-    new GLUI_Button(glui(), "Quit", UICtrl::UI_QUIT, (GLUI_Update_CB)exit);
+    new GLUI_Button(glui(), "Quit", UICtrl::UI_QUIT, static_cast<GLUI_Update_CB>(exit));
   }
 
   /* Initialize Filtering */
