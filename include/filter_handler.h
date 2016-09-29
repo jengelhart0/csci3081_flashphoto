@@ -3,6 +3,7 @@
  * Project         : FlashPhoto
  * Module          : filter_handle
  * Description     : Header for FilterHandler class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 18:40:20 2016
  * Original Author : jharwell
  *
@@ -45,9 +46,8 @@ class FilterHandler {
   void ApplySpecial(void);
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
- private:
 
-  /* data members */
+ private:
   float channel_color_red_;
   float channel_color_green_;
   float channel_color_blue_;

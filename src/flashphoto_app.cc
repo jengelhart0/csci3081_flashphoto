@@ -27,15 +27,15 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-FlashPhotoApp::FlashPhotoApp(int width,int height) : BaseGfxApp(width, height),
-                                                     filter_handler_(),
-                                                     io_handler_(),
-                                                     glui_ctrl_hooks_(),
-                                                     display_buffer_(nullptr),
-                                                     cur_tool_(0),
-                                                     cur_color_red_(0.0),
-                                                     cur_color_green_(0.0),
-                                                     cur_color_blue_(0.0){}
+FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
+                                                      filter_handler_(),
+                                                      io_handler_(),
+                                                      glui_ctrl_hooks_(),
+                                                      display_buffer_(nullptr),
+                                                      cur_tool_(0),
+                                                      cur_color_red_(0.0),
+                                                      cur_color_green_(0.0),
+                                                      cur_color_blue_(0.0) {}
 
 /*******************************************************************************
  * Member Functions
@@ -153,10 +153,10 @@ void FlashPhotoApp::InitGlui(void) {
   /* Initialize undo, redo, quit */
   {
     glui_ctrl_hooks_.undo_btn = new GLUI_Button(glui(), "Undo", UICtrl::UI_UNDO,
-                                                   s_gluicallback);
+                                                s_gluicallback);
     undo_enabled(false);
     glui_ctrl_hooks_.redo_btn  = new GLUI_Button(glui(), "Redo", UICtrl::UI_REDO,
-                                                    s_gluicallback);
+                                                 s_gluicallback);
     redo_enabled(false);
 
     new GLUI_Separator(glui());
@@ -164,10 +164,10 @@ void FlashPhotoApp::InitGlui(void) {
   }
 
   /* Initialize Filtering */
-  filter_handler_.InitGlui(glui(),s_gluicallback);
+  filter_handler_.InitGlui(glui(), s_gluicallback);
 
   /* Initialize image I/O */
-  io_handler_.InitGlui(glui(),s_gluicallback);
+  io_handler_.InitGlui(glui(), s_gluicallback);
   return;
 }
 
@@ -286,18 +286,18 @@ void FlashPhotoApp::GluiControl(int control_id) {
  * Member Functions For Handling Button Presses (GLUI callbacks)
  ******************************************************************************/
 void FlashPhotoApp::LoadImageToCanvas(void) {
-  std::cout << "Load Canvas has been clicked for file " << io_handler_.file_name()
-            << std::endl;
+  std::cout << "Load Canvas has been clicked for file " <<
+      io_handler_.file_name() << std::endl;
 }
 
 void FlashPhotoApp::LoadImageToStamp(void) {
-  std::cout << "Load Stamp has been clicked for file " << io_handler_.file_name()
-            << std::endl;
+  std::cout << "Load Stamp has been clicked for file " <<
+      io_handler_.file_name() << std::endl;
 }
 
 void FlashPhotoApp::SaveCanvasToFile(void) {
-  std::cout << "Save Canvas been clicked for file " << io_handler_.file_name()
-            << std::endl;
+  std::cout << "Save Canvas been clicked for file " <<
+      io_handler_.file_name() << std::endl;
 }
 
 void FlashPhotoApp::UndoOperation(void) {

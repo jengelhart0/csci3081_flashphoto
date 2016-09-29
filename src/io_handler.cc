@@ -130,7 +130,8 @@ void IOHandler::set_image_file(const std::string & file_name) {
     save_file_label_->set_text("Will save image: none");
     save_canvas_toggle(false);
   } else {
-    save_file_label_->set_text((std::string("Will save image: ") + image_file).c_str());
+    save_file_label_->set_text((std::string("Will save image: ") +
+                                image_file).c_str());
     save_canvas_toggle(true);
   }
 
@@ -142,7 +143,8 @@ void IOHandler::set_image_file(const std::string & file_name) {
     load_stamp_toggle(true);
     load_canvas_toggle(true);
 
-    current_file_label_->set_text((std::string("Will load: ") + image_file).c_str());
+    current_file_label_->set_text((std::string("Will load: ") +
+                                   image_file).c_str());
     file_name_box_->set_text(image_file);
   } else {
     load_stamp_toggle(false);

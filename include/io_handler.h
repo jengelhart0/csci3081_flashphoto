@@ -3,6 +3,7 @@
  * Project         : FlashPhoto
  * Module          : io_handler
  * Description     : Header for IoHandler class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 20:40:20 2016
  * Original Author : jharwell
  *
@@ -16,7 +17,7 @@
  ******************************************************************************/
 #include <string>
 #include "GL/glui.h"
-#include "ui_ctrl.h"
+#include "include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces

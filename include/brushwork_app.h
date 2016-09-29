@@ -99,8 +99,8 @@ class BrushWorkApp : public BaseGfxApp {
     GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
     GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
     GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
-
 };
+
 }  // namespace image_tools
 
 #endif  // INCLUDE_BRUSHWORK_APP_H_

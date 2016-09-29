@@ -19,9 +19,9 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
-#include "filter_handler.h"
-#include "io_handler.h"
-#include "ui_ctrl.h"
+#include "include/filter_handler.h"
+#include "include/io_handler.h"
+#include "include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces
@@ -33,7 +33,7 @@ namespace image_tools {
  ******************************************************************************/
 class FlashPhotoApp : public BaseGfxApp {
  public:
-  FlashPhotoApp(int width,int height);
+  FlashPhotoApp(int width, int height);
   virtual ~FlashPhotoApp(void);
 
   void MouseDragged(int x, int y);

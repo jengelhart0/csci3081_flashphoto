@@ -71,28 +71,22 @@ void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
 }
 
 void PixelBuffer::copyPixelBuffer(const PixelBuffer * sourceBuffer,
-                                  PixelBuffer * destinationBuffer)
-{
-  if (destinationBuffer->width() != sourceBuffer->width()
-      || destinationBuffer->height() != sourceBuffer->height())
-  {
+                                  PixelBuffer * destBuffer) {
+  if (destBuffer->width() != sourceBuffer->width()
+      || destBuffer->height() != sourceBuffer->height()) {
     cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
-
+  } else {
+    memcpy(destBuffer->pixels_, sourceBuffer->pixels_,
+           sizeof(ColorData)*destBuffer->height()*destBuffer->width());
   }
-  else
-  {
-    memcpy ( (void*)destinationBuffer->pixels_, (void*) sourceBuffer->pixels_,
-             sizeof(ColorData)*destinationBuffer->height()*destinationBuffer->width() );
-
-  }
-
 }
 
 
-PixelBuffer* PixelBuffer::duplicatePixelBuffer(const PixelBuffer* sourceBuffer)
-{
+PixelBuffer* PixelBuffer::duplicatePixelBuffer(
+    const PixelBuffer* sourceBuffer) {
   PixelBuffer* d = new PixelBuffer(sourceBuffer->width(),
-                                   sourceBuffer->height(), sourceBuffer->background_color());
+                                   sourceBuffer->height(),
+                                   sourceBuffer->background_color());
   PixelBuffer::copyPixelBuffer(sourceBuffer, d);
   return d;
 }

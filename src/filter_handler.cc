@@ -41,30 +41,30 @@ FilterHandler::FilterHandler(void) :
  ******************************************************************************/
 void FilterHandler::ApplyChannel(void) {
   std::cout << "Apply has been clicked for Channels with red = "
-       << channel_color_red_
-       << ", green = " << channel_color_green_
-       << ", blue = " << channel_color_blue_ << std::endl;
+            << channel_color_red_
+            << ", green = " << channel_color_green_
+            << ", blue = " << channel_color_blue_ << std::endl;
 }
 
 void FilterHandler::ApplySaturate(void) {
   std::cout << "Apply has been clicked for Saturate with amount = "
-       << saturation_amount_ << std::endl;
+            << saturation_amount_ << std::endl;
 }
 
 void FilterHandler::ApplyBlur(void) {
   std::cout << "Apply has been clicked for Blur with amount = "
-       << blur_amount_ << std::endl;
+            << blur_amount_ << std::endl;
 }
 
 void FilterHandler::ApplySharpen(void) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
-       << sharpen_amount_ << std::endl;
+            << sharpen_amount_ << std::endl;
 }
 
 void FilterHandler::ApplyMotionBlur(void) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
-       << motion_blur_amount_
-       << " and direction " << motion_blur_direction_ << std::endl;
+            << motion_blur_amount_
+            << " and direction " << motion_blur_direction_ << std::endl;
 }
 
 void FilterHandler::ApplyEdgeDetect(void) {
@@ -73,7 +73,7 @@ void FilterHandler::ApplyEdgeDetect(void) {
 
 void FilterHandler::ApplyQuantize(void) {
   std::cout << "Apply has been clicked for Quantize with bins = "
-       << quantize_bins_ << std::endl;
+            << quantize_bins_ << std::endl;
 }
 void FilterHandler::ApplyThreshold(void) {
   std::cout << "Apply Threshold has been clicked with amount ="
@@ -91,7 +91,7 @@ void FilterHandler::InitGlui(const GLUI *const glui,
     GLUI_Panel *blur_panel = new GLUI_Panel(filter_panel, "Blur");
     {
       GLUI_Spinner * blur_amount = new GLUI_Spinner(blur_panel, "Amount:",
-                                                         &blur_amount_);
+                                                    &blur_amount_);
       blur_amount->set_int_limits(0, 20);
       blur_amount->set_int_val(5);
 
@@ -102,14 +102,14 @@ void FilterHandler::InitGlui(const GLUI *const glui,
     GLUI_Panel *motion_blur_panel = new GLUI_Panel(filter_panel, "MotionBlur");
     {
       GLUI_Spinner*motion_blur_amount = new GLUI_Spinner(motion_blur_panel,
-                                                             "Amount:",
-                                                             &motion_blur_amount_);
+                                                         "Amount:",
+                                                         &motion_blur_amount_);
       motion_blur_amount->set_int_limits(0, 100);
       motion_blur_amount->set_int_val(5);
 
       motion_blur_direction_ = 0;
       GLUI_RadioGroup *dir_blur = new GLUI_RadioGroup(motion_blur_panel,
-                                                     &motion_blur_direction_);
+                                                      &motion_blur_direction_);
       new GLUI_RadioButton(dir_blur, "North/South");
       new GLUI_RadioButton(dir_blur, "East/West");
       new GLUI_RadioButton(dir_blur, "NorthEast/SouthWest");
@@ -152,8 +152,8 @@ void FilterHandler::InitGlui(const GLUI *const glui,
     GLUI_Panel *satur_panel = new GLUI_Panel(filter_panel, "Saturation");
     {
       GLUI_Spinner * saturation_amount = new GLUI_Spinner(satur_panel,
-                                                               "Amount:",
-                                                               &saturation_amount_);
+                                                          "Amount:",
+                                                          &saturation_amount_);
       saturation_amount->set_float_limits(-10, 10);
       saturation_amount->set_float_val(1);
 
@@ -165,13 +165,13 @@ void FilterHandler::InitGlui(const GLUI *const glui,
     GLUI_Panel *channel_panel = new GLUI_Panel(filter_panel, "Channels");
     {
       GLUI_Spinner *channel_red = new GLUI_Spinner(channel_panel, "Red:",
-                                                           &channel_color_red_);
+                                                   &channel_color_red_);
       GLUI_Spinner *channel_green = new GLUI_Spinner(channel_panel,
-                                                             "Green:",
-                                                             &channel_color_green_);
+                                                     "Green:",
+                                                     &channel_color_green_);
       GLUI_Spinner *channel_blue = new GLUI_Spinner(channel_panel,
-                                                            "Blue:",
-                                                            &channel_color_blue_);
+                                                    "Blue:",
+                                                    &channel_color_blue_);
 
       channel_red->set_float_limits(0, 10);
       channel_red->set_float_val(1);
@@ -188,7 +188,7 @@ void FilterHandler::InitGlui(const GLUI *const glui,
     GLUI_Panel *quant_panel = new GLUI_Panel(filter_panel, "Quantize");
     {
       GLUI_Spinner * quantize_bins = new GLUI_Spinner(quant_panel, "Bins:",
-                                                           &quantize_bins_);
+                                                      &quantize_bins_);
       quantize_bins->set_int_limits(2, 256);
       quantize_bins->set_int_val(8);
       quantize_bins->set_speed(0.1);
