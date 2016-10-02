@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name            : io_handler.cc
+ * Name            : io_manager.cc
  * Project         : FlashPhoto
- * Module          : io_handler
- * Description     : Implementation of IOHandler class
+ * Module          : io_manager
+ * Description     : Implementation of IOManager class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 20:47:05 2016
  * Original Author : jharwell
@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/io_handler.h"
+#include "include/io_manager.h"
 #include <iostream>
 #include "include/ui_ctrl.h"
 
@@ -24,7 +24,7 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-IOHandler::IOHandler(void) :
+IOManager::IOManager(void) :
     file_browser_(nullptr),
     load_canvas_btn_(nullptr),
     load_stamp_btn_(nullptr),
@@ -37,7 +37,7 @@ IOHandler::IOHandler(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void IOHandler::InitGlui(const GLUI *const glui,
+void IOManager::InitGlui(const GLUI *const glui,
                          void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
   GLUI_Panel *imagePanel = new GLUI_Panel(const_cast<GLUI*>(glui), "Image I/O");
@@ -84,13 +84,13 @@ void IOHandler::InitGlui(const GLUI *const glui,
   save_canvas_toggle(false);
 }
 
-bool IOHandler::has_suffix(const std::string & str,
+bool IOManager::has_suffix(const std::string & str,
                                const std::string & suffix) {
   return str.find(suffix, str.length()-suffix.length()) != std::string::npos;
 }
 
 
-bool IOHandler::is_valid_image_file_name(const std::string & name) {
+bool IOManager::is_valid_image_file_name(const std::string & name) {
   if (has_suffix(name, ".png") || has_suffix(name, ".jpg")
       || has_suffix(name, ".jpeg")) {
     return true;
@@ -98,7 +98,7 @@ bool IOHandler::is_valid_image_file_name(const std::string & name) {
   return false;
 }
 
-bool IOHandler::is_valid_image_file(const std::string & name) {
+bool IOManager::is_valid_image_file(const std::string & name) {
   FILE *f;
   bool is_valid = false;
   if (is_valid_image_file_name(name)) {
@@ -110,7 +110,7 @@ bool IOHandler::is_valid_image_file(const std::string & name) {
   return is_valid;
 }
 
-void IOHandler::set_image_file(const std::string & file_name) {
+void IOManager::set_image_file(const std::string & file_name) {
   // If a directory was selected
   // instead of a file, use the
   // latest file typed or selected.
@@ -152,17 +152,17 @@ void IOHandler::set_image_file(const std::string & file_name) {
   }
 }
 
-void IOHandler::LoadImageToCanvas(void) {
+void IOManager::LoadImageToCanvas(void) {
   std::cout << "Load Canvas has been clicked for file " <<
       file_name_ << std::endl;
 }
 
-void IOHandler::LoadImageToStamp(void) {
+void IOManager::LoadImageToStamp(void) {
   std::cout << "Load Stamp has been clicked for file " <<
       file_name_ << std::endl;
 }
 
-void IOHandler::SaveCanvasToFile(void) {
+void IOManager::SaveCanvasToFile(void) {
   std::cout << "Save Canvas been clicked for file " <<
       file_name_ << std::endl;
 }

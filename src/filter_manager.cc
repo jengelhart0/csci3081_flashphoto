@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name            : filter_handler.cc
+ * Name            : filter_manager.cc
  * Project         : FlashPhoto
- * Module          : filter_handler
- * Description     : Implementation of FilterHandler class
+ * Module          : filter_manager
+ * Description     : Implementation of FilterManager class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 18:47:02 2016
  * Original Author : jharwell
@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/filter_handler.h"
+#include "include/filter_manager.h"
 #include <iostream>
 #include "include/ui_ctrl.h"
 
@@ -24,7 +24,7 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-FilterHandler::FilterHandler(void) :
+FilterManager::FilterManager(void) :
     channel_color_red_(0.0),
     channel_color_green_(0.0),
     channel_color_blue_(0.0),
@@ -39,51 +39,51 @@ FilterHandler::FilterHandler(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void FilterHandler::ApplyChannel(void) {
+void FilterManager::ApplyChannel(void) {
   std::cout << "Apply has been clicked for Channels with red = "
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
 }
 
-void FilterHandler::ApplySaturate(void) {
+void FilterManager::ApplySaturate(void) {
   std::cout << "Apply has been clicked for Saturate with amount = "
             << saturation_amount_ << std::endl;
 }
 
-void FilterHandler::ApplyBlur(void) {
+void FilterManager::ApplyBlur(void) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
 }
 
-void FilterHandler::ApplySharpen(void) {
+void FilterManager::ApplySharpen(void) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << sharpen_amount_ << std::endl;
 }
 
-void FilterHandler::ApplyMotionBlur(void) {
+void FilterManager::ApplyMotionBlur(void) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << motion_blur_amount_
             << " and direction " << motion_blur_direction_ << std::endl;
 }
 
-void FilterHandler::ApplyEdgeDetect(void) {
+void FilterManager::ApplyEdgeDetect(void) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
 }
 
-void FilterHandler::ApplyQuantize(void) {
+void FilterManager::ApplyQuantize(void) {
   std::cout << "Apply has been clicked for Quantize with bins = "
             << quantize_bins_ << std::endl;
 }
-void FilterHandler::ApplyThreshold(void) {
+void FilterManager::ApplyThreshold(void) {
   std::cout << "Apply Threshold has been clicked with amount ="
             << threshold_amount_ << std::endl;
 }
-void FilterHandler::ApplySpecial(void) {
+void FilterManager::ApplySpecial(void) {
   std::cout << "Apply has been clicked for Special" << std::endl;
 }
 
-void FilterHandler::InitGlui(const GLUI *const glui,
+void FilterManager::InitGlui(const GLUI *const glui,
                              void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
   GLUI_Panel *filter_panel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
@@ -208,6 +208,6 @@ void FilterHandler::InitGlui(const GLUI *const glui,
                       s_gluicallback);
     }
   }
-} /* FilterHandler::InitGlui() */
+} /* FilterManager::InitGlui() */
 
 }  /* namespace image_tools */

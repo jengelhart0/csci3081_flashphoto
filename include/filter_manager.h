@@ -1,16 +1,16 @@
 /*******************************************************************************
- * Name            : filter_handler.h
+ * Name            : filter_manager.h
  * Project         : FlashPhoto
  * Module          : filter_handle
- * Description     : Header for FilterHandler class
+ * Description     : Header for FilterManager class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 18:40:20 2016
  * Original Author : jharwell
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_FILTER_HANDLER_H_
-#define INCLUDE_FILTER_HANDLER_H_
+#ifndef INCLUDE_FILTER_MANAGER_H_
+#define INCLUDE_FILTER_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -29,10 +29,10 @@ namespace image_tools {
  * @brief A collection of filter parameters for manipulating photos
  * TODO: Add more detail, and add comments/doc for the members below
  */
-class FilterHandler {
+class FilterManager {
  public:
-  FilterHandler();
-  ~FilterHandler() {}
+  FilterManager();
+  ~FilterManager() {}
 
   void ApplyBlur(void);
   void ApplySharpen(void);
@@ -61,4 +61,4 @@ class FilterHandler {
 };
 
 }  // namespace image_tools
-#endif  // INCLUDE_FILTER_HANDLER_H_
+#endif  // INCLUDE_FILTER_MANAGER_H_

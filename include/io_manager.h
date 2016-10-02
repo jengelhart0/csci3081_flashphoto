@@ -1,16 +1,16 @@
 /*******************************************************************************
- * Name            : io_handler.h
+ * Name            : io_manager.h
  * Project         : FlashPhoto
- * Module          : io_handler
- * Description     : Header for IoHandler class
+ * Module          : io_manager
+ * Description     : Header for IoManager class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : Wed Sep 21 20:40:20 2016
  * Original Author : jharwell
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_IO_HANDLER_H_
-#define INCLUDE_IO_HANDLER_H_
+#ifndef INCLUDE_IO_MANAGER_H_
+#define INCLUDE_IO_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -31,10 +31,10 @@ namespace image_tools {
  * @brief A collection of io parameters for manipulating photos
  * TODO: Add more detail, and add comments/doc for the members below
  */
-class IOHandler {
+class IOManager {
  public:
-  IOHandler();
-  ~IOHandler() {}
+  IOManager();
+  ~IOManager() {}
 
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
@@ -47,8 +47,8 @@ class IOHandler {
 
  private:
   /* Copy/move assignment/construction disallowed */
-  IOHandler(const IOHandler &rhs) = delete;
-  IOHandler& operator=(const IOHandler &rhs) = delete;
+  IOManager(const IOManager &rhs) = delete;
+  IOManager& operator=(const IOManager &rhs) = delete;
 
   void save_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(save_canvas_btn_, enabled);
@@ -77,4 +77,4 @@ class IOHandler {
 };
 
 }  // namespace image_tools
-#endif  // INCLUDE_IO_HANDLER_H_
+#endif  // INCLUDE_IO_MANAGER_H_

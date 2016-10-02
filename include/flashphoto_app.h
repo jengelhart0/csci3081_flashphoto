@@ -19,8 +19,8 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
-#include "include/filter_handler.h"
-#include "include/io_handler.h"
+#include "include/filter_manager.h"
+#include "include/io_manager.h"
 #include "include/ui_ctrl.h"
 #include "include/state_manager.h"
 
@@ -80,13 +80,13 @@ class FlashPhotoApp : public BaseGfxApp {
    * @brief A collection of filter parameters/operations for manipulating photos
    * TODO: Add more detail
    */
-  FilterHandler filter_handler_;
+  FilterManager filter_manager_;
 
   /**
    * @brief A collection of I/O parameters for manipulating photos
    * TODO: Add more detail
    */
-  IOHandler io_handler_;
+  IOManager io_manager_;
 
   /**
    * @brief Manager for redo/undo stakc

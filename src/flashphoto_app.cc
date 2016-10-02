@@ -28,8 +28,8 @@ namespace image_tools {
  * Constructors/Destructor
  ******************************************************************************/
 FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
-                                                      filter_handler_(),
-                                                      io_handler_(),
+                                                      filter_manager_(),
+                                                      io_manager_(),
                                                       state_manager_(),
                                                       glui_ctrl_hooks_(),
                                                       display_buffer_(nullptr),
@@ -155,10 +155,10 @@ void FlashPhotoApp::InitGlui(void) {
   state_manager_.InitGlui(glui(),s_gluicallback);
 
   /* Initialize Filtering */
-  filter_handler_.InitGlui(glui(), s_gluicallback);
+  filter_manager_.InitGlui(glui(), s_gluicallback);
 
   /* Initialize image I/O */
-  io_handler_.InitGlui(glui(), s_gluicallback);
+  io_manager_.InitGlui(glui(), s_gluicallback);
   return;
 }
 
@@ -213,51 +213,51 @@ void FlashPhotoApp::GluiControl(int control_id) {
       update_colors();
       break;
     case UICtrl::UI_APPLY_BLUR:
-      filter_handler_.ApplyBlur();
+      filter_manager_.ApplyBlur();
       break;
     case UICtrl::UI_APPLY_SHARP:
-      filter_handler_.ApplySharpen();
+      filter_manager_.ApplySharpen();
       break;
     case UICtrl::UI_APPLY_MOTION_BLUR:
-      filter_handler_.ApplyMotionBlur();
+      filter_manager_.ApplyMotionBlur();
       break;
     case UICtrl::UI_APPLY_EDGE:
-      filter_handler_.ApplyEdgeDetect();
+      filter_manager_.ApplyEdgeDetect();
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
-      filter_handler_.ApplyThreshold();
+      filter_manager_.ApplyThreshold();
       break;
     case UICtrl::UI_APPLY_DITHER:
-      filter_handler_.ApplyThreshold();
+      filter_manager_.ApplyThreshold();
       break;
     case UICtrl::UI_APPLY_SATURATE:
-      filter_handler_.ApplySaturate();
+      filter_manager_.ApplySaturate();
       break;
     case UICtrl::UI_APPLY_CHANNEL:
-      filter_handler_.ApplyChannel();
+      filter_manager_.ApplyChannel();
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
-      filter_handler_.ApplyQuantize();
+      filter_manager_.ApplyQuantize();
       break;
     case UICtrl::UI_APPLY_SPECIAL_FILTER:
-      filter_handler_.ApplySpecial();
+      filter_manager_.ApplySpecial();
       break;
     case UICtrl::UI_FILE_BROWSER:
-      io_handler_.set_image_file(io_handler_.file_browser()->get_file());
+      io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_handler_.LoadImageToCanvas();
+      io_manager_.LoadImageToCanvas();
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      io_handler_.LoadImageToStamp();
+      io_manager_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
-      io_handler_.SaveCanvasToFile();
+      io_manager_.SaveCanvasToFile();
       // Reload the current directory:
-      io_handler_.file_browser()->fbreaddir(".");
+      io_manager_.file_browser()->fbreaddir(".");
       break;
     case UICtrl::UI_FILE_NAME:
-      io_handler_.set_image_file(io_handler_.file_name());
+      io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
       state_manager_.UndoOperation();
