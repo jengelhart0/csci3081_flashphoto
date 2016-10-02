@@ -36,13 +36,53 @@ class IOManager {
   IOManager();
   ~IOManager() {}
 
+  /**
+   * @brief Initialize GLUI control elements for IO management
+   *
+   * @param glui GLUI handle
+   * @param s_gluicallback Callback to install
+   */
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
+
+  /**
+   * @brief Set the image file. If the file is valid, enable loading/saving
+   *
+   * @param filepath Pathname of the file
+   */
   void set_image_file(const std::string & filepath);
+
+  /**
+   * @brief Get the current image file name
+   *
+   * @return The current image file name
+   */
   const std::string& file_name(void) { return file_name_;}
+
+  /**
+   * @brief Get a handle on the GLUI file browser
+   *
+   * @return The handle
+   */
   GLUI_FileBrowser* file_browser(void) { return file_browser_;}
+
+
+  /**
+   * @brief Load the selected image file to the canvas
+   *
+   */
   void LoadImageToCanvas(void);
+
+  /**
+   * @brief Load the selected image file to the stamp
+   *
+   */
   void LoadImageToStamp(void);
+
+  /**
+   * @brief Save the current state of the canvas to a file
+   *
+   */
   void SaveCanvasToFile(void);
 
  private:

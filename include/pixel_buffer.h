@@ -36,7 +36,10 @@ namespace image_tools {
 class PixelBuffer {
  public:
   PixelBuffer(int w, int h, ColorData background_color);
+  PixelBuffer(const PixelBuffer&rhs);
   virtual ~PixelBuffer(void);
+
+  PixelBuffer& operator=(const PixelBuffer &rhs);
 
   /**
    * @brief Set the value for a pixel within the buffer/on the screen
@@ -63,8 +66,6 @@ class PixelBuffer {
    * @return The color associated with a specific pixel
    */
   ColorData get_pixel(int x, int y) const;
-  PixelBuffer* duplicatePixelBuffer(const PixelBuffer* sourceBuffer);
-
 
  private:
   const int width_; /**< X dimension--cannot be changed  */
@@ -72,11 +73,6 @@ class PixelBuffer {
 
   ColorData *pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
-  void copyPixelBuffer(const PixelBuffer * sourceBuffer,
-                       PixelBuffer * destinationBuffer);
-
-  PixelBuffer(const PixelBuffer&rhs) = delete;
-  PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PIXEL_BUFFER_H_

@@ -36,6 +36,10 @@ PixelBuffer::PixelBuffer(int w,
       background_color_(new ColorData(background_color)) {
     FillPixelBufferWithColor(background_color);
 }
+PixelBuffer::PixelBuffer(
+    const PixelBuffer&rhs) : PixelBuffer(rhs.width_,
+                                         rhs.height_,
+                                         *rhs.background_color_) {}
 
 PixelBuffer::~PixelBuffer(void) {
     delete [] pixels_;
@@ -70,25 +74,21 @@ void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     std::fill(pixels_, pixels_+width_*height_, color);
 }
 
-void PixelBuffer::copyPixelBuffer(const PixelBuffer * sourceBuffer,
-                                  PixelBuffer * destBuffer) {
-  if (destBuffer->width() != sourceBuffer->width()
-      || destBuffer->height() != sourceBuffer->height()) {
-    cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
-  } else {
-    memcpy(destBuffer->pixels_, sourceBuffer->pixels_,
-           sizeof(ColorData)*destBuffer->height()*destBuffer->width());
+/*******************************************************************************
+ * Operators
+ ******************************************************************************/
+PixelBuffer& PixelBuffer::operator=(
+    const PixelBuffer &rhs)
+{
+  /* Check for self-assignment! */
+  if (this == &rhs) {
+    return *this;
   }
-}
+  memcpy(this->pixels_,rhs.pixels_,
+         sizeof(ColorData)*this->height_*this->width_);
+  memcpy(this->background_color_,rhs.background_color_,sizeof(ColorData));
 
-
-PixelBuffer* PixelBuffer::duplicatePixelBuffer(
-    const PixelBuffer* sourceBuffer) {
-  PixelBuffer* d = new PixelBuffer(sourceBuffer->width(),
-                                   sourceBuffer->height(),
-                                   sourceBuffer->background_color());
-  PixelBuffer::copyPixelBuffer(sourceBuffer, d);
-  return d;
-}
+  return *this;
+} /* operator=() */
 
 }  /* namespace image_tools */

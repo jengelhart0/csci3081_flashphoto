@@ -43,14 +43,28 @@ class FlashPhotoApp : public BaseGfxApp {
   void LeftMouseUp(int x, int y);
   void Display(void);
   void GluiControl(int control_id);
+  /**
+   * @brief Initialize the FlashPhotoApp
+   *
+   * @param[in] argc Unused--required by BaseGfxApp
+   * @param[in] argv Unused--required by BaseGfxApp
+   * @param[in] x Unused--required by BaseGfxApp
+   * @param[in] y Unused--required by BaseGfxApp
+   * @param[in] background_color The initial canvas color
+   */
   void Init(
       int argc,
-      char* argv[],
+      char *argv[],
       int x,
       int y,
       ColorData background_color);
 
  private:
+  /**
+   * @brief Update the colors displayed on the GLUI control panel
+   * TODO: is this correct
+   *
+   */
   void update_colors(void);
 
   void InitGlui(void);
@@ -89,7 +103,7 @@ class FlashPhotoApp : public BaseGfxApp {
   IOManager io_manager_;
 
   /**
-   * @brief Manager for redo/undo stakc
+   * @brief Manager for redo/undo stack
    * TODO: Add more detail
    */
   StateManager state_manager_;
@@ -99,9 +113,6 @@ class FlashPhotoApp : public BaseGfxApp {
    * TODO: Add more detail, and add comments/doc for the members below
    */
   struct {
-    GLUI_Button *load_canvas_btn;
-    GLUI_Button *load_stamp_btn;
-    GLUI_Button *save_canvas_btn;
     GLUI_Spinner *spinner_red;
     GLUI_Spinner *spinner_green;
     GLUI_Spinner *spinner_blue;
