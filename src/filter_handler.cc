@@ -210,4 +210,4 @@ void FilterHandler::InitGlui(const GLUI *const glui,
   }
 } /* FilterHandler::InitGlui() */
 
-}  // namespace image_tools
+}  /* namespace image_tools */

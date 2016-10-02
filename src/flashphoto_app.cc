@@ -30,6 +30,7 @@ namespace image_tools {
 FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
                                                       filter_handler_(),
                                                       io_handler_(),
+                                                      state_manager_(),
                                                       glui_ctrl_hooks_(),
                                                       display_buffer_(nullptr),
                                                       cur_tool_(0),
@@ -150,18 +151,8 @@ void FlashPhotoApp::InitGlui(void) {
                     s_gluicallback);
   }
 
-  /* Initialize undo, redo, quit */
-  {
-    glui_ctrl_hooks_.undo_btn = new GLUI_Button(glui(), "Undo", UICtrl::UI_UNDO,
-                                                s_gluicallback);
-    undo_enabled(false);
-    glui_ctrl_hooks_.redo_btn  = new GLUI_Button(glui(), "Redo", UICtrl::UI_REDO,
-                                                 s_gluicallback);
-    redo_enabled(false);
-
-    new GLUI_Separator(glui());
-    new GLUI_Button(glui(), "Quit", UICtrl::UI_QUIT, static_cast<GLUI_Update_CB>(exit));
-  }
+  /* Initialize state management (undo, redo, quit) */
+  state_manager_.InitGlui(glui(),s_gluicallback);
 
   /* Initialize Filtering */
   filter_handler_.InitGlui(glui(), s_gluicallback);
@@ -255,13 +246,13 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_handler_.set_image_file(io_handler_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      LoadImageToCanvas();
+      io_handler_.LoadImageToCanvas();
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      LoadImageToStamp();
+      io_handler_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
-      SaveCanvasToFile();
+      io_handler_.SaveCanvasToFile();
       // Reload the current directory:
       io_handler_.file_browser()->fbreaddir(".");
       break;
@@ -269,10 +260,10 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_handler_.set_image_file(io_handler_.file_name());
       break;
     case UICtrl::UI_UNDO:
-      UndoOperation();
+      state_manager_.UndoOperation();
       break;
     case UICtrl::UI_REDO:
-      RedoOperation();
+      state_manager_.RedoOperation();
       break;
     default:
       break;
@@ -283,48 +274,13 @@ void FlashPhotoApp::GluiControl(int control_id) {
 }
 
 /*******************************************************************************
- * Member Functions For Handling Button Presses (GLUI callbacks)
- ******************************************************************************/
-void FlashPhotoApp::LoadImageToCanvas(void) {
-  std::cout << "Load Canvas has been clicked for file " <<
-      io_handler_.file_name() << std::endl;
-}
-
-void FlashPhotoApp::LoadImageToStamp(void) {
-  std::cout << "Load Stamp has been clicked for file " <<
-      io_handler_.file_name() << std::endl;
-}
-
-void FlashPhotoApp::SaveCanvasToFile(void) {
-  std::cout << "Save Canvas been clicked for file " <<
-      io_handler_.file_name() << std::endl;
-}
-
-void FlashPhotoApp::UndoOperation(void) {
-  std::cout << "Undoing..." << std::endl;
-}
-
-void FlashPhotoApp::RedoOperation(void) {
-  std::cout << "Redoing..." << std::endl;
-}
-
-/*******************************************************************************
  * Member Functions For Managing GLUI Interface
  ******************************************************************************/
-void FlashPhotoApp::redo_enabled(bool enabled) {
-  UICtrl::button_toggle(glui_ctrl_hooks_.redo_btn, enabled);
-}
-
-void FlashPhotoApp::undo_enabled(bool enabled) {
-  UICtrl::button_toggle(glui_ctrl_hooks_.undo_btn, enabled);
-}
-
 void FlashPhotoApp::update_colors(void) {
   glui_ctrl_hooks_.spinner_blue->set_float_val(cur_color_blue_);
   glui_ctrl_hooks_.spinner_green->set_float_val(cur_color_green_);
   glui_ctrl_hooks_.spinner_red->set_float_val(cur_color_red_);
 }
-
 
 void FlashPhotoApp::InitGraphics(void) {
   // Initialize OpenGL for 2D graphics as used in the BrushWork app
@@ -338,4 +294,5 @@ void FlashPhotoApp::InitGraphics(void) {
   gluOrtho2D(0, width(), 0, height());
   glViewport(0, 0, width(), height());
 }
-}  // namespace image_tools
+
+}  /* namespace image_tools */

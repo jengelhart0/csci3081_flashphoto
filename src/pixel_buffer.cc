@@ -91,4 +91,4 @@ PixelBuffer* PixelBuffer::duplicatePixelBuffer(
   return d;
 }
 
-}  // namespace image_tools
+}  /* namespace image_tools */

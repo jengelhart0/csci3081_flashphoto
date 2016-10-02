@@ -119,7 +119,6 @@ void IOHandler::set_image_file(const std::string & file_name) {
     image_file = file_name_;
   }
 
-
   // TOGGLE SAVE FEATURE
   // If no file is selected or typed,
   // don't allow file to be saved. If
@@ -152,4 +151,20 @@ void IOHandler::set_image_file(const std::string & file_name) {
     current_file_label_->set_text("Will load: none");
   }
 }
-}  // namespace image_tools
+
+void IOHandler::LoadImageToCanvas(void) {
+  std::cout << "Load Canvas has been clicked for file " <<
+      file_name_ << std::endl;
+}
+
+void IOHandler::LoadImageToStamp(void) {
+  std::cout << "Load Stamp has been clicked for file " <<
+      file_name_ << std::endl;
+}
+
+void IOHandler::SaveCanvasToFile(void) {
+  std::cout << "Save Canvas been clicked for file " <<
+      file_name_ << std::endl;
+}
+
+}  /* namespace image_tools */

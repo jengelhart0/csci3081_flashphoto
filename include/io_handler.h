@@ -38,6 +38,18 @@ class IOHandler {
 
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
+  void set_image_file(const std::string & filepath);
+  const std::string& file_name(void) { return file_name_;}
+  GLUI_FileBrowser* file_browser(void) { return file_browser_;}
+  void LoadImageToCanvas(void);
+  void LoadImageToStamp(void);
+  void SaveCanvasToFile(void);
+
+ private:
+  /* Copy/move assignment/construction disallowed */
+  IOHandler(const IOHandler &rhs) = delete;
+  IOHandler& operator=(const IOHandler &rhs) = delete;
+
   void save_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(save_canvas_btn_, enabled);
   }
@@ -49,15 +61,6 @@ class IOHandler {
   void load_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(load_canvas_btn_, enabled);
   }
-  void set_image_file(const std::string & filepath);
-  const std::string& file_name(void) { return file_name_;}
-  GLUI_FileBrowser* file_browser(void) { return file_browser_;}
-
- private:
-  /* Copy/move assignment/construction disallowed */
-  IOHandler(const IOHandler &rhs) = delete;
-  IOHandler& operator=(const IOHandler &rhs) = delete;
-
   bool is_valid_image_file_name(const std::string & name);
   bool is_valid_image_file(const std::string & name);
   bool has_suffix(const std::string & str, const std::string & suffix);

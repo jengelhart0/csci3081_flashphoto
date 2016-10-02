@@ -204,4 +204,4 @@ void BrushWorkApp::GluiControl(int control_id) {
     spinner_g_->set_float_val(cur_color_green_);
     spinner_r_->set_float_val(cur_color_red_);
 }
-}  // namespace image_tools
+}  /* namespace image_tools */

@@ -204,4 +204,4 @@ void BaseGfxApp::SetWindowDimensions(int width, int height) {
   glutReshapeWindow(width_, height_);
 }
 
-}  // namespace image_tools
+}  /* namespace image_tools */

@@ -16,7 +16,7 @@
 #include "include/color_data.h"
 
 /*******************************************************************************
- * Non-Member Functions
+ * Functions
  ******************************************************************************/
 int main(int argc, char* argv[]) {
   image_tools::FlashPhotoApp *app = new image_tools::FlashPhotoApp(800, 800);

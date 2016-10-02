@@ -22,6 +22,7 @@
 #include "include/filter_handler.h"
 #include "include/io_handler.h"
 #include "include/ui_ctrl.h"
+#include "include/state_manager.h"
 
 /*******************************************************************************
  * Namespaces
@@ -50,16 +51,8 @@ class FlashPhotoApp : public BaseGfxApp {
       ColorData background_color);
 
  private:
-  void undo_enabled(bool enabled);
-  void redo_enabled(bool enabled);
   void update_colors(void);
 
-  void LoadImageToCanvas(void);
-  void LoadImageToStamp(void);
-  void SaveCanvasToFile(void);
-
-  void UndoOperation(void);
-  void RedoOperation(void);
   void InitGlui(void);
   void InitGraphics(void);
 
@@ -96,6 +89,12 @@ class FlashPhotoApp : public BaseGfxApp {
   IOHandler io_handler_;
 
   /**
+   * @brief Manager for redo/undo stakc
+   * TODO: Add more detail
+   */
+  StateManager state_manager_;
+
+  /**
    * @brief A collection of various GLUI control elements.
    * TODO: Add more detail, and add comments/doc for the members below
    */
@@ -103,8 +102,6 @@ class FlashPhotoApp : public BaseGfxApp {
     GLUI_Button *load_canvas_btn;
     GLUI_Button *load_stamp_btn;
     GLUI_Button *save_canvas_btn;
-    GLUI_Button *redo_btn;
-    GLUI_Button *undo_btn;
     GLUI_Spinner *spinner_red;
     GLUI_Spinner *spinner_green;
     GLUI_Spinner *spinner_blue;
