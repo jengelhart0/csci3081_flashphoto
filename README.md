@@ -91,7 +91,7 @@ All submitted makefiles must build the main target when invoked exactly as
 follows from the root directory of your project:
 
     make
-    
+
 The main target must be named exactly "BrushWork" and be built in a "bin/"
 directory within your project root
 
