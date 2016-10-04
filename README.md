@@ -133,7 +133,7 @@ BrushWork in the bin/ directory.
 ## Invocation rules
 When run, your program must take 0 agruments and be invoked as follows:
 
-    ./bin/BrushWork
+    ./bin/FlashPhoto
 
 ## git commit message guidelines/rules
 - There should only ever be ONE scope/module affected per commit message.
