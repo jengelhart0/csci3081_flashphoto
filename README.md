@@ -45,7 +45,7 @@ process. For our example config, to configure the project you could do something
 like this:
 
     cd config
-    ./configure --enabled-shared=no --libdir=$(realpath ../lib) --prefix=$(realpath ../ext)
+    ./configure --enable-shared=no --libdir=$(realpath ../lib) --prefix=$(realpath ../ext)
 
 Those lines do the following:
 1. Configure your project to build. This does nothing at the moment (stub).
