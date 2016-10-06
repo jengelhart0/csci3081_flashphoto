@@ -95,12 +95,6 @@ follows from the root directory of your project:
 The main target must be named exactly "BrushWork" and be built in a "bin/"
 directory within your project root
 
-## Invocation rules
-Your BrushWork executable must not take any arguments, and be invoked exactly as
-follows:
-
-    bin/BrushWork
-
 When run as described above, the build process must produce an executable called
 BrushWork in the bin/ directory.
 
