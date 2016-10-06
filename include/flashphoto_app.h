@@ -23,6 +23,7 @@
 #include "include/io_manager.h"
 #include "include/ui_ctrl.h"
 #include "include/state_manager.h"
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -67,7 +68,16 @@ class FlashPhotoApp : public BaseGfxApp {
    */
   void update_colors(void);
 
+  /**
+   * @brief Initialize the GLUI interface
+   *
+   */
   void InitGlui(void);
+
+  /**
+   * @brief Initialize OpenGL
+   *
+   */
   void InitGraphics(void);
 
   /**
@@ -81,30 +91,17 @@ class FlashPhotoApp : public BaseGfxApp {
   FlashPhotoApp& operator=(const FlashPhotoApp &rhs) = delete;
 
   /**
-   * @brief TODO: Fill this in
-   */
-  enum UIMotionBlurDirections {
-    DIR_N_S,
-    DIR_E_W,
-    DIR_NE_SW,
-    DIR_NW_SE
-  };
-
-  /**
-   * @brief A collection of filter parameters/operations for manipulating photos
-   * TODO: Add more detail
+   * @brief Manager for all filter operations
    */
   FilterManager filter_manager_;
 
   /**
-   * @brief A collection of I/O parameters for manipulating photos
-   * TODO: Add more detail
+   * @brief Manager for all I/O operations
    */
   IOManager io_manager_;
 
   /**
    * @brief Manager for redo/undo stack
-   * TODO: Add more detail
    */
   StateManager state_manager_;
 
@@ -123,10 +120,17 @@ class FlashPhotoApp : public BaseGfxApp {
 
   // These are used to store the selections from the GLUI user interface
   int cur_tool_;  /**< Currently selected tool from UI */
+
+  // These are used to store the selections from the GLUI user interface
+  Tool **tools_;
+
+  // Previous mouse coordinates for interpolating mouse moves
+  int mouse_last_x_, mouse_last_y_;
   float cur_color_red_;
   float cur_color_green_;
   float cur_color_blue_;
 };
-}  // namespace image_tools
+
+}  /* namespace image_tools */
 
 #endif  // INCLUDE_FLASHPHOTO_APP_H_

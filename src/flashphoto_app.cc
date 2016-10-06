@@ -152,7 +152,7 @@ void FlashPhotoApp::InitGlui(void) {
   }
 
   /* Initialize state management (undo, redo, quit) */
-  state_manager_.InitGlui(glui(),s_gluicallback);
+  state_manager_.InitGlui(glui(), s_gluicallback);
 
   /* Initialize Filtering */
   filter_manager_.InitGlui(glui(), s_gluicallback);

@@ -40,8 +40,9 @@ IOManager::IOManager(void) :
 void IOManager::InitGlui(const GLUI *const glui,
                          void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
-  GLUI_Panel *imagePanel = new GLUI_Panel(const_cast<GLUI*>(glui), "Image I/O");
-  file_browser_ = new GLUI_FileBrowser(imagePanel,
+  GLUI_Panel *image_panel = new GLUI_Panel(const_cast<GLUI*>(glui),
+                                           "Image I/O");
+  file_browser_ = new GLUI_FileBrowser(image_panel,
                                       "Choose Image",
                                       false,
                                       UICtrl::UI_FILE_BROWSER,
@@ -49,32 +50,32 @@ void IOManager::InitGlui(const GLUI *const glui,
 
   file_browser_->set_h(400);
 
-  file_name_box_ = new GLUI_EditText(imagePanel ,
+  file_name_box_ = new GLUI_EditText(image_panel ,
                                     "Image:",
                                     file_name_,
                                     UICtrl::UI_FILE_NAME,
                                     s_gluicallback);
   file_name_box_->set_w(200);
 
-  new GLUI_Separator(imagePanel);
+  new GLUI_Separator(image_panel);
 
-  current_file_label_ = new GLUI_StaticText(imagePanel,
+  current_file_label_ = new GLUI_StaticText(image_panel,
                                            "Will load image: none");
-  load_canvas_btn_ = new GLUI_Button(imagePanel,
+  load_canvas_btn_ = new GLUI_Button(image_panel,
                                     "Load Canvas",
                                     UICtrl::UI_LOAD_CANVAS_BUTTON,
                                     s_gluicallback);
-  load_stamp_btn_ = new GLUI_Button(imagePanel,
+  load_stamp_btn_ = new GLUI_Button(image_panel,
                                    "Load Stamp",
                                    UICtrl::UI_LOAD_STAMP_BUTTON,
                                    s_gluicallback);
 
-  new GLUI_Separator(imagePanel);
+  new GLUI_Separator(image_panel);
 
-  save_file_label_ = new GLUI_StaticText(imagePanel,
+  save_file_label_ = new GLUI_StaticText(image_panel,
                                         "Will save image: none");
 
-  save_canvas_btn_ = new GLUI_Button(imagePanel,
+  save_canvas_btn_ = new GLUI_Button(image_panel,
                                     "Save Canvas",
                                     UICtrl::UI_SAVE_CANVAS_BUTTON,
                                     s_gluicallback);
@@ -84,19 +85,6 @@ void IOManager::InitGlui(const GLUI *const glui,
   save_canvas_toggle(false);
 }
 
-bool IOManager::has_suffix(const std::string & str,
-                               const std::string & suffix) {
-  return str.find(suffix, str.length()-suffix.length()) != std::string::npos;
-}
-
-
-bool IOManager::is_valid_image_file_name(const std::string & name) {
-  if (has_suffix(name, ".png") || has_suffix(name, ".jpg")
-      || has_suffix(name, ".jpeg")) {
-    return true;
-  }
-  return false;
-}
 
 bool IOManager::is_valid_image_file(const std::string & name) {
   FILE *f;

@@ -15,6 +15,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include <vector>
 #include "include/color_data.h"
 
 /*******************************************************************************
@@ -46,7 +47,7 @@ class PixelBuffer {
    */
   void set_pixel(int x, int y, const ColorData& color);
 
-  inline ColorData const *data(void) const { return pixels_; }
+  inline ColorData const *data(void) const { return &pixels_[0]; }
   inline int height(void) const { return height_; }
   inline int width(void) const { return width_; }
 
@@ -71,8 +72,10 @@ class PixelBuffer {
   const int width_; /**< X dimension--cannot be changed  */
   const int height_; /**< Y dimension--cannot be changed  */
 
-  ColorData *pixels_; /**< Raw pixel data */
+  std::vector<ColorData> pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
 };
-}  // namespace image_tools
-#endif  // INCLUDE_PIXEL_BUFFER_H_
+
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_PIXEL_BUFFER_H_ */
