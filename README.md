@@ -1,4 +1,5 @@
-# Project-Iterations
+BrushWork
+=========
 
 ## Coding guidelines
 It is assumed that all submitted code will conform to the Google C++ style
@@ -46,32 +47,54 @@ than cpplint--see John for details if you would like to incorporate more
 automated checking into your workflow.
 
 ## Makefile hints
-When compiling, we suggest you use the following set of compile flags in your
+
+In order be able to compile the .cc files that include header files from GLUI,
+you will need to add the following to your compiler flags:
+
+    -I./ext/glui/include
+
+When compiling our support/base code, you must pass the following compiler flag:
+
+    -std=c++11
+
+so that certain C++11 definitions are allowed by the compiler. C++11 is
+available on g++ 4.9, which is available on all lab computers.
+
+In addition, we suggest you use the following set of compile flags in your
 Makefile:
 
     -W -Wall -Wextra -Weffc++ -std=c++11
 
-We will not enforce this, but compiling with all compiler warnings enabled as
-above will help reduce the amount of headaches you have to endure for
-overlooking something simple in the code (especially the -Weffc++ one). If you
-want to be hardcore, add the following flags:
+Compiling with all compiler warnings enabled as above will help reduce the
+amount of headaches you have to endure for overlooking something simple in the
+code (especially the -Weffc++ one). If you want to be hardcore, add the
+following flags:
 
     -pedantic -Werror -Wswitch-default -Wfloat-equal -Wold-style-cast
 
+You will need to link with a number of libraries, so add this to the END of your
+linker command-line invocation.
+
+    -lglut -lGL -lGLU -lglui
+
+Note: The order in which the libraries are ordered, in addition to where they
+appear on the command line linker invocation MATTERS, so take care when creating
+this part of the Makefile.
+
+In addition to passing the libraries to link with, you will need to pass the
+library directory for GLUI so the linker knows where to look for libglui.a:
+
+    -L./ext/glui/lib
+
+
 ## Makefile target rules
 All submitted makefiles must build the main target when invoked exactly as
-follows:
+follows from the root directory of your project:
 
     make
-    
+
 The main target must be named exactly "BrushWork" and be built in a "bin/"
 directory within your project root
-
-## Invocation rules
-Your BrushWork executable must not take any arguments, and be invoked exactly as
-follows:
-
-    bin/BrushWork
 
 When run as described above, the build process must produce an executable called
 BrushWork in the bin/ directory.
