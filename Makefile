@@ -1,7 +1,7 @@
 ################################################################################
 # Name            : Makefile
-# Project         : BrushWork
-# Description     : Project Makefile
+# Project         : FlashPhoto
+# Description     : Main Makefile
 # Creation Date   : Fri May 16 14:59:49 2014
 # Original Author : jharwell
 #
@@ -11,11 +11,11 @@
 #  Products:
 #  Make Target     Product                  Description
 #  ===========     =======                  ===================
-#  all             bin/BrushWork            The main executable
-#  clean           N/A                      Removes excutable, all .o,
+#  all             bin/FlashPhoto           The main executable
+#  clean           N/A                      Removes excutable, all .o
 #  veryclean       N/A                      Everything clean removes, +
 #                                           the external libraries
-#  bin/BrushWork   bin/BrushWork            The main executable
+#  bin/FlashPhoto  bin/FlashPhoto           The main executable
 #  documentation   Various                  Generates documentation for
 #                                           project from the doxygen
 #                                           comments/markup in the code
@@ -27,15 +27,20 @@
 # src/      - Root of the source tree for the project
 # bin/      - Directory where all executables are built
 # obj/      - Directory where all object files are built
+# ext/      - Direcotry for all external libraries
+# ext/lib/  - Directory for installation of all external libraries
 # doc/      - Directory where all documentation lives
-# ext/      - The root directory for all source code external to the project,
-#             but that the source code uses
+# config/   - Directory for all autoconf/configure/automake inputs/output
 SRCDIR          = ./src
 BINDIR          = ./bin
 OBJDIR          = ./obj
 EXTDIR          = ./ext
 GLUIDIR         = $(EXTDIR)/glui
+JPEGDIR         = $(EXTDIR)/jpeg-9a
+PNGDIR          = $(EXTDIR)/libpng-1.6.16
 DOCDIR          = ./doc
+EXTLIBDIR       = $(EXTDIR)/lib
+CONFIGDIR       = ./config
 
 ###############################################################################
 # Definitions
@@ -67,7 +72,9 @@ CXXLIBDIRS ?= -L$(EXTDIR)/lib
 # GLUI) that we do not have control over.
 define CXXINCDIRS
 -I. \
--isystem$(GLUIDIR)/include
+-isystem$(GLUIDIR)/include \
+-isystem$(JPEGDIR) \
+-isystem$(PNGDIR)
 endef
 
 # Specify the compiler flags to use when compiling. Note the use of fopenmp in
@@ -82,9 +89,9 @@ endef
 # MATTERS. If a library is specified too early on the command line, which can
 # happen when:
 # 1. It is specified on the command line before the linker processes any
-#    source files that contain references to it.
-# 2. It is specified on the command line (via -l) before another library that
-#    contains references to it.
+#    source files that contain references to it
+# 2. It is specified on the command line with the libraries to link against
+#    before another library that contains references to it.
 #
 # In both these cases the linker will "drop" the library and you will see
 # unresolved reference errors.
@@ -110,7 +117,7 @@ endif
 ifneq ($(NVIDIA_LIB), )
 CXXLIBS += -L$(NVIDIA_LIB)
 endif
-CXXLIBS += -lm -lpthread
+CXXLIBS += -ljpeg -lpng -lm -lpthread -lz
 
 # Define the compiler to use
 CXX         = g++
@@ -126,6 +133,7 @@ OPT         = -O0
 # Functions
 ###############################################################################
 # Recursive wildcard: search a list of directories for all files that match a pattern
+# usage: $(call rwildcard, $(DIRS1) $(DIRS2) ..., pattern)
 #
 # All directory lists passed as first arg must be separated by spaces, and they
 # themselves must be space separated as well. There must NOT be a space between
@@ -135,8 +143,9 @@ OPT         = -O0
 # usage: $(call rwildcard, $(DIRS1) $(DIRS2) ..., pattern)
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)  $(filter $(subst *,%,$2),$d))
 
-# make-depend: Generate dependencies for C++ source files dynamically. Very useful
-# for dynamically including .h files as target dependencies.
+# make-depend: generate dependencies for C++ source files dynamically. Very useful
+# for including .h files as target dependencies.
+# usage: $(call make-depend,source-file,object-file,depend-file)
 #
 # You should never need to modify this.
 # usage: $(call make-depend,source-file,object-file,depend-file)
@@ -158,7 +167,7 @@ SRC_CXX = $(call rwildcard,$(SOURCES),*.cc)
 OBJECTS_CXX = $(notdir $(patsubst %.cc,%.o,$(SRC_CXX)))
 
 # The target executable (what you are building)
-TARGET = $(BINDIR)/BrushWork
+TARGET = $(BINDIR)/FlashPhoto
 
 ###############################################################################
 # All targets
@@ -190,7 +199,7 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 # The Target Executable. Note that libglui is an order-only prerequisite, in
 # that as long as it exists, make will not attempt to recompile it. This makes
 # sense; once you build GLUI, you should never have to rebuild it.
-$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(GLUIDIR)/lib/libglui.a
+$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
@@ -199,8 +208,12 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(GLUIDIR)/lib/li
 # and using it instead of just "make" will call make again with the exact same
 # arguments used to call THIS make process. This is very useful to easily pass
 # command line arguments to sub-makes.
-$(GLUIDIR)/lib/libglui.a:
+$(EXTDIR)/lib/libglui.a:
 	@$(MAKE) -C$(GLUIDIR) install
+$(EXTDIR)/lib/libjpeg.a:
+	@$(MAKE) -C$(JPEGDIR) install
+$(EXTDIR)/lib/libpng.a:
+	@$(MAKE) -C$(PNGDIR) install
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
@@ -212,11 +225,14 @@ $(BINDIR) $(OBJDIR):
 # The Cleaner. Clean up the project, by removing ALL files generated during
 # the build process to build the main target.
 clean:
-	@rm -rf $(BINDIR) $(OBJDIR)
+	@rm -rf $(BINDIR) $(OBJDIR) $(CONFIGDIR)/autom4te.cache $(CONFIGDIR)/config.log $(CONFIGDIR)/config.guess $(CONFIGDIR)/config.status
 
 # The Super Cleaner. Clean the project, but also clean all external libraries.
 veryclean: clean
-	@$(MAKE) -C$(GLUIDIR) clean uninstall
+	-@$(MAKE) -C$(GLUIDIR) clean uninstall
+	-@$(MAKE) -C$(JPEGDIR) clean uninstall
+	-@$(MAKE) -C$(PNGDIR) clean uninstall
+	@rm -rf $(BINDIR) $(LIBDIR) $(OBJDIR) $(CONFIGDIR)/autom4te.cache $(CONFIGDIR)/config.log $(CONFIGDIR)/config.guess $(CONFIGDIR)/config.status share
 
 # The Documenter. Generate documentation for the project.
 documentation:

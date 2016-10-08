@@ -65,26 +65,6 @@ class BrushWorkApp : public BaseGfxApp {
     void InitializeBuffers(ColorData initial_color,
                            int width, int height);
 
-    /**
-     * @brief Set of values used to differentiate between what radio buttons is
-     * pressed by the user.
-     */
-    enum UIControlType {
-        UI_TOOLTYPE,
-        UI_COLOR_R,
-        UI_COLOR_G,
-        UI_COLOR_B,
-        UI_PRESET_RED,
-        UI_PRESET_ORANGE,
-        UI_PRESET_YELLOW,
-        UI_PRESET_GREEN,
-        UI_PRESET_BLUE,
-        UI_PRESET_PURPLE,
-        UI_PRESET_WHITE,
-        UI_PRESET_BLACK,
-        UI_QUIT
-    };
-
     /** Pointer to pixel data for the screen */
     PixelBuffer *display_buffer_;
 

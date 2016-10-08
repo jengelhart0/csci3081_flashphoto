@@ -17,6 +17,7 @@
 #include <iostream>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces
@@ -101,7 +102,7 @@ void BrushWorkApp::InitGlui(void) {
     GLUI_Panel *tool_panel = new GLUI_Panel(glui(), "Tool Type");
     GLUI_RadioGroup *radio = new GLUI_RadioGroup(tool_panel,
                                                  &cur_tool_,
-                                                 UI_TOOLTYPE,
+                                                 UICtrl::UI_TOOLTYPE,
                                                  s_gluicallback);
 
     // Create interface buttons for different tools:
@@ -115,29 +116,29 @@ void BrushWorkApp::InitGlui(void) {
 
     cur_color_red_ = 0;
     spinner_r_  = new GLUI_Spinner(color_panel, "Red:", &cur_color_red_,
-                                   UI_COLOR_R, s_gluicallback);
+                                   UICtrl::UI_COLOR_R, s_gluicallback);
     spinner_r_->set_float_limits(0, 1.0);
 
     cur_color_green_ = 0;
     spinner_g_ = new GLUI_Spinner(color_panel, "Green:", &cur_color_green_,
-                                   UI_COLOR_G, s_gluicallback);
+                                   UICtrl::UI_COLOR_G, s_gluicallback);
     spinner_g_->set_float_limits(0, 1.0);
 
     cur_color_blue_ = 0;
     spinner_b_  = new GLUI_Spinner(color_panel, "Blue:", &cur_color_blue_,
-                                   UI_COLOR_B, s_gluicallback);
+                                   UICtrl::UI_COLOR_B, s_gluicallback);
     spinner_b_->set_float_limits(0, 1.0);
-    new GLUI_Button(color_panel, "Red", UI_PRESET_RED, s_gluicallback);
-    new GLUI_Button(color_panel, "Orange", UI_PRESET_ORANGE, s_gluicallback);
-    new GLUI_Button(color_panel, "Yellow", UI_PRESET_YELLOW, s_gluicallback);
-    new GLUI_Button(color_panel, "Green", UI_PRESET_GREEN, s_gluicallback);
-    new GLUI_Button(color_panel, "Blue", UI_PRESET_BLUE, s_gluicallback);
-    new GLUI_Button(color_panel, "Purple", UI_PRESET_PURPLE, s_gluicallback);
-    new GLUI_Button(color_panel, "White", UI_PRESET_WHITE, s_gluicallback);
-    new GLUI_Button(color_panel, "Black", UI_PRESET_BLACK, s_gluicallback);
+    new GLUI_Button(color_panel, "Red", UICtrl::UI_PRESET_RED, s_gluicallback);
+    new GLUI_Button(color_panel, "Orange", UICtrl::UI_PRESET_ORANGE, s_gluicallback);
+    new GLUI_Button(color_panel, "Yellow", UICtrl::UI_PRESET_YELLOW, s_gluicallback);
+    new GLUI_Button(color_panel, "Green", UICtrl::UI_PRESET_GREEN, s_gluicallback);
+    new GLUI_Button(color_panel, "Blue", UICtrl::UI_PRESET_BLUE, s_gluicallback);
+    new GLUI_Button(color_panel, "Purple", UICtrl::UI_PRESET_PURPLE, s_gluicallback);
+    new GLUI_Button(color_panel, "White", UICtrl::UI_PRESET_WHITE, s_gluicallback);
+    new GLUI_Button(color_panel, "Black", UICtrl::UI_PRESET_BLACK, s_gluicallback);
 
 
-    new GLUI_Button(glui(), "Quit", UI_QUIT, static_cast<GLUI_Update_CB>(exit));
+    new GLUI_Button(glui(), "Quit", UICtrl::UI_QUIT, static_cast<GLUI_Update_CB>(exit));
 }
 
 
@@ -156,42 +157,42 @@ void BrushWorkApp::InitGraphics(void) {
 
 void BrushWorkApp::GluiControl(int control_id) {
     switch (control_id) {
-    case UI_PRESET_RED:
+    case UICtrl::UI_PRESET_RED:
         cur_color_red_ = 1;
         cur_color_green_ = 0;
         cur_color_blue_ = 0;
         break;
-    case UI_PRESET_ORANGE:
+    case UICtrl::UI_PRESET_ORANGE:
         cur_color_red_ = 1;
         cur_color_green_ = 0.5;
         cur_color_blue_ = 0;
         break;
-    case UI_PRESET_YELLOW:
+    case UICtrl::UI_PRESET_YELLOW:
         cur_color_red_ = 1;
         cur_color_green_ = 1;
         cur_color_blue_ = 0;
         break;
-    case UI_PRESET_GREEN:
+    case UICtrl::UI_PRESET_GREEN:
         cur_color_red_ = 0;
         cur_color_green_ = 1;
         cur_color_blue_ = 0;
         break;
-    case UI_PRESET_BLUE:
+    case UICtrl::UI_PRESET_BLUE:
         cur_color_red_ = 0;
         cur_color_green_ = 0;
         cur_color_blue_ = 1;
         break;
-    case UI_PRESET_PURPLE:
+    case UICtrl::UI_PRESET_PURPLE:
         cur_color_red_ = 0.5;
         cur_color_green_ = 0;
         cur_color_blue_ = 1;
         break;
-    case UI_PRESET_WHITE:
+    case UICtrl::UI_PRESET_WHITE:
         cur_color_red_ = 1;
         cur_color_green_ = 1;
         cur_color_blue_ = 1;
         break;
-    case UI_PRESET_BLACK:
+    case UICtrl::UI_PRESET_BLACK:
         cur_color_red_ = 0;
         cur_color_green_ = 0;
         cur_color_blue_ = 0;
