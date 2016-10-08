@@ -126,6 +126,15 @@ All submitted makefiles must build the main target when invoked exactly as
 follows from the root directory of your project:
 
     make
+    
+The main target must be named exactly "FlashPhoto" and be built in a "bin/"
+directory within your project root
+
+## Invocation rules
+Your FlashPhoto executable must not take any arguments, and be invoked exactly as
+follows:
+
+    bin/FlashPhoto
 
 When run as described above, the build process must produce an executable called
 BrushWork in the bin/ directory.
@@ -154,3 +163,6 @@ These are examples of the quality of the commit messages we will be expecting.
   - batchLogbatchLog -> batchLog
   - start periodic checking
   - missing brace
+
+
+If you have questions about whether something is appropriate, see John.

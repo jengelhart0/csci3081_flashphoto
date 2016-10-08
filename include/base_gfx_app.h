@@ -277,6 +277,7 @@ class BaseGfxApp {
   /** Has glutInit been called? (only allowed once per program) */
   static bool s_glut_initialized_;
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_BASE_GFX_APP_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_BASE_GFX_APP_H_ */

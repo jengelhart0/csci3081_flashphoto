@@ -65,6 +65,6 @@ class UICtrl {
   };
 };
 
-}  // namespace image_tools
+}  /* namespace image_tools */
 
-#endif  // INCLUDE_UI_CTRL_H_
+#endif  /* INCLUDE_UI_CTRL_H_ */

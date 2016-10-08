@@ -33,16 +33,13 @@ PixelBuffer::PixelBuffer(int w,
     : width_(w),
       height_(h),
       pixels_(w*h, background_color),
-      background_color_(new ColorData(background_color)) {}
+      background_color_(background_color) {}
 
 PixelBuffer::PixelBuffer(
     const PixelBuffer&rhs) : PixelBuffer(rhs.width_,
                                          rhs.height_,
-                                         *rhs.background_color_) {
+                                         rhs.background_color_) {
   std::copy(rhs.pixels_.begin(), rhs.pixels_.end(), pixels_.begin());
-}
-PixelBuffer::~PixelBuffer(void) {
-  delete background_color_;
 }
 
 /*******************************************************************************
@@ -68,7 +65,6 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
     pixels_[index] = new_pixel;
   }
 }
-
 /*******************************************************************************
  * Operators
  ******************************************************************************/

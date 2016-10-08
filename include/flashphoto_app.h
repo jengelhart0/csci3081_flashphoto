@@ -133,4 +133,4 @@ class FlashPhotoApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  // INCLUDE_FLASHPHOTO_APP_H_
+#endif  /* INCLUDE_FLASHPHOTO_APP_H_ */

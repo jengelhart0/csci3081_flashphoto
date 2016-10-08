@@ -38,7 +38,7 @@ class PixelBuffer {
  public:
   PixelBuffer(int w, int h, ColorData background_color);
   PixelBuffer(const PixelBuffer&rhs);
-  virtual ~PixelBuffer(void);
+  virtual ~PixelBuffer(void) {}
 
   PixelBuffer& operator=(const PixelBuffer &rhs);
 
@@ -55,12 +55,7 @@ class PixelBuffer {
    * @brief Get the background color that was used to initialize the PixelBuffer
    * @return The background color
    */
-  ColorData background_color(void) const { return *background_color_; }
-
-  /**
-   * @brief Fill the pixel buffer with the specified color
-   */
-  void FillPixelBufferWithColor(ColorData color);
+  const ColorData& background_color(void) const { return background_color_; }
 
   /**
    * @brief Get the color of a specific pixel
@@ -73,7 +68,7 @@ class PixelBuffer {
   const int height_; /**< Y dimension--cannot be changed  */
 
   std::vector<ColorData> pixels_; /**< Raw pixel data */
-  ColorData *background_color_; /** Color used to initialize the pixel buffer */
+  ColorData background_color_; /** Color used to initialize the pixel buffer */
 };
 
 }  /* namespace image_tools */
