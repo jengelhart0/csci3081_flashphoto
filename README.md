@@ -109,7 +109,7 @@ following flags:
 You will need to link with a number of libraries, so add this to the END of your
 linker command-line invocation.
 
-    -lglut -lGL -lGLU -lglui
+    -lglut -lGL -lGLU -lglui -lpng -ljpeg -lz
 
 Note: The order in which the libraries are ordered, in addition to where they
 appear on the command line linker invocation MATTERS, so take care when creating
