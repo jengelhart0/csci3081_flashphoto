@@ -101,6 +101,7 @@ class BrushWorkApp : public BaseGfxApp {
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_BRUSHWORK_APP_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_BRUSHWORK_APP_H_ */

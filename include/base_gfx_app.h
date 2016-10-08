@@ -277,6 +277,7 @@ class BaseGfxApp {
   BaseGfxApp(const BaseGfxApp &rhs) = delete;
   BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_BASE_GFX_APP_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_BASE_GFX_APP_H_ */
