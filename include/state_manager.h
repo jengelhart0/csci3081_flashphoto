@@ -59,5 +59,6 @@ class StateManager {
   GLUI_Button *redo_btn_;
 };
 
-}  // namespace image_tools
-#endif  // INCLUDE_STATE_MANAGER_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_STATE_MANAGER_H_ */
