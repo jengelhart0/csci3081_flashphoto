@@ -66,7 +66,6 @@ class IOManager {
    */
   GLUI_FileBrowser* file_browser(void) { return file_browser_;}
 
-
   /**
    * @brief Load the selected image file to the canvas
    *
@@ -101,9 +100,38 @@ class IOManager {
   void load_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(load_canvas_btn_, enabled);
   }
-  bool is_valid_image_file_name(const std::string & name);
-  bool is_valid_image_file(const std::string & name);
-  bool has_suffix(const std::string & str, const std::string & suffix);
+  /**
+   * @brief Determine if a file name contains a give suffix
+   *
+   * @return TRUE if yes, FALSE otherwise
+   */
+  bool has_suffix(const std::string & str, const std::string & suffix) {
+    return str.find(suffix, str.length()-suffix.length()) != std::string::npos;
+  }
+
+  /**
+   * @brief Determine if a file has a valid name for an image file
+   *
+   * @return TRUE if yes, FALSE otherwise
+   */
+  bool is_valid_image_file_name(const std::string & name) {
+    if (has_suffix(name, ".png") || has_suffix(name, ".jpg")
+        || has_suffix(name, ".jpeg")) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @brief Determine if the image corresponding to a given file
+   *
+   * The file must exist, have a proper suffix, and be openable
+   *(i.e. the user
+   * has permission to open it).
+   *
+   * @return TRUE if yes, FALSE otherwise
+   */
+  bool is_valid_image_file(const std::string &name);
 
   /* data members */
   GLUI_FileBrowser *file_browser_;
@@ -116,5 +144,6 @@ class IOManager {
   std::string file_name_;
 };
 
-}  // namespace image_tools
-#endif  // INCLUDE_IO_MANAGER_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_IO_MANAGER_H_ */

@@ -23,7 +23,6 @@
 #include "include/io_manager.h"
 #include "include/ui_ctrl.h"
 #include "include/state_manager.h"
-#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -121,11 +120,6 @@ class FlashPhotoApp : public BaseGfxApp {
   // These are used to store the selections from the GLUI user interface
   int cur_tool_;  /**< Currently selected tool from UI */
 
-  // These are used to store the selections from the GLUI user interface
-  Tool **tools_;
-
-  // Previous mouse coordinates for interpolating mouse moves
-  int mouse_last_x_, mouse_last_y_;
   float cur_color_red_;
   float cur_color_green_;
   float cur_color_blue_;

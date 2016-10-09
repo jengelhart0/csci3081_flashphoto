@@ -33,7 +33,7 @@ FilterManager::FilterManager(void) :
     blur_amount_(0.0),
     sharpen_amount_(0.0),
     motion_blur_amount_(0.0),
-    motion_blur_direction_(0),
+    motion_blur_direction_(UICtrl::UI_DIR_E_W),
     quantize_bins_(0) {}
 
 /*******************************************************************************
@@ -107,9 +107,9 @@ void FilterManager::InitGlui(const GLUI *const glui,
       motion_blur_amount->set_int_limits(0, 100);
       motion_blur_amount->set_int_val(5);
 
-      motion_blur_direction_ = 0;
+      motion_blur_direction_ = UICtrl::UI_DIR_E_W;
       GLUI_RadioGroup *dir_blur = new GLUI_RadioGroup(motion_blur_panel,
-                                                      &motion_blur_direction_);
+                                                      reinterpret_cast<int*>(&motion_blur_direction_));
       new GLUI_RadioButton(dir_blur, "North/South");
       new GLUI_RadioButton(dir_blur, "East/West");
       new GLUI_RadioButton(dir_blur, "NorthEast/SouthWest");

@@ -53,7 +53,7 @@ class UICtrl {
     UI_APPLY_SHARP,
     UI_APPLY_EDGE,
     UI_APPLY_THRESHOLD,
-   UI_APPLY_DITHER,
+    UI_APPLY_DITHER,
     UI_APPLY_SATURATE,
     UI_APPLY_CHANNEL,
     UI_APPLY_QUANTIZE,
@@ -62,6 +62,16 @@ class UICtrl {
     UI_UNDO,
     UI_REDO,
     UI_QUIT
+  };
+    /**
+   * @brief The available directions for motion blurring.
+   *
+   */
+  enum MotionBlurDirection {
+    UI_DIR_N_S,
+    UI_DIR_E_W,
+    UI_DIR_NE_SW,
+    UI_DIR_NW_SE
   };
 };
 
