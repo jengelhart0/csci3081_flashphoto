@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_PIXEL_BUFFER_H_
-#define INCLUDE_PIXEL_BUFFER_H_
+#ifndef SRC_INCLUDE_PIXEL_BUFFER_H_
+#define SRC_INCLUDE_PIXEL_BUFFER_H_
 
 /*******************************************************************************
  * Includes
@@ -73,4 +73,4 @@ class PixelBuffer {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_PIXEL_BUFFER_H_ */
+#endif  /* SRC_INCLUDE_PIXEL_BUFFER_H_ */

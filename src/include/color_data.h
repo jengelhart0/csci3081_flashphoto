@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_COLOR_DATA_H_
-#define INCLUDE_COLOR_DATA_H_
+#ifndef SRC_INCLUDE_COLOR_DATA_H_
+#define SRC_INCLUDE_COLOR_DATA_H_
 
 /*******************************************************************************
  * Namespaces
@@ -72,4 +72,4 @@ class ColorData {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_COLOR_DATA_H_ */
+#endif  /* SRC_INCLUDE_COLOR_DATA_H_ */

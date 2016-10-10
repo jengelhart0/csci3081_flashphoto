@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_FLASHPHOTO_APP_H_
-#define INCLUDE_FLASHPHOTO_APP_H_
+#ifndef SRC_INCLUDE_FLASHPHOTO_APP_H_
+#define SRC_INCLUDE_FLASHPHOTO_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -127,4 +127,4 @@ class FlashPhotoApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_FLASHPHOTO_APP_H_ */
+#endif  /* SRC_INCLUDE_FLASHPHOTO_APP_H_ */

@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_STATE_MANAGER_H_
-#define INCLUDE_STATE_MANAGER_H_
+#ifndef SRC_INCLUDE_STATE_MANAGER_H_
+#define SRC_INCLUDE_STATE_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -61,4 +61,4 @@ class StateManager {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_STATE_MANAGER_H_ */
+#endif  /* SRC_INCLUDE_STATE_MANAGER_H_ */
