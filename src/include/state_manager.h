@@ -28,8 +28,16 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief A collection of io parameters for manipulating photos
- * TODO: Add more detail, and add comments/doc for the members below
+ * @brief The manager for simulation state in FlashPhoto.
+ *
+ * Simulation state is defined as the sequence of operations that comprises the
+ * current canvas. An operation is defined as what happens during 1 click/drag
+ * operation, or when 1 button on the control panel that affects the canvas is
+ * clicked.
+ * Simulation state is managed as a linear sequence of operations applied to the
+ * canvas, and NOT as a tree. Furthermore, a sequence of undos followed by some
+ * edits, followed by  more undos will FIRST undo the new edits, THEN continue
+ * undoing the undoing previous work.
  */
 class StateManager {
  public:
@@ -38,7 +46,19 @@ class StateManager {
 
   void InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
+
+  /**
+   * @brief Undoes the last operation applied to the canvas (not permanently; it
+   * can still be re-done later)
+   *
+   */
   void UndoOperation(void);
+
+  /**
+   * @brief Re-does the last un-done operation applied to the canvas (not
+   * permanently; it can be undone again later)
+   *
+   */
   void RedoOperation(void);
 
  private:

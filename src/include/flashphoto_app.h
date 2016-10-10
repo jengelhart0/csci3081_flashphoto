@@ -61,8 +61,8 @@ class FlashPhotoApp : public BaseGfxApp {
 
  private:
   /**
-   * @brief Update the colors displayed on the GLUI control panel
-   * TODO: is this correct
+   * @brief Update the colors displayed on the GLUI control panel after updating
+   * their values in FlashPhoto
    *
    */
   void update_colors(void);
@@ -105,8 +105,7 @@ class FlashPhotoApp : public BaseGfxApp {
   StateManager state_manager_;
 
   /**
-   * @brief A collection of various GLUI control elements.
-   * TODO: Add more detail, and add comments/doc for the members below
+   * @brief A collection of GLUI spinners for RGB control elements.
    */
   struct {
     GLUI_Spinner *spinner_red;

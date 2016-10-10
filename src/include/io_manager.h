@@ -28,8 +28,11 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief A collection of io parameters for manipulating photos
- * TODO: Add more detail, and add comments/doc for the members below
+ * @brief The manager for I/O operations in FlashPhoto. This includes
+ * initializing GLUI control elements related to image loading/saving, as well
+ * as handling the load/save operations themselves. The load operation includes
+ * validating the image type and filesystem permissions before the load will
+ * proceed. It also handles loading an image from a file to the stamp.
  */
 class IOManager {
  public:

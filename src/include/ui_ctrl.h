@@ -63,7 +63,7 @@ class UICtrl {
     UI_REDO,
     UI_QUIT
   };
-    /**
+  /**
    * @brief The available directions for motion blurring.
    *
    */

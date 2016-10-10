@@ -28,9 +28,9 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief Handles all aspects of filters in the project. Contains the
- * FilterFactory().
- * TODO: Add more detail
+ * @brief Manager for all aspects of filters in FlashPhoto, including
+ * initialization of GLUI control elements for filters, filter creation,
+ * application, deletion.
  */
 class FilterManager {
  public:
