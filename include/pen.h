@@ -32,8 +32,9 @@ namespace image_tools {
 class Pen {
  public:
     Pen(void);
-    virtual ~Pen(void)
+    virtual ~Pen(void);
 
+    void calculate_mask(void);
  private:
 };
 }  // namespace image_tools

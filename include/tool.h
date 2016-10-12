@@ -26,20 +26,31 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This parent class holds the default implementation for Draw() 
- * as well the pixel mask but nothing else.
+ * as well the pixel mask
  */
 class Tool {
  public:
     Tool(int length, int height);
-    virtual ~Tool(void)
+    virtual ~Tool(void);
+
+    float* mask(void) { return mask_; }
+    void mask(float new_mask[]);
+    int height(void) { return height_; }
+    int length(void) { return length_; }
 
     virtual void Draw(int x, int y,
-        float red, float green, float blue
+        float red, float green, float blue,
         PixelBuffer* display);
-    float* mask(void) { return mask_; }
+
+    /*
+     * Must be implemented by derived types
+     */
+    virtual void calculate_mask(void) = 0;
 
  private:
-    float mask_[][];
+    float* mask_;
+    int length_;
+    int height_;
 };
 }  // namespace image_tools
 

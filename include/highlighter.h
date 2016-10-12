@@ -32,10 +32,11 @@ namespace image_tools {
 class Highlighter {
  public:
     Highlighter(void);
-    virtual ~Highlighter(void)
+    virtual ~Highlighter(void);
 
+    void calculate_mask(void);
     virtual void Draw(int x, int y,
-        float red, float green, float blue
+        float red, float green, float blue,
         PixelBuffer* display);
 
  private:

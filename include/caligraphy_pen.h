@@ -32,8 +32,9 @@ namespace image_tools {
 class CaligraphyPen {
  public:
     CaligraphyPen(void);
-    virtual ~CaligraphyPen(void)
+    virtual ~CaligraphyPen(void);
 
+    void calculate_mask(void);
  private:
 };
 }  // namespace image_tools

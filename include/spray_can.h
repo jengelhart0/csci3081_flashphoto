@@ -32,8 +32,9 @@ namespace image_tools {
 class SprayCan {
  public:
     SprayCan(void);
-    virtual ~SprayCan(void)
+    virtual ~SprayCan(void);
 
+    void calculate_mask(void);
  private:
 };
 }  // namespace image_tools

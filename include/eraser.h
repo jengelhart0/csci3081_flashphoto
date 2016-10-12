@@ -32,10 +32,11 @@ namespace image_tools {
 class Eraser {
  public:
     Eraser(void);
-    virtual ~Eraser(void)
+    virtual ~Eraser(void);
 
+    void calculate_mask(void);
     virtual void Draw(int x, int y,
-        float red, float green, float blue
+        float red, float green, float blue,
         PixelBuffer* display);
 
  private:
