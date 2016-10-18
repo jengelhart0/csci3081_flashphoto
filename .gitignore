@@ -30,3 +30,6 @@
 
 # Swap files
 *.swp
+
+# bin directory
+bin/
