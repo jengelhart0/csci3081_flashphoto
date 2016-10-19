@@ -33,7 +33,7 @@ CaligraphyPen::~CaligraphyPen(void) {}
  ******************************************************************************/
 void CaligraphyPen::calculate_mask(void) {
     int size = Tool::length() * Tool::height();
-    float new_mask[size];
+    float new_mask[5*15];
     for (int i = 0; i < size; i++) { new_mask[i] = 1.0; }
     Tool::mask(new_mask);
 }

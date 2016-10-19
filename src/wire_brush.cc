@@ -35,10 +35,11 @@ WireBrush::~WireBrush(void) {}
 void WireBrush::calculate_mask(void) {
     int height = Tool::height();
     int length = Tool::length();
+    unsigned int seed;
     int size = height * length;
     float new_mask[35*35];
     for (int i = 0; i < size; i++) {
-        if ((rand() % 100) <= 10) {
+        if ((rand_r(&seed) % 100) <= 10) {
             new_mask[i] = 1.0;
         } else {
             new_mask[i] = 0.0;

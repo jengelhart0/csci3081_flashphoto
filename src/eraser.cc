@@ -33,7 +33,7 @@ Eraser::~Eraser(void) {}
  ******************************************************************************/
 void Eraser::calculate_mask(void) {
     int size = Tool::height() * Tool::length();
-    float new_mask[size];
+    float new_mask[21*21];
     for (int i = 0; i < size; i++) { new_mask[i] = 1.0; }
     Tool::mask(new_mask);
 }
