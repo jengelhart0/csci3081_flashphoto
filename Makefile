@@ -3,7 +3,7 @@ OBJDIR = ./obj
 INCDIR = ./include
 BINDIR = ./bin
 EXE = $(BINDIR)/BrushWork
-CXXFLAGS += -I. -W -Wall -Wextra -Weffc++ -Wno-unused-variable -std=c++11
+CXXFLAGS += -I. -W -std=c++11
 GLUIFLAG = -I./ext/glui/include
 LINKLIBS = -lglut -lGL -lGLU -lglui
 GLUILIB = -L./ext/glui/lib
