@@ -18,6 +18,7 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -66,9 +67,15 @@ class BrushWorkApp : public BaseGfxApp {
                            int width, int height);
 
     /**
+     * @brief Creates new tool based on cur_tool_ and destructs old tool.
+     */
+    void ChangeTool(int current_tool);
+
+    /**
      * @brief Set of values used to differentiate between what radio buttons is
      * pressed by the user.
      */
+
     enum UIControlType {
         UI_TOOLTYPE,
         UI_COLOR_R,
@@ -84,6 +91,13 @@ class BrushWorkApp : public BaseGfxApp {
         UI_PRESET_BLACK,
         UI_QUIT
     };
+
+    /** App's drawing tool */
+    Tool* tool_;
+
+    /** Coordinates to help MouseDragged() track filler Draw()'s **/
+    float prev_x_;
+    float prev_y_;
 
     /** Pointer to pixel data for the screen */
     PixelBuffer *display_buffer_;

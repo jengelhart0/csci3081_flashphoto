@@ -12,11 +12,15 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/brushwork_app.h"
 #include <cmath>
 #include <iostream>
-#include "include/color_data.h"
-#include "include/pixel_buffer.h"
+#include "include/brushwork_app.h"
+#include "include/pen.h"
+#include "include/caligraphy_pen.h"
+#include "include/eraser.h"
+#include "include/spray_can.h"
+#include "include/wire_brush.h"
+#include "include/highlighter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -32,6 +36,9 @@ BrushWorkApp::BrushWorkApp(int width,
                  height),
       display_buffer_(nullptr),
       cur_tool_(0.0),
+      tool_(nullptr),
+      prev_x_(0),
+      prev_y_(0),
       cur_color_red_(0.0),
       cur_color_green_(0.0),
       cur_color_blue_(0.0),
@@ -42,6 +49,9 @@ BrushWorkApp::BrushWorkApp(int width,
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
+    }
+    if (tool_) {
+        delete tool_;
     }
 }
 
@@ -65,6 +75,9 @@ void BrushWorkApp::Init(
     // Set the name of the window
     set_caption("BrushWork");
 
+    // Initialize Tool
+    ChangeTool(cur_tool_);
+
     // Initialize Interface
     InitializeBuffers(background_color, width(), height());
 
@@ -76,15 +89,83 @@ void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
-void BrushWorkApp::MouseDragged(int x, int y) {}
-void BrushWorkApp::MouseMoved(int x, int y) {}
+void BrushWorkApp::MouseDragged(int new_x, int new_y) {
+    int x = new_x;
+    int y = new_y;
+    int x_gap = abs(x - prev_x_);
+    int y_gap = abs(y - prev_y_);
+    int half_mask_length = tool_->length() / 2;
+    int half_mask_height = tool_->height() / 2;
+
+    if ((x_gap > half_mask_length) ||
+        (y_gap > half_mask_height)) {
+        int last_x_applied = prev_x_;
+        int last_y_applied = prev_y_;
+
+        for (float p = 0.0; p < 1.0; p += 0.01) {
+            x = static_cast<int>(floor(prev_x_ + p * (new_x - prev_x_) + 0.5));
+            y = static_cast<int>(floor(prev_y_ + p * (new_y - prev_y_) + 0.5));
+
+            if ((abs(x - last_x_applied) >= half_mask_length) ||
+                (abs(y - last_y_applied) >= half_mask_height)) {
+                tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+                    cur_color_blue_, display_buffer_);
+                last_x_applied = x;
+                last_y_applied = y;
+            }
+        }
+
+    } else {
+            tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+                cur_color_blue_, display_buffer_);
+    }
+
+    DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
+    prev_x_ = new_x;
+    prev_y_ = new_y;
+}
+
+void BrushWorkApp::MouseMoved(int x, int y) {
+    prev_x_ = x;
+    prev_y_ = y;
+}
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
+    tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+        cur_color_blue_, display_buffer_);
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
     std::cout << "mouseReleased " << x << " " << y << std::endl;
+}
+
+void BrushWorkApp::ChangeTool(int current_tool) {
+    std::cout << "current tool int is" << current_tool << std::endl;
+
+    Tool* new_tool;
+    switch (current_tool) {
+        case 0:
+            new_tool = new Pen();
+            break;
+        case 1:
+            new_tool = new Eraser();
+            break;
+        case 2:
+            new_tool = new SprayCan();
+            break;
+        case 3:
+            new_tool = new CaligraphyPen();
+            break;
+        case 4:
+            new_tool = new Highlighter();
+            break;
+        case 5:
+            new_tool = new WireBrush();
+            break;
+    }
+    delete tool_;
+    tool_ = new_tool;
 }
 
 void BrushWorkApp::InitializeBuffers(
@@ -110,6 +191,7 @@ void BrushWorkApp::InitGlui(void) {
     new GLUI_RadioButton(radio, "Spray Can");
     new GLUI_RadioButton(radio, "Caligraphy Pen");
     new GLUI_RadioButton(radio, "Highlighter");
+    new GLUI_RadioButton(radio, "Wire Brush");
 
     GLUI_Panel *color_panel = new GLUI_Panel(glui(), "Tool Color");
 
@@ -156,6 +238,9 @@ void BrushWorkApp::InitGraphics(void) {
 
 void BrushWorkApp::GluiControl(int control_id) {
     switch (control_id) {
+    case UI_TOOLTYPE:
+        ChangeTool(cur_tool_);
+        break;
     case UI_PRESET_RED:
         cur_color_red_ = 1;
         cur_color_green_ = 0;
