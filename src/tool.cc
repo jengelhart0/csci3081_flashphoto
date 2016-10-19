@@ -12,6 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include <iostream>
 #include "include/tool.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
@@ -51,10 +52,11 @@ void Tool::mask(float new_mask[]) {
 void Tool::Draw(int x, int y,
     float red, float green, float blue,
     PixelBuffer* display) {
+    y = 800 - y;  // Adjust y from GLUT
     // Set lower and upper bounds
     int starting_x = x - (length_ / 2);
-    int starting_y = x - (height_ / 2);
-    int max_y = length_;
+    int starting_y = y - (height_ / 2);
+    int max_y = height_;
     int max_x = length_;
     // Check lower bounds, adjust upper bounds if pixel mask is too close
     // to left and/or upper edge
@@ -82,17 +84,17 @@ void Tool::Draw(int x, int y,
     int index = 0;
     float intensity = 1.0;
     ColorData color = ColorData(red, green, blue);
+    ColorData temp_color;
     ColorData cur_pixel;
     for (int i = 0; i < max_y; i++) {
+        cur_y = i + starting_y;
         for (int j = 0; j < max_x; j++) {
             cur_x = j + starting_x;
-            cur_y = i + starting_y;
-            index = cur_x + (cur_y*length_);
+            index = j + (i*length_);
             intensity = mask_[index];
-
             cur_pixel = display->get_pixel(cur_x, cur_y);
-            ColorData color = (color*intensity) + (cur_pixel*(1.0 - intensity));
-            display->set_pixel(cur_x, cur_y, color);
+            temp_color = (color*intensity) + (cur_pixel*(1.0 - intensity));
+            display->set_pixel(cur_x, cur_y, temp_color);
         }
     }
 }
