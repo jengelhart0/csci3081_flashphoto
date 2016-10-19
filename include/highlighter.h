@@ -29,7 +29,7 @@ namespace image_tools {
  * @brief This parent class holds the default implementation for Draw() 
  * as well the pixel mask but nothing else.
  */
-class Highlighter {
+class Highlighter : public Tool {
  public:
     Highlighter(void);
     virtual ~Highlighter(void);
