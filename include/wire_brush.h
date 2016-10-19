@@ -34,7 +34,7 @@ class WireBrush : public Tool {
     WireBrush(void);
     virtual ~WireBrush(void);
 
-    void calculate_mask(void);
+    void CalculateMask(void);
  private:
 };
 }  // namespace image_tools

@@ -23,7 +23,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Pen::Pen(void) : Tool(3, 3) {
-    calculate_mask();
+    CalculateMask();
 }
 
 Pen::~Pen(void) {}
@@ -31,7 +31,7 @@ Pen::~Pen(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Pen::calculate_mask(void) {
+void Pen::CalculateMask(void) {
     float new_mask[9] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
     Tool::mask(new_mask);
 }

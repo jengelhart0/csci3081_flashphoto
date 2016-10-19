@@ -33,7 +33,7 @@ class Pen : public Tool {
     Pen(void);
     virtual ~Pen(void);
 
-    void calculate_mask(void);
+    void CalculateMask(void);
  private:
 };
 }  // namespace image_tools

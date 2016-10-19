@@ -45,7 +45,7 @@ class Tool {
     /*
      * Must be implemented by derived types
      */
-    virtual void calculate_mask(void) = 0;
+    virtual void CalculateMask(void) = 0;
 
  private:
     float* mask_;

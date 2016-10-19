@@ -23,7 +23,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 CaligraphyPen::CaligraphyPen(void) : Tool(5, 15) {
-    calculate_mask();
+    CalculateMask();
 }
 
 CaligraphyPen::~CaligraphyPen(void) {}
@@ -31,7 +31,7 @@ CaligraphyPen::~CaligraphyPen(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void CaligraphyPen::calculate_mask(void) {
+void CaligraphyPen::CalculateMask(void) {
     int size = Tool::length() * Tool::height();
     float new_mask[5*15];
     for (int i = 0; i < size; i++) { new_mask[i] = 1.0; }

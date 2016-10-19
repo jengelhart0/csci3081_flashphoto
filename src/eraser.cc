@@ -23,7 +23,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Eraser::Eraser(void) : Tool(21, 21) {
-    calculate_mask();
+    CalculateMask();
 }
 
 Eraser::~Eraser(void) {}
@@ -31,7 +31,7 @@ Eraser::~Eraser(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Eraser::calculate_mask(void) {
+void Eraser::CalculateMask(void) {
     int size = Tool::height() * Tool::length();
     float new_mask[21*21];
     for (int i = 0; i < size; i++) { new_mask[i] = 1.0; }

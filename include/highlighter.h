@@ -34,7 +34,7 @@ class Highlighter : public Tool {
     Highlighter(void);
     virtual ~Highlighter(void);
 
-    void calculate_mask(void);
+    void CalculateMask(void);
     virtual void Draw(int x, int y,
         float red, float green, float blue,
         PixelBuffer* display);

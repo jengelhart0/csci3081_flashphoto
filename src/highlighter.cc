@@ -23,7 +23,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Highlighter::Highlighter(void) : Tool(5, 15) {
-    calculate_mask();
+    CalculateMask();
 }
 
 Highlighter::~Highlighter(void) {}
@@ -31,7 +31,7 @@ Highlighter::~Highlighter(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Highlighter::calculate_mask(void) {
+void Highlighter::CalculateMask(void) {
     int size = Tool::length() * Tool::height();
     float new_mask[5*15];
     for (int i = 0; i < size; i++) { new_mask[i] = 0.4; }

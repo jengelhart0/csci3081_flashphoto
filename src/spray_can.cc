@@ -25,7 +25,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 SprayCan::SprayCan(void) : Tool(41, 41) {
-    calculate_mask();
+    CalculateMask();
 }
 
 SprayCan::~SprayCan(void) {}
@@ -33,7 +33,7 @@ SprayCan::~SprayCan(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void SprayCan::calculate_mask(void) {
+void SprayCan::CalculateMask(void) {
     // Distance information
     float center_x = 20.0;
     float center_y = 20.0;

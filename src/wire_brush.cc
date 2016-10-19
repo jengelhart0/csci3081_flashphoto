@@ -24,7 +24,7 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 WireBrush::WireBrush(void) : Tool(35, 35) {
-    calculate_mask();
+    CalculateMask();
 }
 
 WireBrush::~WireBrush(void) {}
@@ -32,7 +32,7 @@ WireBrush::~WireBrush(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void WireBrush::calculate_mask(void) {
+void WireBrush::CalculateMask(void) {
     int height = Tool::height();
     int length = Tool::length();
     unsigned int seed;

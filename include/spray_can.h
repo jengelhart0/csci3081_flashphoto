@@ -34,7 +34,7 @@ class SprayCan : public Tool {
     SprayCan(void);
     virtual ~SprayCan(void);
 
-    void calculate_mask(void);
+    void CalculateMask(void);
  private:
 };
 }  // namespace image_tools
