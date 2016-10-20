@@ -90,7 +90,6 @@ void BrushWorkApp::Display(void) {
 }
 
 void BrushWorkApp::MouseDragged(int new_x, int new_y) {
- 
     int x = new_x;
     int y = new_y;
     int x_gap = abs(x - prev_x_);
@@ -98,19 +97,22 @@ void BrushWorkApp::MouseDragged(int new_x, int new_y) {
     int half_mask_length = tool_->length() / 2;
     int half_mask_height = tool_->height() / 2;
 
-    // only applies gap fill logic if gaps between MouseDragged() calls are large enough
+    // Only applies gap fill logic if gaps between
+    // MouseDragged() calls are large enough
     if ((x_gap > half_mask_length) ||
         (y_gap > half_mask_height)) {
         int last_x_applied = prev_x_;
         int last_y_applied = prev_y_;
 
-	// for each hundredth of the gap distance, apply the tool across the gap slope...
+        // For each hundredth of the gap distance,
+        // apply the tool across the gap slope...
         for (float p = 0.0; p < 1.0; p += 0.01) {
             x = static_cast<int>(floor(prev_x_ + p * (new_x - prev_x_) + 0.5));
             y = static_cast<int>(floor(prev_y_ + p * (new_y - prev_y_) + 0.5));
 
-	    // ...however, don't 'overfill' if that hundredth distance is less than quarter mask size
-	    // this prevents unnatural density for semi-transparent tools like highlighter and spray can
+            // Don't 'overfill' if that hundredth distance is less
+            // than quarter mask size. This prevents unnatural density
+            // for semi-transparent tools like highlighter and spray can
             if ((abs(x - last_x_applied) >= half_mask_length / 2) ||
                 (abs(y - last_y_applied) >= half_mask_height / 2)) {
                 tool_->Draw(x, y, cur_color_red_, cur_color_green_,
@@ -124,14 +126,15 @@ void BrushWorkApp::MouseDragged(int new_x, int new_y) {
             tool_->Draw(x, y, cur_color_red_, cur_color_green_,
                 cur_color_blue_, display_buffer_);
     }
-    // for efficiency, only update relevant portion of canvas
+    // For efficiency, only update relevant portion of canvas
     DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
     prev_x_ = new_x;
     prev_y_ = new_y;
 }
 
 void BrushWorkApp::MouseMoved(int x, int y) {
-    // keep track of latest x-y coordinates so MouseDragged() has current data to use
+    // Keep track of latest x-y coordinates so
+    // MouseDragged() has current data to use
     prev_x_ = x;
     prev_y_ = y;
 }
@@ -148,8 +151,9 @@ void BrushWorkApp::LeftMouseUp(int x, int y) {
 
 void BrushWorkApp::ChangeTool(int current_tool) {
     std::cout << "current tool int is" << current_tool << std::endl;
-    
-    // use ordinal position of tool radio button stored in current_tool to instantiate new tool of appropriate subclass
+
+    // Use ordinal position of tool radio button stored in current_tool
+    // to instantiate new tool of appropriate subclass
     Tool* new_tool;
     switch (current_tool) {
         case 0:
