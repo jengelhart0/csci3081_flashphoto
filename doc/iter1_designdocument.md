@@ -71,14 +71,15 @@ Using `Eraser::Draw()` as an adapter for its parent class prevents any additiona
 2. Add source file (src/pencil.cc) for a Pencil tool, which inherits Tool. 
 3. When creating this new class, construct its mask as a float[] of size 1, whose single intensity value is set equal to 1.0. For example, its constructor would look like:
 
-        Pencil::Pencil(void) : Tool(1, 1) {
-            CalculateMask();
-        }        
-Because it can reuse `Tool::Draw()`, the only other method to implement is `CalculateMask()`:
+        Pencil::Pencil(void) : Tool(1, 1( {
+            CalculateMask();
+        }
+        
+ Because it can reuse `Tool::Draw()`, the only other method to implement is `CalculateMask()`:
 
         Pencil::CalculateMask(void) {
-            float[1] new_mask = {1.0};
-            Tool::mask(new_mask);
+            float[1] new_mask = {1.0};
+            Tool::mask(new_mask);
         }
 
 4. In the section of brushwork_app.cc following the comment `“// create new interface buttons for different tools,”` add a new radio button with the code line: 
@@ -89,28 +90,28 @@ Because it can reuse `Tool::Draw()`, the only other method to implement is `Calc
  
 5. Add Pencil to the switch statement in `BrushWorkApp::ChangeTool()`. Assign it a case that matches the ordinal position mentioned in step 3. Update cases of tools whose position changed in step 3. Assuming this tool's radio button is added beneath our other tools, the switch statement in `BrushWorkApp::ChangeTool()` will look like this:
 
-        switch (current_tool) {
-            case 0:
-                new_tool = new Pen();
-                break;
-            case 1:
-                new_tool = new Eraser();
-                break;
-            case 2:
-                new_tool = new SprayCan();
-                break;
-            case 3:
-                new_tool = new CaligraphyPen();
-                break;
-            case 4:
-                new_tool = new Highlighter();
-                break;
-            case 5:
-                new_tool = new WireBrush();
-                break;
-            case 6:
-                new_tool = new Pencil();
-                break;
-        }
+        switch (current_tool) {
+            case 0:
+                new_tool = new Pen();
+                break;
+            case 1:
+                new_tool = new Eraser();
+                break;
+            case 2:
+                new_tool = new SprayCan();
+                break;
+            case 3:
+                new_tool = new CaligraphyPen();
+                break;
+            case 4:
+                new_tool = new Highlighter();
+                break;
+            case 5:
+                new_tool = new WireBrush();
+                break;
+            case 6:
+                new_tool = new Pencil();
+                break;
+        }
 
 6. Add `#include include/pencil.h` in brushwork_app.cc.
