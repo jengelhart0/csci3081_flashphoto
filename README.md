@@ -30,7 +30,7 @@ go, to avoid having to document EVERYTHING all at once for iteration 3.
 This does NOT mean that you can submit code without any comments for iteration 1
 and 2. We will be expecting reasonable class, function, variable, and
 algorithmic comments. If you have questions on the level we are expecting, look
-at the iteration 1/iteration 2 base code. If you still have questions, see John.
+at the base code. If you still have questions, see John.
 
 ## Configuration requirements
 Configuration (via autotools) is how a large project bootstraps itself; that
@@ -72,7 +72,7 @@ run the following command on all source files in your repository:
 
 And that this command will report 0 errors found. You will be evaluated on an
 all-or-nothing basis for this part of the project, so take care to do this. This
-will NOT catch everything that is needed for Google C++ style, so reference to
+will NOT catch everything that is needed for Google C++ style, so refer to
 the manual and the list above. Other tools are available that can check more
 than cpplint--see John for details if you would like to incorporate more
 automated checking into your workflow.
@@ -85,7 +85,7 @@ external libraries, you will need to add the following to your compiler flags
 
     -isystem./ext/glui/include -isystem./ext/jpeg-9a -isystem./ext/libpng-1.6.16
 
-Note that the system flag suppresses all compiler warnings from any includes
+Note that the -isystem flag suppresses all compiler warnings from any includes
 found in any of the specified directories. This is OK, as these are external
 libraries which you will never modify.
 
