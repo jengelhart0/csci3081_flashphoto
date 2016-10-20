@@ -43,6 +43,7 @@ class FlashPhotoApp : public BaseGfxApp {
   void LeftMouseUp(int x, int y);
   void Display(void);
   void GluiControl(int control_id);
+
   /**
    * @brief Initialize the FlashPhotoApp
    *

@@ -3,7 +3,7 @@
 ## Coding guidelines
 It is assumed that all submitted code will conform to the Google C++ style
 guide. Read it. The following is a list of SOME of the things we will be
-checking the code for. They are others--RTFM.
+checking the code for. There are others--RTFM.
  - Usage of C++, not C-style casts
  - Not using of C-style memory allocation/copy operations
  - Usage of namespaces, including proper naming
@@ -33,7 +33,7 @@ algorithmic comments. If you have questions on the level we are expecting, look
 at the iteration 1/iteration 2 base code. If you still have questions, see John.
 
 ## Configuration requirements
-Configuration (via auto tools) is how a large project bootstraps itself; that
+Configuration (via autotools) is how a large project bootstraps itself; that
 is, figures out how to build itself on a given platform. For us, this means
 figuring out how to build the external libraries on your machine.
 
@@ -41,31 +41,28 @@ Configuration only happens once, after you checkout something from git.
 
 In the config folder, we have given you the building blocks for how to create a
 configuration process for your project, and integrate it with your build
-process. For our example config, to configure the project you could do something
-like this:
+process. In the example config we provde you, to configure the project you do:
 
     cd config
-    ./configure --enable-shared=no --libdir=$(realpath ../lib) --prefix=$(realpath ../ext)
+    ./configure --enable-shared=no --prefix=$(realpath ../ext)
 
 Those lines do the following:
 1. Configure your project to build. This does nothing at the moment (stub).
 2. Configure the PNG and JPEG libraries so that they can be built.
-3. Configure the PNG and JPEG libraries so they canf be installed to where your
-   Makefile will look for theme (we chose ./lib via the --libdir prefix), though
-   it can be anywhere. The --prefix argument tells configure the install prefix
-   for everything else besides the libraries (we picked ../ext, but you can pick
-   anything).
+3. Configure the PNG and JPEG libraries so they can be installed to where your
+   Makefile will look for them. (we chose ../ext/lib via the --prefix argument),
+   though it can be anywhere.
 
-Your configure process can differ from what is above, but it MUST BE
-DOCUMENTED IN YOUR README (just like the steps above). If we cannot configure
-your project based on what is in your README, you will receive a zero for this
-part of the grade.
+Your configure process can differ from what is above, but it *MUST BE
+DOCUMENTED IN YOUR README*. If we cannot configure your project based on what is
+in your README, you will receive a zero for this part of the grade.
 
-DO NOT PUT THE CONFIGURATION PROCESS IN THE MAKEFILE.
+*DO NOT PUT THE CONFIGURATION PROCESS IN THE MAKEFILE.*
 
-You should not have to modify anything in the config/ directory. If you think
-you do, you are probably doing something wrong. Configuration is trickier than
-using make, so if you have questions, please ask John.
+You should not have to modify anything in the config/ directory in order to have
+a successfully working configuration/build process. However, if you would like
+to augment the configuration process in some way, take care, as it is MUCH
+trickier than using make. So if you have questions, please ask John.
 
 ### Running the linter
 It is assumed that prior to handing in any iteration of the project, you will
@@ -82,10 +79,15 @@ automated checking into your workflow.
 
 ## Makefile hints
 
-In order be able to compile the .cc files that include header files from GLUI,
-you will need to add the following to your compiler flags:
+In order be able to compile the .cc files that include header files from the
+external libraries, you will need to add the following to your compiler flags
+(assuming all libraries live under ./ext):
 
-    -I./ext/glui/include
+    -isystem./ext/glui/include -isystem./ext/jpeg-9a -isystem./ext/libpng-1.6.16
+
+Note that the system flag suppresses all compiler warnings from any includes
+found in any of the specified directories. This is OK, as these are external
+libraries which you will never modify.
 
 When compiling our support/base code, you must pass the following compiler flag:
 
@@ -116,9 +118,19 @@ appear on the command line linker invocation MATTERS, so take care when creating
 this part of the Makefile.
 
 In addition to passing the libraries to link with, you will need to pass the
-library directory for GLUI so the linker knows where to look for libglui.a:
+external library directory, so the linker knows where to look for libglui.a,
+libpng.a and libjpeg.a:
 
-    -L./ext/glui/lib
+    -L./ext/lib
+
+For this to work, you need to build not only the "all" target for libglui,
+libpng, and libjpeg, but also the "install" target, which will copy the
+libraries to ./ext/lib (remember that's where we said we wanted things to be
+installed in the configuration step). Something like:
+
+    $(MAKE) -C./ext/jpeg-9a all install
+
+will need to be included in the recipe for each external library target.
 
 
 ## Makefile target rules
@@ -126,7 +138,7 @@ All submitted makefiles must build the main target when invoked exactly as
 follows from the root directory of your project:
 
     make
-    
+
 The main target must be named exactly "FlashPhoto" and be built in a "bin/"
 directory within your project root
 
@@ -135,14 +147,6 @@ Your FlashPhoto executable must not take any arguments, and be invoked exactly a
 follows:
 
     bin/FlashPhoto
-
-When run as described above, the build process must produce an executable called
-BrushWork in the bin/ directory.
-
-## Invocation rules
-When run, your program must take 0 agruments and be invoked as follows:
-
-    ./bin/FlashPhoto
 
 ## git commit message guidelines/rules
 - There should only ever be ONE scope/module affected per commit message.
