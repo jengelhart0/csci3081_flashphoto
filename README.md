@@ -44,7 +44,7 @@ configuration process for your project, and integrate it with your build
 process. In the example config we provde you, to configure the project you do:
 
     cd config
-    ./configure --enable-shared=no --prefix=$(realpath ../ext)
+    ./configure --enable-shared=no --prefix=`realpath ../ext`
 
 Those lines do the following:
 1. Configure your project to build. This does nothing at the moment (stub).
