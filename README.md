@@ -120,5 +120,17 @@ These are examples of the quality of the commit messages we will be expecting.
   - start periodic checking
   - missing brace
 
-
 If you have questions about whether something is appropriate, see John.
+
+Furthermore, if you want to pair/group program, your git commit messages should
+reflect this, so that all members receive participation credit for doing it, not
+just the one that actually commits the work. To do so, add a line like this to
+the bottom of your commit message:
+
+    Contributors: <x500 for student 1> <x500 for student 2> ...
+
+For example, if Seth and I worked on something, we would do
+
+    Contributors: harw006 joh08230
+
+at the end of our commit.
