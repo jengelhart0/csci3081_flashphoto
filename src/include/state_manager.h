@@ -34,10 +34,10 @@ namespace image_tools {
  * current canvas. An operation is defined as what happens during 1 click/drag
  * operation, or when 1 button on the control panel that affects the canvas is
  * clicked.
- * Simulation state is managed as a linear sequence of operations applied to the
- * canvas, and NOT as a tree. Furthermore, a sequence of undos followed by some
- * edits, followed by  more undos will FIRST undo the new edits, THEN continue
- * undoing the undoing previous work.
+ *
+ * A sequence of undos followed by some edits, followed by more undos will
+ * FIRST undo the new edits, until you get back to the state before you made the
+ * edits. You will not be able to go back any further.
  */
 class StateManager {
  public:
