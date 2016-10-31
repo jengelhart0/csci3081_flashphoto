@@ -39,3 +39,4 @@ bin/*
 *.exe
 *.out
 *.app
+*.d
