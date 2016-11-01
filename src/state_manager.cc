@@ -40,6 +40,11 @@ void StateManager::InitGlui(const GLUI *const glui,
   redo_btn_  = new GLUI_Button(const_cast<GLUI*>(glui), "Redo", UICtrl::UI_REDO,
                                s_gluicallback);
   redo_toggle(false);
+
+  new GLUI_Button(const_cast<GLUI*>(glui),
+                  "Quit", UICtrl::UI_QUIT,
+                  static_cast<GLUI_Update_CB>(exit));
+
 }
 
 void StateManager::UndoOperation(void) {
