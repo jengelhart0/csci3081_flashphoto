@@ -127,4 +127,4 @@ class FlashPhotoApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_FLASHPHOTO_APP_H_ */
+#endif  // SRC_INCLUDE_FLASHPHOTO_APP_H_
