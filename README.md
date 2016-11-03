@@ -150,13 +150,16 @@ installed in the configuration step). Something like:
 will need to be included in the recipe for each external library target.
 
 ## Makefile target rules
+
 All submitted makefiles must build the main target when invoked exactly as
 follows from the root directory of your project:
 
     make
 
-The main target must be named exactly "FlashPhoto" and be built in a "bin/"
-directory within your project root
+This is what is expected in the wild if you download something from github;
+users do not expect to have to go hunting through your Makefile to figure out
+how to build your main target. As such, the build process should produce an
+executable called FlashPhoto in the bin/ directory.
 
 ## Invocation rules
 Your FlashPhoto executable must not take any arguments, and be invoked exactly as
