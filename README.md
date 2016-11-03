@@ -32,37 +32,44 @@ and 2. We will be expecting reasonable class, function, variable, and
 algorithmic comments. If you have questions on the level we are expecting, look
 at the base code. If you still have questions, see John.
 
-## Configuration requirements
-Configuration (via autotools) is how a large project bootstraps itself; that
-is, figures out how to build itself on a given platform. For us, this means
-figuring out how to build the external libraries on your machine.
+## Configuring your project
+Configuration (via autotools or some other framework) is how a large project
+bootstraps itself; that is, figures out how to build itself on a given
+platform. For us, this means figuring out how to build the external libraries on
+your machine. Configuration only happens once, after you checkout something from git.
 
-Configuration only happens once, after you checkout something from git.
-
-In the config folder, we have given you the building blocks for how to create a
-configuration process for your project, and integrate it with your build
-process. In the example config we provde you, to configure the project you do:
+In the config folder, we have given you a configuration script that takes care
+of configuring FlashPhoto, libpng, and libjpeg. To configure the project you do:
 
     cd config
     ./configure --enable-shared=no --prefix=`realpath ../ext`
 
 Those lines do the following:
-1. Configure your project to build. This does nothing at the moment (stub).
-2. Configure the PNG and JPEG libraries so that they can be built.
+1. Configure FlashPhoto project to build. This does nothing, because
+   FlashPhoto does not require any platform-specific configuration.
+2. Configure the PNG and JPEG libraries so that they can be built on the current
+   platform.
 3. Configure the PNG and JPEG libraries so they can be installed to where your
-   Makefile will look for them. (we chose ../ext/lib via the --prefix argument),
+   Makefile will look for them. (we chose ../ext via the --prefix argument),
    though it can be anywhere.
 
-Your configure process can differ from what is above, but it *MUST BE
-DOCUMENTED IN YOUR README*. If we cannot configure your project based on what is
-in your README, you will receive a zero for this part of the grade.
-
-*DO NOT PUT THE CONFIGURATION PROCESS IN THE MAKEFILE.*
-
-You should not have to modify anything in the config/ directory in order to have
+You should *not* have to modify anything in the config/ directory in order to have
 a successfully working configuration/build process. However, if you would like
 to augment the configuration process in some way, take care, as it is MUCH
 trickier than using make. So if you have questions, please ask John.
+
+However, you do not need to use the script we provide you; it is perfectly
+acceptable for your configuration process to consist of going to each external
+library directory and running ./configure. However, whatever your configuration
+process is, you *MUST* document it in your README. Documentation of both the
+configuration and the build process is a vital part of any project, so if we
+cannot configure your project based on what is in your README, you will receive
+a zero for this part of the grade.
+
+Generally speaking, configuration is a separate step from building, so the
+configuration process should never be part of the Makefile. Just like
+separatation of functionality when building classes, we will be checking that
+you do not call the configuration script anywhere in your Makefile.
 
 ### Running the linter
 It is assumed that prior to handing in any iteration of the project, you will
@@ -131,7 +138,6 @@ installed in the configuration step). Something like:
     $(MAKE) -C./ext/jpeg-9a all install
 
 will need to be included in the recipe for each external library target.
-
 
 ## Makefile target rules
 All submitted makefiles must build the main target when invoked exactly as
