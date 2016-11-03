@@ -1,9 +1,28 @@
 # FlashPhoto
 
 ## Coding guidelines
-It is assumed that all submitted code will conform to the Google C++ style
-guide. Read it. The following is a list of SOME of the things we will be
-checking the code for. There are others--read the style guide!
+In any large software project with multiple people contributing, having a
+consistent coding style throughout is vital to minimize miscommunications
+between collaborators, making code more readable, etc. For this class, we will
+be Google's C++ Style Guide (there are other conventations that are also valid,
+but this is the one we will be using). We will be checking that all submitted
+code will conform to the Google C++ style.
+
+### Running the linter
+To that end, we will provide you with a style checking script that will check
+the basic elements of Google style. It is assumed that prior to handing in any
+iteration of the project, you will run the following command on all source files
+(.cc AND .h) in your repository by doing something like this:
+
+    python ext/cpplint/cpplint.py --linelength=81 <source files>
+
+And that this command will report 0 errors found. You will be evaluated on an
+all-or-nothing basis for this part of the project, so take care to do this.
+
+### Additional elements of Google C++ style
+Unfortunately, the script will NOT catch everything that is needed for Google
+C++ style. We will be spot checking code for things not caught by the script,
+for things like:
  - Usage of C++, not C-style casts
  - Not using of C-style memory allocation/copy operations
  - Usage of namespaces, including proper naming
@@ -22,6 +41,9 @@ checking the code for. There are others--read the style guide!
  - Not using exceptions
  - Proper commenting throughout the header files and source files
 
+This is not an exhaustive list of what we will be checking for, so please read
+the Google C++ style guide!
+
 ## Documenting your code
 Students, you do not need to worry about documenting the code with doxygen style
 comments until iteration 3. However, I would encourage you to document as you
@@ -30,7 +52,7 @@ go, to avoid having to document EVERYTHING all at once for iteration 3.
 This does NOT mean that you can submit code without any comments for iteration 1
 and 2. We will be expecting reasonable class, function, variable, and
 algorithmic comments. If you have questions on the level we are expecting, look
-at the base code. If you still have questions, see John.
+at the iteration 1/iteration 2 base code. If you still have questions, see John.
 
 ## Configuring your project
 Configuration (via autotools or some other framework) is how a large project
@@ -70,19 +92,6 @@ Generally speaking, configuration is a separate step from building, so the
 configuration process should never be part of the Makefile. Just like
 separatation of functionality when building classes, we will be checking that
 you do not call the configuration script anywhere in your Makefile.
-
-### Running the linter
-It is assumed that prior to handing in any iteration of the project, you will
-run the following command on all source files in your repository:
-
-    python ext/cpplint/cpplint.py --linelength=81 <source files>
-
-And that this command will report 0 errors found. You will be evaluated on an
-all-or-nothing basis for this part of the project, so take care to do this. This
-will NOT catch everything that is needed for Google C++ style, so refer to
-the manual and the list above. Other tools are available that can check more
-than cpplint--see John for details if you would like to incorporate more
-automated checking into your workflow.
 
 ## Makefile hints
 
@@ -154,7 +163,7 @@ follows:
 
     bin/FlashPhoto
 
-## git commit message guidelines/rules
+## git commit message guidelines
 - There should only ever be ONE scope/module affected per commit message.
 - If you have an 'and' in a commit subject, break it into 2 commits.
 - No "In progress coding/debugging" commit messages
@@ -174,8 +183,6 @@ These are examples of the quality of the commit messages we will be expecting.
   - start periodic checking
   - missing brace
 
-If you have questions about whether something is appropriate, see John.
-
 Furthermore, if you want to pair/group program, your git commit messages should
 reflect this, so that all members receive participation credit for doing it, not
 just the one that actually commits the work. To do so, add a line like this to
@@ -188,3 +195,11 @@ For example, if Seth and I worked on something, we would do
     Contributors: harw006 joh08230
 
 at the end of our commit.
+
+Usage of our git commit message template is in no way mandatory; it is just
+there to help you create detailed, helpful git commit messages. You can use
+whatever conventation you like within your group, as long as the messages are
+detailed and helpful.
+
+
+If you have questions about whether something is appropriate, see John.
