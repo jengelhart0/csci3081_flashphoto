@@ -154,7 +154,7 @@ void FlashPhotoApp::InitGlui(void) {
   /* Initialize state management (undo, redo, quit) */
   state_manager_.InitGlui(glui(), s_gluicallback);
 
-  new GLUI_Button(const_cast<GLUI*>(glui),
+  new GLUI_Button(const_cast<GLUI*>(glui()),
                 "Quit", UICtrl::UI_QUIT,
                 static_cast<GLUI_Update_CB>(exit));
 
