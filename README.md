@@ -67,6 +67,7 @@ of configuring FlashPhoto, libpng, and libjpeg. To configure the project you do:
     ./configure --enable-shared=no --prefix=`realpath ../ext`
 
 Those lines do the following:
+
 1. Configure FlashPhoto project to build. This does nothing, because
    FlashPhoto does not require any platform-specific configuration.
 2. Configure the PNG and JPEG libraries so that they can be built on the current
