@@ -3,7 +3,7 @@
 ## Coding guidelines
 It is assumed that all submitted code will conform to the Google C++ style
 guide. Read it. The following is a list of SOME of the things we will be
-checking the code for. There are others--RTFM.
+checking the code for. There are others--read the style guide!
  - Usage of C++, not C-style casts
  - Not using of C-style memory allocation/copy operations
  - Usage of namespaces, including proper naming
