@@ -4,7 +4,11 @@
 # <Title> (aka <type>(<scope>): <subject>)
 # <body>
 # <footer>
+<<<<<<< HEAD
+#
+=======
 # <contributors>
+>>>>>>> 9c494b42d987e2cd96a16b2625ee036e64c964d0
 # Layout Explanation:
 # <scope>   : whatever module(s) are affected
 # <type>    : Must be one of the types below:
@@ -17,6 +21,12 @@
 #             test     (adding missing tests, refactoring tests; no production code change)
 #             chore    (updating grunt tasks etc; no production code change)
 #
+<<<<<<< HEAD
+# <subject> : Think 'If applied this commit will...'
+# <body>    : Description of what you did, explaining WHY this change was
+#             made.
+# <footer>  : Provide links to any relevant tickets, articles, or other resources
+=======
 # <subject>      : Think 'If applied this commit will...'
 # <body>         : Description of what you did, explaining WHY this change was
 #                  made.
@@ -24,6 +34,7 @@
 # <contributors> : Provide a space-separated list of the x500 IDs for everyone
 #                  contributing to this commit. Line must start with
 #                  'Contributors:' (no quotes).
+>>>>>>> 9c494b42d987e2cd96a16b2625ee036e64c964d0
 #
 # See README.md for some example commit messages
 #
