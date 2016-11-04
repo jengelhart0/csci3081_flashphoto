@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_IO_MANAGER_H_
-#define SRC_INCLUDE_IO_MANAGER_H_
+#ifndef INCLUDE_IO_MANAGER_H_
+#define INCLUDE_IO_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -149,4 +149,4 @@ class IOManager {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_IO_MANAGER_H_ */
+#endif  /* INCLUDE_IO_MANAGER_H_ */

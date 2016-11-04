@@ -58,7 +58,10 @@ void SprayCan::CalculateMask(void) {
             current_distance = sqrt(pow(x_distance, 2) + pow(y_distance, 2));
             intensity = (slope * current_distance) + 0.2;  // y = mx + b
             index = j + (i*length);
-            new_mask[index] = intensity;
+            if (current_distance < 20.5)
+                new_mask[index] = intensity;
+            else
+                new_mask[index] = 0.0;
         }
     }
     Tool::mask(new_mask);

@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_FLASHPHOTO_APP_H_
-#define SRC_INCLUDE_FLASHPHOTO_APP_H_
+#ifndef INCLUDE_FLASHPHOTO_APP_H_
+#define INCLUDE_FLASHPHOTO_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -23,6 +23,7 @@
 #include "include/io_manager.h"
 #include "include/ui_ctrl.h"
 #include "include/state_manager.h"
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -69,6 +70,10 @@ class FlashPhotoApp : public BaseGfxApp {
   void update_colors(void);
 
   /**
+   * @brief Creates new tool based on cur_tool_ and destructs old tool.
+   */
+  void ChangeTool(int current_tool);
+  /**
    * @brief Initialize the GLUI interface
    *
    */
@@ -114,9 +119,37 @@ class FlashPhotoApp : public BaseGfxApp {
     GLUI_Spinner *spinner_blue;
   } glui_ctrl_hooks_;
 
-  /** Pointer to pixel data for the screen */
-  PixelBuffer *display_buffer_;
+    /** Pointer to pixel data for the screen */
+    PixelBuffer *display_buffer_;
 
+        /**
+     * @brief Set of values used to differentiate between what radio buttons is
+     * pressed by the user.
+     */
+
+    enum UIControlType {
+        UI_TOOLTYPE,
+        UI_COLOR_R,
+        UI_COLOR_G,
+        UI_COLOR_B,
+        UI_PRESET_RED,
+        UI_PRESET_ORANGE,
+        UI_PRESET_YELLOW,
+        UI_PRESET_GREEN,
+        UI_PRESET_BLUE,
+        UI_PRESET_PURPLE,
+        UI_PRESET_WHITE,
+        UI_PRESET_BLACK,
+        UI_QUIT
+    };
+
+    /** App's drawing tool */
+    Tool* tool_;
+
+    /** Coordinates to help MouseDragged() track filler Draw()'s **/
+    float prev_x_;
+    float prev_y_;
+ 
   // These are used to store the selections from the GLUI user interface
   int cur_tool_;  /**< Currently selected tool from UI */
 
@@ -127,4 +160,4 @@ class FlashPhotoApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  // SRC_INCLUDE_FLASHPHOTO_APP_H_
+#endif  // INCLUDE_FLASHPHOTO_APP_H_

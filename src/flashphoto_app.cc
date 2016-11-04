@@ -18,6 +18,12 @@
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
+#include "include/pen.h"
+#include "include/caligraphy_pen.h"
+#include "include/eraser.h"
+#include "include/spray_can.h"
+#include "include/wire_brush.h"
+#include "include/highlighter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -34,9 +40,22 @@ FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
                                                       glui_ctrl_hooks_(),
                                                       display_buffer_(nullptr),
                                                       cur_tool_(0),
+                                                      tool_(nullptr),
+                                                      prev_x_(0),
+                                                      prev_y_(0),
                                                       cur_color_red_(0.0),
                                                       cur_color_green_(0.0),
                                                       cur_color_blue_(0.0) {}
+
+FlashPhotoApp::~FlashPhotoApp(void) {
+    if (display_buffer_) {
+        delete display_buffer_;
+    }
+    if (tool_) {
+        delete tool_;
+    }
+}
+
 
 /*******************************************************************************
  * Member Functions
@@ -47,7 +66,7 @@ void FlashPhotoApp::Init(
     int x,
     int y,
     ColorData background_color) {
-  BaseGfxApp::Init(argc, argv,
+    BaseGfxApp::Init(argc, argv,
                    x, y,
                    GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
                    true,
@@ -56,6 +75,9 @@ void FlashPhotoApp::Init(
 
   // Set the name of the window
   set_caption("FlashPhoto");
+
+  // Set tool
+  ChangeTool(cur_tool_);
 
   // Initialize Interface
   InitializeBuffers(background_color, width(), height());
@@ -68,35 +90,111 @@ void FlashPhotoApp::Display(void) {
   DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
-FlashPhotoApp::~FlashPhotoApp(void) {
-  if (display_buffer_) {
-    delete display_buffer_;
-  }
+
+void FlashPhotoApp::MouseDragged(int new_x, int new_y) 
+{
+    int x = new_x;
+    int y = new_y;
+    int x_gap = std::abs(x - prev_x_);
+    int y_gap = std::abs(y - prev_y_);
+    int half_mask_length = tool_->length() / 2;
+    int half_mask_height = tool_->height() / 2;
+
+    // Only applies gap fill logic if gaps between
+    // MouseDragged() calls are large enough
+    if ((x_gap > half_mask_length) ||
+        (y_gap > half_mask_height)) {
+        int last_x_applied = prev_x_;
+        int last_y_applied = prev_y_;
+
+        // For each hundredth of the gap distance,
+        // apply the tool across the gap slope...
+        for (float p = 0.0; p < 1.0; p += 0.01) {
+            x = static_cast<int>(floor(prev_x_ + p * (new_x - prev_x_) + 0.5));
+            y = static_cast<int>(floor(prev_y_ + p * (new_y - prev_y_) + 0.5));
+
+            // Don't 'overfill' if that hundredth distance is less
+            // than quarter mask size. This prevents unnatural density
+            // for semi-transparent tools like highlighter and spray can
+            if ((abs(x - last_x_applied) >= half_mask_length / 2) ||
+                (abs(y - last_y_applied) >= half_mask_height / 2)) {
+                tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+                    cur_color_blue_, display_buffer_);
+                last_x_applied = x;
+                last_y_applied = y;
+            }
+        }
+
+    } else {
+            tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+                cur_color_blue_, display_buffer_);
+    }
+    // For efficiency, only update relevant portion of canvas
+    DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
+    prev_x_ = new_x;
+    prev_y_ = new_y;
+
 }
+void FlashPhotoApp::MouseMoved(int x, int y) 
+{
+    // Keep track of latest x-y coordinates so
+    // MouseDragged() has current data to use
+    prev_x_ = x;
+    prev_y_ = y;
 
-
-void FlashPhotoApp::MouseDragged(int x, int y) {}
-void FlashPhotoApp::MouseMoved(int x, int y) {}
+}
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
   std::cout << "mousePressed " << x << " " << y << std::endl;
+  tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+        cur_color_blue_, display_buffer_);
 }
 
 void FlashPhotoApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
+void FlashPhotoApp::ChangeTool(int current_tool) {
+    std::cout << "current tool int is" << current_tool << std::endl;
+
+    // Use ordinal position of tool radio button stored in current_tool
+    // to instantiate new tool of appropriate subclass
+    Tool* new_tool;
+    switch (current_tool) {
+        case 0:
+            new_tool = new Pen();
+            break;
+        case 1:
+            new_tool = new Eraser();
+            break;
+        case 2:
+            new_tool = new SprayCan();
+            break;
+        case 3:
+            new_tool = new CaligraphyPen();
+            break;
+        case 4:
+            new_tool = new Highlighter();
+            break;
+        case 5:
+            new_tool = new WireBrush();
+            break;
+    }
+    delete tool_;
+    tool_ = new_tool;
+}
+
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
-                                      int width, int height) {
+  int width, 
+  int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
 }
 
 void FlashPhotoApp::InitGlui(void) {
-  // Select first tool (this activates the first radio button in glui)
-  cur_tool_ = 0;
+    // Select first tool (this activates the first radio button in glui)
+    cur_tool_ = 0;
 
-  GLUI_Panel *toolPanel = new GLUI_Panel(glui(), "Tool Type");
-  {
+    GLUI_Panel *toolPanel = new GLUI_Panel(glui(), "Tool Type");
     GLUI_RadioGroup *radio = new GLUI_RadioGroup(toolPanel, &cur_tool_,
                                                  UICtrl::UI_TOOLTYPE,
                                                  s_gluicallback);
@@ -106,12 +204,11 @@ void FlashPhotoApp::InitGlui(void) {
     new GLUI_RadioButton(radio, "Spray Can");
     new GLUI_RadioButton(radio, "Caligraphy Pen");
     new GLUI_RadioButton(radio, "Highlighter");
+    new GLUI_RadioButton(radio, "Wire Brush");
     new GLUI_RadioButton(radio, "Stamp");
     new GLUI_RadioButton(radio, "Blur");
-  }
 
-  GLUI_Panel *color_panel = new GLUI_Panel(glui(), "Tool Color");
-  {
+    GLUI_Panel *color_panel = new GLUI_Panel(glui(), "Tool Color");
     cur_color_red_ = 0;
     glui_ctrl_hooks_.spinner_red  = new GLUI_Spinner(color_panel, "Red:",
                                                      &cur_color_red_,
@@ -149,7 +246,6 @@ void FlashPhotoApp::InitGlui(void) {
                     s_gluicallback);
     new GLUI_Button(color_panel, "Black", UICtrl::UI_PRESET_BLACK,
                     s_gluicallback);
-  }
 
   /* Initialize state management (undo, redo, quit) */
   state_manager_.InitGlui(glui(), s_gluicallback);
@@ -168,6 +264,9 @@ void FlashPhotoApp::InitGlui(void) {
 
 void FlashPhotoApp::GluiControl(int control_id) {
   switch (control_id) {
+    case UI_TOOLTYPE:
+      ChangeTool(cur_tool_);
+      break;
     case UICtrl::UI_PRESET_RED:
       cur_color_red_ = 1;
       cur_color_green_ = 0;

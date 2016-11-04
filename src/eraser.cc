@@ -13,6 +13,7 @@
  * Includes
  ******************************************************************************/
 #include "include/eraser.h"
+#include "cmath"
 
 /*******************************************************************************
  * Namespaces
@@ -32,9 +33,30 @@ Eraser::~Eraser(void) {}
  * Member Functions
  ******************************************************************************/
 void Eraser::CalculateMask(void) {
-    int size = Tool::height() * Tool::length();
-    float new_mask[21*21];
-    for (int i = 0; i < size; i++) { new_mask[i] = 1.0; }
+
+    float center_x = 10.0;
+    float center_y = 10.0;
+    float current_distance = sqrt(pow(center_x, 2.0) + pow(center_y, 2.0));
+    float x_distance = center_x;
+    float y_distance = center_y;
+    float new_mask[21*21]; 
+    int length = Tool::length();
+    int height = Tool::height();
+    int index = 0;
+    for (int i = 0; i < height; i++) 
+    { 
+        y_distance = std::abs(i - center_y);
+        for (int j = 0; j < length; j++)
+        {
+            x_distance = std::abs(j - center_x);
+            current_distance = sqrt(pow(x_distance, 2) + pow(y_distance, 2));
+            index = j + (i*length);
+            if (current_distance < 10.5)
+                new_mask[index] = 1.0; 
+            else
+                new_mask[index] = 0.0;
+        }
+    }
     Tool::mask(new_mask);
 }
 

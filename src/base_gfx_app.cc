@@ -63,7 +63,6 @@ void BaseGfxApp::Init(int argc,
   glutInitWindowSize(width_, height_);
   glutInitWindowPosition(x, y);
   glutInitDisplayMode(glut_flags);
-
   if (!s_glut_initialized_) {
     glutInit(&argc, argv);
     s_glut_initialized_ = true;
@@ -186,7 +185,7 @@ void BaseGfxApp::s_draw(void) {
 }
 
 void BaseGfxApp::s_gluicallback(int control_id) {
-  s_current_app_->GluiControl(control_id);
+    s_current_app_->GluiControl(control_id);
 }
 
 void BaseGfxApp::s_idle(void) {
