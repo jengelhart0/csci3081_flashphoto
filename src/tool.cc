@@ -52,7 +52,6 @@ void Tool::mask(float new_mask[]) {
 void Tool::Draw(int x, int y,
     float red, float green, float blue,
     PixelBuffer* display) {
-    y = 800 - y;  // Adjust y from GLUT
     // Set lower and upper bounds
     int starting_x = x - (length_ / 2);
     int starting_y = y - (height_ / 2);
