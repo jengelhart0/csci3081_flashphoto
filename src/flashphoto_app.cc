@@ -13,6 +13,8 @@
  * Includes
  ******************************************************************************/
 #include "include/flashphoto_app.h"
+#include <iostream>
+#include <cmath>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
@@ -22,8 +24,6 @@
 #include "include/spray_can.h"
 #include "include/wire_brush.h"
 #include "include/highlighter.h"
-#include <cmath>
-#include <iostream>
 
 /*******************************************************************************
  * Namespaces
@@ -357,7 +357,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_manager_.LoadImageToCanvas();
+      io_manager_.LoadImageToCanvas(display_buffer_);
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
