@@ -145,43 +145,39 @@ void IOManager::set_image_file(const std::string & file_name) {
 void IOManager::LoadImageToCanvas(PixelBuffer* canvas) {
     std::cout << "Load Canvas has been clicked for file "
         << file_name_ << std::endl;
-    FILE *fp = fopen(file_name_.c_str(), "rb");
-    /* Set png struct and info struct */
-    png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING,
-        NULL, NULL, NULL);
-    png_infop info = png_create_info_struct(png);
-    int png_transforms = PNG_TRANSFORM_IDENTITY;
-    /* Begin i/o */
-    png_init_io(png, fp);
-    png_read_png(png, info, png_transforms, NULL);
-
-    int width = png_get_image_width(png, info);
-    int height = png_get_image_height(png, info);
-    /* Allocate space for image */
-    png_bytep* rows = static_cast<png_bytep*>(malloc(
-                sizeof(png_bytep) * height));
-    rows = png_get_rows(png, info);
-    for (int i = 0; i < height; i++) {
-        rows[i] = static_cast<png_byte*>(malloc(png_get_rowbytes(png, info)));
-    }
-    fclose(fp);
-    /* Iterate over rows, set pixels on canvas */
-    png_byte* row;
-    png_byte* pixel;
-    glutReshapeWindow(width, height);
-    float red, green, blue, alpha;
-    #pragma omp for
-    for (int y = 0; y < height; y++) {
-        row = rows[y];
-        for (int x = 0; x < width; x++) {
-            pixel = &(row[x*4]);
-            red = static_cast<float>(pixel[0]/255.0);
-            green = static_cast<float>(pixel[1]/255.0);
-            blue = static_cast<float>(pixel[2]/255.0);
-            alpha = static_cast<float>(pixel[3]/255.0);
-            ColorData color(red, green, blue, alpha);
-            canvas->set_pixel(x, (height - y), color);
-            // printf("RGBA = (%f, %f, %f, %f)\n", red, green, blue, alpha);
+    /* Set image properties */
+    png_image image;
+    memset(&image, 0, (sizeof image));
+    image.version = PNG_IMAGE_VERSION;
+    /* Begin reading file */
+    if (png_image_begin_read_from_file(&image, file_name_.c_str()) != 0) {
+        png_bytep buffer; 
+        image.format = PNG_FORMAT_RGBA;
+        buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
+        if (buffer != NULL &&
+          png_image_finish_read(&image, NULL, buffer, 0, NULL) != 0) {
+            /* Image is fully loaded, set to canvas */
+            int width = image.width;
+    		int height = image.height;
+            glutReshapeWindow(width, height);
+            int row = 0;
+            int offset = 0;
+            printf("%dx%d image\n", width, height);
+            # pragma omp for
+            for (int y = 0; y < height; y++) {
+                row = 4*y*height;
+                for (int x = 0; x < width; x++) {
+                    /* Somehow do something with bytes */
+                    offset = row + (4*x);
+                    ColorData color(static_cast<float>(buffer[offset]/255.0),
+                                    static_cast<float>(buffer[1+offset]/255.0),
+                                    static_cast<float>(buffer[2+offset]/255.0),
+                                    static_cast<float>(buffer[3+offset]/255.0));
+            		canvas->set_pixel(x, y, color);
+                    //printf("RGBA = (%f, %f, %f, %f)\n",
+                        //color.red(), color.green(), color.blue(), color.alpha());
+                }
+            }
         }
     }
     return;
