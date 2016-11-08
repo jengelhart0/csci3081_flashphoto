@@ -38,7 +38,7 @@ class Filter {
       /* 
        * determines filter characteristics: must be implemented by derived subclass 
        */
-      virtual void ModifyPixel(ColorData pixel) = 0;
+      virtual void ModifyPixel(int x, int y) = 0;
 
   private:
       PixelBuffer *canvas_;

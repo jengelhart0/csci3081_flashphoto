@@ -40,7 +40,7 @@ void Filter::ApplyFilter() {
     int y, x;
     for(y = 0; y < height; y++) {
 	for(x = 0; x < width; x++) {
-	    ModifyPixel(canvas_->get_pixel(x, y));
+	    ModifyPixel(x, y);
 	}
     }
 }
