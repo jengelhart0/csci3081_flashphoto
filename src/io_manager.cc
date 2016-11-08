@@ -162,22 +162,26 @@ void IOManager::LoadImageToCanvas(PixelBuffer* canvas) {
             glutReshapeWindow(width, height);
             int row = 0;
             int offset = 0;
+            ColorData background (0.0, 0.0, 0.0);
+            PixelBuffer* new_buffer = new PixelBuffer(width, height, background);
+            /* Each pixel is 4 indices wide; this must be considered
+             * when calculating row and column offsets */
+            printf("%dx%d canvas\n", new_buffer->width(), new_buffer->height());
             printf("%dx%d image\n", width, height);
-            # pragma omp for
+			# pragma omp for
             for (int y = 0; y < height; y++) {
-                row = 4*y*height;
+                row = 4*y*width;
                 for (int x = 0; x < width; x++) {
-                    /* Somehow do something with bytes */
                     offset = row + (4*x);
                     ColorData color(static_cast<float>(buffer[offset]/255.0),
                                     static_cast<float>(buffer[1+offset]/255.0),
                                     static_cast<float>(buffer[2+offset]/255.0),
                                     static_cast<float>(buffer[3+offset]/255.0));
-            		canvas->set_pixel(x, y, color);
-                    //printf("RGBA = (%f, %f, %f, %f)\n",
-                        //color.red(), color.green(), color.blue(), color.alpha());
+            		//canvas->set_pixel(x, (height-y-1), color);
+                    new_buffer->set_pixel(x, (height-y-1), color);
                 }
             }
+            *canvas = *new_buffer;
         }
     }
     return;
