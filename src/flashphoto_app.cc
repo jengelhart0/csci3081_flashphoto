@@ -361,7 +361,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       new_buffer = io_manager_.LoadImageToCanvas();
       delete(display_buffer_);  // i2 If we add undo, this might go on our data structure
       display_buffer_ = new_buffer;
-      Display();
+      SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();

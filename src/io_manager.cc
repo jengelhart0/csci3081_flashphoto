@@ -159,15 +159,12 @@ PixelBuffer* IOManager::LoadImageToCanvas() {
             /* Image is fully loaded, set to canvas */
             int width = image.width;
     		int height = image.height;
-            glutReshapeWindow(width, height);
             int row = 0;
             int offset = 0;
             ColorData background (0.0, 0.0, 0.0);
             PixelBuffer* new_buffer = new PixelBuffer(width, height, background);
             /* Each pixel is 4 indices wide; this must be considered
              * when calculating row and column offsets */
-            printf("%dx%d canvas\n", new_buffer->width(), new_buffer->height());
-            printf("%dx%d image\n", width, height);
 			# pragma omp for
             for (int y = 0; y < height; y++) {
                 row = 4*y*width;
