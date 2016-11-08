@@ -357,7 +357,11 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_manager_.LoadImageToCanvas(display_buffer_);
+      PixelBuffer* new_buffer;
+      new_buffer = io_manager_.LoadImageToCanvas();
+      delete(display_buffer_);  // i2 If we add undo, this might go on our data structure
+      display_buffer_ = new_buffer;
+      Display();
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();

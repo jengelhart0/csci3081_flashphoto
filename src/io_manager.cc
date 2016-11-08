@@ -142,7 +142,7 @@ void IOManager::set_image_file(const std::string & file_name) {
   }
 }
 
-void IOManager::LoadImageToCanvas(PixelBuffer* canvas) {
+PixelBuffer* IOManager::LoadImageToCanvas() {
     std::cout << "Load Canvas has been clicked for file "
         << file_name_ << std::endl;
     /* Set image properties */
@@ -177,14 +177,13 @@ void IOManager::LoadImageToCanvas(PixelBuffer* canvas) {
                                     static_cast<float>(buffer[1+offset]/255.0),
                                     static_cast<float>(buffer[2+offset]/255.0),
                                     static_cast<float>(buffer[3+offset]/255.0));
-            		//canvas->set_pixel(x, (height-y-1), color);
                     new_buffer->set_pixel(x, (height-y-1), color);
                 }
             }
-            *canvas = *new_buffer;
+            return new_buffer;
         }
     }
-    return;
+    return nullptr;
 }
 
 void IOManager::LoadImageToStamp(void) {
