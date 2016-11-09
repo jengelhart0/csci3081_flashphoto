@@ -367,7 +367,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
-      io_manager_.SaveCanvasToFile();
+      io_manager_.SaveCanvasToFile(*display_buffer_);
       // Reload the current directory:
       io_manager_.file_browser()->fbreaddir(".");
       break;

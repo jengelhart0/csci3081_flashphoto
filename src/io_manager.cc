@@ -188,9 +188,42 @@ void IOManager::LoadImageToStamp(void) {
       file_name_ << std::endl;
 }
 
-void IOManager::SaveCanvasToFile(void) {
-  std::cout << "Save Canvas been clicked for file " <<
+void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
+    std::cout << "Save Canvas been clicked for file " <<
       file_name_ << std::endl;
+    int width = canvas.width();
+    int height = canvas.height();
+    /* Set image properties */
+    png_image image;
+    memset(&image, 0, (sizeof image));
+    image.version = PNG_IMAGE_VERSION;
+    image.format = PNG_FORMAT_RGBA;
+    image.width = width;
+    image.height = height;
+    /* Allocate image buffer. Each pixel is 4 indices, so size is 4*W*H */
+    png_byte buffer[4*width*height];
+    ColorData px;
+    int row = 0;
+    int offset = 0;
+    /* Read canvas data into buffer */
+    for (int y = 0; y < height; y++) {
+        row = 4*y*width;
+        for (int x = 0; x < width; x++) {
+            offset = row + 4*x;
+            px = canvas.get_pixel(x, y);
+            /* RGBA values are stored as float from 0.0 - 1.0, but PNG files
+             * represent these values from 0 - 255 */
+            buffer[offset] = static_cast<unsigned char>(px.red()*255);
+            buffer[offset+1] = static_cast<unsigned char>(px.green()*255);
+            buffer[offset+2] = static_cast<unsigned char>(px.blue()*255);
+            buffer[offset+3] = static_cast<unsigned char>(px.alpha()*255);
+        }
+    }
+    if (png_image_write_to_file(&image, file_name_.c_str(),
+      0, &buffer, 0, nullptr) == 0) {
+        printf("Error writing image. Error/warning number %d\n",
+          image.warning_or_error);
+    }
 }
 
 }  /* namespace image_tools */
