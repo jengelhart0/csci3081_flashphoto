@@ -18,6 +18,7 @@
 #include <string>
 #include "GL/glui.h"
 #include "include/ui_ctrl.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -73,7 +74,7 @@ class IOManager {
    * @brief Load the selected image file to the canvas
    *
    */
-  void LoadImageToCanvas(void);
+  PixelBuffer* LoadImageToCanvas(void);
 
   /**
    * @brief Load the selected image file to the stamp
@@ -85,7 +86,7 @@ class IOManager {
    * @brief Save the current state of the canvas to a file
    *
    */
-  void SaveCanvasToFile(void);
+  void SaveCanvasToFile(const PixelBuffer &canvas);
 
  private:
   /* Copy/move assignment/construction disallowed */

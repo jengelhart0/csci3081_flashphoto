@@ -42,12 +42,6 @@ void Highlighter::Draw(int x, int y,
     float red, float green, float blue,
     PixelBuffer* display) {
     // Set lower and upper bounds
-
-    /*
-     * TODO: 800 must become a constant in SOME file. This is the canvas
-     *       canvas dimensions so it needs to be available throughout the program
-     */
-    y = 800 - y;
     int length = Tool::length();
     int height = Tool::height();
     float* mask = Tool::mask();
