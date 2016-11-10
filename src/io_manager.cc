@@ -142,30 +142,29 @@ void IOManager::set_image_file(const std::string & file_name) {
   }
 }
 
-PixelBuffer* IOManager::LoadImageToCanvas() {
-    std::cout << "Load Canvas has been clicked for file "
-        << file_name_ << std::endl;
+/* Private method used to load PNG files into PixelBuffer */
+PixelBuffer* IOManager::LoadPng() {
     /* Set image properties */
     png_image image;
     memset(&image, 0, (sizeof image));
     image.version = PNG_IMAGE_VERSION;
     /* Begin reading file */
     if (png_image_begin_read_from_file(&image, file_name_.c_str()) != 0) {
-        png_bytep buffer; 
+        png_bytep buffer;
         image.format = PNG_FORMAT_RGBA;
         buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
         if (buffer != NULL &&
           png_image_finish_read(&image, NULL, buffer, 0, NULL) != 0) {
             /* Image is fully loaded, set to canvas */
             int width = image.width;
-    		int height = image.height;
+            int height = image.height;
             int row = 0;
             int offset = 0;
             ColorData background (0.0, 0.0, 0.0);
             PixelBuffer* new_buffer = new PixelBuffer(width, height, background);
             /* Each pixel is 4 indices wide; this must be considered
              * when calculating row and column offsets */
-			# pragma omp for
+            # pragma omp for
             for (int y = 0; y < height; y++) {
                 row = 4*y*width;
                 for (int x = 0; x < width; x++) {
@@ -183,9 +182,22 @@ PixelBuffer* IOManager::LoadImageToCanvas() {
     return nullptr;
 }
 
-void IOManager::LoadImageToStamp(void) {
+PixelBuffer* IOManager::LoadImageToCanvas() {
+    std::cout << "Load Canvas has been clicked for file "
+        << file_name_ << std::endl;
+	// Currently only support PNG files, but in the future
+    // we'll want to add a check for other files types and
+    // call the appropriate LoadX for a given image
+	return (LoadPng());
+}
+
+PixelBuffer* IOManager::LoadImageToStamp(void) {
   std::cout << "Load Stamp has been clicked for file " <<
       file_name_ << std::endl;
+    // Currently only support PNG files, but in the future
+    // we'll want to add a check for other files types and
+    // call the appropriate LoadX for a given image
+    return (LoadPng());
 }
 
 void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {

@@ -24,6 +24,7 @@
 #include "include/spray_can.h"
 #include "include/wire_brush.h"
 #include "include/highlighter.h"
+#include "include/stamp.h"
 
 /*******************************************************************************
  * Namespaces
@@ -98,6 +99,8 @@ void FlashPhotoApp::Reshape(int width, int height) {
 }
 
 void FlashPhotoApp::MouseDragged(int new_x, int new_y) {
+    /* Don't draw for stamp */
+    if (cur_tool_ == 6) { return; }
     int x = new_x;
     int y = new_y;
     int x_gap = std::abs(x - prev_x_);
@@ -184,6 +187,11 @@ void FlashPhotoApp::ChangeTool(int current_tool) {
             break;
         case 5:
             new_tool = new WireBrush();
+            break;
+        case 6:
+            PixelBuffer* stamp;
+            stamp = io_manager_.LoadImageToStamp();
+            new_tool = new Stamp(stamp);
             break;
     }
     delete tool_;
@@ -364,7 +372,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      io_manager_.LoadImageToStamp();
+      ChangeTool(cur_tool_); // I don't think this does anything
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(*display_buffer_);

@@ -70,6 +70,7 @@ class IOManager {
    */
   GLUI_FileBrowser* file_browser(void) { return file_browser_;}
 
+
   /**
    * @brief Load the selected image file to the canvas
    *
@@ -80,7 +81,7 @@ class IOManager {
    * @brief Load the selected image file to the stamp
    *
    */
-  void LoadImageToStamp(void);
+  PixelBuffer* LoadImageToStamp(void);
 
   /**
    * @brief Save the current state of the canvas to a file
@@ -92,6 +93,12 @@ class IOManager {
   /* Copy/move assignment/construction disallowed */
   IOManager(const IOManager &rhs) = delete;
   IOManager& operator=(const IOManager &rhs) = delete;
+
+  /**
+   * @brief Load PNG into PixelBuffer and return it
+   *
+   */
+  PixelBuffer* LoadPng(void);
 
   void save_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(save_canvas_btn_, enabled);
