@@ -25,6 +25,6 @@ int main(int argc, char* argv[]) {
 
   // runMainLoop returns when the user closes the graphics window.
   app->RunMainLoop();
-  delete app;
+  // delete app;
   exit(0);
 }

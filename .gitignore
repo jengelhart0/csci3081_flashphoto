@@ -68,3 +68,6 @@ bin/*
 *.out
 *.app
 *.d
+
+# Swap files
+*.swp

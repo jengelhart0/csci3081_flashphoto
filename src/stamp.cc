@@ -1,10 +1,10 @@
 /*******************************************************************************
- * Name            : highlighter.cc
+ * Name            : stamp.cc
  * Project         : BrushWork
  * Module          : image_tools
- * Description     : Implementation of Highlighter class
+ * Description     : Implementation of Stamp class
  * Copyright       : 2016 CSCI3081W Group C07. All rights reserved.
- * Creation Date   : 10/18/2016
+ * Creation Date   : 11/09/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
@@ -12,7 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/highlighter.h"
+#include "include/stamp.h"
+#include <iostream>
 
 /*******************************************************************************
  * Namespaces
@@ -22,73 +23,63 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-Highlighter::Highlighter(void) : Tool(5, 15) {
+Stamp::Stamp(PixelBuffer* stamp) : Tool(stamp->width(), stamp->height()),
+                                   stamp_(stamp) {
     CalculateMask();
 }
 
-Highlighter::~Highlighter(void) {}
+Stamp::~Stamp(void) {}
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Highlighter::CalculateMask(void) {
-    int size = Tool::length() * Tool::height();
-    float new_mask[5*15];
-    for (int i = 0; i < size; i++) { new_mask[i] = 0.4; }
+void Stamp::CalculateMask(void) {
+    int length = Tool::length();
+    int height = Tool::height();
+    float new_mask[length*height];
+    int index = 0;
+    ColorData px;
+    ColorData background = stamp_->background_color();
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < length; x++) {
+            index = x + (y*length);
+            px = stamp_->get_pixel(x, y);
+            new_mask[index] = px.alpha();
+        }
+    }
     Tool::mask(new_mask);
 }
 
-void Highlighter::Draw(int x, int y,
+void Stamp::Draw(int x, int y,
     float red, float green, float blue,
     PixelBuffer* display) {
-    // Set lower and upper bounds
+	// Mask-related variables
     int length = Tool::length();
     int height = Tool::height();
     float* mask = Tool::mask();
+	// Canvas-related variables
+    int max_y = display->height();
+    int max_x = display->width();
     int starting_x = x - (length / 2);
     int starting_y = y - (height / 2);
-    int max_y = height;
-    int max_x = length;
-    // Check lower bounds, adjust upper bounds if pixel mask is too close
-    // to left and/or upper edge
-    if (starting_x < 0) {
-        max_x = starting_x + length;
-        starting_x = 0;
-    }
-    if (starting_y < 0) {
-        max_y = starting_y + height;
-        starting_y = 0;
-    }
-    // Check upper bound, adjust if too close to right and/or lower edge
-    int canvas_length = display->width();
-    int canvas_height = display->height();
-    if ((starting_x + length) > canvas_length) {
-        max_x = canvas_length - starting_x;
-    }
-    if ((starting_y + height) > canvas_height) {
-        max_y = canvas_height - starting_y;
-    }
-    // Current position
     int cur_x = starting_x;
     int cur_y = starting_y;
-
     int index = 0;
     float intensity = 1.0;
-    float luminance = 0.0;
-    ColorData color = ColorData(red, green, blue);
     ColorData temp_color;
-    ColorData cur_pixel;
-    for (int i = 0; i < max_y; i++) {
+    for (int i = 0; i < height; i++) {
         cur_y = i + starting_y;
-        for (int j = 0; j < max_x; j++) {
+        for (int j = 0; j < length; j++) {
             cur_x = j + starting_x;
             index = j + (i*length);
-            cur_pixel = display->get_pixel(cur_x, cur_y);
-            intensity = mask[index] * cur_pixel.luminance();
-            temp_color = (color*intensity) + (cur_pixel*(1.0 - intensity));
-            display->set_pixel(cur_x, cur_y, temp_color);
+            intensity = mask[index];
+            temp_color = stamp_->get_pixel(j, i);
+            if (intensity == 1.0 &&
+                cur_x < max_x && cur_x >= 0 &&
+                cur_y < max_y && cur_y >= 0) {
+                display->set_pixel(cur_x, cur_y, temp_color);
+            }
         }
     }
 }
-
 }  // namespace image_tools

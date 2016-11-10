@@ -13,8 +13,8 @@
  * Includes
  ******************************************************************************/
 #include "include/flashphoto_app.h"
-#include <cmath>
 #include <iostream>
+#include <cmath>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
@@ -24,6 +24,7 @@
 #include "include/spray_can.h"
 #include "include/wire_brush.h"
 #include "include/highlighter.h"
+#include "include/stamp.h"
 
 /*******************************************************************************
  * Namespaces
@@ -90,15 +91,23 @@ void FlashPhotoApp::Display(void) {
   DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
+/* i2 - Overrides BaseGfxApp so users can resize image */
+void FlashPhotoApp::Reshape(int width, int height) {
+    glutReshapeWindow(width, height);
+    canvas_height_ = height;
+    canvas_width_ = width;
+}
 
-void FlashPhotoApp::MouseDragged(int new_x, int new_y) 
-{
+void FlashPhotoApp::MouseDragged(int new_x, int new_y) {
+    /* Don't draw for stamp */
+    if (cur_tool_ == 6) { return; }
     int x = new_x;
     int y = new_y;
     int x_gap = std::abs(x - prev_x_);
     int y_gap = std::abs(y - prev_y_);
     int half_mask_length = tool_->length() / 2;
     int half_mask_height = tool_->height() / 2;
+    int adjusted_y = y;
 
     // Only applies gap fill logic if gaps between
     // MouseDragged() calls are large enough
@@ -118,7 +127,8 @@ void FlashPhotoApp::MouseDragged(int new_x, int new_y)
             // for semi-transparent tools like highlighter and spray can
             if ((abs(x - last_x_applied) >= half_mask_length / 2) ||
                 (abs(y - last_y_applied) >= half_mask_height / 2)) {
-                tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+                adjusted_y = canvas_height_ - y;
+                tool_->Draw(x, adjusted_y, cur_color_red_, cur_color_green_,
                     cur_color_blue_, display_buffer_);
                 last_x_applied = x;
                 last_y_applied = y;
@@ -126,26 +136,25 @@ void FlashPhotoApp::MouseDragged(int new_x, int new_y)
         }
 
     } else {
-            tool_->Draw(x, y, cur_color_red_, cur_color_green_,
-                cur_color_blue_, display_buffer_);
+        adjusted_y = canvas_height_ - y;
+        tool_->Draw(x, adjusted_y, cur_color_red_, cur_color_green_,
+            cur_color_blue_, display_buffer_);
     }
     // For efficiency, only update relevant portion of canvas
     DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
     prev_x_ = new_x;
     prev_y_ = new_y;
-
 }
-void FlashPhotoApp::MouseMoved(int x, int y) 
-{
+void FlashPhotoApp::MouseMoved(int x, int y) {
     // Keep track of latest x-y coordinates so
     // MouseDragged() has current data to use
     prev_x_ = x;
     prev_y_ = y;
-
 }
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
   std::cout << "mousePressed " << x << " " << y << std::endl;
+  y = canvas_height_ - y;
   tool_->Draw(x, y, cur_color_red_, cur_color_green_,
         cur_color_blue_, display_buffer_);
 }
@@ -179,15 +188,22 @@ void FlashPhotoApp::ChangeTool(int current_tool) {
         case 5:
             new_tool = new WireBrush();
             break;
+        case 6:
+            PixelBuffer* stamp;
+            stamp = io_manager_.LoadImageToStamp();
+            new_tool = new Stamp(stamp);
+            break;
     }
     delete tool_;
     tool_ = new_tool;
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
-  int width, 
+  int width,
   int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
+  canvas_height_ = 800;
+  canvas_width_ = 800;
 }
 
 void FlashPhotoApp::InitGlui(void) {
@@ -349,13 +365,17 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_manager_.LoadImageToCanvas();
+      PixelBuffer* new_buffer;
+      new_buffer = io_manager_.LoadImageToCanvas();
+      delete(display_buffer_);  // i2 If we add undo, this might go on our data structure
+      display_buffer_ = new_buffer;
+      SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      io_manager_.LoadImageToStamp();
+      ChangeTool(cur_tool_); // I don't think this does anything
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
-      io_manager_.SaveCanvasToFile();
+      io_manager_.SaveCanvasToFile(*display_buffer_);
       // Reload the current directory:
       io_manager_.file_browser()->fbreaddir(".");
       break;
