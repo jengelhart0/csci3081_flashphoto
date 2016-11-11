@@ -1,21 +1,20 @@
 /*******************************************************************************
- * Name            : convolution_filter.h
+ * Name            : kernel.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for ConvolutionFilter class.
+ * Description     : Header file for Kernel class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/07/2016
+ * Creation Date   : 11/10/2016
  * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CONVOLUTION_FILTER_H_
-#define INCLUDE_CONVOLUTION_FILTER_H_
+#ifndef INCLUDE_KERNEL_H_
+#define INCLUDE_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/kernel.h"
-#include "include/filter.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,27 +25,21 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This extension of Filter overrides the base ApplyFilter() to allow to 
- * CreateKernel(). It also implements ModifyPixel() for all ConvolutionFilters.
+ * @brief This class implements a Kernel for ConvolutionFilters.        
  */
 
-class ConvolutionFilter : public Filter {
+class Kernel {
   public:
 
-      enum Type {UNASSIGNED, BLUR, MOTION_BLUR, SHARPEN, EDGE_DETECT};
-
-      ConvolutionFilter(PixelBuffer *canvas);
-      virtual ~ConvolutionFilter(void);
-
-      virtual void ApplyFilter(void);
-      virtual void ModifyPixel(int x, int y, PixelBuffer *canvas_copy);
-      void set_type(Type type);
-      Type get_type(void); 
+      int get_dimension(void);
+      float get_weight(int index);
+      void init_kernel(int dimension);
+      void set_kernel_value(int position, float value);
 
   private:
-      Type type_;
-      Kernel *kernel_;
+      int dimension_;
+      float *data_;
 };
 } // namespace image_tools
 
-#endif // INCLUDE_CONVOLUTION_FILTER_H
+#endif // INCLUDE_KERNEL_H
