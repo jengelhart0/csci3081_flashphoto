@@ -15,6 +15,11 @@
 #include "include/filter_manager.h"
 #include <iostream>
 #include "include/ui_ctrl.h"
+#include "include/convolution_filter.h"
+#include "include/blur_kernel.h"
+//#include "include/sharpen_kernel.h"
+//#include "include/edge_detect_kernel.h"
+//#include "include/motion_blur_kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -51,23 +56,25 @@ void FilterManager::ApplySaturate(void) {
             << saturation_amount_ << std::endl;
 }
 
-void FilterManager::ApplyBlur(void) {
+void FilterManager::ApplyBlur(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
+  ConvolutionFilter convolution_filter(canvas);
+
 }
 
-void FilterManager::ApplySharpen(void) {
+void FilterManager::ApplySharpen(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << sharpen_amount_ << std::endl;
 }
 
-void FilterManager::ApplyMotionBlur(void) {
+void FilterManager::ApplyMotionBlur(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << motion_blur_amount_
             << " and direction " << motion_blur_direction_ << std::endl;
 }
 
-void FilterManager::ApplyEdgeDetect(void) {
+void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
 }
 

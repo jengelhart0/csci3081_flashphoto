@@ -42,7 +42,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyBlur(void);
+  void ApplyBlur(PixelBuffer *canvas);
 
   /**
    * @brief Apply a sharpening filter to the buffer, sharpening blurry/undefined
@@ -50,21 +50,21 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySharpen(void);
+  void ApplySharpen(PixelBuffer *canvas);
 
   /**
    * @brief Apply a motion blurring filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyMotionBlur(void);
+  void ApplyMotionBlur(PixelBuffer *canvas);
 
   /**
    * @brief Apply an edge detection filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyEdgeDetect(void);
+  void ApplyEdgeDetect(PixelBuffer *canvas);
 
   /**
    * @brief Apply a threshold detection filter to the buffer

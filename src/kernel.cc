@@ -24,23 +24,39 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 
+Kernel::Kernel(float filter_amount, int dimension)
+    : filter_amount_(filter_amount),
+    : dimension_(dimension) {
+
+    init_kernel();
+
+}
+Kernel::Kernel(int dimension) {
+    Kernel::Kernel(1.0, dimension);
+}
+Kernel::~Kernel(void) {}
+
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 
-int Kernel::get_dimension(void) { return dimension_; }
-float Kernel::get_weight(int index) { return *(data_ + index); }
+int Kernel::dimension(void) { return dimension_; }
 
-void Kernel::set_kernel_value(int position, float value) {
+float Kernel::weight(int x, int y) { return *(data_ + (y * dimension_ + x)); }
+
+float Kernel::filter_amount(void) { return filter_amount_; }
+
+void Kernel::weight(int x, int y, float value) {
+    int position = y * dimension_ + x;
     if(!( (position < dimension_ - 1) || (position < 0) )) {
 	data_[position] = value;
     } else {
-	std::cerr << "set_kernel_value() position out of bounds: " << position << std::endl;
+	std::cerr << "set_kernel_value() coordinates out of bounds. X: " << x << " Y: " << y << std::endl;
     } 
 }
 
-void Kernel::init_kernel(int dimension) {
+void Kernel::init_data(int dimension) {
     dimension_ = dimension;
-    data_ = new float[dimension]; 
+    data_ = new float[dimension * dimension]; 
 }
 } // namespace image_tools

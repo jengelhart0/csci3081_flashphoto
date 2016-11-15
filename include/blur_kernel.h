@@ -1,21 +1,20 @@
 /*******************************************************************************
- * Name            : convolution_filter.h
+ * Name            : blur.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for ConvolutionFilter class.
+ * Description     : Header file for Blur class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/07/2016
+ * Creation Date   : 11/15/2016
  * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CONVOLUTION_FILTER_H_
-#define INCLUDE_CONVOLUTION_FILTER_H_
+#ifndef INCLUDE_BLUR_H_
+#define INCLUDE_BLUR_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include "include/kernel.h"
-#include "include/filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,29 +25,15 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This extension of Filter overrides the base ApplyFilter() to allow to 
- * CreateKernel(). It also implements ModifyPixel() for all ConvolutionFilters.
+ * @brief This class implements a blur kernel for use with a ConvolutionFilter and the Blur tool.        
  */
 
-class ConvolutionFilter : public Filter {
+class BlurKernel : public Kernel {
   public:
-
-      enum Type {UNASSIGNED, BLUR, MOTION_BLUR, SHARPEN, EDGE_DETECT};
-
-      ConvolutionFilter(PixelBuffer *canvas);
-      virtual ~ConvolutionFilter(void);
-
-      virtual void ApplyFilter(void);
-      virtual void ModifyPixel(int x, int y, PixelBuffer *canvas_copy);
-      void type(Type type);
-      Type type(void);
-
-      void kernel(Kernel *new_kernel); 
-
-  private:
-      Type type_;
-      Kernel *kernel_;
+      BlurKernel(float blur_amount, int dimension);
+      virtual ~BlurKernel(void);
+ 
+      virtual void InitKernel(void);
 };
 } // namespace image_tools
-
-#endif // INCLUDE_CONVOLUTION_FILTER_H
+#endif // INCLUDE_BLUR_H

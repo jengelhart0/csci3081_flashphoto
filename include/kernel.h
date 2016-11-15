@@ -25,19 +25,32 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements a Kernel for ConvolutionFilters.        
+ * @brief This abstract class is a base for the different types of kernels for ConvolutionFilters.        
  */
 
 class Kernel {
   public:
 
-      int get_dimension(void);
-      float get_weight(int index);
-      void init_kernel(int dimension);
-      void set_kernel_value(int position, float value);
+      Kernel(float filter_amount, int dimension);
+      Kernel(int dimension);
+      virtual ~Kernel(void);
+
+      float weight(int x, int y);
+      int dimension(void);
+      float filter_amount(void);
+
+  protected:
+
+      virtual void InitKernel(void) = 0;
+      void init_data(int dimension);
+      void weight(int x, int y, float value);
+
+      float filter_amount_;
+      int dimension_;
+
 
   private:
-      int dimension_;
+      
       float *data_;
 };
 } // namespace image_tools
