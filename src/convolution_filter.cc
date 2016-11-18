@@ -61,7 +61,7 @@ void ConvolutionFilter::ModifyPixel(int x, int y, PixelBuffer *canvas_copy) { //
 } 
 
 void ConvolutionFilter::ApplyFilter(void) {
- //   CreateKernel(); <-- replace with call to kernelfactory
+
     PixelBuffer *canvas = get_canvas();
     PixelBuffer canvas_copy = *canvas;
 

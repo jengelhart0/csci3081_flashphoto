@@ -40,6 +40,7 @@ class ConvolutionFilter : public Filter {
 
       virtual void ApplyFilter(void);
       virtual void ModifyPixel(int x, int y, PixelBuffer *canvas_copy);
+
       void type(Type type);
       Type type(void);
 

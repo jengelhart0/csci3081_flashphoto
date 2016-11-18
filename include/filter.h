@@ -36,12 +36,12 @@ class Filter {
 
       PixelBuffer *get_canvas(void);
       void set_canvas(PixelBuffer *new_canvasptr);
-      virtual void ApplyFilter(void);
+      virtual void ApplyFilter(void) = 0;
       /* 
        * determines filter characteristics: must be implemented by derived subclass 
        */
       virtual void ModifyPixel(int x, int y, PixelBuffer *canvas_copy) = 0;
-      virtual void ModifyPixel(int x, int y);
+//      virtual void ModifyPixel(int x, int y);
 
   private:
       PixelBuffer *canvas_;

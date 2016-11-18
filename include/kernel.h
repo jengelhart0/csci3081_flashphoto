@@ -42,7 +42,6 @@ class Kernel {
   protected:
 
       virtual void InitKernel(void) = 0;
-      void init_data(int dimension);
       void weight(int x, int y, float value);
 
       float filter_amount_;
@@ -50,7 +49,8 @@ class Kernel {
 
 
   private:
-      
+      void init_data(void);
+
       float *data_;
 };
 } // namespace image_tools

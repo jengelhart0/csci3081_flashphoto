@@ -37,14 +37,14 @@ Filter::~Filter(void) {}
 PixelBuffer *Filter::get_canvas(void) { return canvas_; }
 void Filter::set_canvas(PixelBuffer *new_canvasptr) { canvas_ = new_canvasptr; } 
 
-void Filter::ApplyFilter() {
-    int height = canvas_->height();
-    int width = canvas_->width();
-    int y, x;
-    for(y = 0; y < height; y++) {
-	for(x = 0; x < width; x++) {
-	    ModifyPixel(x, y);
-	}
-    }
-}
+//void Filter::ApplyFilter() {
+//    int height = canvas_->height();
+//    int width = canvas_->width();
+//    int y, x;
+//    for(y = 0; y < height; y++) {
+//	for(x = 0; x < width; x++) {
+//	    ModifyPixel(x, y);
+//	}
+//    }
+//}
 }    // namespace image_tools

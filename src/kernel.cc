@@ -26,14 +26,11 @@ namespace image_tools {
 
 Kernel::Kernel(float filter_amount, int dimension)
     : filter_amount_(filter_amount),
-    : dimension_(dimension) {
+      dimension_(dimension) {
 
-    init_kernel();
-
+    init_data();
 }
-Kernel::Kernel(int dimension) {
-    Kernel::Kernel(1.0, dimension);
-}
+Kernel::Kernel(int dimension) : Kernel::Kernel(1.0, dimension) {}
 Kernel::~Kernel(void) {}
 
 /*******************************************************************************
@@ -55,8 +52,7 @@ void Kernel::weight(int x, int y, float value) {
     } 
 }
 
-void Kernel::init_data(int dimension) {
-    dimension_ = dimension;
-    data_ = new float[dimension * dimension]; 
+void Kernel::init_data(void) {
+    data_ = new float[dimension_ * dimension_]; 
 }
 } // namespace image_tools
