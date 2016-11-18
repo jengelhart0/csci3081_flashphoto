@@ -39,7 +39,7 @@ class ConvolutionFilter : public Filter {
       virtual ~ConvolutionFilter(void);
 
       virtual void ApplyFilter(void);
-      virtual void ModifyPixel(int x, int y, PixelBuffer *canvas_copy);
+      virtual void ModifyPixel(int x, int y);
 
       void type(Type type);
       Type type(void);
@@ -49,6 +49,7 @@ class ConvolutionFilter : public Filter {
   private:
       Type type_;
       Kernel *kernel_;
+      PixelBuffer canvas_copy_;
 };
 } // namespace image_tools
 

@@ -24,7 +24,8 @@ namespace image_tools {
  ******************************************************************************/
 ConvolutionFilter::ConvolutionFilter(PixelBuffer *canvas)
     : Filter(canvas),
-      type_(UNASSIGNED) {} 
+      type_(UNASSIGNED),
+      canvas_copy_(*canvas) {} 
 
 ConvolutionFilter::~ConvolutionFilter(void) {}
 
@@ -32,7 +33,7 @@ ConvolutionFilter::~ConvolutionFilter(void) {}
  * Member Functions
  ******************************************************************************/
 
-void ConvolutionFilter::ModifyPixel(int x, int y, PixelBuffer *canvas_copy) { ///CONFUSING SET-UP in PixelBuffer! 
+void ConvolutionFilter::ModifyPixel(int x, int y) { ///CONFUSING SET-UP in PixelBuffer! 
 									      ///Verify you have actually made a copy aren't pointing to same canvas!!
     // kernel coordinate parameters on canvas
     int kernel_dim = kernel_->dimension();		 
@@ -56,24 +57,22 @@ void ConvolutionFilter::ModifyPixel(int x, int y, PixelBuffer *canvas_copy) { //
     }
 
     ColorData new_pixel = (modified_pixel - old_pixel) * kernel_->filter_amount() + old_pixel; 
-
-    canvas_copy->set_pixel(x, y, new_pixel);
+    canvas_copy_.set_pixel(x, y, new_pixel);
 } 
 
 void ConvolutionFilter::ApplyFilter(void) {
 
     PixelBuffer *canvas = get_canvas();
-    PixelBuffer canvas_copy = *canvas;
 
     int height = canvas->height();
     int width = canvas->width();
     int y, x;
     for(y = 0; y < height; y++) {
 	for(x = 0; x < width; x++) {
-	    ModifyPixel(x, y, &canvas_copy);
+	    ModifyPixel(x, y);
 	}
     }
-    Filter::set_canvas(&canvas_copy);
+    Filter::set_canvas(&canvas_copy_);
 }
 
 void ConvolutionFilter::kernel(Kernel *new_kernel) { kernel_ = new_kernel; }
