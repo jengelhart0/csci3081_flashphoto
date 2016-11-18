@@ -35,7 +35,6 @@ Filter::~Filter(void) {}
  ******************************************************************************/
 
 PixelBuffer *Filter::get_canvas(void) { return canvas_; }
-void Filter::set_canvas(PixelBuffer *new_canvasptr) { canvas_ = new_canvasptr; } 
 
 void Filter::ApplyFilter() {
     int height = canvas_->height();

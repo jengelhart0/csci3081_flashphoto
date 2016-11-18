@@ -47,6 +47,9 @@ class ConvolutionFilter : public Filter {
       void kernel(Kernel *new_kernel); 
 
   private:
+
+      void set_canvas_copy(PixelBuffer &canvas);
+
       Type type_;
       Kernel *kernel_;
       PixelBuffer canvas_copy_;

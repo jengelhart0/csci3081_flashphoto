@@ -33,6 +33,8 @@ ConvolutionFilter::~ConvolutionFilter(void) {}
  * Member Functions
  ******************************************************************************/
 
+void ConvolutionFilter::set_canvas_copy(PixelBuffer &canvas) { canvas_copy_ = canvas; } 
+
 void ConvolutionFilter::ModifyPixel(int x, int y) { ///CONFUSING SET-UP in PixelBuffer! 
 									      ///Verify you have actually made a copy aren't pointing to same canvas!!
     // kernel coordinate parameters on canvas
@@ -43,8 +45,8 @@ void ConvolutionFilter::ModifyPixel(int x, int y) { ///CONFUSING SET-UP in Pixel
     int ending_y = starting_y + kernel_dim - 1;
 
     PixelBuffer *canvas = get_canvas();
-    ColorData old_pixel = canvas->get_pixel(x, y);
-    ColorData modified_pixel = canvas->get_pixel(x, y);
+    ColorData old_pixel = canvas_copy_.get_pixel(x, y);
+    ColorData modified_pixel = canvas_copy_.get_pixel(x, y);
 
     int i, j;
     int current_x, current_y;
@@ -52,27 +54,27 @@ void ConvolutionFilter::ModifyPixel(int x, int y) { ///CONFUSING SET-UP in Pixel
     for(i = starting_y, current_y = 0; i <= ending_y; i++, current_y++) {
 	for(j = starting_x, current_x = 0; j <= ending_x; j++, current_x++) {
 	    // use overloaded ColorData operators to calculate modified_pixel values
-	    modified_pixel = modified_pixel + (canvas->get_pixel(i, j) * kernel_->weight(current_x, current_y));    
+	    modified_pixel = modified_pixel + (canvas_copy_.get_pixel(i, j) * kernel_->weight(current_x, current_y));    
 	}
     }
 
     ColorData new_pixel = (modified_pixel - old_pixel) * kernel_->filter_amount() + old_pixel; 
-    canvas_copy_.set_pixel(x, y, new_pixel);
+    canvas->set_pixel(x, y, new_pixel);
 } 
 
 void ConvolutionFilter::ApplyFilter(void) {
 
     PixelBuffer *canvas = get_canvas();
+    ConvolutionFilter::set_canvas_copy(*canvas);
 
-    int height = canvas->height();
-    int width = canvas->width();
+    int height = canvas_copy_.height();
+    int width = canvas_copy_.width();
     int y, x;
     for(y = 0; y < height; y++) {
 	for(x = 0; x < width; x++) {
 	    ModifyPixel(x, y);
 	}
     }
-    Filter::set_canvas(&canvas_copy_);
 }
 
 void ConvolutionFilter::kernel(Kernel *new_kernel) { kernel_ = new_kernel; }

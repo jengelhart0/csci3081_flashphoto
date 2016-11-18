@@ -35,7 +35,7 @@ class Filter {
       virtual ~Filter(void);
 
       PixelBuffer *get_canvas(void);
-      void set_canvas(PixelBuffer *new_canvasptr);
+
       virtual void ApplyFilter(void);
       /* 
        * determines filter characteristics: must be implemented by derived subclass 
