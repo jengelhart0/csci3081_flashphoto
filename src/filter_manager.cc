@@ -60,7 +60,10 @@ void FilterManager::ApplyBlur(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
   ConvolutionFilter convolution_filter(canvas);
-
+  int blur_dimension = 19;
+  BlurKernel *new_kernel = new BlurKernel(blur_amount_, blur_dimension);
+  convolution_filter.kernel(new_kernel);
+  convolution_filter.ApplyFilter();
 }
 
 void FilterManager::ApplySharpen(PixelBuffer *canvas) {

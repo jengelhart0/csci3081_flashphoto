@@ -25,13 +25,13 @@ endif
 all: $(EXE)
 
 $(EXE): $(OBJ_CXX) glui jpeg-9a png-1.6.16 | $(BINDIR)
-	g++ -o $@ $(OBJ_CXX) $(LIBDIR) $(LINKLIBS)
+	g++ -g -o $@ $(OBJ_CXX) $(LIBDIR) $(LINKLIBS)
 
 $(OBJDIR)/main.o: $(SRCDIR)/main.cc | $(OBJDIR)
-	g++ $(CXXFLAGS) $(EXTFLAG) -c -o $@ $<
+	g++ -g $(CXXFLAGS) $(EXTFLAG) -c -o $@ $<
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc $(INCDIR)/%.h | $(OBJDIR)
-	g++ $(CXXFLAGS) $(EXTFLAG) -c -o $@ $<
+	g++ -g $(CXXFLAGS) $(EXTFLAG) -c -o $@ $<
 
 jpeg-9a:
 	$(MAKE) -C./ext/jpeg-9a all install

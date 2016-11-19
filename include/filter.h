@@ -14,6 +14,7 @@
 /*******************************************************************************
  * Includes
  *******************************************************************************/
+#include <iostream>
 #include "include/pixel_buffer.h"
 
 /*******************************************************************************
@@ -30,23 +31,22 @@ namespace image_tools {
  */
 
 class Filter {
-  public:
-      Filter(PixelBuffer *canvas);
-      virtual ~Filter(void);
+ public:
+     explicit Filter(PixelBuffer *canvas);
+     virtual ~Filter(void);
 
-      PixelBuffer *get_canvas(void);
+     PixelBuffer *get_canvas(void);
 
-      virtual void ApplyFilter(void);
-      /* 
-       * determines filter characteristics: must be implemented by derived subclass 
-       */
+     virtual void ApplyFilter(void);
+     /* 
+      * determines filter characteristics: must be implemented by derived subclass 
+      */
 
-      virtual void ModifyPixel(int x, int y) = 0;
+     virtual void ModifyPixel(int x, int y) = 0;
 
-  private:
-      PixelBuffer *canvas_;
-
+ private:
+     PixelBuffer *canvas_;
 };
-} // namespace image_tools
+}  // namespace image_tools
 
-#endif	// INCLUDE_FILTER_H
+#endif  // INCLUDE_FILTER_H_

@@ -45,14 +45,15 @@ float Kernel::filter_amount(void) { return filter_amount_; }
 
 void Kernel::weight(int x, int y, float value) {
     int position = y * dimension_ + x;
-    if(!( (position < dimension_ - 1) || (position < 0) )) {
-	data_[position] = value;
+    if (( (position < dimension_ * dimension_) && (position >= 0) )) {
+        data_[position] = value;
     } else {
-	std::cerr << "set_kernel_value() coordinates out of bounds. X: " << x << " Y: " << y << std::endl;
-    } 
+        std::cerr << "set_kernel_value() coordinates out of bounds. X: "
+                  << x << " Y: " << y << std::endl;
+    }
 }
 
 void Kernel::init_data(void) {
-    data_ = new float[dimension_ * dimension_]; 
+    data_ = new float[dimension_ * dimension_];
 }
-} // namespace image_tools
+}  // namespace image_tools

@@ -14,6 +14,7 @@
 /*******************************************************************************
  * Includes
  *******************************************************************************/
+
 #include "include/kernel.h"
 #include "include/filter.h"
 
@@ -31,29 +32,23 @@ namespace image_tools {
  */
 
 class ConvolutionFilter : public Filter {
-  public:
+ public:
+     explicit ConvolutionFilter(PixelBuffer *canvas);
+     virtual ~ConvolutionFilter(void);
 
-      enum Type {UNASSIGNED, BLUR, MOTION_BLUR, SHARPEN, EDGE_DETECT};
+     virtual void ApplyFilter(void);
+     virtual void ModifyPixel(int x, int y);
 
-      ConvolutionFilter(PixelBuffer *canvas);
-      virtual ~ConvolutionFilter(void);
+     void kernel(Kernel *new_kernel);
 
-      virtual void ApplyFilter(void);
-      virtual void ModifyPixel(int x, int y);
+ private:
+      void set_canvas_copy(const PixelBuffer &canvas);
 
-      void type(Type type);
-      Type type(void);
-
-      void kernel(Kernel *new_kernel); 
-
-  private:
-
-      void set_canvas_copy(PixelBuffer &canvas);
-
-      Type type_;
       Kernel *kernel_;
       PixelBuffer canvas_copy_;
+      int canvas_width_;
+      int canvas_height_;
 };
-} // namespace image_tools
+}  // namespace image_tools
 
-#endif // INCLUDE_CONVOLUTION_FILTER_H
+#endif  // INCLUDE_CONVOLUTION_FILTER_H_

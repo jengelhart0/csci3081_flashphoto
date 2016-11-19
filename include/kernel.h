@@ -29,30 +29,26 @@ namespace image_tools {
  */
 
 class Kernel {
-  public:
+ public:
+     Kernel(float filter_amount, int dimension);
+     explicit Kernel(int dimension);
+     virtual ~Kernel(void);
 
-      Kernel(float filter_amount, int dimension);
-      Kernel(int dimension);
-      virtual ~Kernel(void);
+     float weight(int x, int y);
+     int dimension(void);
+     float filter_amount(void);
 
-      float weight(int x, int y);
-      int dimension(void);
-      float filter_amount(void);
+ protected:
+     virtual void InitKernel(void) = 0;
+     void weight(int x, int y, float value);
+     float filter_amount_;
+     int dimension_;
 
-  protected:
+ private:
+     void init_data(void);
 
-      virtual void InitKernel(void) = 0;
-      void weight(int x, int y, float value);
-
-      float filter_amount_;
-      int dimension_;
-
-
-  private:
-      void init_data(void);
-
-      float *data_;
+     float *data_;
 };
-} // namespace image_tools
+}  // namespace image_tools
 
-#endif // INCLUDE_KERNEL_H
+#endif  // INCLUDE_KERNEL_H_
