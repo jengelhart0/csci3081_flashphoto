@@ -23,13 +23,13 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-
 Kernel::Kernel(float filter_amount, int dimension)
     : filter_amount_(filter_amount),
       dimension_(dimension) {
 
     init_data();
 }
+
 Kernel::Kernel(int dimension) : Kernel::Kernel(1.0, dimension) {}
 Kernel::~Kernel(void) {}
 

@@ -12,7 +12,6 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <cmath>
 #include "include/blur_kernel.h"
 
 /*******************************************************************************
@@ -61,17 +60,23 @@ void BlurKernel::InitKernel(void) {
         factor += i * 2;
     }
 
-    int j, zero_pad;
+    int mid_index = dimension_ / 2;
+    // all mid_index row/col positions = weight_val
+    for (i = 0; i < dimension_; i++) {
+        weight(i, mid_index, 1.0 / factor);
+        weight(mid_index, i, 1.0 / factor);
+    }
     float weight_val;
     int edge_index = dimension_ - 1;
-    for (j = dimension_ / 2, zero_pad = 0; j < dimension_; zero_pad++, j++) {
+    int j, zero_pad;
+    for (j = mid_index + 1, zero_pad = 1; j < dimension_; zero_pad++, j++) {
 	/* blur kernel is symmetric across both axes intersecting at the middle pixel:
-	 * only iterating through 1/4 of the kernel to set all relevant pixel weights.
+	 * only iterating through one quadrant of the kernel to set all relevant pixel weights.
 	 */ 
-        for (i = dimension_ / 2; i < dimension_; i++) {
+        for (i = mid_index + 1; i < dimension_; i++) {
             /* if i is more than zero_pad from the edge, the weight at (i, j),
              * as well as all of its reflections about the axes through the middle
-             * pixel, will be set to 1.0 / factor. Otherwise, weight is 0.0.
+             * pixel, will be set to weight_val. Otherwise, weight is 0.0.
 	     */
             if (i < dimension_ - zero_pad) {
                 weight_val = 1.0 / factor;
