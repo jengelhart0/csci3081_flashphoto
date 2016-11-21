@@ -58,18 +58,18 @@ Something Filthy
 
 ### 1.2 Design Justification
 
-In order to robustly implement convolution and pixel-independent filters, our design attempts to balance efficient development with maintainability and object-orientation. We went with a somewhat lightweight filter class hierarchy. We could have created a more verbose class structure in two ways: 1) we could have had a subclass for each type of ConvolutionFilter, each of which would have 'had a' kernel specific to that filter, and 2) we could have had a NonConvolutionFilter extending Filter, from which all of our non-convolution filters would have inherited. The first alternative would have potentially simplified our namespacing and data access, as we could have more easily centralized some specificities of our kernel data and behavior in a specific filter class. The second would have given us a more 'balanced', symmetric inheritance tree. We instead chose the class relationship structure described above because it provided a number of advantages we deem more important. First and foremost, it allows us to build out new filters more efficiently, because there is less class-building overhead for each new filter we want to create. Furthermore, we did not find evidence that an additional class layer for specific `ConvolutionFilter`s (e.g., a `MotionBlur` class) would have provided functional opportunities not afforded by our specific `Kernel` subclasses. We also determined that the possibility of using specific `ConvolutionFilter` subclasses, including only a single `Kernel`, and implementing all unique filter behavior and data in the inheriting `ConvolutionFilter` class would have limited us. The main limitation is that the filter behavior becomes harder to generalize and thus thwarts code reuse. For example, the `Blur` tool utilizes a kernel with the same logic as the blur convolution filter. We were able to create a number of `BlurKernel`s for the `Blur` tool with our approach, whereas trading a `BlurFilter` for a `BlurKernel` would have likely meant rewriting the logic the blurring logic for the `Blur` tool. 
+  In order to robustly implement convolution and pixel-independent filters, our design attempts to balance efficient development with maintainability and object-orientation. We went with a somewhat lightweight filter class hierarchy. We could have created a more verbose class structure in two ways: 1) we could have had a subclass for each type of ConvolutionFilter, each of which would have 'had a' kernel specific to that filter, and 2) we could have had a NonConvolutionFilter extending Filter, from which all of our non-convolution filters would have inherited. The first alternative would have potentially simplified our namespacing and data access, as we could have more easily centralized some specificities of our kernel data and behavior in a specific filter class. The second would have given us a more 'balanced', symmetric inheritance tree. We instead chose the class relationship structure described above because it provided a number of advantages we deem more important. First and foremost, it allows us to build out new filters more efficiently, because there is less class-building overhead for each new filter we want to create. Furthermore, we did not find evidence that an additional class layer for specific `ConvolutionFilter`s (e.g., a `MotionBlur` class) would have provided functional opportunities not afforded by our specific `Kernel` subclasses. We also determined that the possibility of using specific `ConvolutionFilter` subclasses, including only a single `Kernel`, and implementing all unique filter behavior and data in the inheriting `ConvolutionFilter` class would have limited us. The main limitation is that the filter behavior becomes harder to generalize and thus thwarts code reuse. For example, the `Blur` tool utilizes a kernel with the same logic as the blur convolution filter. We were able to create a number of `BlurKernel`s for the `Blur` tool with our approach, whereas trading a `BlurFilter` for a `BlurKernel` would have likely meant rewriting the logic the blurring logic for the `Blur` tool. 
 
-While we tried to choose a design that is flexible to allow for future filter/tool developments with minimal wasted effort and refactoring, we acknowledge that choosing to forego specific ConvolutionFilter subclasses in favor of Kernel subclasses might limit the variety of convolution-based filters that are easily implementable in the future. If a proposed filter is different enough that it requires a different set of data members, we could have created more work for ourselves. This is a tradeoff we are willing to accept, given the number of advantages enumerated above.
+  While we tried to choose a design that is flexible to allow for future filter/tool developments with minimal wasted effort and refactoring, we acknowledge that choosing to forego specific ConvolutionFilter subclasses in favor of Kernel subclasses might limit the variety of convolution-based filters that are easily implementable in the future. If a proposed filter is different enough that it requires a different set of data members, we could have created more work for ourselves. This is a tradeoff we are willing to accept, given the number of advantages enumerated above.
 
 ## 2  Design Question Two
 > One common software feature included in this iteration is the undo/redo mechanic, where any modification to the canvas can be reversed, and then optionally re-applied. 
 > First, in the **Design Description** section below, describe the design you developed to address this challenge.  Second, in the **Design Justification** section below present the most compelling argument you can for why this design is justified.  Note that our expectation is that you will need to discuss the pros (and maybe cons) of your final design as compared to alternative designs that you discussed in your group in order to make a strong case for justifying your design.
 
 ### 2.1 Design Description
-
+   Not part of the two-person group requirements.
 ### 2.2 Design Justification
-
+   Not part of the two-person group requirements.
 
 ## 3  Design Question Three
 > A new developer on your team must add a new filter to FlashPhoto. This filter is called  _Invert._ This filter performs the following conversion to all pixels in the canvas:
@@ -79,3 +79,25 @@ While we tried to choose a design that is flexible to allow for future filter/to
 > newColor's blue  = 1 - oldColor's blue
 > ```
 > Describe in the form of a tutorial (including code snippets) exactly what changes would need to be made to your program in order to fully integrate this new filter.
+
+  The `Invert` filter would extend from the `Filter` base class and would require the same steps as any pixel-independent filter already implemented. The entirety of the inversion logic would be contained in the implementation of the pure virtual `ModifyPixel()` declared in filter.h. The steps are listed below:
+    1. Create invert.h
+      * Include the necessary headers for filters:
+        ~~~~
+        #include "include/pixel_buffer.h"
+        #include "include/filter.h"
+        ~~~~
+      * Declare constructor that takes the canvas as an argument.
+      * No `Invert`-specific data members will be required.
+    2. Create invert.cc
+      * Include invert.h
+      * Define constructor, which simple calls the super constructor for `Filter`.
+      * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration within `ApplyFilter()`, which itself would be the same as all other filters. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's canvas_ member through `Filter::get_canvas()`:
+       ~~~~
+       ColorData pixel = canvas->get_pixel(x, y);
+       canvas->set_pixel(x, y, (1 - pixel.red()), (1 - pixel.green()), (1 - pixel.blue()), (1 - pixel.alpha()));
+       ~~~~
+    3. Hook the new filter in using filter_manager.cc. Most notably, this involves creating an instance of the new filter and    calling `ApplyFilter()` on it.   
+       
+
+
