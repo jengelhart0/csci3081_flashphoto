@@ -50,48 +50,41 @@ void ConvolutionFilter::ModifyPixel(int x, int y) {
     int ending_y = starting_y + kernel_dim - 1;
 
     PixelBuffer *canvas = get_canvas();
-//    std::cout << canvas->width() << " " << canvas_width_ << " " << canvas->height() << " " << canvas_height_ << std::endl;
 
     ColorData old_pixel = canvas_copy_.get_pixel(x, y);
     ColorData modified_pixel = ColorData(0, 0, 0, 0);
-//    ColorData modified_pixel = canvas_copy_.get_pixel(x, y);
-//    std::cout << "old_pixel: r: " << old_pixel.red() << " g: " << old_pixel.green() << " b: " << old_pixel.blue() << " a: " << old_pixel.alpha() << std::endl;
 
     int i, j;
     int edge_checked_i, edge_checked_j;
     int kernel_x, kernel_y;
 
     for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
+        // 'reflects' over/underflow values (e.g., i = -2 -> edge_checked_i = 2; 
+        // i = canvas_width_ -> edge_checked_i = canvas_width-1)
         if (i >= 0 && i < canvas_height_) {
             edge_checked_i = i;
         } else { 
             edge_checked_i = (canvas_height_ - (i % (canvas_height_ - 1))) % canvas_height_;
         }
-//        std::cout << "i: " << i << " " << edge_checked_i << std::endl;
-
         for (j = starting_x, kernel_x = 0; j <= ending_x; j++, kernel_x++) {                
-                    // addition/modulus handles negative/out-of-bounds values
+            // see edge_checked_i note above
             if (j >= 0 && j < canvas_width_) {
                 edge_checked_j = j;    
             } else {
                 edge_checked_j = (canvas_width_ - (j % (canvas_width_ - 1))) % canvas_width_;
-            }  
-//            std::cout << "j: " << j << " " << edge_checked_j << std::endl;
-
+            } 
+            // aggregates new pixel values as we iterate through canvas/kernel
             modified_pixel = modified_pixel
-                   + (canvas_copy_.get_pixel((edge_checked_j + canvas_width_) % canvas_width_,
-                                             (edge_checked_i + canvas_height_) % canvas_height_)
+                   + (canvas_copy_.get_pixel(edge_checked_j, edge_checked_i)
                    * kernel_->weight(kernel_x, kernel_y));
-//                     std::cout << "modified_pixel: r: " << modified_pixel.red() << " g: " << modified_pixel.green() << " b: " << modified_pixel.blue() << " a: " << modified_pixel.alpha() << std::endl;
         }
     }
+
     ColorData new_pixel = (modified_pixel - old_pixel)
                         * kernel_->filter_amount() + old_pixel;
+    // don't need any alterations the * overload makes to alpha
     new_pixel.alpha(old_pixel.alpha());
-
-//    std::cout << "new_pixel: r: " << new_pixel.red() << " g: " << new_pixel.green() << " b: " << new_pixel.blue() << " a: " << new_pixel.alpha() << std::endl;
     canvas->set_pixel(x, y, new_pixel);
-//    canvas->set_pixel(x, y, modified_pixel);
 }
 
 void ConvolutionFilter::ApplyFilter(void) {
