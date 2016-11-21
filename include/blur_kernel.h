@@ -32,6 +32,7 @@ namespace image_tools {
 class BlurKernel : public Kernel {
  public:
      BlurKernel(float blur_amount, int dimension);
+     explicit BlurKernel(float blur_amount);
      virtual ~BlurKernel(void);
 
      virtual void InitKernel(void);

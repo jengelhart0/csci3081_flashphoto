@@ -59,20 +59,24 @@ void ConvolutionFilter::ModifyPixel(int x, int y) {
     int kernel_x, kernel_y;
 
     for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
-        // 'reflects' over/underflow values (e.g., i = -2 -> edge_checked_i = 2; 
+        // 'reflects' over/underflow values (e.g., i=-2 -> edge_checked_i=2)
         // i = canvas_width_ -> edge_checked_i = canvas_width-1)
         if (i >= 0 && i < canvas_height_) {
             edge_checked_i = i;
-        } else { 
-            edge_checked_i = (canvas_height_ - (i % (canvas_height_ - 1))) % canvas_height_;
+        } else {
+            edge_checked_i = (canvas_height_
+                             - (i % (canvas_height_ - 1)))
+                             % canvas_height_;
         }
-        for (j = starting_x, kernel_x = 0; j <= ending_x; j++, kernel_x++) {                
+        for (j = starting_x, kernel_x = 0; j <= ending_x; j++, kernel_x++) {
             // see edge_checked_i note above
             if (j >= 0 && j < canvas_width_) {
-                edge_checked_j = j;    
+                edge_checked_j = j;
             } else {
-                edge_checked_j = (canvas_width_ - (j % (canvas_width_ - 1))) % canvas_width_;
-            } 
+                edge_checked_j = (canvas_width_
+                                 - (j % (canvas_width_ - 1)))
+                                 % canvas_width_;
+            }
             // aggregates new pixel values as we iterate through canvas/kernel
             modified_pixel = modified_pixel
                    + (canvas_copy_.get_pixel(edge_checked_j, edge_checked_i)

@@ -123,6 +123,7 @@ class FilterManager {
   float motion_blur_amount_;
   enum UICtrl::MotionBlurDirection motion_blur_direction_;
   int quantize_bins_;
+  int blur_dimension_;
 };
 
 }  /* namespace image_tools */

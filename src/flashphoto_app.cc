@@ -367,7 +367,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
       PixelBuffer* new_buffer;
       new_buffer = io_manager_.LoadImageToCanvas();
-      delete(display_buffer_);  // i2 If we add undo, this might go on our data structure
+      delete(display_buffer_);
       display_buffer_ = new_buffer;
       SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;

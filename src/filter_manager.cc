@@ -17,9 +17,9 @@
 #include "include/ui_ctrl.h"
 #include "include/convolution_filter.h"
 #include "include/blur_kernel.h"
-//#include "include/sharpen_kernel.h"
-//#include "include/edge_detect_kernel.h"
-//#include "include/motion_blur_kernel.h"
+#include "include/sharpen_kernel.h"
+#include "include/edge_detect_kernel.h"
+#include "include/motion_blur_kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -39,7 +39,8 @@ FilterManager::FilterManager(void) :
     sharpen_amount_(0.0),
     motion_blur_amount_(0.0),
     motion_blur_direction_(UICtrl::UI_DIR_E_W),
-    quantize_bins_(0) {}
+    quantize_bins_(0),
+    blur_dimension_(17) {}
 
 /*******************************************************************************
  * Member Functions
@@ -60,8 +61,7 @@ void FilterManager::ApplyBlur(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
   ConvolutionFilter convolution_filter(canvas);
-  int blur_dimension = 19;
-  BlurKernel *new_kernel = new BlurKernel(blur_amount_, blur_dimension);
+  BlurKernel *new_kernel = new BlurKernel(blur_amount_, blur_dimension_);
   convolution_filter.kernel(new_kernel);
   convolution_filter.ApplyFilter();
 }
@@ -69,16 +69,30 @@ void FilterManager::ApplyBlur(PixelBuffer *canvas) {
 void FilterManager::ApplySharpen(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << sharpen_amount_ << std::endl;
+  ConvolutionFilter convolution_filter(canvas);
+  SharpenKernel *new_kernel = new SharpenKernel(sharpen_amount_);
+  convolution_filter.kernel(new_kernel);
+  convolution_filter.ApplyFilter();
 }
 
 void FilterManager::ApplyMotionBlur(PixelBuffer *canvas) {
-  std::cout << "Apply has been clicked for Sharpen with amount = "
+  std::cout << "Apply has been clicked for MotionBlur with amount = "
             << motion_blur_amount_
             << " and direction " << motion_blur_direction_ << std::endl;
+  ConvolutionFilter convolution_filter(canvas);
+  MotionBlurKernel *new_kernel = new MotionBlurKernel(motion_blur_amount_,
+                                                      motion_blur_direction_,
+                                                      blur_dimension_);
+  convolution_filter.kernel(new_kernel);
+  convolution_filter.ApplyFilter();
 }
 
 void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
+  ConvolutionFilter convolution_filter(canvas);
+  EdgeDetectKernel *new_kernel = new EdgeDetectKernel();
+  convolution_filter.kernel(new_kernel);
+  convolution_filter.ApplyFilter();
 }
 
 void FilterManager::ApplyQuantize(void) {
