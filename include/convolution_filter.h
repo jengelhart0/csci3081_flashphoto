@@ -36,14 +36,11 @@ class ConvolutionFilter : public Filter {
      explicit ConvolutionFilter(PixelBuffer *canvas);
      virtual ~ConvolutionFilter(void);
 
-     virtual void ApplyFilter(void);
      virtual void ModifyPixel(int x, int y);
 
      void kernel(Kernel *new_kernel);
 
  private:
-      void set_canvas_copy(const PixelBuffer &canvas);
-
       Kernel *kernel_;
       PixelBuffer canvas_copy_;
       int canvas_width_;

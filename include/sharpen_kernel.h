@@ -31,7 +31,7 @@ namespace image_tools {
 
 class SharpenKernel : public Kernel {
  public:
-     SharpenKernel(float sharpen_amount);
+     explicit SharpenKernel(float sharpen_amount);
      virtual ~SharpenKernel(void);
 
      virtual void InitKernel(void);
@@ -41,5 +41,3 @@ class SharpenKernel : public Kernel {
 };
 }  // namespace image_tools
 #endif  // INCLUDE_SHARPEN_KERNEL_H_
-     
-

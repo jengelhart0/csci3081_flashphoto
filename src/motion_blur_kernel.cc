@@ -22,7 +22,9 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 
-MotionBlurKernel::MotionBlurKernel(float motion_blur_amount, enum UICtrl::MotionBlurDirection direction, int dimension)
+MotionBlurKernel::MotionBlurKernel(float motion_blur_amount,
+                                   enum UICtrl::MotionBlurDirection direction,
+                                   int dimension)
     : Kernel(sqrt(motion_blur_amount) / 10, dimension),
       direction_(direction) {
 
@@ -61,7 +63,7 @@ void MotionBlurKernel::InitKernel(void) {
 
     int i, j;
     for (i = 0; i < dimension_; i++) {
-        for (j = 0; j < dimension_; j++) {   
+        for (j = 0; j < dimension_; j++) {
             weight(i, j, 0.0);
         }
     }

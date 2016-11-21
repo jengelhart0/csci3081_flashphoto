@@ -34,12 +34,6 @@ ConvolutionFilter::~ConvolutionFilter(void) {}
  * Member Functions
  ******************************************************************************/
 
-void ConvolutionFilter::set_canvas_copy(const PixelBuffer &canvas) {
-    canvas_copy_ = canvas;
-    canvas_height_ = canvas.height();
-    canvas_width_ = canvas.width();
-}
-
 void ConvolutionFilter::ModifyPixel(int x, int y) {
     int kernel_dim = kernel_->dimension();
 
@@ -89,17 +83,6 @@ void ConvolutionFilter::ModifyPixel(int x, int y) {
     // don't need any alterations the * overload makes to alpha
     new_pixel.alpha(old_pixel.alpha());
     canvas->set_pixel(x, y, new_pixel);
-}
-
-void ConvolutionFilter::ApplyFilter(void) {
-    PixelBuffer *canvas = get_canvas();
-    ConvolutionFilter::set_canvas_copy(*canvas);
-    int y, x;
-    for (y = 0; y < canvas_height_; y++) {
-        for (x = 0; x < canvas_width_; x++) {
-            ModifyPixel(x, y);
-        }
-    }
 }
 
 void ConvolutionFilter::kernel(Kernel *new_kernel) { kernel_ = new_kernel; }

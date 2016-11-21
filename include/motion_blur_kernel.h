@@ -32,12 +32,13 @@ namespace image_tools {
 
 class MotionBlurKernel : public Kernel {
  public:
-     MotionBlurKernel(float motion_blur_amount, enum UICtrl::MotionBlurDirection direction, int dimension);
+     MotionBlurKernel(float motion_blur_amount,
+                      enum UICtrl::MotionBlurDirection direction,
+                      int dimension);
      virtual ~MotionBlurKernel(void);
      virtual void InitKernel(void);
  private:
      enum UICtrl::MotionBlurDirection direction_;
-
 };
 }  // namespace image_tools
 #endif  // INCLUDE_MOTION_BLUR_KERNEL_H_
