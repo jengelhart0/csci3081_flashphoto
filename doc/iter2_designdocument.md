@@ -33,10 +33,32 @@ Something Filthy
 
 ### 1.1 Design Description
 
- 
+  To support implementations of both types of filters, we designed a simple filter inheritance structure. We created a base  `Filter` class, which provides data and functionality common to all filters. For example, every filter requires similar logic to `ApplyFilter()` to the canvas: 
+
+~~~~
+    int height = canvas_->height();
+    int width = canvas_->width();
+    int y, x;
+    for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
+            ModifyPixel(x, y);
+        }
+    }
+~~~~
+
+  This logic is used by all filters, regardless of type, because all must modify each pixel in the filter once in order to achieve the desired effect. However, specific filters must implement their own logic to `ModifyPixel()`s on the canvas (this is precisely what makes filters differ). The infrastructure for how to create a filter that extends from the base, abstract `Filter` class depends on which type: 
+
+####Pixel-independent Filters
+  Each pixel-independent filter extended a class directly from the base `Filter` class (e.g., the `Saturate` class for the saturation filter). They implement a `ModifyPixel()` function that modifies each target pixel independently from surrounding pixels, according to the behavior defined for that filter in the requirements. 
+  
+####Convolution Filters
+  Reading surrounding pixel values in order to modify any given pixel required a more complex inheritance structure than necessitated by the pixel-independent filters. We built a `ConvolutionFilter` class that extends `Filter` and implements additional data and functionality requirements. For example, unlike other filters, convolution filters must maintain a copy of the canvas so pixel modifications do not corrupt readings of surrounding pixels as we apply the filter to the canvas. 
+  
+  We implemented a `Kernel` class that defines a collection of values and methods for initializing these values that is used to read the appropriate target pixel and surrounding pixels as we apply convolution filters to the canvas. For each convolution filter, we extended a specific kernel from the base `Kernel` class to represent the convolution behavior for that particular convolution filter (e.g., to implement a sharpen convolution filter, we created a `SharpenKernel` that extends `Kernel`). Therefore, each convolution filter the requirements entailed has an associated instance of ConvolutionFilter that 'has a' specific subtype of `Kernel` associated with it. Because all behavior specific to a convolution filter is wrapped in its kernel, this meant we could otherwise treat every convolution filter the same. For example, one `ModifyPixel()` is used for every `ConvolutionFilter`, and a `weight(int x, int y)` function is used to read that `ConvolutionFilter`'s associated kernel at the correct coordinate in order to apply the logic specific to that filter. 
 
 ### 1.2 Design Justification
 
+In order to robustly implement convolution and pixel-independent filters, our design attempts to balance efficient development with maintainability and object-orientation. 
 
 ## 2  Design Question Two
 > One common software feature included in this iteration is the undo/redo mechanic, where any modification to the canvas can be reversed, and then optionally re-applied. 
