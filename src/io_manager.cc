@@ -14,7 +14,9 @@
  ******************************************************************************/
 #include "include/io_manager.h"
 #include <iostream>
+#include "include/color_data.h"
 #include "include/ui_ctrl.h"
+#include "png.h"
 
 /*******************************************************************************
  * Namespaces
@@ -140,19 +142,103 @@ void IOManager::set_image_file(const std::string & file_name) {
   }
 }
 
-void IOManager::LoadImageToCanvas(void) {
-  std::cout << "Load Canvas has been clicked for file " <<
-      file_name_ << std::endl;
+/* Private method used to load PNG files into PixelBuffer */
+PixelBuffer* IOManager::LoadPng() {
+    /* Set image properties */
+    png_image image;
+    memset(&image, 0, (sizeof image));
+    image.version = PNG_IMAGE_VERSION;
+    /* Begin reading file */
+    if (png_image_begin_read_from_file(&image, file_name_.c_str()) != 0) {
+        png_bytep buffer;
+        image.format = PNG_FORMAT_RGBA;
+        buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
+        if (buffer != NULL &&
+          png_image_finish_read(&image, NULL, buffer, 0, NULL) != 0) {
+            /* Image is fully loaded, set to canvas */
+            int width = image.width;
+            int height = image.height;
+            int row = 0;
+            int offset = 0;
+            ColorData background(1.0, 1.0, 0.95);
+            PixelBuffer* new_buffer = new PixelBuffer(width, height,
+                                                      background);
+            /* Each pixel is 4 indices wide; this must be considered
+             * when calculating row and column offsets */
+            # pragma omp for
+            for (int y = 0; y < height; y++) {
+                row = 4*y*width;
+                for (int x = 0; x < width; x++) {
+                    offset = row + (4*x);
+                    ColorData color(static_cast<float>(buffer[offset]/255.0),
+                                    static_cast<float>(buffer[1+offset]/255.0),
+                                    static_cast<float>(buffer[2+offset]/255.0),
+                                    static_cast<float>(buffer[3+offset]/255.0));
+                    new_buffer->set_pixel(x, (height-y-1), color);
+                }
+            }
+            delete(buffer);
+            return new_buffer;
+        }
+    }
+    return nullptr;
 }
 
-void IOManager::LoadImageToStamp(void) {
+PixelBuffer* IOManager::LoadImageToCanvas() {
+    std::cout << "Load Canvas has been clicked for file "
+        << file_name_ << std::endl;
+    // Currently only support PNG files, but in the future
+    // we'll want to add a check for other files types and
+    // call the appropriate LoadX for a given image
+    return (LoadPng());
+}
+
+PixelBuffer* IOManager::LoadImageToStamp(void) {
   std::cout << "Load Stamp has been clicked for file " <<
       file_name_ << std::endl;
+    // Currently only support PNG files, but in the future
+    // we'll want to add a check for other files types and
+    // call the appropriate LoadX for a given image
+    return (LoadPng());
 }
 
-void IOManager::SaveCanvasToFile(void) {
-  std::cout << "Save Canvas been clicked for file " <<
+void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
+    std::cout << "Save Canvas been clicked for file " <<
       file_name_ << std::endl;
+    int width = canvas.width();
+    int height = canvas.height();
+    /* Set image properties */
+    png_image image;
+    memset(&image, 0, (sizeof image));
+    image.version = PNG_IMAGE_VERSION;
+    image.format = PNG_FORMAT_RGBA;
+    image.width = width;
+    image.height = height;
+    /* Allocate image buffer. Each pixel is 4 indices, so size is 4*W*H */
+    png_byte buffer[4*width*height];
+    // png_bytep buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
+    ColorData px;
+    int row = 0;
+    int offset = 0;
+    /* Read canvas data into buffer */
+    for (int y = 0; y < height; y++) {
+        row = 4*y*width;
+        for (int x = 0; x < width; x++) {
+            offset = row + 4*x;
+            px = canvas.get_pixel(x, (height-y-1));
+            /* RGBA values are stored as float from 0.0 - 1.0, but PNG files
+             * represent these values from 0 - 255 */
+            buffer[offset] = static_cast<unsigned char>(px.red()*255);
+            buffer[offset+1] = static_cast<unsigned char>(px.green()*255);
+            buffer[offset+2] = static_cast<unsigned char>(px.blue()*255);
+            buffer[offset+3] = static_cast<unsigned char>(px.alpha()*255);
+        }
+    }
+    if (png_image_write_to_file(&image, file_name_.c_str(),
+      0, &buffer, 0, nullptr) == 0) {
+        printf("Error writing image. Error/warning number %d\n",
+          image.warning_or_error);
+    }
 }
 
 }  /* namespace image_tools */
