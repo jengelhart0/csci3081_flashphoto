@@ -149,13 +149,12 @@ class FlashPhotoApp : public BaseGfxApp {
     /** Coordinates to help MouseDragged() track filler Draw()'s **/
     float prev_x_;
     float prev_y_;
- 
-  // These are used to store the selections from the GLUI user interface
-  int cur_tool_;  /**< Currently selected tool from UI */
+    // These are used to store the selections from the GLUI user interface
+    int cur_tool_;  /**< Currently selected tool from UI */
 
-  float cur_color_red_;
-  float cur_color_green_;
-  float cur_color_blue_;
+    float cur_color_red_;
+    float cur_color_green_;
+    float cur_color_blue_;
 };
 
 }  /* namespace image_tools */

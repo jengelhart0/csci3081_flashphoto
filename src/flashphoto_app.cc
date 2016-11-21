@@ -91,8 +91,7 @@ void FlashPhotoApp::Display(void) {
 }
 
 
-void FlashPhotoApp::MouseDragged(int new_x, int new_y) 
-{
+void FlashPhotoApp::MouseDragged(int new_x, int new_y) {
     int x = new_x;
     int y = new_y;
     int x_gap = std::abs(x - prev_x_);
@@ -133,15 +132,13 @@ void FlashPhotoApp::MouseDragged(int new_x, int new_y)
     DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
     prev_x_ = new_x;
     prev_y_ = new_y;
-
 }
-void FlashPhotoApp::MouseMoved(int x, int y) 
-{
+
+void FlashPhotoApp::MouseMoved(int x, int y) {
     // Keep track of latest x-y coordinates so
     // MouseDragged() has current data to use
     prev_x_ = x;
     prev_y_ = y;
-
 }
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
@@ -153,7 +150,6 @@ void FlashPhotoApp::LeftMouseDown(int x, int y) {
 void FlashPhotoApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
-
 void FlashPhotoApp::ChangeTool(int current_tool) {
     std::cout << "current tool int is" << current_tool << std::endl;
 
@@ -185,7 +181,7 @@ void FlashPhotoApp::ChangeTool(int current_tool) {
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
-  int width, 
+  int width,
   int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
 }
