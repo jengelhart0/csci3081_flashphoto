@@ -4,7 +4,7 @@ INCDIR = ./include
 BINDIR = ./bin
 EXTDIR = ./ext
 EXE = $(BINDIR)/FlashPhoto
-CXXFLAGS += -I. -W -Wall -Wextra -Weffc++ -std=c++11
+CXXFLAGS += -I. -fopenmp -std=c++11
 EXTFLAG = -isystem./ext/glui/include -isystem./ext/jpeg-9a -isystem./ext/libpng-1.6.16
 LINKLIBS = -lglut -lGL -lGLU -lglui -lpng -ljpeg -lz
 LIBDIR = -L./ext/glui/lib
@@ -25,7 +25,7 @@ endif
 all: $(EXE)
 
 $(EXE): $(OBJ_CXX) glui jpeg-9a png-1.6.16 | $(BINDIR)
-	g++ -g -o $@ $(OBJ_CXX) $(LIBDIR) $(LINKLIBS)
+	g++ -g -o $@ $(OBJ_CXX) $(LIBDIR) $(LINKLIBS) $(CXXFLAGS)
 
 $(OBJDIR)/main.o: $(SRCDIR)/main.cc | $(OBJDIR)
 	g++ -g $(CXXFLAGS) $(EXTFLAG) -c -o $@ $<
@@ -47,4 +47,3 @@ $(BINDIR) $(OBJDIR):
 
 clean:
 	rm -rf obj bin
-
