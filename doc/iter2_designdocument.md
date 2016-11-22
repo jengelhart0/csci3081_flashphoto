@@ -66,7 +66,7 @@ Something Filthy
   
 ##### From ConvolutionFilter, ModifyPixel(int x, int y)
   
-~~~~
+```c++
 int i, j;
 int edge_checked_i, edge_checked_j;
 int kernel_x, kernel_y;
@@ -92,7 +92,7 @@ for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
         }
     }
 }  
-~~~~
+```
   
   Notice that the edge_checked coordinates take kernel coordinates that have exceeded the canvas boundary and move them in the direction opposite to their overflow, by a magnitude equal to how much they exceeded the boundary by. While this means some canvas coordinates underneath the kernel are read twice, it makes it significantly more likely to avoid an outlier in color, and also avoids brightness loss.
 
