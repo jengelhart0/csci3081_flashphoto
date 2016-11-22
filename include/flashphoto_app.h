@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Name            : flashphoto_app.h
- * Project         : FlashPhoto
- * Module          : App
- * Description     : Header file for FlashPhotoApp class
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+  * Name            : flashphoto_app.h
+  * Project         : FlashPhoto
+  * Module          : App
+  * Description     : Header file for FlashPhotoApp class
+  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+  * Creation Date   : 2/15/15
+  * Original Author : Seth Johnson
+  *
+  ******************************************************************************/
 
 #ifndef INCLUDE_FLASHPHOTO_APP_H_
 #define INCLUDE_FLASHPHOTO_APP_H_
@@ -16,6 +16,7 @@
   * Includes
   ******************************************************************************/
 #include <string>
+#include <vector>
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
@@ -35,7 +36,7 @@ namespace image_tools {
   * Class Definitions
   ******************************************************************************/
 class FlashPhotoApp : public BaseGfxApp {
-  public:
+ public:
     FlashPhotoApp(int width, int height);
     virtual ~FlashPhotoApp(void);
 
@@ -66,13 +67,18 @@ class FlashPhotoApp : public BaseGfxApp {
         int y,
         ColorData background_color);
 
-  private:
+ private:
     /**
       * @brief Update the colors displayed on the GLUI control panel after updating
       * their values in FlashPhoto
       *
       */
     void update_colors(void);
+
+    /**
+     * @brief Fills tool vector
+     */
+    void InitTools(void);
 
     /**
       * @brief Creates new tool based on cur_tool_ and destructs old tool.
@@ -148,7 +154,9 @@ class FlashPhotoApp : public BaseGfxApp {
         UI_QUIT
     };
 
-    /** App's drawing tool */
+    /* App's collection of tools */
+    std::vector<Tool*> tools_;
+    /* App's current drawing tool */
     Tool* tool_;
 
     /** Coordinates to help MouseDragged() track filler Draw()'s **/

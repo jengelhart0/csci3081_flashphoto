@@ -14,7 +14,6 @@
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/blur.h"
 #include <vector>
 #include "include/pixel_buffer.h"
 #include "include/tool.h"

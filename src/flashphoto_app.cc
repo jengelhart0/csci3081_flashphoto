@@ -15,7 +15,6 @@
 #include "include/flashphoto_app.h"
 #include <iostream>
 #include <cmath>
-#include <iostream>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
@@ -54,9 +53,6 @@ FlashPhotoApp::~FlashPhotoApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
-    if (tool_) {
-        delete tool_;
-    }
 }
 
 
@@ -75,6 +71,8 @@ void FlashPhotoApp::Init(
                    true,
                    width()+51,
                    50);
+  // Create tools
+  InitTools();
 
   // Set the name of the window
   set_caption("FlashPhoto");
@@ -146,20 +144,20 @@ void FlashPhotoApp::MouseDragged(int new_x, int new_y) {
     DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
     prev_x_ = new_x;
     prev_y_ = new_y;
-
 }
 void FlashPhotoApp::MouseMoved(int x, int y) {
     // Keep track of latest x-y coordinates so
     // MouseDragged() has current data to use
     prev_x_ = x;
     prev_y_ = y;
-
 }
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
   std::cout << "mousePressed " << x << " " << y << std::endl;
   y = canvas_height_ - y;
-  tool_->Draw(x, y, cur_color_red_, cur_color_green_,
+  // Only happens in case of uninitialized stamp
+  if (tool_ != nullptr)
+      tool_->Draw(x, y, cur_color_red_, cur_color_green_,
         cur_color_blue_, display_buffer_);
 }
 
@@ -170,43 +168,22 @@ void FlashPhotoApp::LeftMouseUp(int x, int y) {
 void FlashPhotoApp::ChangeTool(int current_tool) {
     std::cout << "current tool int is" << current_tool << std::endl;
 
-    // Use ordinal position of tool radio button stored in current_tool
-    // to instantiate new tool of appropriate subclass
-    Tool* new_tool;
-    switch (current_tool) {
-        case 0:
-            new_tool = new Pen();
-            break;
-        case 1:
-            new_tool = new Eraser();
-            break;
-        case 2:
-            new_tool = new SprayCan();
-            break;
-        case 3:
-            new_tool = new CaligraphyPen();
-            break;
-        case 4:
-            new_tool = new Highlighter();
-            break;
-        case 5:
-            new_tool = new WireBrush();
-            break;
-        case 6:
-            PixelBuffer* stamp;
-            stamp = io_manager_.LoadImageToStamp();
-            new_tool = new Stamp(stamp);
-            break;
-        case 7:
-            new_tool = new Blur();
-            break;
-    }
-    delete tool_;
-    tool_ = new_tool;
+    tool_ = tools_[current_tool];
+}
+
+void FlashPhotoApp::InitTools(void) {
+    tools_.push_back(new Pen());
+    tools_.push_back(new Eraser());
+    tools_.push_back(new SprayCan());
+    tools_.push_back(new CaligraphyPen());
+    tools_.push_back(new Highlighter());
+    tools_.push_back(new WireBrush());
+    tools_.push_back(nullptr); // Placeholder for stamp
+    tools_.push_back(new Blur());
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
-  int width, 
+  int width,
   int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
   canvas_height_ = 800;
@@ -351,22 +328,19 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
-      filter_manager_.ApplyThreshold();
-      break;
-    case UICtrl::UI_APPLY_DITHER:
-      filter_manager_.ApplyThreshold();
+      filter_manager_.ApplyThreshold(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SATURATE:
-      filter_manager_.ApplySaturate();
+      filter_manager_.ApplySaturate(display_buffer_);
       break;
     case UICtrl::UI_APPLY_CHANNEL:
-      filter_manager_.ApplyChannel();
+      filter_manager_.ApplyChannel(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
-      filter_manager_.ApplyQuantize();
+      filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SPECIAL_FILTER:
-      filter_manager_.ApplySpecial();
+      filter_manager_.ApplySpecial(display_buffer_);
       break;
     case UICtrl::UI_FILE_BROWSER:
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
@@ -379,7 +353,11 @@ void FlashPhotoApp::GluiControl(int control_id) {
       SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      io_manager_.LoadImageToStamp();
+      PixelBuffer* image;
+      image = io_manager_.LoadImageToStamp();
+      Stamp* stamp;
+      stamp = new Stamp(image);
+      tools_[6] = stamp;
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(*display_buffer_);
