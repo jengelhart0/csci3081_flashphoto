@@ -50,7 +50,7 @@ class ColorData {
    * @brief Return a clamped version of a ColorData instance
    * All colors and the alpha value are restricted to [0.0,1.0]
    */
-  inline ColorData clamped_color(void) const;
+  ColorData clamped_color(void) const;
 
   /*
    * Arithmetic operators (friends so that non-member functions can access

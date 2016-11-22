@@ -62,7 +62,7 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
     cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
   } else {
     int index = x + width_*(y);  // x + width*(height-(y+1));
-    pixels_[index] = new_pixel;
+    pixels_[index] = new_pixel.clamped_color();
   }
 }
 /*******************************************************************************
