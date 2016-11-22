@@ -64,32 +64,35 @@ Something Filthy
   
     An additional challenge of `ConvolutionFilter`s posed by reading from surrounding pixels is how to handle edges. One option is to wrap around the canvas to the other side, however this often leaves strange discontinuities in the filter application. It is not uncommon for one side of an image, lacking any visual contiguity with the other, to have very different color data. Therefore we opted for a solution that 'reflects back' kernel overflow and underflow readings:
   
-  ##### From ConvolutionFilter, ModifyPixel(int x, int y)
-  ```
-      int i, j;
-    int edge_checked_i, edge_checked_j;
-    int kernel_x, kernel_y;
+##### From ConvolutionFilter, ModifyPixel(int x, int y)
+  
+~~~~
+int i, j;
+int edge_checked_i, edge_checked_j;
+int kernel_x, kernel_y;
 
-    for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
-        // 'reflects' over/underflow values (e.g., i=-2 -> edge_checked_i=2)
-        // i = canvas_width_ -> edge_checked_i = canvas_width-1)
-        if (i >= 0 && i < canvas_height_) {
-            edge_checked_i = i;
+for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
+    // 'reflects' over/underflow values (e.g., i=-2 -> edge_checked_i=2)
+    // i = canvas_width_ -> edge_checked_i = canvas_width-1)
+    if (i >= 0 && i < canvas_height_) {
+        edge_checked_i = i;
+    } else {
+        edge_checked_i = (canvas_height_
+                       - (i % (canvas_height_ - 1)))
+                       % canvas_height_;
+    }
+    for (j = starting_x, kernel_x = 0; j <= ending_x; j++, kernel_x++) {
+        // see edge_checked_i note above
+        if (j >= 0 && j < canvas_width_) {
+            edge_checked_j = j;
         } else {
-            edge_checked_i = (canvas_height_
-                             - (i % (canvas_height_ - 1)))
-                             % canvas_height_;
+            edge_checked_j = (canvas_width_
+                           - (j % (canvas_width_ - 1)))
+                           % canvas_width_;
         }
-        for (j = starting_x, kernel_x = 0; j <= ending_x; j++, kernel_x++) {
-            // see edge_checked_i note above
-            if (j >= 0 && j < canvas_width_) {
-                edge_checked_j = j;
-            } else {
-                edge_checked_j = (canvas_width_
-                                 - (j % (canvas_width_ - 1)))
-                                 % canvas_width_;
-            }
-  ```
+    }
+}  
+~~~~
   
   Notice that the edge_checked coordinates take kernel coordinates that have exceeded the canvas boundary and move them in the direction opposite to their overflow, by a magnitude equal to how much they exceeded the boundary by. While this means some canvas coordinates underneath the kernel are read twice, it makes it significantly more likely to avoid an outlier in color, and also avoids brightness loss.
 
