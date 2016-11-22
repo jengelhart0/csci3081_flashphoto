@@ -160,8 +160,9 @@ PixelBuffer* IOManager::LoadPng() {
             int height = image.height;
             int row = 0;
             int offset = 0;
-            ColorData background (0.0, 0.0, 0.0);
-            PixelBuffer* new_buffer = new PixelBuffer(width, height, background);
+            ColorData background(1.0, 1.0, 0.95);
+            PixelBuffer* new_buffer = new PixelBuffer(width, height,
+                                                      background);
             /* Each pixel is 4 indices wide; this must be considered
              * when calculating row and column offsets */
             # pragma omp for
@@ -176,6 +177,7 @@ PixelBuffer* IOManager::LoadPng() {
                     new_buffer->set_pixel(x, (height-y-1), color);
                 }
             }
+            delete(buffer);
             return new_buffer;
         }
     }
@@ -185,10 +187,10 @@ PixelBuffer* IOManager::LoadPng() {
 PixelBuffer* IOManager::LoadImageToCanvas() {
     std::cout << "Load Canvas has been clicked for file "
         << file_name_ << std::endl;
-	// Currently only support PNG files, but in the future
+    // Currently only support PNG files, but in the future
     // we'll want to add a check for other files types and
     // call the appropriate LoadX for a given image
-	return (LoadPng());
+    return (LoadPng());
 }
 
 PixelBuffer* IOManager::LoadImageToStamp(void) {
@@ -214,6 +216,7 @@ void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
     image.height = height;
     /* Allocate image buffer. Each pixel is 4 indices, so size is 4*W*H */
     png_byte buffer[4*width*height];
+    // png_bytep buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
     ColorData px;
     int row = 0;
     int offset = 0;
@@ -222,7 +225,7 @@ void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
         row = 4*y*width;
         for (int x = 0; x < width; x++) {
             offset = row + 4*x;
-            px = canvas.get_pixel(x, y);
+            px = canvas.get_pixel(x, (height-y-1));
             /* RGBA values are stored as float from 0.0 - 1.0, but PNG files
              * represent these values from 0 - 255 */
             buffer[offset] = static_cast<unsigned char>(px.red()*255);

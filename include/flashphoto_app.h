@@ -1,13 +1,13 @@
 /*******************************************************************************
-  * Name            : flashphoto_app.h
-  * Project         : FlashPhoto
-  * Module          : App
-  * Description     : Header file for FlashPhotoApp class
-  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
-  * Creation Date   : 2/15/15
-  * Original Author : Seth Johnson
-  *
-  ******************************************************************************/
+ * Name            : flashphoto_app.h
+ * Project         : FlashPhoto
+ * Module          : App
+ * Description     : Header file for FlashPhotoApp class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_FLASHPHOTO_APP_H_
 #define INCLUDE_FLASHPHOTO_APP_H_

@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : stamp.h
- * Project         : BrushWork
+ * Name            : threshold.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Stamp class.
+ * Description     : Header file for Threshold class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/09/2016
+ * Creation Date   : 11/07/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_STAMP_H_
-#define INCLUDE_STAMP_H_
+#ifndef INCLUDE_THRESHOLD_H_
+#define INCLUDE_THRESHOLD_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include "include/pixel_buffer.h"
-#include "include/tool.h"
+#include "include/filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,22 +26,28 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw()
- * as well the pixel mask but nothing else.
+ * @brief This class holds the implementation of the threshold filter
  */
-class Stamp : public Tool {
- public:
-    explicit Stamp(PixelBuffer* stamp);
-    virtual ~Stamp(void);
 
-    void CalculateMask(void);
-    void Draw(int x, int y,
-        float red, float green, float blue,
-        PixelBuffer* display);
+class Threshold : public Filter {
+ public:
+      explicit Threshold(PixelBuffer *canvas);
+      virtual ~Threshold(void);
+
+      /*
+       * @brief Setter method threshold value
+       */
+      void threshold(float new_threshold) { threshold_ = new_threshold; }
+
+      /*
+       * @brief Rounds each color channel to 1 or 0 depending on
+       * threshold value s
+       */
+      void ModifyPixel(int x, int y);
 
  private:
-    PixelBuffer* stamp_;
+      float threshold_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_STAMP_H_
+#endif  // INCLUDE_THRESHOLD_H_

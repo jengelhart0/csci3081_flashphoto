@@ -15,6 +15,7 @@
 #include "include/flashphoto_app.h"
 #include <iostream>
 #include <cmath>
+#include <iostream>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
@@ -144,12 +145,14 @@ void FlashPhotoApp::MouseDragged(int new_x, int new_y) {
     DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
     prev_x_ = new_x;
     prev_y_ = new_y;
+
 }
 void FlashPhotoApp::MouseMoved(int x, int y) {
     // Keep track of latest x-y coordinates so
     // MouseDragged() has current data to use
     prev_x_ = x;
     prev_y_ = y;
+
 }
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
@@ -199,7 +202,7 @@ void FlashPhotoApp::ChangeTool(int current_tool) {
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
-  int width,
+  int width, 
   int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
   canvas_height_ = 800;
@@ -372,7 +375,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      ChangeTool(cur_tool_); // I don't think this does anything
+      io_manager_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(*display_buffer_);

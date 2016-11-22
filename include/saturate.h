@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : stamp.h
- * Project         : BrushWork
+ * Name            : saturate.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Stamp class.
+ * Description     : Header file for Saturate class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/09/2016
+ * Creation Date   : 11/07/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_STAMP_H_
-#define INCLUDE_STAMP_H_
+#ifndef INCLUDE_SATURATE_H_
+#define INCLUDE_SATURATE_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include "include/pixel_buffer.h"
-#include "include/tool.h"
+#include "include/filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,22 +26,29 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw()
- * as well the pixel mask but nothing else.
+ * @brief This abstract base class from which all Saturates inherit defines the  
+ *        default implementation for ApplySaturate() and declares the interface for ModifyPixel().
  */
-class Stamp : public Tool {
- public:
-    explicit Stamp(PixelBuffer* stamp);
-    virtual ~Stamp(void);
 
-    void CalculateMask(void);
-    void Draw(int x, int y,
-        float red, float green, float blue,
-        PixelBuffer* display);
+class Saturate : public Filter {
+ public:
+      explicit Saturate(PixelBuffer *canvas);
+      virtual ~Saturate(void);
+
+      /*
+       * @brief Set saturation value 
+       */
+      void saturation(float saturation) { saturation_ = saturation; }
+
+      /* 
+       * @brief Interpolate between grayscale image and original based on 
+       * saturation value
+       */
+      void ModifyPixel(int x, int y);
 
  private:
-    PixelBuffer* stamp_;
+      float saturation_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_STAMP_H_
+#endif  // INCLUDE_SATURATE_H_

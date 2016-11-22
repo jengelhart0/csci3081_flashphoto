@@ -53,11 +53,11 @@ void Stamp::CalculateMask(void) {
 void Stamp::Draw(int x, int y,
     float red, float green, float blue,
     PixelBuffer* display) {
-	// Mask-related variables
+    // Mask-related variables
     int length = Tool::length();
     int height = Tool::height();
     float* mask = Tool::mask();
-	// Canvas-related variables
+    // Canvas-related variables
     int max_y = display->height();
     int max_x = display->width();
     int starting_x = x - (length / 2);
