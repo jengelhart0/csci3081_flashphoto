@@ -77,7 +77,7 @@ Something Filthy
   
   An additional challenge of `ConvolutionFilter`s posed by reading from surrounding pixels is how to handle edges. One option is to wrap around the canvas to the other side, however this often leaves strange discontinuities in the filter application. It is not uncommon for one side of an image, lacking any visual contiguity with the other, to have very different color data. Therefore we opted for a solution that 'reflects back' kernel overflow and underflow readings as illustrated below in Figure 4
   
-##### Figure 4: Excerpt from ConvolutionFilter::ModifyPixel()
+###### Figure 4: Excerpt from ConvolutionFilter::ModifyPixel()
   
 ```c++
 int i, j;
