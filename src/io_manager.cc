@@ -16,7 +16,7 @@
 #include <iostream>
 #include "include/color_data.h"
 #include "include/ui_ctrl.h"
-#include "png.h"
+#include "libpng-1.6.16/png.h"
 
 /*******************************************************************************
  * Namespaces
@@ -215,7 +215,6 @@ void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
     image.width = width;
     image.height = height;
     /* Allocate image buffer. Each pixel is 4 indices, so size is 4*W*H */
-    //png_byte buffer[4*width*height];
     png_bytep buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
     ColorData px;
     int row = 0;

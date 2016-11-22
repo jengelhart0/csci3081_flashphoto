@@ -5,7 +5,7 @@ BINDIR = ./bin
 EXTDIR = ./ext
 EXE = $(BINDIR)/FlashPhoto
 CXXFLAGS += -I. -fopenmp -std=c++11
-EXTFLAG = -isystem./ext/glui/include -isystem./ext/jpeg-9a -isystem./ext/libpng-1.6.16
+EXTFLAG = -isystem./ext/glui/include -isystem./ext/jpeg-9a -isystem./ext/libpng-1.6.16 -isystem./ext
 LINKLIBS = -lglut -lGL -lGLU -lglui -lpng -ljpeg -lz
 LIBDIR = -L./ext/glui/lib
 GLUILIB = -L./ext/glui/lib

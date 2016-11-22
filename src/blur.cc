@@ -112,7 +112,6 @@ void Blur::ModifyPixel(int x, int y, BlurKernel *kernel,
     ColorData new_pixel = (modified_pixel - old_pixel)
                         * kernel->filter_amount() + old_pixel;
     display->set_pixel(x, y, new_pixel);
-
 }
 void Blur::Draw(int x, int y,
   float red, float green, float blue,
@@ -141,7 +140,7 @@ void Blur::Draw(int x, int y,
         for (int j = 0; j < length; j++) {
             cur_x = j + starting_x;
             if (cur_x < 0 || cur_x >= canvas_width) { continue; }
-			index = j + (i*length);
+            index = j + (i*length);
             kernel_index = static_cast<int>(mask[index]);
             blur = kernels_[kernel_index];
             ModifyPixel(cur_x, cur_y, kernels_.back(), display, display);

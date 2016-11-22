@@ -25,7 +25,7 @@
 #include "include/ui_ctrl.h"
 #include "include/state_manager.h"
 #include "include/tool.h"
-#include "png.h"
+#include "libpng-1.6.16/png.h"
 
 /*******************************************************************************
   * Namespaces
