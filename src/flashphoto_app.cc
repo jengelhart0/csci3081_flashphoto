@@ -358,6 +358,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       Stamp* stamp;
       stamp = new Stamp(image);
       tools_[6] = stamp;
+      if (cur_tool_ == 6) { tool_ = stamp; }
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(*display_buffer_);

@@ -56,7 +56,6 @@ void Blur::CalculateMask(void) {
             current_distance = sqrt(pow(x_distance, 2) + pow(y_distance, 2));
             intensity = std::floor(current_distance/5);
             new_mask[index] = intensity;
-            printf("(%d,%d) = %f\n", j, i,intensity);
         }
     }
     Tool::mask(new_mask);
@@ -71,10 +70,7 @@ void Blur::CalculateKernels(void) {
     for (int i = 0; i <= 5; i++) {
         new_kernel = new BlurKernel(blur_amount, kernel_size);
         kernels_.insert(kernels_.begin(), new_kernel);
-        printf("kernels[%d]: intensity = %f || size = %d\n",
-                5-i, blur_amount, kernel_size);
         kernel_size += kernel_delta;
-        //blur_amount += blur_delta;
         blur_amount *= 2.0;
     }
 }
