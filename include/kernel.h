@@ -42,12 +42,11 @@ class Kernel {
  protected:
      virtual void InitKernel(void) = 0;
      void weight(int x, int y, float value);
-     float filter_amount_;
-     int dimension_;
 
  private:
      void init_data(void);
-
+     float filter_amount_;
+     int dimension_;
      float *data_;
 };
 }  // namespace image_tools

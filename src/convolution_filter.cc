@@ -82,6 +82,7 @@ void ConvolutionFilter::ModifyPixel(int x, int y) {
                         * kernel_->filter_amount() + old_pixel;
     // don't need any alterations the * overload makes to alpha
     new_pixel.alpha(old_pixel.alpha());
+
     canvas->set_pixel(x, y, new_pixel);
 }
 

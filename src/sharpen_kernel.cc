@@ -39,7 +39,7 @@ SharpenKernel::~SharpenKernel(void) {}
  * init_kernel() constructs the sharpen kernel for this class.
  *
  * The middle kernel coord will be set to the square of the
- * kernel's dimension. This is one greater than the sum of all other coord values. 
+ * kernel's dim. This is one greater than the sum of all other coord values. 
  * All other coords set to -1. See example: 
  *
  * -2 -2 -2
@@ -49,11 +49,12 @@ SharpenKernel::~SharpenKernel(void) {}
 
 void SharpenKernel::InitKernel(void) {
     int j, i;
-    for (j = 0; j < dimension_; j++) {
-        for (i = 0; i < dimension_; i++) {
+    int dim = dimension();
+    for (j = 0; j < dim; j++) {
+        for (i = 0; i < dim; i++) {
             weight(i, j, other_val_);
         }
     }
-    weight(dimension_ / 2, dimension_ / 2, middle_val_);
+    weight(dim / 2, dim / 2, middle_val_);
 }
 }  // namespace image_tools

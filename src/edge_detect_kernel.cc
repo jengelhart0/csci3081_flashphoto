@@ -39,8 +39,8 @@ EdgeDetectKernel::~EdgeDetectKernel(void) {}
  * init_kernel() constructs the edge detect kernel for this class.
  *
  * The middle kernel coord will be set to one less than the square of the
- * kernel's dimension. All other coords set to -1. See example for a 
- * dimension 3 kernel: 
+ * kernel's dim. All other coords set to -1. See example for a 
+ * dim 3 kernel: 
  *
  * -1-1-1
  * -1 8-1
@@ -49,12 +49,13 @@ EdgeDetectKernel::~EdgeDetectKernel(void) {}
 
 void EdgeDetectKernel::InitKernel(void) {
     int j, i;
-    for (j = 0; j < dimension_; j++) {
-        for (i = 0; i < dimension_; i++) {
+    int dim = dimension();
+    for (j = 0; j < dim; j++) {
+        for (i = 0; i < dim; i++) {
             weight(i, j, other_val_);
         }
     }
-    weight(dimension_ / 2, dimension_ / 2, middle_val_);
+    weight(dim / 2, dim / 2, middle_val_);
 }
 }  // namespace image_tools
 

@@ -178,7 +178,7 @@ void FlashPhotoApp::InitTools(void) {
     tools_.push_back(new CaligraphyPen());
     tools_.push_back(new Highlighter());
     tools_.push_back(new WireBrush());
-    tools_.push_back(nullptr); // Placeholder for stamp
+    tools_.push_back(nullptr);  // Placeholder for stamp
     tools_.push_back(new Blur());
 }
 

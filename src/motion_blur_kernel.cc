@@ -24,8 +24,8 @@ namespace image_tools {
 
 MotionBlurKernel::MotionBlurKernel(float motion_blur_amount,
                                    enum UICtrl::MotionBlurDirection direction,
-                                   int dimension)
-    : Kernel(sqrt(motion_blur_amount) / 10, dimension),
+                                   int dim)
+    : Kernel(sqrt(motion_blur_amount) / 10, dim),
       direction_(direction) {
 
     MotionBlurKernel::InitKernel();
@@ -50,20 +50,21 @@ MotionBlurKernel::~MotionBlurKernel(void) {}
  */
 
 void MotionBlurKernel::InitKernel(void) {
+    int dim = dimension();
     int direction = static_cast<int>(direction_);
     int directions[4][2] = { {0, 1},
                              {1, 0},
                              {1, 1},
                              {-1, 1} };
-    int starts[4][2] = { {dimension_ / 2, 0},
-                         {0, dimension_ / 2},
+    int starts[4][2] = { {dim / 2, 0},
+                         {0, dim / 2},
                          {0, 0},
-                         {dimension_, 0} };
-    float weight_val = 1.0 / dimension_;
+                         {dim, 0} };
+    float weight_val = 1.0 / dim;
 
     int i, j;
-    for (i = 0; i < dimension_; i++) {
-        for (j = 0; j < dimension_; j++) {
+    for (i = 0; i < dim; i++) {
+        for (j = 0; j < dim; j++) {
             weight(i, j, 0.0);
         }
     }
@@ -71,10 +72,10 @@ void MotionBlurKernel::InitKernel(void) {
     i = starts[direction][0];
     j = starts[direction][1];
     int k = 0;
-    // the number of non-zero weights is always equal to dimension_.
+    // the number of non-zero weights is always equal to dim.
     // having started at the appropriate starts array coords, we use
     // the corresponding directions selection to increment on each iteration
-    while (k < dimension_) {
+    while (k < dim) {
         weight(i, j, weight_val);
         i += directions[direction][0];
         j += directions[direction][1];

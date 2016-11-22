@@ -23,9 +23,9 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 
-BlurKernel::BlurKernel(float blur_amount, int dimension)
+BlurKernel::BlurKernel(float blur_amount, int dim)
     // utilizes adjusting formula that takes blur_amount range into account
-    : Kernel(sqrt(blur_amount) / sqrt(20.0), dimension) {
+    : Kernel(sqrt(blur_amount) / sqrt(20.0), dim) {
 
     BlurKernel::InitKernel();
 }
@@ -40,7 +40,7 @@ BlurKernel::~BlurKernel(void) {}
  *
  * The halfway point through the kernel will have all 1's in that row/column. 
  * The number of 1's decreases by two (one from both ends), down to 1 1 in 
- * first/last row/column. See example for a dimension 5 blur kernel: 
+ * first/last row/column. See example for a dim 5 blur kernel: 
  *
  * 00100
  * 01110
@@ -51,34 +51,35 @@ BlurKernel::~BlurKernel(void) {}
 
 void BlurKernel::InitKernel(void) {
     int i;
-    int factor = dimension_;
+    int dim = dimension();
+    int factor = dim;
 
     /* The following for loop initializes factor. Factor will equal the number of 1's 
      * in our kernel, and will be used to scale the weights so their sum equals 1. 
      */
-    for (i = dimension_ - 2; i >= 1; i-= 2) {
+    for (i = dim - 2; i >= 1; i-= 2) {
         factor += i * 2;
     }
 
-    int mid_index = dimension_ / 2;
+    int mid_index = dim / 2;
     // all mid_index row/col positions = weight_val
-    for (i = 0; i < dimension_; i++) {
+    for (i = 0; i < dim; i++) {
         weight(i, mid_index, 1.0 / factor);
         weight(mid_index, i, 1.0 / factor);
     }
     float weight_val;
-    int edge_index = dimension_ - 1;
+    int edge_index = dim - 1;
     int j, zero_pad;
-    for (j = mid_index + 1, zero_pad = 1; j < dimension_; zero_pad++, j++) {
+    for (j = mid_index + 1, zero_pad = 1; j < dim; zero_pad++, j++) {
 	/* blur kernel is symmetric across both axes intersecting at the middle pixel:
 	 * only iterating through one quadrant of the kernel to set all relevant pixel weights.
 	 */ 
-        for (i = mid_index + 1; i < dimension_; i++) {
+        for (i = mid_index + 1; i < dim; i++) {
             /* if i is more than zero_pad from the edge, the weight at (i, j),
              * as well as all of its reflections about the axes through the middle
              * pixel, will be set to weight_val. Otherwise, weight is 0.0.
 	     */
-            if (i < dimension_ - zero_pad) {
+            if (i < dim - zero_pad) {
                 weight_val = 1.0 / factor;
             } else {
                 weight_val = 0.0;
