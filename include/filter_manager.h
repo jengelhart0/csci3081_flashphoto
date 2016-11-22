@@ -71,21 +71,21 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyThreshold(void);
+  void ApplyThreshold(PixelBuffer *canvas);
 
   /**
    * @brief Apply a channel filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyChannel(void);
+  void ApplyChannel(PixelBuffer *canvas);
 
   /**
    * @brief Apply a channel filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySaturate(void);
+  void ApplySaturate(PixelBuffer *canvas);
 
 
   /**
@@ -93,14 +93,14 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyQuantize(void);
+  void ApplyQuantize(PixelBuffer *canvas);
 
   /**
    * @brief Apply a special filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySpecial(void);
+  void ApplySpecial(PixelBuffer *canvas);
 
   /**
    * @brief Initialize the elements of the GLUI interface required by the

@@ -15,6 +15,11 @@
 #include "include/filter_manager.h"
 #include <iostream>
 #include "include/ui_ctrl.h"
+#include "include/threshold.h"
+#include "include/saturate.h"
+#include "include/color_channels.h"
+#include "include/quantize.h"
+#include "include/sepia.h"
 #include "include/convolution_filter.h"
 #include "include/blur_kernel.h"
 #include "include/sharpen_kernel.h"
@@ -45,16 +50,24 @@ FilterManager::FilterManager(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void FilterManager::ApplyChannel(void) {
+void FilterManager::ApplyChannel(PixelBuffer* canvas) {
   std::cout << "Apply has been clicked for Channels with red = "
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
+    ColorChannels filter(canvas);
+    filter.red(channel_color_red_);
+    filter.green(channel_color_green_);
+    filter.blue(channel_color_blue_);
+    filter.ApplyFilter();
 }
 
-void FilterManager::ApplySaturate(void) {
+void FilterManager::ApplySaturate(PixelBuffer* canvas) {
   std::cout << "Apply has been clicked for Saturate with amount = "
             << saturation_amount_ << std::endl;
+    Saturate filter(canvas);
+    filter.saturation(saturation_amount_);
+    filter.ApplyFilter();
 }
 
 void FilterManager::ApplyBlur(PixelBuffer *canvas) {
@@ -95,16 +108,26 @@ void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
   convolution_filter.ApplyFilter();
 }
 
-void FilterManager::ApplyQuantize(void) {
-  std::cout << "Apply has been clicked for Quantize with bins = "
-            << quantize_bins_ << std::endl;
+void FilterManager::ApplyQuantize(PixelBuffer* canvas) {
+      std::cout << "Apply has been clicked for Quantize with bins = "
+                      << quantize_bins_ << std::endl;
+          Quantize filter(canvas);
+              filter.bins(quantize_bins_);
+                  filter.ApplyFilter();
 }
-void FilterManager::ApplyThreshold(void) {
-  std::cout << "Apply Threshold has been clicked with amount ="
-            << threshold_amount_ << std::endl;
+
+void FilterManager::ApplyThreshold(PixelBuffer* canvas) {
+      std::cout << "Apply Threshold has been clicked with amount ="
+                      << threshold_amount_ << std::endl;
+          Threshold filter(canvas);
+              filter.threshold(threshold_amount_);
+                  filter.ApplyFilter();
 }
-void FilterManager::ApplySpecial(void) {
-  std::cout << "Apply has been clicked for Special" << std::endl;
+
+void FilterManager::ApplySpecial(PixelBuffer* canvas) {
+      std::cout << "Apply has been clicked for Special" << std::endl;
+          Sepia filter(canvas);
+              filter.ApplyFilter();
 }
 
 void FilterManager::InitGlui(const GLUI *const glui,
