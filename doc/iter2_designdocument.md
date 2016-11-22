@@ -83,21 +83,21 @@ Something Filthy
   The `Invert` filter would extend from the `Filter` base class and would require the same steps as any pixel-independent filter already implemented. The entirety of the inversion logic would be contained in the implementation of the pure virtual `ModifyPixel()` declared in filter.h. The steps are listed below:
   1. Create invert.h
     * Include the necessary headers for filters:
-~~~~
-#include "include/pixel_buffer.h"
-#include "include/filter.h"
-~~~~
+   ~~~~
+   #include "include/pixel_buffer.h"
+   #include "include/filter.h"
+   ~~~~
     * Declare constructor that takes the canvas as an argument.
     * No `Invert`-specific data members will be required.
   2. Create invert.cc
     * Include invert.h
     * Define constructor, which simple calls the super constructor for `Filter`.
-    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration within `ApplyFilter()`, which itself would be the same as all other filters. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's canvas_ member through `Filter::get_canvas()`:
-~~~~
-  ColorData pixel = canvas->get_pixel(x, y);
-  canvas->set_pixel(x, y, (1 - pixel.red()), (1 - pixel.green()), (1 - pixel.blue()), (1 - pixel.alpha()));
-~~~~
-  3. Hook the new filter in using filter_manager.cc. Most notably, this involves creating an instance of the new filter and    calling `ApplyFilter()` on it.
+    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration within   `ApplyFilter()`, which itself would be the same as all other filters. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's   canvas_ member through `Filter::get_canvas()`:
+   ~~~~
+   ColorData pixel = canvas->get_pixel(x, y);
+   canvas->set_pixel(x, y, (1 - pixel.red()), (1 - pixel.green()), (1 - pixel.blue()), (1 - pixel.alpha()));
+   ~~~~
+  3. Hook the new filter in using filter_manager.cc. Most notably, this involves creating an instance of the new filter and     calling `ApplyFilter()` on it.
   4. Add the new filter to the UI filter pane.
 
 
