@@ -26,6 +26,7 @@
 #include "include/wire_brush.h"
 #include "include/highlighter.h"
 #include "include/stamp.h"
+#include "include/blur.h"
 
 /*******************************************************************************
  * Namespaces
@@ -195,6 +196,9 @@ void FlashPhotoApp::ChangeTool(int current_tool) {
             PixelBuffer* stamp;
             stamp = io_manager_.LoadImageToStamp();
             new_tool = new Stamp(stamp);
+            break;
+        case 7:
+            new_tool = new Blur();
             break;
     }
     delete tool_;
