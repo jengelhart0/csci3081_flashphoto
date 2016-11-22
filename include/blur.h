@@ -14,6 +14,8 @@
 /*******************************************************************************
  * Includes
  *******************************************************************************/
+#include "include/blur.h"
+#include <vector>
 #include "include/pixel_buffer.h"
 #include "include/tool.h"
 #include "include/blur_kernel.h"
@@ -37,15 +39,14 @@ class Blur : public Tool {
 
     void ModifyPixel(int x, int y, BlurKernel* kernel,
                      PixelBuffer* copy, PixelBuffer* display);
-    void Draw(int x, int y, 
-              float red, float green, float blue, 
+    void Draw(int x, int y,
+              float red, float green, float blue,
               PixelBuffer* display);
     void CalculateMask(void);
     void CalculateKernels(void);
 
  private:
     std::vector<BlurKernel*> kernels_;
-
 };
 }  // namespace image_tools
 
