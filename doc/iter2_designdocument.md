@@ -58,7 +58,7 @@ Something Filthy
 ####Convolution Filters
   Reading surrounding pixel values in order to modify any given pixel required a more complex inheritance structure than necessitated by the pixel-independent filters. We built a `ConvolutionFilter` class that extends `Filter` and implements additional data and functionality requirements. For example, unlike other filters, convolution filters must maintain a copy of the canvas so pixel modifications do not corrupt readings of surrounding pixels as we apply the filter to the canvas. 
   
-  We implemented a `Kernel` class that defines a collection of values and methods for initializing these values that is used to read the appropriate target pixel and surrounding pixels as we apply convolution filters to the canvas. As Figure 2 depcits, for each convolution filter, we extended a specific kernel from the base `Kernel` class to represent the convolution behavior for that particular convolution filter (e.g., to implement a sharpen convolution filter, we created a `SharpenKernel` that extends `Kernel`). Therefore, for each convolution filter the requirements specified there is an associated instance of ConvolutionFilter that 'has a' specific subtype of `Kernel` associated with it. Because all behavior specific to a convolution filter is wrapped in its kernel, this meant we could otherwise treat every convolution filter the same. For example, one `ModifyPixel()` is used for every `ConvolutionFilter`, and a `weight(int x, int y)` function is used to read that `ConvolutionFilter`'s associated kernel at the correct coordinate in order to apply the logic specific to that filter. 
+  We implemented a `Kernel` class that defines a collection of values and methods for initializing these values that is used to read the appropriate target pixel and surrounding pixels as we apply convolution filters to the canvas. As Figure 2 depicts, for each convolution filter, we extended a specific kernel from the base `Kernel` class to represent the convolution behavior for that particular convolution filter (e.g., to implement a sharpen convolution filter, we created a `SharpenKernel` that extends `Kernel`). Therefore, for each convolution filter the requirements specified there is an associated instance of ConvolutionFilter that 'has a' specific subtype of `Kernel` associated with it. Because all behavior specific to a convolution filter is wrapped in its kernel, this meant we could otherwise treat every convolution filter the same. For example, one `ModifyPixel()` is used for every `ConvolutionFilter`, and a `weight(int x, int y)` function is used to read that `ConvolutionFilter`'s associated kernel at the correct coordinate in order to apply the logic specific to that filter. 
 
 ### 1.2 Design Justification
 
@@ -138,12 +138,12 @@ for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
     * No `Invert`-specific data members will be required.
   2. Create invert.cc
     * Include invert.h
-    * Define constructor, which simple calls the super constructor for `Filter`.
+    * Define constructor, which simply calls the super constructor for `Filter`.
    ```c++
    Saturate::Saturate(PixelBuffer *canvas)
        : Filter(canvas) {}
    ```
-    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration through   `Filter::ApplyFilter()`. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's   canvas_ member through `Filter::get_canvas()`:
+    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration through   `Filter::ApplyFilter()`. The most notable part of the logic gets the target pixel's current colors and inverts them:
    ```c++
    void Invert::ModifyPixel(int x, int y) {
       /* Get canvas */
@@ -159,8 +159,8 @@ for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
    }
    ```
   3. Hook the new filter in using filter_manager.cc. 
-     * Add `FilterManager::ApplyInvert(PixelBuffer* canvas` to filter_manager.h
-     * Implementation which involves creating an instance of the new filter and calling `ApplyFilter()` on it:
+     * Add `FilterManager::ApplyInvert(PixelBuffer* canvas)` to filter_manager.h
+     * Complete implementation which involves creating an instance of the new filter and calling `ApplyFilter()` on it:
    ```c++
      void FilterManager::ApplyInvert(PixelBuffer* canvas) {
       std::cout << "Apply has been clicked for Invert" << std::endl;

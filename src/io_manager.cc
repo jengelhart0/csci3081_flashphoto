@@ -16,7 +16,7 @@
 #include <iostream>
 #include "include/color_data.h"
 #include "include/ui_ctrl.h"
-#include "png.h"
+#include "libpng-1.6.16/png.h"
 
 /*******************************************************************************
  * Namespaces
@@ -215,8 +215,7 @@ void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
     image.width = width;
     image.height = height;
     /* Allocate image buffer. Each pixel is 4 indices, so size is 4*W*H */
-    png_byte buffer[4*width*height];
-    // png_bytep buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
+    png_bytep buffer = static_cast<png_bytep>(malloc(PNG_IMAGE_SIZE(image)));
     ColorData px;
     int row = 0;
     int offset = 0;
@@ -235,10 +234,11 @@ void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
         }
     }
     if (png_image_write_to_file(&image, file_name_.c_str(),
-      0, &buffer, 0, nullptr) == 0) {
+      0, buffer, 0, nullptr) == 0) {
         printf("Error writing image. Error/warning number %d\n",
           image.warning_or_error);
     }
+    delete(buffer);
 }
 
 }  /* namespace image_tools */

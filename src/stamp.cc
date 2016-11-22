@@ -36,7 +36,7 @@ Stamp::~Stamp(void) {}
 void Stamp::CalculateMask(void) {
     int length = Tool::length();
     int height = Tool::height();
-    float new_mask[length*height];
+    float* new_mask = new float[length*height];
     int index = 0;
     ColorData px;
     ColorData background = stamp_->background_color();
@@ -48,6 +48,7 @@ void Stamp::CalculateMask(void) {
         }
     }
     Tool::mask(new_mask);
+    delete(new_mask);
 }
 
 void Stamp::Draw(int x, int y,
