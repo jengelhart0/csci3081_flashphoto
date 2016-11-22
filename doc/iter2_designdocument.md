@@ -139,13 +139,36 @@ for (i = starting_y, kernel_y = 0; i <= ending_y; i++, kernel_y++) {
   2. Create invert.cc
     * Include invert.h
     * Define constructor, which simple calls the super constructor for `Filter`.
-    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration within   `ApplyFilter()`, which itself would be the same as all other filters. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's   canvas_ member through `Filter::get_canvas()`:
    ```c++
-   ColorData pixel = canvas->get_pixel(x, y);
-   canvas->set_pixel(x, y, (1 - pixel.red()), (1 - pixel.green()), (1 - pixel.blue()), (1 - pixel.alpha()));
+   Saturate::Saturate(PixelBuffer *canvas)
+       : Filter(canvas) {}
    ```
-  3. Hook the new filter in using filter_manager.cc. Most notably, this involves creating an instance of the new filter and     calling `ApplyFilter()` on it.
-  4. Add the new filter to the UI filter pane.
+    * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration through   `Filter::ApplyFilter()`. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's   canvas_ member through `Filter::get_canvas()`:
+   ```c++
+   void Invert::ModifyPixel(int x, int y) {
+      /* Get canvas */
+      PixelBuffer* canvas = Filter::get_canvas();
+      ColorData pixel = canvas->get_pixel(x, y);
+      /* Create new color channel values */
+      float red = 1 - pixel.red();
+      float green = 1 - pixel.green()
+      float blue = 1 - pixel.blue();
+      /* Create new color */
+      ColorData new_image(red, green, blue);
+      canvas->set_pixel(x, y, new_image);
+   }
+   ```
+  3. Hook the new filter in using filter_manager.cc. 
+     * Add `FilterManager::ApplyInvert(PixelBuffer* canvas` to filter_manager.h
+     * Implementation which involves creating an instance of the new filter and calling `ApplyFilter()` on it:
+   ```c++
+     void FilterManager::ApplyInvert(PixelBuffer* canvas) {
+      std::cout << "Apply has been clicked for Invert" << std::endl;
+      Invert filter(canvas);
+       filter.ApplyFilter();
+     }
+   ```
+  4. Add the new filter to the UI filter pane in flashphoto_app.cc
 
 
 
