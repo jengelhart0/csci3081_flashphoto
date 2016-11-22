@@ -109,25 +109,25 @@ void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
 }
 
 void FilterManager::ApplyQuantize(PixelBuffer* canvas) {
-      std::cout << "Apply has been clicked for Quantize with bins = "
-                      << quantize_bins_ << std::endl;
-          Quantize filter(canvas);
-              filter.bins(quantize_bins_);
-                  filter.ApplyFilter();
+    std::cout << "Apply has been clicked for Quantize with bins = "
+      << quantize_bins_ << std::endl;
+    Quantize filter(canvas);
+    filter.bins(quantize_bins_);
+    filter.ApplyFilter();
 }
 
 void FilterManager::ApplyThreshold(PixelBuffer* canvas) {
-      std::cout << "Apply Threshold has been clicked with amount ="
-                      << threshold_amount_ << std::endl;
-          Threshold filter(canvas);
-              filter.threshold(threshold_amount_);
-                  filter.ApplyFilter();
+    std::cout << "Apply Threshold has been clicked with amount ="
+      << threshold_amount_ << std::endl;
+    Threshold filter(canvas);
+    filter.threshold(threshold_amount_);
+    filter.ApplyFilter();
 }
 
 void FilterManager::ApplySpecial(PixelBuffer* canvas) {
-      std::cout << "Apply has been clicked for Special" << std::endl;
-          Sepia filter(canvas);
-              filter.ApplyFilter();
+    std::cout << "Apply has been clicked for Special" << std::endl;
+    Sepia filter(canvas);
+    filter.ApplyFilter();
 }
 
 void FilterManager::InitGlui(const GLUI *const glui,
