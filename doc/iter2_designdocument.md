@@ -35,7 +35,7 @@ Something Filthy
 
   To support implementations of both types of filters, we designed a simple filter inheritance structure. We created a base  `Filter` class, which provides data and functionality common to all filters. For example, every filter requires similar logic to `ApplyFilter()` to the canvas: 
 
-~~~~
+```c++
     int height = canvas_->height();
     int width = canvas_->width();
     int y, x;
@@ -44,7 +44,7 @@ Something Filthy
             ModifyPixel(x, y);
         }
     }
-~~~~
+```
 
   This logic is used by all filters, regardless of type, because all must modify each pixel in the filter once in order to achieve the desired effect. However, specific filters must implement their own logic to `ModifyPixel()`s on the canvas (this is precisely what makes filters differ). The infrastructure for how to create a filter that extends from the base, abstract `Filter` class depends on which type: 
 
@@ -83,20 +83,20 @@ Something Filthy
   The `Invert` filter would extend from the `Filter` base class and would require the same steps as any pixel-independent filter already implemented. The entirety of the inversion logic would be contained in the implementation of the pure virtual `ModifyPixel()` declared in filter.h. The steps are listed below:
   1. Create invert.h
     * Include the necessary headers for filters:
-   ~~~~
+   ```c++
    #include "include/pixel_buffer.h"
    #include "include/filter.h"
-   ~~~~
+   ```
     * Declare constructor that takes the canvas as an argument.
     * No `Invert`-specific data members will be required.
   2. Create invert.cc
     * Include invert.h
     * Define constructor, which simple calls the super constructor for `Filter`.
     * Implement `ModifyPixel(int x, int y)`. Like all other filters, this would be called in each iteration within   `ApplyFilter()`, which itself would be the same as all other filters. The most notable part of the logic gets the target pixel's current colors and inverts them. The following is a way to do so, having obtained a reference to the filter's   canvas_ member through `Filter::get_canvas()`:
-   ~~~~
+   ```c++
    ColorData pixel = canvas->get_pixel(x, y);
    canvas->set_pixel(x, y, (1 - pixel.red()), (1 - pixel.green()), (1 - pixel.blue()), (1 - pixel.alpha()));
-   ~~~~
+   ```
   3. Hook the new filter in using filter_manager.cc. Most notably, this involves creating an instance of the new filter and     calling `ApplyFilter()` on it.
   4. Add the new filter to the UI filter pane.
 
