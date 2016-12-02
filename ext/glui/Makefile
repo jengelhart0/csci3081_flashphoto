@@ -24,7 +24,6 @@
 
 SRCDIR          = ./src
 OBJDIR          = ./obj
-EXTDIR          = ./ext
 LIBDIR          = ./lib
 INSTALLDIR      = ../lib
 
