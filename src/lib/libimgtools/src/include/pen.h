@@ -1,21 +1,20 @@
 /*******************************************************************************
- * Name            : caligraphy_pen.h
+ * Name            : pen.h
  * Project         : BrushWork
  * Module          : utils
- * Description     : Header file for CaligraphyPen class.
+ * Description     : Header file for Pen class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
  * Creation Date   : 10/11/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CALIGRAPHY_PEN_H_
-#define INCLUDE_CALIGRAPHY_PEN_H_
+#ifndef INCLUDE_PEN_H_
+#define INCLUDE_PEN_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/tool.h"
+#include "tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -29,14 +28,14 @@ namespace image_tools {
  * @brief This parent class holds the default implementation for Draw() 
  * as well the pixel mask but nothing else.
  */
-class CaligraphyPen : public Tool {
+class Pen : public Tool {
  public:
-    CaligraphyPen(void);
-    virtual ~CaligraphyPen(void);
+    Pen(void);
+    virtual ~Pen(void);
 
     void CalculateMask(void);
  private:
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_CALIGRAPHY_PEN_H_
+#endif  // INCLUDE_PEN_H_

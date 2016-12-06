@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : eraser.h
- * Project         : BrushWork
+ * Name            : sharpen_kernel.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Eraser class.
+ * Description     : Header file for SharpenKernel class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 10/11/2016
- * Original Author : James Stanley
+ * Creation Date   : 11/15/2016
+ * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_ERASER_H_
-#define INCLUDE_ERASER_H_
+#ifndef INCLUDE_SHARPEN_KERNEL_H_
+#define INCLUDE_SHARPEN_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/tool.h"
+
+#include "kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,21 +26,18 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw() 
- * as well the pixel mask but nothing else.
+ * @brief This class implements an sharpen kernel for use with a ConvolutionFilter.        
  */
-class Eraser : public Tool {
+
+class SharpenKernel : public Kernel {
  public:
-    Eraser(void);
-    virtual ~Eraser(void);
+     explicit SharpenKernel(float sharpen_amount);
+     virtual ~SharpenKernel(void);
 
-    void CalculateMask(void);
-    virtual void Draw(int x, int y,
-        float red, float green, float blue,
-        PixelBuffer* display);
-
+     virtual void InitKernel(void);
  private:
+     float middle_val_;
+     float other_val_;
 };
 }  // namespace image_tools
-
-#endif  // INCLUDE_ERASER_H_
+#endif  // INCLUDE_SHARPEN_KERNEL_H_

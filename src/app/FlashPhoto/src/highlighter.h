@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : quantize.h
- * Project         : FlashPhoto
+ * Name            : highlighter.h
+ * Project         : BrushWork
  * Module          : utils
- * Description     : Header file for Quantize class.
+ * Description     : Header file for Highlighter class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/15/2016
+ * Creation Date   : 10/11/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_QUANTIZE_H_
-#define INCLUDE_QUANTIZE_H_
+#ifndef INCLUDE_HIGHLIGHTER_H_
+#define INCLUDE_HIGHLIGHTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/filter.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,28 +26,21 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This abstract base class from which all Quantizes inherit defines the  
- *        default implementation for ApplyQuantize() and declares the interface for ModifyPixel().
+ * @brief This parent class holds the default implementation for Draw() 
+ * as well the pixel mask but nothing else.
  */
-
-class Quantize : public Filter {
+class Highlighter : public Tool {
  public:
-      explicit Quantize(PixelBuffer *canvas);
-      virtual ~Quantize(void);
+    Highlighter(void);
+    virtual ~Highlighter(void);
 
-      /*
-       * @brief Setter method quantize value
-       */
-      void bins(int bins) { bins_ = bins; }
-
-      /* 
-       * @brief Adjust each color channel based on number of bins
-       */
-      void ModifyPixel(int x, int y);
+    void CalculateMask(void);
+    virtual void Draw(int x, int y,
+        float red, float green, float blue,
+        PixelBuffer* display);
 
  private:
-      int bins_;
 };
 }  // namespace image_tools
 
-#endif    // INCLUDE_QUANTIZE_H_
+#endif  // INCLUDE_HIGHLIGHTER_H_

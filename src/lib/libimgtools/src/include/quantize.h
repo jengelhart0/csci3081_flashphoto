@@ -1,22 +1,21 @@
 /*******************************************************************************
- * Name            : convolution_filter.h
+ * Name            : quantize.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for ConvolutionFilter class.
+ * Description     : Header file for Quantize class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/07/2016
- * Original Author : Joey Engelhart
+ * Creation Date   : 11/15/2016
+ * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CONVOLUTION_FILTER_H_
-#define INCLUDE_CONVOLUTION_FILTER_H_
+#ifndef INCLUDE_QUANTIZE_H_
+#define INCLUDE_QUANTIZE_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-
-#include "include/kernel.h"
-#include "include/filter.h"
+#include "pixel_buffer.h"
+#include "filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -27,25 +26,28 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This extension of Filter overrides the base ApplyFilter() to allow to 
- * CreateKernel(). It also implements ModifyPixel() for all ConvolutionFilters.
+ * @brief This abstract base class from which all Quantizes inherit defines the  
+ *        default implementation for ApplyQuantize() and declares the interface for ModifyPixel().
  */
 
-class ConvolutionFilter : public Filter {
+class Quantize : public Filter {
  public:
-     explicit ConvolutionFilter(PixelBuffer *canvas);
-     virtual ~ConvolutionFilter(void);
+      explicit Quantize(PixelBuffer *canvas);
+      virtual ~Quantize(void);
 
-     virtual void ModifyPixel(int x, int y);
+      /*
+       * @brief Setter method quantize value
+       */
+      void bins(int bins) { bins_ = bins; }
 
-     void kernel(Kernel *new_kernel);
+      /* 
+       * @brief Adjust each color channel based on number of bins
+       */
+      void ModifyPixel(int x, int y);
 
  private:
-      Kernel *kernel_;
-      PixelBuffer canvas_copy_;
-      int canvas_width_;
-      int canvas_height_;
+      int bins_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_CONVOLUTION_FILTER_H_
+#endif    // INCLUDE_QUANTIZE_H_

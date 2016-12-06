@@ -1,21 +1,22 @@
 /*******************************************************************************
- * Name            : kernel.h
+ * Name            : motion_blur_kernel.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Kernel class.
+ * Description     : Header file for MotionBlurKernel class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/10/2016
+ * Creation Date   : 11/15/2016
  * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_KERNEL_H_
-#define INCLUDE_KERNEL_H_
+#ifndef INCLUDE_MOTION_BLUR_KERNEL_H_
+#define INCLUDE_MOTION_BLUR_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include <cmath>
-#include "include/pixel_buffer.h"
+
+#include "lib/libimgtools/src/include/kernel.h"
+#include "filter_manager.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,29 +27,18 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This abstract class is a base for the different types of kernels for ConvolutionFilters.        
+ * @brief This class implements a motion blur kernel for use with a ConvolutionFilter.        
  */
 
-class Kernel {
+class MotionBlurKernel : public Kernel {
  public:
-     Kernel(float filter_amount, int dimension);
-     explicit Kernel(int dimension);
-     virtual ~Kernel(void);
-
-     float weight(int x, int y);
-     int dimension(void);
-     float filter_amount(void);
-
- protected:
-     virtual void InitKernel(void) = 0;
-     void weight(int x, int y, float value);
-
+     MotionBlurKernel(float motion_blur_amount,
+                      enum UICtrl::MotionBlurDirection direction,
+                      int dimension);
+     virtual ~MotionBlurKernel(void);
+     virtual void InitKernel(void);
  private:
-     void init_data(void);
-     float filter_amount_;
-     int dimension_;
-     float *data_;
+     enum UICtrl::MotionBlurDirection direction_;
 };
 }  // namespace image_tools
-
-#endif  // INCLUDE_KERNEL_H_
+#endif  // INCLUDE_MOTION_BLUR_KERNEL_H_

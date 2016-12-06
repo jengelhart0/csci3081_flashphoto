@@ -121,10 +121,10 @@ export CXXINCDIRS
 # This is specified differently depending on whether we are on linux or OSX.
 UNAME = $(shell uname)
 ifeq ($(UNAME), Darwin) # Mac OSX
-#CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
+CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
 CXXLIBS += -ljpeg -lpng -lz -framework glut -framework opengl -lglui 
 else # LINUX
-#CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
+CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
 CXXLIBS +=  -lpng -ljpeg -lz -lGL -lGLU -lglui -lglut 
 CXXFLAGS += -fopenmp
 endif
@@ -157,12 +157,12 @@ export CXXLIBS
 all: libimgtools FlashPhoto MIA
 
 install: all
-	$(MAKE) -C$(LIBIMGTOOLS_DIR)
+	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
 	$(MAKE) -Csrc/app/MIA install
 	$(MAKE) -Csrc/app/FlashPhoto install
 
 libimgtools: | $(EXTDIR)/lib/libpng.a $(LIBDIR)
-	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
+	$(MAKE) -C$(LIBIMGTOOLS_DIR)
 
 $(EXTDIR)/lib/libglui.a:
 	$(MAKE) -C$(GLUIDIR) install
@@ -171,9 +171,9 @@ $(EXTDIR)/lib/libpng.a:
 $(EXTDIR)/lib/libjpeg.a:
 	$(MAKE) -C$(JPEGDIR) install
 
-FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a| $(BINDIR)
+FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a | $(BINDIR)
 	$(MAKE) -Csrc/app/FlashPhoto
-MIA: libimgtools $(EXTDIR)/lib/libglui.a | $(BINDIR)
+MIA: libimgtools $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a | $(BINDIR)
 	$(MAKE) -Csrc/app/MIA
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,

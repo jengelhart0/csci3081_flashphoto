@@ -104,11 +104,13 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 
 # The Target Library.
 $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(LIBDIR)
-	echo "FIXME: Creating libimgtools..."
+	ar rcs $(TARGET) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX))
 
 install: $(TARGET)
 	@rm -rf $(BUILDROOT)/lib/$(notdir $(shell pwd)).a
-	@cd $(BUILDROOT)/lib && ln -s ../$(notdir $(shell pwd))/lib/$(notdir $(shell pwd)).a
+	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	@cd $(BUILDROOT)/lib && cp ../libimgtools/lib/libimgtools.a ./
+	#@cd $(BUILDROOT)/lib && ln -s ../$(notdir $(shell pwd))/lib/$(notdir $(shell pwd)).a
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build

@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : spray_can.h
- * Project         : BrushWork
+ * Name            : saturate.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for SprayCan class.
+ * Description     : Header file for Saturate class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 10/11/2016
+ * Creation Date   : 11/07/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SPRAY_CAN_H_
-#define INCLUDE_SPRAY_CAN_H_
+#ifndef INCLUDE_SATURATE_H_
+#define INCLUDE_SATURATE_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/tool.h"
+#include "pixel_buffer.h"
+#include "filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,17 +26,29 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw() 
- * as well the pixel mask but nothing else.
+ * @brief This abstract base class from which all Saturates inherit defines the  
+ *        default implementation for ApplySaturate() and declares the interface for ModifyPixel().
  */
-class SprayCan : public Tool {
- public:
-    SprayCan(void);
-    virtual ~SprayCan(void);
 
-    void CalculateMask(void);
+class Saturate : public Filter {
+ public:
+      explicit Saturate(PixelBuffer *canvas);
+      virtual ~Saturate(void);
+
+      /*
+       * @brief Set saturation value 
+       */
+      void saturation(float saturation) { saturation_ = saturation; }
+
+      /* 
+       * @brief Interpolate between grayscale image and original based on 
+       * saturation value
+       */
+      void ModifyPixel(int x, int y);
+
  private:
+      float saturation_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SPRAY_CAN_H_
+#endif  // INCLUDE_SATURATE_H_

@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : sepia.h
+ * Name            : kernel.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Sepia class.
+ * Description     : Header file for Kernel class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/07/2016
- * Original Author : James Stanley
+ * Creation Date   : 11/10/2016
+ * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SEPIA_H_
-#define INCLUDE_SEPIA_H_
+#ifndef INCLUDE_KERNEL_H_
+#define INCLUDE_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/filter.h"
+#include <cmath>
+#include "pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,23 +26,29 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This abstract base class from which all Sepias inherit defines the  
- *        default implementation for ApplySepia() and declares the interface for ModifyPixel().
+ * @brief This abstract class is a base for the different types of kernels for ConvolutionFilters.        
  */
 
-class Sepia : public Filter {
+class Kernel {
  public:
-      explicit Sepia(PixelBuffer *canvas);
-      virtual ~Sepia(void);
+     Kernel(float filter_amount, int dimension);
+     explicit Kernel(int dimension);
+     virtual ~Kernel(void);
 
-      /* 
-       * @brief Interpolate between grayscale image and original based on 
+     float weight(int x, int y);
+     int dimension(void);
+     float filter_amount(void);
 
-       */
-      void ModifyPixel(int x, int y);
+ protected:
+     virtual void InitKernel(void) = 0;
+     void weight(int x, int y, float value);
 
  private:
+     void init_data(void);
+     float filter_amount_;
+     int dimension_;
+     float *data_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SEPIA_H_
+#endif  // INCLUDE_KERNEL_H_

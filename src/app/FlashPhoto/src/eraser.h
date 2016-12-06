@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : edge_detect_kernel.h
- * Project         : FlashPhoto
+ * Name            : eraser.h
+ * Project         : BrushWork
  * Module          : utils
- * Description     : Header file for EdgeDetectKernel class.
+ * Description     : Header file for Eraser class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/15/2016
- * Original Author : Joey Engelhart
+ * Creation Date   : 10/11/2016
+ * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_EDGE_DETECT_KERNEL_H_
-#define INCLUDE_EDGE_DETECT_KERNEL_H_
+#ifndef INCLUDE_ERASER_H_
+#define INCLUDE_ERASER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-
-#include "include/kernel.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,19 +26,21 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements an edge detection kernel for use with a ConvolutionFilter.        
+ * @brief This parent class holds the default implementation for Draw() 
+ * as well the pixel mask but nothing else.
  */
-
-class EdgeDetectKernel : public Kernel {
+class Eraser : public Tool {
  public:
-     EdgeDetectKernel(void);
-     virtual ~EdgeDetectKernel(void);
+    Eraser(void);
+    virtual ~Eraser(void);
 
-     virtual void InitKernel(void);
+    void CalculateMask(void);
+    virtual void Draw(int x, int y,
+        float red, float green, float blue,
+        PixelBuffer* display);
+
  private:
-     float middle_val_;
-     float other_val_;
 };
 }  // namespace image_tools
-#endif  // INCLUDE_EDGE_DETECT_KERNEL_H_
 
+#endif  // INCLUDE_ERASER_H_

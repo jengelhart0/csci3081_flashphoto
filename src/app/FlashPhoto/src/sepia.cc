@@ -13,8 +13,8 @@
  * Includes
  ******************************************************************************/
 #include <iostream>
-#include "include/sepia.h"
-#include "include/pixel_buffer.h"
+#include "sepia.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces

@@ -1,21 +1,21 @@
 /*******************************************************************************
- * Name            : sharpen_kernel.h
- * Project         : FlashPhoto
+ * Name            : wire_brush.h
+ * Project         : BrushWork
  * Module          : utils
- * Description     : Header file for SharpenKernel class.
+ * Description     : Header file for WireBrush class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/15/2016
- * Original Author : Joey Engelhart
+ * Creation Date   : 10/18/2016
+ * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SHARPEN_KERNEL_H_
-#define INCLUDE_SHARPEN_KERNEL_H_
+#ifndef INCLUDE_WIRE_BRUSH_H_
+#define INCLUDE_WIRE_BRUSH_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-
-#include "include/kernel.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,18 +26,17 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements an sharpen kernel for use with a ConvolutionFilter.        
+ * @brief This parent class holds the default implementation for Draw()
+ * as well the pixel mask but nothing else.
  */
-
-class SharpenKernel : public Kernel {
+class WireBrush : public Tool {
  public:
-     explicit SharpenKernel(float sharpen_amount);
-     virtual ~SharpenKernel(void);
+    WireBrush(void);
+    virtual ~WireBrush(void);
 
-     virtual void InitKernel(void);
+    void CalculateMask(void);
  private:
-     float middle_val_;
-     float other_val_;
 };
 }  // namespace image_tools
-#endif  // INCLUDE_SHARPEN_KERNEL_H_
+
+#endif  // INCLUDE_WIRE_BRUSH_H_

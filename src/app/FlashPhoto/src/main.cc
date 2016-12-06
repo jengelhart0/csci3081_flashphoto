@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/flashphoto_app.h"
-#include "include/color_data.h"
+#include "flashphoto_app.h"
+#include "lib/libimgtools/src/include/color_data.h"
 
 /*******************************************************************************
  * Functions

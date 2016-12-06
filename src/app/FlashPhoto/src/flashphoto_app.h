@@ -17,15 +17,15 @@
   ******************************************************************************/
 #include <string>
 #include <vector>
-#include "include/base_gfx_app.h"
-#include "include/color_data.h"
-#include "include/pixel_buffer.h"
-#include "include/filter_manager.h"
-#include "include/io_manager.h"
-#include "include/ui_ctrl.h"
-#include "include/state_manager.h"
-#include "include/tool.h"
-#include "libpng-1.6.16/png.h"
+#include "lib/libimgtools/src/include/base_gfx_app.h"
+#include "lib/libimgtools/src/include/color_data.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "filter_manager.h"
+#include "io_manager.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
+#include "state_manager.h"
+#include "lib/libimgtools/src/include/tool.h"
+#include "../../../ext/libpng-1.6.16/png.h"
 
 /*******************************************************************************
   * Namespaces

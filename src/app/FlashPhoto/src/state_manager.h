@@ -17,7 +17,7 @@
  ******************************************************************************/
 #include <string>
 #include "GL/glui.h"
-#include "include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces

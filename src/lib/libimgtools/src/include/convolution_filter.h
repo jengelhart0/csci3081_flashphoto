@@ -1,21 +1,22 @@
 /*******************************************************************************
- * Name            : stamp.h
- * Project         : BrushWork
+ * Name            : convolution_filter.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Stamp class.
+ * Description     : Header file for ConvolutionFilter class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/09/2016
- * Original Author : James Stanley
+ * Creation Date   : 11/07/2016
+ * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_STAMP_H_
-#define INCLUDE_STAMP_H_
+#ifndef INCLUDE_CONVOLUTION_FILTER_H_
+#define INCLUDE_CONVOLUTION_FILTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/tool.h"
+
+#include "kernel.h"
+#include "filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,22 +27,25 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw()
- * as well the pixel mask but nothing else.
+ * @brief This extension of Filter overrides the base ApplyFilter() to allow to 
+ * CreateKernel(). It also implements ModifyPixel() for all ConvolutionFilters.
  */
-class Stamp : public Tool {
- public:
-    explicit Stamp(PixelBuffer* stamp);
-    virtual ~Stamp(void);
 
-    void CalculateMask(void);
-    void Draw(int x, int y,
-        float red, float green, float blue,
-        PixelBuffer* display);
+class ConvolutionFilter : public Filter {
+ public:
+     explicit ConvolutionFilter(PixelBuffer *canvas);
+     virtual ~ConvolutionFilter(void);
+
+     virtual void ModifyPixel(int x, int y);
+
+     void kernel(Kernel *new_kernel);
 
  private:
-    PixelBuffer* stamp_;
+      Kernel *kernel_;
+      PixelBuffer canvas_copy_;
+      int canvas_width_;
+      int canvas_height_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_STAMP_H_
+#endif  // INCLUDE_CONVOLUTION_FILTER_H_

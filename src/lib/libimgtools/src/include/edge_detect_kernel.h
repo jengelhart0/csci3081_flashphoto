@@ -1,22 +1,21 @@
 /*******************************************************************************
- * Name            : motion_blur_kernel.h
+ * Name            : edge_detect_kernel.h
  * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for MotionBlurKernel class.
+ * Description     : Header file for EdgeDetectKernel class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
  * Creation Date   : 11/15/2016
  * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MOTION_BLUR_KERNEL_H_
-#define INCLUDE_MOTION_BLUR_KERNEL_H_
+#ifndef INCLUDE_EDGE_DETECT_KERNEL_H_
+#define INCLUDE_EDGE_DETECT_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 
-#include "include/kernel.h"
-#include "include/filter_manager.h"
+#include "kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -27,18 +26,19 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements a motion blur kernel for use with a ConvolutionFilter.        
+ * @brief This class implements an edge detection kernel for use with a ConvolutionFilter.        
  */
 
-class MotionBlurKernel : public Kernel {
+class EdgeDetectKernel : public Kernel {
  public:
-     MotionBlurKernel(float motion_blur_amount,
-                      enum UICtrl::MotionBlurDirection direction,
-                      int dimension);
-     virtual ~MotionBlurKernel(void);
+     EdgeDetectKernel(void);
+     virtual ~EdgeDetectKernel(void);
+
      virtual void InitKernel(void);
  private:
-     enum UICtrl::MotionBlurDirection direction_;
+     float middle_val_;
+     float other_val_;
 };
 }  // namespace image_tools
-#endif  // INCLUDE_MOTION_BLUR_KERNEL_H_
+#endif  // INCLUDE_EDGE_DETECT_KERNEL_H_
+

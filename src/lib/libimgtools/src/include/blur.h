@@ -1,21 +1,23 @@
 /*******************************************************************************
- * Name            : saturate.h
- * Project         : FlashPhoto
+ * Name            : blur.h
+ * Project         : BrushWork
  * Module          : utils
- * Description     : Header file for Saturate class.
+ * Description     : Header file for Blur class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/07/2016
+ * Creation Date   : 11/17/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SATURATE_H_
-#define INCLUDE_SATURATE_H_
+#ifndef INCLUDE_BLUR_H_
+#define INCLUDE_BLUR_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
-#include "include/filter.h"
+#include <vector>
+#include "pixel_buffer.h"
+#include "tool.h"
+#include "blur_kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -26,29 +28,25 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This abstract base class from which all Saturates inherit defines the  
- *        default implementation for ApplySaturate() and declares the interface for ModifyPixel().
+ * @brief This parent class holds the default implementation for Draw() 
+ * as well the pixel mask but nothing else.
  */
-
-class Saturate : public Filter {
+class Blur : public Tool {
  public:
-      explicit Saturate(PixelBuffer *canvas);
-      virtual ~Saturate(void);
+    Blur(void);
+    virtual ~Blur(void);
 
-      /*
-       * @brief Set saturation value 
-       */
-      void saturation(float saturation) { saturation_ = saturation; }
-
-      /* 
-       * @brief Interpolate between grayscale image and original based on 
-       * saturation value
-       */
-      void ModifyPixel(int x, int y);
+    void ModifyPixel(int x, int y, BlurKernel* kernel,
+                     PixelBuffer* copy, PixelBuffer* display);
+    void Draw(int x, int y,
+              float red, float green, float blue,
+              PixelBuffer* display);
+    void CalculateMask(void);
+    void CalculateKernels(void);
 
  private:
-      float saturation_;
+    std::vector<BlurKernel*> kernels_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SATURATE_H_
+#endif  // INCLUDE_BLUR_H_

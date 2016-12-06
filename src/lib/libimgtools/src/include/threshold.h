@@ -1,23 +1,21 @@
 /*******************************************************************************
- * Name            : blur.h
- * Project         : BrushWork
+ * Name            : threshold.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Blur class.
+ * Description     : Header file for Threshold class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 11/17/2016
+ * Creation Date   : 11/07/2016
  * Original Author : James Stanley
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BLUR_H_
-#define INCLUDE_BLUR_H_
+#ifndef INCLUDE_THRESHOLD_H_
+#define INCLUDE_THRESHOLD_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include <vector>
-#include "include/pixel_buffer.h"
-#include "include/tool.h"
-#include "include/blur_kernel.h"
+#include "pixel_buffer.h"
+#include "filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -28,25 +26,28 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw() 
- * as well the pixel mask but nothing else.
+ * @brief This class holds the implementation of the threshold filter
  */
-class Blur : public Tool {
- public:
-    Blur(void);
-    virtual ~Blur(void);
 
-    void ModifyPixel(int x, int y, BlurKernel* kernel,
-                     PixelBuffer* copy, PixelBuffer* display);
-    void Draw(int x, int y,
-              float red, float green, float blue,
-              PixelBuffer* display);
-    void CalculateMask(void);
-    void CalculateKernels(void);
+class Threshold : public Filter {
+ public:
+      explicit Threshold(PixelBuffer *canvas);
+      virtual ~Threshold(void);
+
+      /*
+       * @brief Setter method threshold value
+       */
+      void threshold(float new_threshold) { threshold_ = new_threshold; }
+
+      /*
+       * @brief Rounds each color channel to 1 or 0 depending on
+       * threshold value s
+       */
+      void ModifyPixel(int x, int y);
 
  private:
-    std::vector<BlurKernel*> kernels_;
+      float threshold_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BLUR_H_
+#endif  // INCLUDE_THRESHOLD_H_

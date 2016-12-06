@@ -12,9 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/state_manager.h"
+#include "state_manager.h"
 #include <iostream>
-#include "include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces

@@ -1,20 +1,21 @@
 /*******************************************************************************
- * Name            : tool.h
- * Project         : BrushWork
+ * Name            : filter.h
+ * Project         : FlashPhoto
  * Module          : utils
- * Description     : Header file for Tool class.
+ * Description     : Header file for Filter class.
  * Copyright       : 2016 CSCI3081W - Group C07. All rights reserved.
- * Creation Date   : 10/11/2016
- * Original Author : James Stanley
+ * Creation Date   : 11/07/2016
+ * Original Author : Joey Engelhart
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TOOL_H_
-#define INCLUDE_TOOL_H_
+#ifndef INCLUDE_FILTER_H_
+#define INCLUDE_FILTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "include/pixel_buffer.h"
+#include <iostream>
+#include "pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -25,33 +26,27 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This parent class holds the default implementation for Draw() 
- * as well the pixel mask
+ * @brief This abstract base class from which all Filters inherit defines the  
+ *        default implementation for ApplyFilter() and declares the interface for ModifyPixel().
  */
-class Tool {
+
+class Filter {
  public:
-    Tool(int length, int height);
-    virtual ~Tool(void);
+     explicit Filter(PixelBuffer *canvas);
+     virtual ~Filter(void);
 
-    float* mask(void) { return mask_; }
-    void mask(float new_mask[]);
-    int height(void) { return height_; }
-    int length(void) { return length_; }
+     PixelBuffer *get_canvas(void);
 
-    virtual void Draw(int x, int y,
-        float red, float green, float blue,
-        PixelBuffer* display);
+     virtual void ApplyFilter(void);
+     /* 
+      * determines filter characteristics: must be implemented by derived subclass 
+      */
 
-    /*
-     * Must be implemented by derived types
-     */
-    virtual void CalculateMask(void) = 0;
+     virtual void ModifyPixel(int x, int y) = 0;
 
  private:
-    float* mask_;
-    int length_;
-    int height_;
+     PixelBuffer *canvas_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TOOL_H_
+#endif  // INCLUDE_FILTER_H_
