@@ -162,7 +162,7 @@ install: all
 	$(MAKE) -Csrc/app/FlashPhoto install
 
 libimgtools: | $(EXTDIR)/lib/libpng.a $(LIBDIR)
-	$(MAKE) -C$(LIBIMGTOOLS_DIR)
+	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
 
 $(EXTDIR)/lib/libglui.a:
 	$(MAKE) -C$(GLUIDIR) install
