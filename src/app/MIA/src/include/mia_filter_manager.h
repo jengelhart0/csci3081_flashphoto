@@ -16,6 +16,7 @@
  * Includes
  ******************************************************************************/
 /* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include "lib/libimgtools/src/include/filter_manager.h"
 
 /*******************************************************************************
  * Namespaces

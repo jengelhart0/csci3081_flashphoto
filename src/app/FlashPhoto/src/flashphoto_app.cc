@@ -12,15 +12,15 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "flashphoto_app.h"
+#include "include/flashphoto_app.h"
 #include <iostream>
 #include <cmath>
 #include "lib/libimgtools/src/include/pen.h"
-#include "caligraphy_pen.h"
-#include "eraser.h"
-#include "spray_can.h"
-#include "wire_brush.h"
-#include "highlighter.h"
+#include "include/caligraphy_pen.h"
+#include "include/eraser.h"
+#include "include/spray_can.h"
+#include "include/wire_brush.h"
+#include "include/highlighter.h"
 #include "lib/libimgtools/src/include/stamp.h"
 #include "lib/libimgtools/src/include/blur.h"
 

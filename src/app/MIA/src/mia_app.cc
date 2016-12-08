@@ -12,7 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "src/app/MIA/src/mia_app.h"
+#include "app/MIA/src/include/mia_app.h"
+#include "lib/libimgtools/src/include/base_gfx_app.h"
+#include "lib/libimgtools/src/include/color_data.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 #include <string>
 #include <iostream>
 

@@ -16,7 +16,7 @@
  *******************************************************************************/
 
 #include "lib/libimgtools/src/include/kernel.h"
-#include "filter_manager.h"
+#include "lib/libimgtools/src/include/filter_manager.h"
 
 /*******************************************************************************
  * Namespaces

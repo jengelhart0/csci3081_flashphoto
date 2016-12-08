@@ -12,10 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "io_manager.h"
+#include "lib/libimgtools/src/include/io_manager.h"
 #include <iostream>
 #include "lib/libimgtools/src/include/color_data.h"
-#include "../../../ext/libpng-1.6.16/png.h"
+#include "../ext/libpng-1.6.16/png.h"
 
 /*******************************************************************************
  * Namespaces

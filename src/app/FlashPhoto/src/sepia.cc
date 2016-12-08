@@ -13,7 +13,7 @@
  * Includes
  ******************************************************************************/
 #include <iostream>
-#include "sepia.h"
+#include "include/sepia.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************

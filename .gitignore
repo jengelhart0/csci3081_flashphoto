@@ -44,3 +44,6 @@ bin/*
 
 # Configuration
 config/
+
+# swap files
+*.swp

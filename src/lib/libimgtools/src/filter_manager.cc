@@ -12,19 +12,19 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "filter_manager.h"
+#include "include/filter_manager.h"
 #include <iostream>
-#include "lib/libimgtools/src/include/ui_ctrl.h"
-#include "lib/libimgtools/src/include/threshold.h"
-#include "lib/libimgtools/src/include/saturate.h"
-#include "lib/libimgtools/src/include/color_channels.h"
-#include "lib/libimgtools/src/include/quantize.h"
-#include "sepia.h"
-#include "lib/libimgtools/src/include/convolution_filter.h"
-#include "lib/libimgtools/src/include/blur_kernel.h"
-#include "lib/libimgtools/src/include/sharpen_kernel.h"
-#include "lib/libimgtools/src/include/edge_detect_kernel.h"
-#include "motion_blur_kernel.h"
+#include "include/ui_ctrl.h"
+#include "include/threshold.h"
+#include "include/saturate.h"
+#include "include/color_channels.h"
+#include "include/quantize.h"
+#include "app/FlashPhoto/src/include/sepia.h"
+#include "include/convolution_filter.h"
+#include "include/blur_kernel.h"
+#include "include/sharpen_kernel.h"
+#include "include/edge_detect_kernel.h"
+#include "app/FlashPhoto/src/include/motion_blur_kernel.h"
 
 /*******************************************************************************
  * Namespaces

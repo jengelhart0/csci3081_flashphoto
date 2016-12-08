@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "src/app/MIA/src/mia_io_manager.h"
+#include "app/MIA/src/include/mia_io_manager.h"
 
 #include <assert.h>
 #include <iostream>
