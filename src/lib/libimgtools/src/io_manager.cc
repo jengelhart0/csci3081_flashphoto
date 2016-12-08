@@ -12,15 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "lib/libimgtools/src/include/io_manager.h"
+#include "include/io_manager.h"
 #include <iostream>
 #include <assert.h>
-#include "lib/libimgtools/src/include/color_data.h"
+#include "include/color_data.h"
 #include "../ext/libpng-1.6.16/png.h"
-
-
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
-
 
 /*******************************************************************************
  * Namespaces
@@ -43,6 +39,16 @@ IOManager::IOManager(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
+GLUI_Panel* IOManager::InitGlui(const GLUI *const glui,
+                             void (*s_gluicallback)(int)) {
+  new GLUI_Column(const_cast<GLUI*>(glui), true);
+  GLUI_Panel *image_panel = new GLUI_Panel(const_cast<GLUI*>(glui),
+                                           "Image I/O");
+  AddFileBrowserToGLUI(image_panel, s_gluicallback);
+  AddSaveCanvasToGLUI(image_panel, s_gluicallback);
+  AddLoadStampToGLUI(image_panel, s_gluicallback);
+  new GLUI_Separator(image_panel);
+}
 void IOManager::AddFileBrowserToGLUI(GLUI_Panel* image_panel,
                                      void (*s_gluicallback)(int)) {
   file_browser_ = new GLUI_FileBrowser(image_panel,

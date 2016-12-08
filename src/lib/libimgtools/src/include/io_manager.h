@@ -47,9 +47,10 @@ class IOManager {
    * @param s_gluicallback Callback to install
    * @return The initialized IO panel handle
    */
+//  virtual GLUI_Panel* InitGlui(const GLUI *const glui,
+//                               void (*s_gluicallback)(int)) { return NULL; }
   virtual GLUI_Panel* InitGlui(const GLUI *const glui,
-                               void (*s_gluicallback)(int)) { return NULL; }
-
+                               void (*s_gluicallback)(int));
   /**
    * @brief Set the image file. If the file is valid, enable loading/saving
    *
