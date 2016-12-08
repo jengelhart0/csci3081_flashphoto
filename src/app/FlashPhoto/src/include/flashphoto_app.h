@@ -23,7 +23,7 @@
 #include "lib/libimgtools/src/include/filter_manager.h"
 #include "lib/libimgtools/src/include/io_manager.h"
 #include "lib/libimgtools/src/include/ui_ctrl.h"
-#include "state_manager.h"
+#include "lib/libimgtools/src/include/state_manager.h"
 #include "lib/libimgtools/src/include/tool.h"
 #include "../../../ext/libpng-1.6.16/png.h"
 

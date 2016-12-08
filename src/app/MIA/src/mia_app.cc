@@ -19,8 +19,6 @@
 #include <string>
 #include <iostream>
 
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
-
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -117,29 +115,29 @@ void MIAApp::InitGlui(void) {
 
 void MIAApp::GluiControl(int control_id) {
   switch (control_id) {
+    case UICtrl::UI_APPLY_BLUR:
+      filter_manager_.ApplyBlur(display_buffer_);
+      break;
     case UICtrl::UI_APPLY_SHARP:
-      filter_manager_.ApplySharpen();
+      filter_manager_.ApplySharpen(display_buffer_);
       break;
     case UICtrl::UI_APPLY_MOTION_BLUR:
-      filter_manager_.ApplyMotionBlur();
+      filter_manager_.ApplyMotionBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_EDGE:
-      filter_manager_.ApplyEdgeDetect();
+      filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
-      filter_manager_.ApplyThreshold();
+      filter_manager_.ApplyThreshold(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SATURATE:
-      filter_manager_.ApplySaturate();
+      filter_manager_.ApplySaturate(display_buffer_);
       break;
     case UICtrl::UI_APPLY_CHANNEL:
-      filter_manager_.ApplyChannel();
+      filter_manager_.ApplyChannel(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
-      filter_manager_.ApplyQuantize();
-      break;
-    case UICtrl::UI_APPLY_BLUR:
-      filter_manager_.ApplyBlur();
+      filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_FILE_BROWSER:
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
@@ -151,9 +149,9 @@ void MIAApp::GluiControl(int control_id) {
       io_manager_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
+      io_manager_.SaveCanvasToFile(*display_buffer_);
       // Reload the current directory:
       io_manager_.file_browser()->fbreaddir(".");
-      io_manager_.SaveCanvasToFile();
       break;
     case UICtrl::UI_NEXT_IMAGE_BUTTON:
       io_manager_.LoadNextImage();

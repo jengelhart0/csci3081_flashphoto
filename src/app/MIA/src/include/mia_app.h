@@ -16,8 +16,16 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include <vector>
+#include "lib/libimgtools/src/include/base_gfx_app.h"
+#include "lib/libimgtools/src/include/color_data.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "mia_filter_manager.h"
+#include "mia_io_manager.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/state_manager.h"
+#include "lib/libimgtools/src/include/tool.h"
+#include "../../../ext/libpng-1.6.16/png.h"
 
 /*******************************************************************************
  * Namespaces

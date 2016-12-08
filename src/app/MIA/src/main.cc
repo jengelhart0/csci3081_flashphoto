@@ -12,7 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include "include/mia_app.h"
+#include "lib/libimgtools/src/include/color_data.h"
 
 /*******************************************************************************
  * Non-Member Functions

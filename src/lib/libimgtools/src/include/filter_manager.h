@@ -109,8 +109,24 @@ class FilterManager {
    * @param glui GLUI handle
    * @param s_gluicallback Callback to install
    */
-  void InitGlui(const GLUI *const glui,
+  GLUI_Panel*  InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
+ protected:
+  void AddBlurToGLUI(GLUI_Panel *filter_panel, void (*s_gluicallback)(int));
+  void AddMotionBlurToGLUI(GLUI_Panel *filter_panel,
+                           void (*s_gluicallback)(int));
+  void AddSharpenToGLUI(GLUI_Panel *filter_panel,
+                        void (*s_gluicallback)(int));
+  void AddEdgeDetectToGLUI(GLUI_Panel *filter_panel,
+                           void (*s_gluicallback)(int));
+  void AddThresholdToGLUI(GLUI_Panel *filter_panel,
+                          void (*s_gluicallback)(int));
+  void AddSaturationToGLUI(GLUI_Panel *filter_panel,
+                           void (*s_gluicallback)(int));
+  void AddChannelToGLUI(GLUI_Panel *filter_panel,
+                        void (*s_gluicallback)(int));
+  void AddQuantizationToGLUI(GLUI_Panel *filter_panel,
+                             void (*s_gluicallback)(int));
 
  private:
   float channel_color_red_;
