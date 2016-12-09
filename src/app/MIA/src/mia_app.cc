@@ -156,7 +156,11 @@ void MIAApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_manager_.LoadImageToCanvas();
+      PixelBuffer* new_buffer;
+      new_buffer = io_manager_.LoadImageToCanvas();
+      delete(display_buffer_);
+      display_buffer_ = new_buffer;
+      SetWindowDimensions(new_buffer->width(), new_buffer->height());
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
@@ -167,10 +171,18 @@ void MIAApp::GluiControl(int control_id) {
       io_manager_.file_browser()->fbreaddir(".");
       break;
     case UICtrl::UI_NEXT_IMAGE_BUTTON:
-      io_manager_.LoadNextImage();
+	  PixelBuffer* next_image;
+      next_image = io_manager_.LoadNextImage();
+      delete(display_buffer_);
+      display_buffer_ = next_image;;
+      SetWindowDimensions(next_image->width(), next_image->height());
       break;
     case UICtrl::UI_PREV_IMAGE_BUTTON:
-      io_manager_.LoadPreviousImage();
+	  PixelBuffer* prev_image;;
+      prev_image = io_manager_.LoadPreviousImage();
+      delete(display_buffer_);
+      display_buffer_ = prev_image;
+      SetWindowDimensions(prev_image->width(), prev_image->height());
       break;
     case UICtrl::UI_FILE_NAME:
       io_manager_.set_image_file(io_manager_.file_name());

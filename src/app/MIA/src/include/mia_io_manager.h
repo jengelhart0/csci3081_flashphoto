@@ -50,9 +50,9 @@ class MIAIOManager : public IOManager {
   GLUI_Panel* InitGlui(const GLUI *const glui,
                        void (*s_gluicallback)(int));
 
-  void LoadImageToCanvas(void);
-  void LoadNextImage(void);
-  void LoadPreviousImage(void);
+  PixelBuffer* LoadImageToCanvas(void);
+  PixelBuffer* LoadNextImage(void);
+  PixelBuffer* LoadPreviousImage(void);
   void set_image_file(const std::string & fname_in);
   std::string image_name_plus_seq_offset(const std::string& filename,
                                          int offset);
