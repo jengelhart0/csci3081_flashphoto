@@ -32,7 +32,7 @@ Pen::~Pen(void) {}
  * Member Functions
  ******************************************************************************/
 void Pen::CalculateMask(void) {
-    float new_mask[9] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+    float new_mask[9] = {0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0};
     Tool::mask(new_mask);
 }
 }  // namespace image_tools

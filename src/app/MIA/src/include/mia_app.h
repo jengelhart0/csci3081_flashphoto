@@ -40,8 +40,8 @@ class MIAApp : public BaseGfxApp {
   MIAApp(int width, int height, const std::string& marker_fname);
   virtual ~MIAApp(void);
 
-  void MouseDragged(int x, int y) {}
-  void MouseMoved(int x, int y) {}
+  void MouseDragged(int x, int y);
+  void MouseMoved(int x, int y);
   void LeftMouseDown(int x, int y);
   void LeftMouseUp(int x, int y) {}
   void Display(void);
@@ -101,6 +101,14 @@ class MIAApp : public BaseGfxApp {
 
   // The path to the marker file
   std::string marker_fname_;
+
+  Tool* tool_;
+  float prev_x_;
+  float prev_y_;
+  
+  /* App's collection of tools */
+  std::vector<Tool*> tools_;
+
 
   int cur_tool_;
 };

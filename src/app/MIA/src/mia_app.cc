@@ -16,8 +16,11 @@
 #include "lib/libimgtools/src/include/base_gfx_app.h"
 #include "lib/libimgtools/src/include/color_data.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/pen.h"
+#include "lib/libimgtools/src/include/stamp.h"
 #include <string>
 #include <iostream>
+#include <math.h>
 
 /*******************************************************************************
  * Namespaces
@@ -60,6 +63,13 @@ void MIAApp::Init(
 
   InitGlui();
   InitGraphics();
+
+  // Initiailize tools
+  tools_.push_back(new Pen());
+  io_manager_.set_image_file("./resources/marker.png");
+  PixelBuffer* marker = io_manager_.LoadImageToStamp();
+  tools_.push_back(new Stamp(marker));
+  tool_ = tools_[0];
 }
 
 void MIAApp::Display(void) {
@@ -72,11 +82,11 @@ MIAApp::~MIAApp(void) {
   }
 }
 
-
 void MIAApp::LeftMouseDown(int x, int y) {
-  std::cout << "mousePressed " << x << " " << y << std::endl;
-}
-
+    std::cout << "mousePressed " << x << " " << y << std::endl;
+    y = display_buffer_->height() - y;
+	tool_->Draw(x, y, 1.0, 0.0, 0.0, display_buffer_);
+} 
 
 void MIAApp::InitializeBuffers(ColorData background_color,
                                int width, int height) {
@@ -115,6 +125,9 @@ void MIAApp::InitGlui(void) {
 
 void MIAApp::GluiControl(int control_id) {
   switch (control_id) {
+    case UICtrl::UI_TOOLTYPE:
+      tool_ = tools_[cur_tool_];
+      break;
     case UICtrl::UI_APPLY_BLUR:
       filter_manager_.ApplyBlur(display_buffer_);
       break;
@@ -187,6 +200,55 @@ void MIAApp::InitGraphics(void) {
   gluOrtho2D(0, width(), 0, height());
   glViewport(0, 0, width(), height());
 }
+void MIAApp::MouseDragged(int new_x, int new_y) {
+    /* Don't draw for stamp */
+    if (cur_tool_ == 1) { return; }
+    int x = new_x;
+    int y = new_y;
+    int x_gap = std::abs(x - prev_x_);
+    int y_gap = std::abs(y - prev_y_);
+    int half_mask_length = tool_->length() / 2;
+    int half_mask_height = tool_->height() / 2;
+    int adjusted_y = y;
 
+    // Only applies gap fill logic if gaps between
+    // MouseDragged() calls are large enough
+    if ((x_gap > half_mask_length) ||
+        (y_gap > half_mask_height)) {
+        int last_x_applied = prev_x_;
+        int last_y_applied = prev_y_;
 
+        // For each hundredth of the gap distance,
+        // apply the tool across the gap slope...
+        for (float p = 0.0; p < 1.0; p += 0.01) {
+            x = static_cast<int>(floor(prev_x_ + p * (new_x - prev_x_) + 0.5));
+            y = static_cast<int>(floor(prev_y_ + p * (new_y - prev_y_) + 0.5));
+
+            // Don't 'overfill' if that hundredth distance is less
+            // than quarter mask size. This prevents unnatural density
+            // for semi-transparent tools like highlighter and spray can
+            if ((abs(x - last_x_applied) >= half_mask_length / 2) ||
+                (abs(y - last_y_applied) >= half_mask_height / 2)) {
+                adjusted_y = display_buffer_->height() - y;
+                tool_->Draw(x, adjusted_y, 1.0, 0.0, 0.0, display_buffer_);
+                last_x_applied = x;
+                last_y_applied = y;
+            }
+        }
+
+    } else {
+        adjusted_y = display_buffer_->height() - y;
+        tool_->Draw(x, adjusted_y, 1.0, 0.0, 0.0, display_buffer_);
+    }
+    // For efficiency, only update relevant portion of canvas
+    DrawPixels(x, y, x_gap, y_gap, display_buffer_->data());
+    prev_x_ = new_x;
+    prev_y_ = new_y;
+}
+void MIAApp::MouseMoved(int x, int y) {
+    // Keep track of latest x-y coordinates so
+    // MouseDragged() has current data to use
+    prev_x_ = x;
+    prev_y_ = y;
+}
 }  /* namespace image_tools */
