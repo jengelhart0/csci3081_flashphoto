@@ -44,7 +44,8 @@ FilterManager::FilterManager(void) :
     sharpen_amount_(0.0),
     motion_blur_amount_(0.0),
     motion_blur_direction_(UICtrl::UI_DIR_E_W),
-    quantize_bins_(0) {}
+    quantize_bins_(0),
+    blur_dimension_(17) {}
 
 /*******************************************************************************
  * Member Functions
