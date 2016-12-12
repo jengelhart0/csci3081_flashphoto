@@ -27,6 +27,15 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This class implements a blur kernel for use with a ConvolutionFilter and the Blur tool.        
+ * The halfway point through the kernel will have all 1's in that row/column. 
+ * The number of 1's decreases by two (one from both ends), down to 1 1 in 
+ * first/last row/column. See example for a dim 5 blur kernel: 
+ *
+ * 00100
+ * 01110
+ * 11111
+ * 01110
+ * 00100
  */
 
 class BlurKernel : public Kernel {
@@ -34,7 +43,9 @@ class BlurKernel : public Kernel {
      BlurKernel(float blur_amount, int dimension);
      explicit BlurKernel(float blur_amount);
      virtual ~BlurKernel(void);
-
+     /** 
+      * @brief Constructs the blur kernel for this class.
+      */
      virtual void InitKernel(void);
 };
 }  // namespace image_tools

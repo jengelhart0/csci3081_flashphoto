@@ -27,7 +27,7 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This abstract base class from which all Saturates inherit defines the  
- *        default implementation for ApplySaturate() and declares the interface for ModifyPixel().
+ * default implementation for ApplySaturate() and declares the interface for ModifyPixel().
  */
 
 class Saturate : public Filter {
@@ -35,12 +35,12 @@ class Saturate : public Filter {
       explicit Saturate(PixelBuffer *canvas);
       virtual ~Saturate(void);
 
-      /*
+      /**
        * @brief Set saturation value 
        */
       void saturation(float saturation) { saturation_ = saturation; }
 
-      /* 
+      /** 
        * @brief Interpolate between grayscale image and original based on 
        * saturation value
        */

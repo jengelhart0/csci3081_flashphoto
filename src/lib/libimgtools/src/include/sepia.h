@@ -27,7 +27,7 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This abstract base class from which all Sepias inherit defines the  
- *        default implementation for ApplySepia() and declares the interface for ModifyPixel().
+ * default implementation for ApplySepia() and declares the interface for ModifyPixel().
  */
 
 class Sepia : public Filter {
@@ -35,9 +35,8 @@ class Sepia : public Filter {
       explicit Sepia(PixelBuffer *canvas);
       virtual ~Sepia(void);
 
-      /* 
+      /** 
        * @brief Interpolate between grayscale image and original based on 
-
        */
       void ModifyPixel(int x, int y);
 

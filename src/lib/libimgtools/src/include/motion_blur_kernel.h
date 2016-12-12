@@ -27,7 +27,17 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements a motion blur kernel for use with a ConvolutionFilter.        
+ * @brief This class implements a motion blur kernel for use with a ConvolutionFilter.
+ * init_kernel() constructs the motion blur kernel for this class.
+ *
+ * The directions/starts arrays are used to implement the line of
+ * weights required for a given direction. See example below:
+ *
+ * .2 0 0 0 0
+ * 0 .2 0 0 0
+ * 0 0 .2 0 0
+ * 0 0 0 .2 0
+ * 0 0 0 0 .2        
  */
 
 class MotionBlurKernel : public Kernel {
@@ -36,9 +46,12 @@ class MotionBlurKernel : public Kernel {
                       enum UICtrl::MotionBlurDirection direction,
                       int dimension);
      virtual ~MotionBlurKernel(void);
+     /**
+      * @brief Initializes kernel for MotionBlurKernel.
+      */
      virtual void InitKernel(void);
  private:
-     enum UICtrl::MotionBlurDirection direction_;
+     enum UICtrl::MotionBlurDirection direction_; /**< Represents direction of motion of blurring effect */
 };
 }  // namespace image_tools
 #endif  // INCLUDE_MOTION_BLUR_KERNEL_H_

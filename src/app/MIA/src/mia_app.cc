@@ -20,7 +20,7 @@
 #include "lib/libimgtools/src/include/stamp.h"
 #include <string>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 /*******************************************************************************
  * Namespaces

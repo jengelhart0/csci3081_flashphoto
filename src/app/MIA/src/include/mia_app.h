@@ -103,14 +103,13 @@ class MIAApp : public BaseGfxApp {
   std::string marker_fname_;
 
   Tool* tool_;
-  float prev_x_;
-  float prev_y_;
+  float prev_x_; /**< x-coord to help MouseDragged() interpolate b/w Draw() calls */
+  float prev_y_; /**< y-coord to help MouseDragged() interpolate b/w Draw() calls */
   
-  /* App's collection of tools */
-  std::vector<Tool*> tools_;
+  std::vector<Tool*> tools_;  /**< App's collection of tools */
 
 
-  int cur_tool_;
+  int cur_tool_; /**< Currently selected tool from UI */
 };
 
 }  /* namespace image_tools */

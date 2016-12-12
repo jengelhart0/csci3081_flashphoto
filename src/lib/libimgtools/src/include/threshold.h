@@ -34,14 +34,14 @@ class Threshold : public Filter {
       explicit Threshold(PixelBuffer *canvas);
       virtual ~Threshold(void);
 
-      /*
+      /**
        * @brief Setter method threshold value
        */
       void threshold(float new_threshold) { threshold_ = new_threshold; }
 
-      /*
+      /**
        * @brief Rounds each color channel to 1 or 0 depending on
-       * threshold value s
+       * threshold values
        */
       void ModifyPixel(int x, int y);
 

@@ -27,21 +27,24 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This abstract base class from which all Filters inherit defines the  
- *        default implementation for ApplyFilter() and declares the interface for ModifyPixel().
+ * default implementation for ApplyFilter() and declares the interface for ModifyPixel().
  */
 
 class Filter {
  public:
      explicit Filter(PixelBuffer *canvas);
      virtual ~Filter(void);
-
-     PixelBuffer *get_canvas(void);
-
-     virtual void ApplyFilter(void);
-     /* 
-      * determines filter characteristics: must be implemented by derived subclass 
+     /**
+      * @return Returns canvas pointer for filter to use.
       */
-
+     PixelBuffer *get_canvas(void);
+     /**
+      * @brief Applies filter to each pixel on the canvas.
+      */
+     virtual void ApplyFilter(void);
+     /**
+      * @brief Determines unique filter characteristics: must be implemented by derived subclass 
+      */
      virtual void ModifyPixel(int x, int y) = 0;
 
  private:

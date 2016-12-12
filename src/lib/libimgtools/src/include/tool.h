@@ -32,23 +32,28 @@ class Tool {
  public:
     Tool(int length, int height);
     virtual ~Tool(void);
-
+    /**
+     * @return float array that represents each value of tool mask.
+     */
     float* mask(void) { return mask_; }
     void mask(float new_mask[]);
     int height(void) { return height_; }
     int length(void) { return length_; }
-
+    /**
+     * @brief Draws pixels changed by tool onto canvas.
+     */
     virtual void Draw(int x, int y,
         float red, float green, float blue,
         PixelBuffer* display);
 
-    /*
+    /**
+     * @brief Determines tool mask values.
      * Must be implemented by derived types
      */
     virtual void CalculateMask(void) = 0;
 
  private:
-    float* mask_;
+    float* mask_; /**< Array of floats that determines shape/behavior of tool. */
     int length_;
     int height_;
 };

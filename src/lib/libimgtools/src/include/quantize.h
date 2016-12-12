@@ -27,7 +27,7 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This abstract base class from which all Quantizes inherit defines the  
- *        default implementation for ApplyQuantize() and declares the interface for ModifyPixel().
+ * default implementation for ApplyQuantize() and declares the interface for ModifyPixel().
  */
 
 class Quantize : public Filter {
@@ -35,12 +35,12 @@ class Quantize : public Filter {
       explicit Quantize(PixelBuffer *canvas);
       virtual ~Quantize(void);
 
-      /*
+      /**
        * @brief Setter method quantize value
        */
       void bins(int bins) { bins_ = bins; }
 
-      /* 
+      /** 
        * @brief Adjust each color channel based on number of bins
        */
       void ModifyPixel(int x, int y);

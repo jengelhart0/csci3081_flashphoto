@@ -35,14 +35,17 @@ class ConvolutionFilter : public Filter {
  public:
      explicit ConvolutionFilter(PixelBuffer *canvas);
      virtual ~ConvolutionFilter(void);
-
+     /**
+      * @brief Modifies each pixel in canvas by reading from canvas copy
+      * for all pixels in kernel and applying modified pixel to canvas
+      */ 
      virtual void ModifyPixel(int x, int y);
 
      void kernel(Kernel *new_kernel);
 
  private:
-      Kernel *kernel_;
-      PixelBuffer canvas_copy_;
+      Kernel *kernel_; /**< kernel that provides unique characteristics for a filter */
+      PixelBuffer canvas_copy_; /**< needed so we are reading from an uncorrupted canvas */
       int canvas_width_;
       int canvas_height_;
 };

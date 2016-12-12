@@ -35,23 +35,23 @@ class ColorChannels : public Filter {
     explicit ColorChannels(PixelBuffer *canvas);
     virtual ~ColorChannels(void);
 
-    /*
-    * @brief Setter methods for color channel values
-    */
+    /**
+     * @brief Setter methods for color channel values
+     */
     void red(float r) { red_ = r; }
     void green(float g) { green_ = g; }
     void blue(float b) { blue_ = b; }
 
-    /*
+    /**
      * @brief Getter methods for color channel values
      */
     float red(void) const { return red_; }
     float green(void) const { return green_; }
     float blue(void) const { return blue_; }
 
-    /* 
-    * @brief Multiply each color channel by specified value
-    */
+    /** 
+     * @brief Multiply each color channel by specified value
+     */
     void ModifyPixel(int x, int y);
 
  private:
