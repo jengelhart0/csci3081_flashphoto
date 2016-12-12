@@ -41,6 +41,7 @@ class PixelBuffer {
   virtual ~PixelBuffer(void) {}
 
   PixelBuffer& operator=(const PixelBuffer &rhs);
+  bool operator==(const PixelBuffer& image);
 
   /**
    * @brief Set the value for a pixel within the buffer/on the screen

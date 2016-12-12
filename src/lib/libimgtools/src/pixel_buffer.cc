@@ -80,4 +80,19 @@ PixelBuffer& PixelBuffer::operator=(
   return *this;
 } /* operator=() */
 
+bool PixelBuffer::operator==(
+        const PixelBuffer& image) {
+    ColorData temp1;
+    ColorData temp2;
+    const ColorData* pixels2 = image.data();
+    for (int i = 0; i < pixels_.size(); i++) {
+        temp1 = pixels_[i];
+        temp2 = pixels2[i];
+        if (temp1.red() != temp2.red() ||
+            temp1.green() != temp2.green() ||
+            temp1.blue() != temp2.blue())
+            return false;
+    }
+    return true;
+}
 }  /* namespace image_tools */

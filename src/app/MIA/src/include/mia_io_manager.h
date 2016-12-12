@@ -18,8 +18,6 @@
 #include <string>
 #include "lib/libimgtools/src/include/io_manager.h"
 
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
-
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/

@@ -111,6 +111,22 @@ class FilterManager {
    */
   GLUI_Panel*  InitGlui(const GLUI *const glui,
                 void (*s_gluicallback)(int));
+
+  /**
+   * @brief Setter methods for the filter parameters. Utilized by the CLI
+   *
+   * @param new_value New value to be used in filter application
+   */
+  void channel_color_red(float new_value) { channel_color_red_ = new_value; }
+  void channel_color_green(float new_value) { channel_color_green_ = new_value; }
+  void channel_color_blue(float new_value) { channel_color_blue_ = new_value; }
+  void saturation_amount(float new_value) { saturation_amount_ = new_value; }
+  void threshold_amount(float new_value) { printf("NEW THRESHOLD %d\n", new_value); threshold_amount_ = new_value; }
+  void blur_amount(float new_value) { blur_amount_ = new_value; }
+  void sharpen_amount(float new_value) { sharpen_amount_ = new_value; }
+  void quantize_bins(int new_value) { quantize_bins_ = new_value; }
+  void blur_dimension(int new_value) { blur_dimension_ = new_value; }
+
  protected:
   void AddBlurToGLUI(GLUI_Panel *filter_panel, void (*s_gluicallback)(int));
   void AddMotionBlurToGLUI(GLUI_Panel *filter_panel,

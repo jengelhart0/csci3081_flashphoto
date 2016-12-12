@@ -47,8 +47,6 @@ class IOManager {
    * @param s_gluicallback Callback to install
    * @return The initialized IO panel handle
    */
-//  virtual GLUI_Panel* InitGlui(const GLUI *const glui,
-//                               void (*s_gluicallback)(int)) { return NULL; }
   virtual GLUI_Panel* InitGlui(const GLUI *const glui,
                                void (*s_gluicallback)(int));
   /**
@@ -90,12 +88,33 @@ class IOManager {
    */
   virtual void SaveCanvasToFile(const PixelBuffer &canvas);
 
+  /**
+   * @brief Determine if the image corresponding to a given file
+   *
+   * The file must exist, have a proper suffix, and be openable
+   * (i.e. the user has permission to open it).
+   *
+   * @return TRUE if yes, FALSE otherwise
+   */
+  bool is_valid_image_file(const std::string &name);
+
  protected:
  
  /**
   * @brief Load PNG into PixelBuffer and return it
   */
   PixelBuffer* LoadPng(void);
+
+  /**
+   * @brief Set the current filename
+   */
+  void file_name(const std::string& file) { file_name_ = file; }
+
+  /**
+   * @brief Return whether or not IO Manager is running in
+   * a GUI
+   */
+  bool graphic_mode(void) { return (file_browser_ != nullptr); }
 
   void AddSaveCanvasToGLUI(GLUI_Panel* image_panel,
                            void (*s_gluicallback)(int));
@@ -137,15 +156,6 @@ class IOManager {
     return false;
   }
 
-  /**
-   * @brief Determine if the image corresponding to a given file
-   *
-   * The file must exist, have a proper suffix, and be openable
-   * (i.e. the user has permission to open it).
-   *
-   * @return TRUE if yes, FALSE otherwise
-   */
-  bool is_valid_image_file(const std::string &name);
   GLUI_StaticText* save_file_label(void) { return save_file_label_; }
   GLUI_StaticText* current_file_label(void) { return current_file_label_; }
   GLUI_EditText* file_name_box(void) { return file_name_box_; }

@@ -73,8 +73,10 @@ PixelBuffer* MIAIOManager::LoadImageToCanvas(void) {
   next_file_name_ = image_name_plus_seq_offset(file_name(), 1);
   prev_file_name_ = image_name_plus_seq_offset(file_name(), -1);
 
-  next_image_toggle(is_valid_image_file(next_file_name_));
-  prev_image_toggle(is_valid_image_file(prev_file_name_));
+  if (graphic_mode()) {
+      next_image_toggle(is_valid_image_file(next_file_name_));
+      prev_image_toggle(is_valid_image_file(prev_file_name_));
+  }
   return image;
 }
 
@@ -84,6 +86,12 @@ void MIAIOManager::set_image_file(const std::string & fname_in) {
   std::string image_file = fname_in;
   if (!is_valid_image_file_name(image_file)) {
     image_file = file_name();
+  }
+
+  // If not running in graphic mode, just quit now
+  if (!graphic_mode()) {
+      file_name(image_file);
+      return;
   }
 
   // TOGGLE SAVE FEATURE
