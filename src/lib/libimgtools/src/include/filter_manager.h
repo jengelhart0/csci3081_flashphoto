@@ -39,7 +39,6 @@ class FilterManager {
 
   /**
    * @brief Apply a blur filter to the buffer, blurring sharply defined edges
-   *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
   void ApplyBlur(PixelBuffer *canvas);
@@ -47,21 +46,18 @@ class FilterManager {
   /**
    * @brief Apply a sharpening filter to the buffer, sharpening blurry/undefined
    * edges
-   *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
   void ApplySharpen(PixelBuffer *canvas);
 
   /**
    * @brief Apply a motion blurring filter to the buffer
-   *
-   * @param buffer The buffer. Updated to point to a new filtered buffer.
+   * @param Buffer The buffer. Updated to point to a new filtered buffer.
    */
   void ApplyMotionBlur(PixelBuffer *canvas);
 
   /**
    * @brief Apply an edge detection filter to the buffer
-   *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
   void ApplyEdgeDetect(PixelBuffer *canvas);

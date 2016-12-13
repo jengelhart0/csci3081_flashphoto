@@ -26,18 +26,27 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This class implements an edge detection kernel for use with a ConvolutionFilter.        
+ * @brief This class implements an edge detection kernel for use with a ConvolutionFilter.     
+ * The middle kernel coord will be set to one less than the square of the
+ * kernel's dim. All other coords set to -1. See example for a 
+ * dim 3 kernel: 
+ *
+ * -1-1-1
+ * -1 8-1
+ * -1-1-1   
  */
 
 class EdgeDetectKernel : public Kernel {
  public:
      EdgeDetectKernel(void);
      virtual ~EdgeDetectKernel(void);
-
+     /** 
+      * @brief Constructs the Edge detect kernel for this class.
+      */
      virtual void InitKernel(void);
  private:
-     float middle_val_;
-     float other_val_;
+     float middle_val_; /**< Represents pixel to be modified. */
+     float other_val_; /**< Sum of middle and other pixels in kernl equal to 0. */
 };
 }  // namespace image_tools
 #endif  // INCLUDE_EDGE_DETECT_KERNEL_H_

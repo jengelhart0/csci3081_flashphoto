@@ -33,7 +33,9 @@ class Eraser : public Tool {
  public:
     Eraser(void);
     virtual ~Eraser(void);
-
+    /**
+     * @brief Determine values of mask used by eraser.
+     */
     void CalculateMask(void);
     virtual void Draw(int x, int y,
         float red, float green, float blue,

@@ -159,9 +159,8 @@ class FlashPhotoApp : public BaseGfxApp {
     /* App's current drawing tool */
     Tool* tool_;
 
-    /** Coordinates to help MouseDragged() track filler Draw()'s **/
-    float prev_x_;
-    float prev_y_;
+    float prev_x_; /**< x-coord to help MouseDragged() interpolate b/w Draw() calls */
+    float prev_y_; /**< y-coord to help MouseDragged() interpolate b/w Draw() calls */
 
     /* These are used to store the selections from the GLUI user interface */
     int cur_tool_;  /**< Currently selected tool from UI */

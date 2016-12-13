@@ -33,7 +33,9 @@ class SprayCan : public Tool {
  public:
     SprayCan(void);
     virtual ~SprayCan(void);
-
+    /**
+     * @brief Determine values of mask used by spray can.
+     */
     void CalculateMask(void);
  private:
 };

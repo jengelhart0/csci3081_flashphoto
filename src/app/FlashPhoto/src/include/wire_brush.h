@@ -33,7 +33,9 @@ class WireBrush : public Tool {
  public:
     WireBrush(void);
     virtual ~WireBrush(void);
-
+    /**
+     * @brief Determine values of mask used by wire brush.
+     */
     void CalculateMask(void);
  private:
 };

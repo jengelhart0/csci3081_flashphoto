@@ -27,6 +27,14 @@ namespace image_tools {
  ******************************************************************************/
 /**
  * @brief This class implements an sharpen kernel for use with a ConvolutionFilter.        
+ * init_kernel() constructs the sharpen kernel for this class.
+ * The middle kernel coord will be set to the square of the
+ * kernel's dim. This is one greater than the sum of all other coord values. 
+ * All other coords set to -1. See example: 
+ *
+ * -2 -2 -2
+ * -2 17 -2
+ * -2 -2 -2
  */
 
 class SharpenKernel : public Kernel {
@@ -36,8 +44,8 @@ class SharpenKernel : public Kernel {
 
      virtual void InitKernel(void);
  private:
-     float middle_val_;
-     float other_val_;
+     float middle_val_; /**< Represents pixel being modified. */
+     float other_val_; /**< Sum of middle and other pixels will be 1. */
 };
 }  // namespace image_tools
 #endif  // INCLUDE_SHARPEN_KERNEL_H_

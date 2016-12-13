@@ -33,14 +33,19 @@ class Stamp : public Tool {
  public:
     explicit Stamp(PixelBuffer* stamp);
     virtual ~Stamp(void);
-
+    /**
+     * @brief Determines mask values for stamp tool.
+     */
     void CalculateMask(void);
+    /**
+     * @brief Draws pixels under tool mask on the canvas.
+     */
     void Draw(int x, int y,
         float red, float green, float blue,
         PixelBuffer* display);
 
  private:
-    PixelBuffer* stamp_;
+    PixelBuffer* stamp_; /**< Buffer to hold stamp color data */
 };
 }  // namespace image_tools
 

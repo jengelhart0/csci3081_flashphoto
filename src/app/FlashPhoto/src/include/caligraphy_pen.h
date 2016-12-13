@@ -33,7 +33,9 @@ class CaligraphyPen : public Tool {
  public:
     CaligraphyPen(void);
     virtual ~CaligraphyPen(void);
-
+    /**
+     * @brief Determine values of mask used by calligraphy pen.
+     */
     void CalculateMask(void);
  private:
 };

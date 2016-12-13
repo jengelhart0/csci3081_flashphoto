@@ -32,7 +32,9 @@ class Pen : public Tool {
  public:
     Pen(void);
     virtual ~Pen(void);
-
+    /**
+     * @brief Determines mask for the pen tool.
+     */
     void CalculateMask(void);
  private:
 };
