@@ -49,8 +49,13 @@ all:
 tests: comparison $(COMPAREFILES) | $(COMPAREDIR)
 	
 $(COMPAREDIR)/%.png:
-	@echo "Testing " $(COMPAREDIR)/%.png " against " $(GOLDENDIR)/%.png
-	$(EXEC_MIA_CMD) -compare $(COMPAREFILES)%.png $(GOLDENDIR)/%.png	
+	pwd
+	@echo "Testing " $(COMPAREDIR)/$*.png " against " $(GOLDENDIR)/$*.png
+ifeq ($(shell $(EXEC_MIA_CMD) $@ -compare $(GOLDENDIR)/$*.png), 0)	
+	@echo "Test PASSED."
+else
+	@echo "Test FAILED."
+endif
 
 golden: | $(GOLDENDIR)
 	$(EXEC_MIA_CMD) $(TESTIMG) -sharpen 35.0 $(GOLDENDIR)/sharpen35.png
