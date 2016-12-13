@@ -61,8 +61,9 @@ int main(int argc, char** argv) {
         image_tools::MIAFilterManager filter_manager;
         std::string inFile = argv[1];
         std::string outFile = argv[argc-1];
-        if (!(io_manager.is_valid_image_file(inFile) &&
-          io_manager.is_valid_image_file(outFile))) {
+                    std::cout << "Outfile: " << outFile << std::endl;
+
+        if (!(io_manager.is_valid_image_file(inFile))) {
             std::cout << kMessage << std::endl;
             return 1;
         }
