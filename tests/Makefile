@@ -23,32 +23,66 @@
 ###############################################################################
 TESTROOT = ./tests
 GOLDENDIR = $(TESTROOT)/goldendir
-COMPAREDIR = $(TESTROOT)/compare
+COMPAREDIR = $(TESTROOT)/comparedir
 MIAEXE = ./build/MIA/bin/MIA
 TESTIMG = $(TESTROOT)/testimages/testimg.png
-EXEC_MIA_CMD = cd .. && $(MIAEXE) $(TESTIMG)
+EXEC_MIA_CMD = cd .. && $(MIAEXE) 
+
+GOLDENFILES = $(GOLDENDIR)/sharpen35.png $(GOLDENDIR)/sharpen75.png $(GOLDENDIR)/edge.png $(GOLDENDIR)/thresholdpoint3.png $(GOLDENDIR)/thresholdpoint6.png $(GOLDENDIR)/quantize2.png $(GOLDENDIR)/quantize6.png $(GOLDENDIR)/blur8point5.png $(GOLDENDIR)/blur16point5.png $(GOLDENDIR)/saturate.png
+
+COMPAREFILES = $(COMPAREDIR)/sharpen35.png $(COMPAREDIR)/sharpen75.png $(COMPAREDIR)/edge.png $(COMPAREDIR)/thresholdpoint3.png $(COMPAREDIR)/thresholdpoint6.png $(COMPAREDIR)/quantize2.png $(COMPAREDIR)/quantize6.png $(COMPAREDIR)/blur8point5.png $(COMPAREDIR)/blur16point5.png $(COMPAREDIR)/saturate.png
+
+ 
+
 ###############################################################################
 # Filter commands
 ###############################################################################
 
+.PHONY: all golden comparison clean veryclean
+
+all:
+	cd ..
+	echo "GOLDENFILES: "$(GOLDENFILES)
+	echo "COMPAREFILES: " $(COMPAREFILES)
+	if [ ! -d "./goldendir" ]; then echo "Golden images do not exist. Run 'make golden' first."; else $(MAKE) tests; fi 
+
+tests: comparison $(COMPAREFILES) | $(COMPAREDIR)
+	
+$(COMPAREDIR)/%.png:
+	@echo "Testing " $(COMPAREDIR)/%.png " against " $(GOLDENDIR)/%.png
+	$(EXEC_MIA_CMD) -compare $(COMPAREFILES)%.png $(GOLDENDIR)/%.png	
 
 golden: | $(GOLDENDIR)
-	$(EXEC_MIA_CMD) -sharpen 35.0 $(GOLDENDIR)/sharpen35.png
-	$(EXEC_MIA_CMD) -sharpen 75.0 $(GOLDENDIR)/sharpen75.png
-	$(EXEC_MIA_CMD) -edge $(GOLDENDIR)/edge.png
-	$(EXEC_MIA_CMD) -threshold .3 $(GOLDENDIR)/thresholdpoint3.png
-	$(EXEC_MIA_CMD) -threshold .6 $(GOLDENDIR)/thresholdpoint6.png
-	$(EXEC_MIA_CMD) -quantize 2 $(GOLDENDIR)/quantize2.png
-	$(EXEC_MIA_CMD) -quantize 6 $(GOLDENDIR)/quantize6.png
-	$(EXEC_MIA_CMD) -blur 8.5 $(GOLDENDIR)/blur8point5.png
-	$(EXEC_MIA_CMD) -blur 16.5 $(GOLDENDIR)/blur16point5.png
-	$(EXEC_MIA_CMD) -grayscale $(GOLDENDIR)/grayscale.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -sharpen 35.0 $(GOLDENDIR)/sharpen35.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -sharpen 75.0 $(GOLDENDIR)/sharpen75.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -edge $(GOLDENDIR)/edge.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -threshold .3 $(GOLDENDIR)/thresholdpoint3.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -threshold .6 $(GOLDENDIR)/thresholdpoint6.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -quantize 2 $(GOLDENDIR)/quantize2.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -quantize 6 $(GOLDENDIR)/quantize6.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -blur 8.5 $(GOLDENDIR)/blur8point5.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -blur 16.5 $(GOLDENDIR)/blur16point5.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -saturate 0 $(GOLDENDIR)/saturate.png
+#	$(EXEC_MIA_CMD) $(TESTIMG) -saturate $(GOLDENDIR)/saturate.png
 
+comparison: | $(COMPAREDIR)
+	$(EXEC_MIA_CMD) $(TESTIMG) -sharpen 35.0 $(COMPAREDIR)/sharpen35.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -sharpen 75.0 $(COMPAREDIR)/sharpen75.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -edge $(COMPAREDIR)/edge.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -threshold .3 $(COMPAREDIR)/thresholdpoint3.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -threshold .6 $(COMPAREDIR)/thresholdpoint6.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -quantize 2 $(COMPAREDIR)/quantize2.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -quantize 6 $(COMPAREDIR)/quantize6.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -blur 8.5 $(COMPAREDIR)/blur8point5.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -blur 16.5 $(COMPAREDIR)/blur16point5.png
+	$(EXEC_MIA_CMD) $(TESTIMG) -saturate 0 $(COMPAREDIR)/saturate.png
+#	$(EXEC_MIA_CMD) $(TESTIMG) -saturate $(GOLDENDIR)/saturate.png
+	
 clean:
-	@rm -rf $(COMPAREDIR)
+	@rm -rf ./comparedir
 
 veryclean: clean
-	@rm -rf $(GOLDENDIR)
+	@rm -rf ./goldendir
 
 $(GOLDENDIR) $(COMPAREDIR):
-	@mkdir -p $@
+	@cd .. && mkdir -p $@
