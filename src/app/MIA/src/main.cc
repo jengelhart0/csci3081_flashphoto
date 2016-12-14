@@ -61,7 +61,6 @@ int main(int argc, char** argv) {
         image_tools::MIAFilterManager filter_manager;
         std::string inFile = argv[1];
         std::string outFile = argv[argc-1];
-                    std::cout << "Outfile: " << outFile << std::endl;
 
         if (!(io_manager.is_valid_image_file(inFile))) {
             std::cout << kMessage << std::endl;
@@ -123,10 +122,13 @@ int main(int argc, char** argv) {
                     image_tools::PixelBuffer* comparison = nullptr;
                     io_manager.set_image_file(outFile);
                     comparison = io_manager.LoadImageToCanvas();
-                    if (*image == *comparison)
-                        return 1;
-                    else 
-                        return 0;
+                    if (*image == *comparison) {
+                        std::cout << "1" << std::endl;
+			return 0;
+                    } else { 
+                        std::cout << "0" << std::endl;
+			return 0;
+		    }
                 }
                 else {
                     std::cout << kMessage << std::endl;
