@@ -13,10 +13,10 @@
  * Includes
  ******************************************************************************/
 #include "include/io_manager.h"
-#include <iostream>
 #include <assert.h>
-#include "include/color_data.h"
+#include <iostream>
 #include "../ext/libpng-1.6.16/png.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces

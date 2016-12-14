@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef COMMON_FILES_PUT_THESE_SOMEWHERE_INCLUDE_IO_MANAGER_H_
-#define COMMON_FILES_PUT_THESE_SOMEWHERE_INCLUDE_IO_MANAGER_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_IO_MANAGER_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_IO_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -99,7 +99,6 @@ class IOManager {
   bool is_valid_image_file(const std::string &name);
 
  protected:
- 
  /**
   * @brief Load PNG into PixelBuffer and return it
   */
@@ -178,4 +177,4 @@ class IOManager {
 
 }  /* namespace image_tools */
 
-#endif  /* COMMON_FILES_PUT_THESE_SOMEWHERE_INCLUDE_IO_MANAGER_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_IO_MANAGER_H_ */

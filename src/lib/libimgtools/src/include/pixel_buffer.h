@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_PIXEL_BUFFER_H_
-#define INCLUDE_PIXEL_BUFFER_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PIXEL_BUFFER_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PIXEL_BUFFER_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <vector>
-#include "color_data.h"
+#include "./color_data.h"
 
 /*******************************************************************************
  * Namespaces
@@ -79,4 +79,4 @@ class PixelBuffer {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_PIXEL_BUFFER_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PIXEL_BUFFER_H_ */

@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/mia_app.h"
 #include <iostream>
+#include "include/mia_app.h"
 #include "lib/libimgtools/src/include/color_data.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
 #include "include/mia_io_manager.h"
@@ -32,7 +32,7 @@ const char* kBlur = "-blur";
 const char* kSaturate = "-saturate";
 const char* kChannel = "-channel";
 const char* kCompare = "-compare";
-const std::string kMessage = "usage: MIA"
+const char kMessage[]  = "usage: MIA"
 " [-h] [-edge] [-sharpen <val>] [-threshold <val>] [-quantize <val>]\n"
 "      [-blur <val>] [-saturate <val>] [-channel <red> <green> <blue>]\n"
 "      [-compare <file1> <file2>]\n"
@@ -70,7 +70,6 @@ int main(int argc, char** argv) {
         image_tools::PixelBuffer* image = nullptr;
         image = io_manager.LoadImageToCanvas();
 
-        // printf("Image dimensions (%d,%d)\n", image->width(), image->height());
         for (int i = 2; i < argc - 1; i++) {
             try {
                 /* Check for possible commands */
@@ -124,18 +123,14 @@ int main(int argc, char** argv) {
                     comparison = io_manager.LoadImageToCanvas();
                     if (*image == *comparison) {
                         std::cout << "1" << std::endl;
-			return 0;
-                    } else { 
+                    } else {
                         std::cout << "0" << std::endl;
-			return 0;
-		    }
-                }
-                else {
+                    }
+                } else {
                     std::cout << kMessage << std::endl;
                     return 1;
                 }
             } catch (...) {
-                std::cout << "EXCEPTION" << std::endl;
                 std::cout << kMessage << std::endl;
                 return 1;
             }
@@ -143,5 +138,5 @@ int main(int argc, char** argv) {
         io_manager.set_image_file(outFile);
         io_manager.SaveCanvasToFile(*image);
     }
-        return 0;
+    return 0;
 } /* main() */

@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CALIGRAPHY_PEN_H_
-#define INCLUDE_CALIGRAPHY_PEN_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_CALIGRAPHY_PEN_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_CALIGRAPHY_PEN_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -41,4 +41,4 @@ class CaligraphyPen : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_CALIGRAPHY_PEN_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_CALIGRAPHY_PEN_H_

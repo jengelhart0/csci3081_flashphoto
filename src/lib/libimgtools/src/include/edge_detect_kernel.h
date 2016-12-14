@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_EDGE_DETECT_KERNEL_H_
-#define INCLUDE_EDGE_DETECT_KERNEL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_EDGE_DETECT_KERNEL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_EDGE_DETECT_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 
-#include "kernel.h"
+#include "./kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -45,9 +45,10 @@ class EdgeDetectKernel : public Kernel {
       */
      virtual void InitKernel(void);
  private:
-     float middle_val_; /**< Represents pixel to be modified. */
-     float other_val_; /**< Sum of middle and other pixels in kernl equal to 0. */
+     float middle_val_;  /**< Represents pixel to be modified. */
+     float other_val_;  //!< Sum of middle and other pixels in kernel
+                        //!< equal to 0. */
 };
 }  // namespace image_tools
-#endif  // INCLUDE_EDGE_DETECT_KERNEL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_EDGE_DETECT_KERNEL_H_
 

@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BLUR_KERNEL_H_
-#define INCLUDE_BLUR_KERNEL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_KERNEL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 
-#include "kernel.h"
+#include "./kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -49,4 +49,4 @@ class BlurKernel : public Kernel {
      virtual void InitKernel(void);
 };
 }  // namespace image_tools
-#endif  // INCLUDE_BLUR_KERNEL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_KERNEL_H_

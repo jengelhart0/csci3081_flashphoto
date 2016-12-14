@@ -9,12 +9,12 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_PEN_H_
-#define INCLUDE_PEN_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PEN_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PEN_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "tool.h"
+#include "./tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -40,4 +40,4 @@ class Pen : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_PEN_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_PEN_H_

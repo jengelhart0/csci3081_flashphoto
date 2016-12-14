@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_QUANTIZE_H_
-#define INCLUDE_QUANTIZE_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_QUANTIZE_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_QUANTIZE_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "pixel_buffer.h"
-#include "filter.h"
+#include "./pixel_buffer.h"
+#include "./filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -50,4 +50,4 @@ class Quantize : public Filter {
 };
 }  // namespace image_tools
 
-#endif    // INCLUDE_QUANTIZE_H_
+#endif    // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_QUANTIZE_H_

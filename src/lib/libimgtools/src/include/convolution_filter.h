@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_CONVOLUTION_FILTER_H_
-#define INCLUDE_CONVOLUTION_FILTER_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_CONVOLUTION_FILTER_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_CONVOLUTION_FILTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 
-#include "kernel.h"
-#include "filter.h"
+#include "./kernel.h"
+#include "./filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -44,11 +44,13 @@ class ConvolutionFilter : public Filter {
      void kernel(Kernel *new_kernel);
 
  private:
-      Kernel *kernel_; /**< kernel that provides unique characteristics for a filter */
-      PixelBuffer canvas_copy_; /**< needed so we are reading from an uncorrupted canvas */
+      Kernel *kernel_;  //!< kernel that provides unique characteristics
+                        //!< for a filter */
+      PixelBuffer canvas_copy_;  //!< needed so we are reading from an
+                                 //!< uncorrupted canvas */
       int canvas_width_;
       int canvas_height_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_CONVOLUTION_FILTER_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_CONVOLUTION_FILTER_H_

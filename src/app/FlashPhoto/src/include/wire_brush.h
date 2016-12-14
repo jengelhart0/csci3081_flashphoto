@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_WIRE_BRUSH_H_
-#define INCLUDE_WIRE_BRUSH_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_WIRE_BRUSH_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_WIRE_BRUSH_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -41,4 +41,4 @@ class WireBrush : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_WIRE_BRUSH_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_WIRE_BRUSH_H_

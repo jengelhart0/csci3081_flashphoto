@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_APP_MIA_SRC_MIA_FILTER_MANAGER_H_
-#define SRC_APP_MIA_SRC_MIA_FILTER_MANAGER_H_
+#ifndef SRC_APP_MIA_SRC_INCLUDE_MIA_FILTER_MANAGER_H_
+#define SRC_APP_MIA_SRC_INCLUDE_MIA_FILTER_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -40,4 +40,4 @@ class MIAFilterManager : public FilterManager {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_APP_MIA_SRC_MIA_FILTER_MANAGER_H_ */
+#endif  /* SRC_APP_MIA_SRC_INCLUDE_MIA_FILTER_MANAGER_H_ */

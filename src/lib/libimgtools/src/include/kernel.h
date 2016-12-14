@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_KERNEL_H_
-#define INCLUDE_KERNEL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_KERNEL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include <cmath>
-#include "pixel_buffer.h"
+#include "./pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -65,10 +65,10 @@ class Kernel {
       * according to dimension.
       */
      void init_data(void);
-     float filter_amount_; 
+     float filter_amount_;
      int dimension_;
      float *data_; /**< Maintains individual values in kernel */
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_KERNEL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_KERNEL_H_

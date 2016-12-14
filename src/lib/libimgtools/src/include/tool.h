@@ -9,12 +9,12 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TOOL_H_
-#define INCLUDE_TOOL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "pixel_buffer.h"
+#include "./pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -53,10 +53,10 @@ class Tool {
     virtual void CalculateMask(void) = 0;
 
  private:
-    float* mask_; /**< Array of floats that determines shape/behavior of tool. */
+    float* mask_; /**< Array of floats that determines shape/behavior of tool */
     int length_;
     int height_;
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TOOL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_

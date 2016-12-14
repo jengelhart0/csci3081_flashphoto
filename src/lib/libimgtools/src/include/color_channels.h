@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_COLOR_CHANNELS_H_
-#define INCLUDE_COLOR_CHANNELS_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_COLOR_CHANNELS_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_COLOR_CHANNELS_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "pixel_buffer.h"
-#include "filter.h"
+#include "./pixel_buffer.h"
+#include "./filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -61,4 +61,4 @@ class ColorChannels : public Filter {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_COLOR_CHANNELS_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_COLOR_CHANNELS_H_
