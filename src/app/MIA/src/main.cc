@@ -46,6 +46,19 @@ const std::string kMessage = "usage: MIA"
 "\t -channel <float> <float> <float>\tMultiply color channel by value\n"
 "\t -compare <file1> <file2>\t\tCheck to see if two images are equivalent";
 
+/**
+ * @brief Checks if input string is number
+ */
+float convertStringToFloat(const char* string) {
+    std::string input = string;
+    std::string chars = "0123456789.-";
+    if (input.find_first_not_of(chars) != std::string::npos) {
+        throw std::invalid_argument("The filter you used requires a float");
+    }
+    return (std::stof(string));
+}
+
+
 int main(int argc, char** argv) {
     if (argc == 1) {
       image_tools::MIAApp *app = new image_tools::MIAApp(
@@ -89,7 +102,6 @@ int main(int argc, char** argv) {
                                                 prefix + std::to_string(i)));
                 outFiles.push_back(temp2.replace(out_first, 3,
                                                  prefix + std::to_string(i)));
-
             }
         }
         /* Single file case */
@@ -108,6 +120,7 @@ int main(int argc, char** argv) {
         }
         std::string file;
         std::string out;
+        bool is_comparison = false;
         for (int j = 0; j < inFiles.size(); j++) {
             file = inFiles[j];
             out = outFiles[j];
@@ -131,7 +144,7 @@ int main(int argc, char** argv) {
                         std::cout << kMessage << std::endl;
 
                     } else if (strcmp(argv[i], kSharpen) == 0) {
-                        float sharpen = std::stof(argv[++i]);
+                        float sharpen = convertStringToFloat(argv[++i]);
                         filter_manager.sharpen_amount(sharpen);
                         filter_manager.ApplySharpen(image);
 
@@ -139,46 +152,48 @@ int main(int argc, char** argv) {
                         filter_manager.ApplyEdgeDetect(image);
 
                     } else if (strcmp(argv[i], kThreshold) == 0) {
-                        float threshold = std::stof(argv[++i]);
+                        float threshold = convertStringToFloat(argv[++i]);
                         filter_manager.threshold_amount(threshold);
                         filter_manager.ApplyThreshold(image);
 
                     } else if (strcmp(argv[i], kQuantize) == 0) {
-                        float quantize = std::stof(argv[++i]);
+                        float quantize = convertStringToFloat(argv[++i]);
                         filter_manager.quantize_bins(quantize);
                         filter_manager.ApplyQuantize(image);
 
                     } else if (strcmp(argv[i], kBlur) == 0) {
-                        float blur = std::stof(argv[++i]);
+                        float blur = convertStringToFloat(argv[++i]);
                         filter_manager.blur_amount(blur);
                         filter_manager.ApplyBlur(image);
 
                     } else if (strcmp(argv[i], kSaturate) == 0) {
-                        float saturate = std::stof(argv[++i]);
+                        float saturate = convertStringToFloat(argv[++i]);
                         filter_manager.saturation_amount(saturate);
                         filter_manager.ApplySaturate(image);
 
                     } else if (strcmp(argv[i], kChannel) == 0) {
-                        float red = std::stof(argv[++i]);
-                        float green = std::stof(argv[++i]);
-                        float blue = std::stof(argv[++i]);
+                        float red = convertStringToFloat(argv[++i]);
+                        float green = convertStringToFloat(argv[++i]);
+                        float blue = convertStringToFloat(argv[++i]);
                         filter_manager.channel_color_red(red);
                         filter_manager.channel_color_green(green);
                         filter_manager.channel_color_blue(blue);
                         filter_manager.ApplyChannel(image);
 
                     } else if (strcmp(argv[i], kCompare) == 0) {
-                        if (strcmp(argv[++i], out.c_str())) {
+                        if (++i != argc - 1) {
+                            std::cout << i << " " << argc << std::endl;
                             std::cout << kMessage << std::endl;
                             return 1;
                         }
+                        is_comparison = true;
                         image_tools::PixelBuffer* comparison = nullptr;
                         io_manager.set_image_file(out);
                         comparison = io_manager.LoadImageToCanvas();
                         if (*image == *comparison)
-                            return 1;
+                            std::cout << "1" << std::endl;
                         else
-                            return 0;
+                            std::cout << "0" << std::endl;
                     }
                     /* Unknown, misspelled option */
                     else {
@@ -194,8 +209,10 @@ int main(int argc, char** argv) {
                     return 1;
                 }
             }
-            io_manager.set_image_file(out);
-            io_manager.SaveCanvasToFile(*image);
+            if (!(is_comparison)) {
+                io_manager.set_image_file(out);
+                io_manager.SaveCanvasToFile(*image);
+            }
         }
     }
         return 0;
