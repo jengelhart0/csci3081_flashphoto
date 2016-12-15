@@ -51,15 +51,21 @@ tests: badinput comparison $(COMPAREFILES) results | $(COMPAREDIR)
 
 badinput:
 	@$(EXEC_MIA_CMD) -h > tests/$(USAGEFILE) || true
+	@echo "Testing for bad input handling: missing input file..."
 	@$(EXEC_MIA_CMD) -sharpen 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Missing input file test SUCCEEDED"; else echo "Missing input file test FAILED" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
+	@echo "Testing for bad input handling: nonexistent input file..."
 	@$(EXEC_MIA_CMD) badinput.png -sharpen 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true 
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Nonexistent input file test SUCCEEDED"; else echo "Nonexistent input file test FAILED" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
+	@echo "Testing for bad input handling: missing filter..."
 	@$(EXEC_MIA_CMD) $(TESTIMG) 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Missing filter test SUCCEEDED"; else echo "Missing filter test FAILED" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi  
+	@echo "Testing for bad input handling: missing filter amount..."
 	@$(EXEC_MIA_CMD) $(TESTIMG) -sharpen ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Missing filter amount test SUCCEEDED"; else echo "Missing filter amount test FAILED" ; fi
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
 	@rm $(USAGEFILE)
+	@rm $(RESULTFILE)
+
 results:
 	@sed 's/=1/: Test PASSED/g;s/=0/: Test FAILED/g' $(RESULTFILE) > $(REPORTFILE)
 	@cat $(REPORTFILE)
@@ -67,7 +73,8 @@ results:
 	@rm $(RESULTFILE)
 
 $(COMPAREDIR)/%.png:
-	@printf "%s=" $* >> $(RESULTFILE)
+	@echo "Testing against image standard for $(notdir $@)..." >> $(RESULTFILE)
+	@printf "%s=" $(notdir $@) >> $(RESULTFILE)
 	@$(EXEC_MIA_CMD) $@ -compare $(GOLDENDIR)/$*.png >> tests/$(RESULTFILE)
 	@printf "\n" >> $(RESULTFILE)	
 
