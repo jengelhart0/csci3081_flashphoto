@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['s_5fcurrent_5fapp',['s_current_app',['../classimage__tools_1_1BaseGfxApp.html#aaf2b80d7444f6ace46f7a412ebda01fd',1,'image_tools::BaseGfxApp']]],
+  ['s_5fglut_5finitialized_5f',['s_glut_initialized_',['../classimage__tools_1_1BaseGfxApp.html#a4bfe294b3c2987edd8e8465e4047a064',1,'image_tools::BaseGfxApp']]],
+  ['s_5freshape',['s_reshape',['../classimage__tools_1_1BaseGfxApp.html#ae80abc9298c82b1ecaf5cb34e2e69827',1,'image_tools::BaseGfxApp']]],
+  ['saturate',['Saturate',['../classimage__tools_1_1Saturate.html',1,'image_tools']]],
+  ['saturation',['saturation',['../classimage__tools_1_1Saturate.html#ae932304b1787a8095065f7a3a0a665c3',1,'image_tools::Saturate']]],
+  ['savecanvastofile',['SaveCanvasToFile',['../classimage__tools_1_1IOManager.html#aa2a3d721fb481208151f5d6ce5aa50ea',1,'image_tools::IOManager']]],
+  ['sepia',['Sepia',['../classimage__tools_1_1Sepia.html',1,'image_tools']]],
+  ['set_5fcaption',['set_caption',['../classimage__tools_1_1BaseGfxApp.html#a82465649f9a908d341e1db1a2e39bdc8',1,'image_tools::BaseGfxApp']]],
+  ['set_5fimage_5ffile',['set_image_file',['../classimage__tools_1_1MIAIOManager.html#a209180ddcfe3bf43d8fd7c6635391ea4',1,'image_tools::MIAIOManager::set_image_file()'],['../classimage__tools_1_1IOManager.html#a9ddac98843256d25442aba6c963e144a',1,'image_tools::IOManager::set_image_file()']]],
+  ['set_5fpixel',['set_pixel',['../classimage__tools_1_1PixelBuffer.html#ac3559133504c49f3af9a00544411c3b8',1,'image_tools::PixelBuffer']]],
+  ['setwindowdimensions',['SetWindowDimensions',['../classimage__tools_1_1BaseGfxApp.html#aeaa3a1aef12d88e4ab0665ff841e8d8d',1,'image_tools::BaseGfxApp']]],
+  ['sharpenkernel',['SharpenKernel',['../classimage__tools_1_1SharpenKernel.html',1,'image_tools']]],
+  ['spraycan',['SprayCan',['../classimage__tools_1_1SprayCan.html',1,'image_tools']]],
+  ['stamp',['Stamp',['../classimage__tools_1_1Stamp.html',1,'image_tools']]],
+  ['stamp_5f',['stamp_',['../classimage__tools_1_1Stamp.html#a1fb4be15efa71eb06883fab6765126f7',1,'image_tools::Stamp']]],
+  ['state_5fmanager_5f',['state_manager_',['../classimage__tools_1_1FlashPhotoApp.html#a0331ca8ddc87630ce3820448fe3f0840',1,'image_tools::FlashPhotoApp::state_manager_()'],['../classimage__tools_1_1MIAApp.html#a17448a3210b3aa3f16395ee3693518b2',1,'image_tools::MIAApp::state_manager_()']]],
+  ['statemanager',['StateManager',['../classimage__tools_1_1StateManager.html',1,'image_tools']]]
+];

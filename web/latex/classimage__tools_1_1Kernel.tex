@@ -1,0 +1,109 @@
+\hypertarget{classimage__tools_1_1Kernel}{}\section{image\+\_\+tools\+:\+:Kernel Class Reference}
+\label{classimage__tools_1_1Kernel}\index{image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}}
+
+
+This abstract class is a base for the different types of kernels for Convolution\+Filters.  
+
+
+
+
+{\ttfamily \#include $<$kernel.\+h$>$}
+
+
+
+Inherited by \hyperlink{classimage__tools_1_1BlurKernel}{image\+\_\+tools\+::\+Blur\+Kernel}, \hyperlink{classimage__tools_1_1EdgeDetectKernel}{image\+\_\+tools\+::\+Edge\+Detect\+Kernel}, \hyperlink{classimage__tools_1_1MotionBlurKernel}{image\+\_\+tools\+::\+Motion\+Blur\+Kernel}, and \hyperlink{classimage__tools_1_1SharpenKernel}{image\+\_\+tools\+::\+Sharpen\+Kernel}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Kernel} (float \hyperlink{classimage__tools_1_1Kernel_ab7d9f22db768926def56f237d6a84f78}{filter\+\_\+amount}, int \hyperlink{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{dimension})\hypertarget{classimage__tools_1_1Kernel_a55af8f691477451f3abc8a32501caf00}{}\label{classimage__tools_1_1Kernel_a55af8f691477451f3abc8a32501caf00}
+
+\item 
+{\bfseries Kernel} (int \hyperlink{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{dimension})\hypertarget{classimage__tools_1_1Kernel_ad9ba583858da294ae862f9225328606c}{}\label{classimage__tools_1_1Kernel_ad9ba583858da294ae862f9225328606c}
+
+\item 
+float \hyperlink{classimage__tools_1_1Kernel_af0f212cd428328026b5d8105e554ad3d}{weight} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Gets value of kernel at (x, y) \end{DoxyCompactList}\item 
+int \hyperlink{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{dimension} (void)
+\item 
+float \hyperlink{classimage__tools_1_1Kernel_ab7d9f22db768926def56f237d6a84f78}{filter\+\_\+amount} (void)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classimage__tools_1_1Kernel_a992eb6d2745830456615044fd2fd03f3}{Init\+Kernel} (void)=0\hypertarget{classimage__tools_1_1Kernel_a992eb6d2745830456615044fd2fd03f3}{}\label{classimage__tools_1_1Kernel_a992eb6d2745830456615044fd2fd03f3}
+
+\begin{DoxyCompactList}\small\item\em Initializes float values according to the required characteristics of specific kernel subclass. \end{DoxyCompactList}\item 
+void \hyperlink{classimage__tools_1_1Kernel_aab6ed71b5dbc02a8cc8d2549455b24c9}{weight} (int x, int y, float value)\hypertarget{classimage__tools_1_1Kernel_aab6ed71b5dbc02a8cc8d2549455b24c9}{}\label{classimage__tools_1_1Kernel_aab6ed71b5dbc02a8cc8d2549455b24c9}
+
+\begin{DoxyCompactList}\small\item\em Sets value of one float in kernel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classimage__tools_1_1Kernel_a4774b5c4395c405302447fc2c87f6497}{init\+\_\+data} (void)\hypertarget{classimage__tools_1_1Kernel_a4774b5c4395c405302447fc2c87f6497}{}\label{classimage__tools_1_1Kernel_a4774b5c4395c405302447fc2c87f6497}
+
+\begin{DoxyCompactList}\small\item\em Allocates data to hold kernel in memory according to dimension. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries filter\+\_\+amount\+\_\+}\hypertarget{classimage__tools_1_1Kernel_a9e36df386f9a66a25fab6236a8278431}{}\label{classimage__tools_1_1Kernel_a9e36df386f9a66a25fab6236a8278431}
+
+\item 
+int {\bfseries dimension\+\_\+}\hypertarget{classimage__tools_1_1Kernel_a0ebc360af99cef7866ea63f9334be69a}{}\label{classimage__tools_1_1Kernel_a0ebc360af99cef7866ea63f9334be69a}
+
+\item 
+float $\ast$ \hyperlink{classimage__tools_1_1Kernel_a6549a124c11fce98e3314912b9be6081}{data\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This abstract class is a base for the different types of kernels for Convolution\+Filters. 
+
+\subsection{Member Function Documentation}
+\index{image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}!dimension@{dimension}}
+\index{dimension@{dimension}!image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}}
+\subsubsection[{\texorpdfstring{dimension(void)}{dimension(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int image\+\_\+tools\+::\+Kernel\+::dimension (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{}\label{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}
+\begin{DoxyReturn}{Returns}
+Integer dimension of kernel 
+\end{DoxyReturn}
+\index{image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}!filter\+\_\+amount@{filter\+\_\+amount}}
+\index{filter\+\_\+amount@{filter\+\_\+amount}!image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}}
+\subsubsection[{\texorpdfstring{filter\+\_\+amount(void)}{filter_amount(void)}}]{\setlength{\rightskip}{0pt plus 5cm}float image\+\_\+tools\+::\+Kernel\+::filter\+\_\+amount (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{classimage__tools_1_1Kernel_ab7d9f22db768926def56f237d6a84f78}{}\label{classimage__tools_1_1Kernel_ab7d9f22db768926def56f237d6a84f78}
+\begin{DoxyReturn}{Returns}
+Float representing filter magnitude. 
+\end{DoxyReturn}
+\index{image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}!weight@{weight}}
+\index{weight@{weight}!image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}}
+\subsubsection[{\texorpdfstring{weight(int x, int y)}{weight(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}float image\+\_\+tools\+::\+Kernel\+::weight (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{classimage__tools_1_1Kernel_af0f212cd428328026b5d8105e554ad3d}{}\label{classimage__tools_1_1Kernel_af0f212cd428328026b5d8105e554ad3d}
+
+
+Gets value of kernel at (x, y) 
+
+\begin{DoxyReturn}{Returns}
+Float representing weight value 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\index{image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}!data\+\_\+@{data\+\_\+}}
+\index{data\+\_\+@{data\+\_\+}!image\+\_\+tools\+::\+Kernel@{image\+\_\+tools\+::\+Kernel}}
+\subsubsection[{\texorpdfstring{data\+\_\+}{data_}}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ image\+\_\+tools\+::\+Kernel\+::data\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1Kernel_a6549a124c11fce98e3314912b9be6081}{}\label{classimage__tools_1_1Kernel_a6549a124c11fce98e3314912b9be6081}
+Maintains individual values in kernel 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/kernel.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/kernel.\+cc\end{DoxyCompactItemize}

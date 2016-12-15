@@ -1,0 +1,77 @@
+\hypertarget{classimage__tools_1_1Tool}{}\section{image\+\_\+tools\+:\+:Tool Class Reference}
+\label{classimage__tools_1_1Tool}\index{image\+\_\+tools\+::\+Tool@{image\+\_\+tools\+::\+Tool}}
+
+
+This parent class holds the default implementation for \hyperlink{classimage__tools_1_1Tool_aa5a313769f2a2c5c83b816da81e82bd2}{Draw()} as well the pixel mask.  
+
+
+
+
+{\ttfamily \#include $<$tool.\+h$>$}
+
+
+
+Inherited by \hyperlink{classimage__tools_1_1Blur}{image\+\_\+tools\+::\+Blur}, \hyperlink{classimage__tools_1_1CaligraphyPen}{image\+\_\+tools\+::\+Caligraphy\+Pen}, \hyperlink{classimage__tools_1_1Eraser}{image\+\_\+tools\+::\+Eraser}, \hyperlink{classimage__tools_1_1Highlighter}{image\+\_\+tools\+::\+Highlighter}, \hyperlink{classimage__tools_1_1Pen}{image\+\_\+tools\+::\+Pen}, \hyperlink{classimage__tools_1_1SprayCan}{image\+\_\+tools\+::\+Spray\+Can}, \hyperlink{classimage__tools_1_1Stamp}{image\+\_\+tools\+::\+Stamp}, and \hyperlink{classimage__tools_1_1WireBrush}{image\+\_\+tools\+::\+Wire\+Brush}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Tool} (int length, int height)\hypertarget{classimage__tools_1_1Tool_a2ac06b88e10fc31ad4c6789c626f4a4d}{}\label{classimage__tools_1_1Tool_a2ac06b88e10fc31ad4c6789c626f4a4d}
+
+\item 
+float $\ast$ \hyperlink{classimage__tools_1_1Tool_afe9df5a299fe9295e9dd2d0c2d049bff}{mask} (void)
+\item 
+void {\bfseries mask} (float new\+\_\+mask\mbox{[}$\,$\mbox{]})\hypertarget{classimage__tools_1_1Tool_a086b6e950505b2a5465b2146c4b2d468}{}\label{classimage__tools_1_1Tool_a086b6e950505b2a5465b2146c4b2d468}
+
+\item 
+int {\bfseries height} (void)\hypertarget{classimage__tools_1_1Tool_a2102161c79dd24c07a4db2f1d08f8f3c}{}\label{classimage__tools_1_1Tool_a2102161c79dd24c07a4db2f1d08f8f3c}
+
+\item 
+int {\bfseries length} (void)\hypertarget{classimage__tools_1_1Tool_ac33adcaf196d5f332d371c8cbcc1a91b}{}\label{classimage__tools_1_1Tool_ac33adcaf196d5f332d371c8cbcc1a91b}
+
+\item 
+virtual void \hyperlink{classimage__tools_1_1Tool_aa5a313769f2a2c5c83b816da81e82bd2}{Draw} (int x, int y, float red, float green, float blue, \hyperlink{classimage__tools_1_1PixelBuffer}{Pixel\+Buffer} $\ast$display)\hypertarget{classimage__tools_1_1Tool_aa5a313769f2a2c5c83b816da81e82bd2}{}\label{classimage__tools_1_1Tool_aa5a313769f2a2c5c83b816da81e82bd2}
+
+\begin{DoxyCompactList}\small\item\em Draws pixels changed by tool onto canvas. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classimage__tools_1_1Tool_a9a3b2b9aaaa66f007022ec221d89f8fd}{Calculate\+Mask} (void)=0\hypertarget{classimage__tools_1_1Tool_a9a3b2b9aaaa66f007022ec221d89f8fd}{}\label{classimage__tools_1_1Tool_a9a3b2b9aaaa66f007022ec221d89f8fd}
+
+\begin{DoxyCompactList}\small\item\em Determines tool mask values. Must be implemented by derived types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float $\ast$ \hyperlink{classimage__tools_1_1Tool_a71fa87e91a5cbe0336246c8007b53e6c}{mask\+\_\+}
+\item 
+int {\bfseries length\+\_\+}\hypertarget{classimage__tools_1_1Tool_a6ee991802362c07888cc0330d9864e61}{}\label{classimage__tools_1_1Tool_a6ee991802362c07888cc0330d9864e61}
+
+\item 
+int {\bfseries height\+\_\+}\hypertarget{classimage__tools_1_1Tool_ac986b1bf95134126ce371d1cc575c6fc}{}\label{classimage__tools_1_1Tool_ac986b1bf95134126ce371d1cc575c6fc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This parent class holds the default implementation for \hyperlink{classimage__tools_1_1Tool_aa5a313769f2a2c5c83b816da81e82bd2}{Draw()} as well the pixel mask. 
+
+\subsection{Member Function Documentation}
+\index{image\+\_\+tools\+::\+Tool@{image\+\_\+tools\+::\+Tool}!mask@{mask}}
+\index{mask@{mask}!image\+\_\+tools\+::\+Tool@{image\+\_\+tools\+::\+Tool}}
+\subsubsection[{\texorpdfstring{mask(void)}{mask(void)}}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ image\+\_\+tools\+::\+Tool\+::mask (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classimage__tools_1_1Tool_afe9df5a299fe9295e9dd2d0c2d049bff}{}\label{classimage__tools_1_1Tool_afe9df5a299fe9295e9dd2d0c2d049bff}
+\begin{DoxyReturn}{Returns}
+float array that represents each value of tool mask. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\index{image\+\_\+tools\+::\+Tool@{image\+\_\+tools\+::\+Tool}!mask\+\_\+@{mask\+\_\+}}
+\index{mask\+\_\+@{mask\+\_\+}!image\+\_\+tools\+::\+Tool@{image\+\_\+tools\+::\+Tool}}
+\subsubsection[{\texorpdfstring{mask\+\_\+}{mask_}}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ image\+\_\+tools\+::\+Tool\+::mask\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1Tool_a71fa87e91a5cbe0336246c8007b53e6c}{}\label{classimage__tools_1_1Tool_a71fa87e91a5cbe0336246c8007b53e6c}
+Array of floats that determines shape/behavior of tool. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/tool.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/tool.\+cc\end{DoxyCompactItemize}

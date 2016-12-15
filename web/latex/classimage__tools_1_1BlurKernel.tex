@@ -1,0 +1,39 @@
+\hypertarget{classimage__tools_1_1BlurKernel}{}\section{image\+\_\+tools\+:\+:Blur\+Kernel Class Reference}
+\label{classimage__tools_1_1BlurKernel}\index{image\+\_\+tools\+::\+Blur\+Kernel@{image\+\_\+tools\+::\+Blur\+Kernel}}
+
+
+This class implements a blur kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter} and the \hyperlink{classimage__tools_1_1Blur}{Blur} tool. The halfway point through the kernel will have all 1\textquotesingle{}s in that row/column. The number of 1\textquotesingle{}s decreases by two (one from both ends), down to 1 1 in first/last row/column. See example for a dim 5 blur kernel\+:  
+
+
+
+
+{\ttfamily \#include $<$blur\+\_\+kernel.\+h$>$}
+
+
+
+Inherits \hyperlink{classimage__tools_1_1Kernel}{image\+\_\+tools\+::\+Kernel}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Blur\+Kernel} (float blur\+\_\+amount, int \hyperlink{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{dimension})\hypertarget{classimage__tools_1_1BlurKernel_a6918dae797c07ebc3866e34e61c679ae}{}\label{classimage__tools_1_1BlurKernel_a6918dae797c07ebc3866e34e61c679ae}
+
+\item 
+{\bfseries Blur\+Kernel} (float blur\+\_\+amount)\hypertarget{classimage__tools_1_1BlurKernel_a1a82b0bf202b50ad17e2e45ea4683985}{}\label{classimage__tools_1_1BlurKernel_a1a82b0bf202b50ad17e2e45ea4683985}
+
+\item 
+virtual void \hyperlink{classimage__tools_1_1BlurKernel_ad04663bc57b8f08ae642799feb70221c}{Init\+Kernel} (void)\hypertarget{classimage__tools_1_1BlurKernel_ad04663bc57b8f08ae642799feb70221c}{}\label{classimage__tools_1_1BlurKernel_ad04663bc57b8f08ae642799feb70221c}
+
+\begin{DoxyCompactList}\small\item\em Constructs the blur kernel for this class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This class implements a blur kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter} and the \hyperlink{classimage__tools_1_1Blur}{Blur} tool. The halfway point through the kernel will have all 1\textquotesingle{}s in that row/column. The number of 1\textquotesingle{}s decreases by two (one from both ends), down to 1 1 in first/last row/column. See example for a dim 5 blur kernel\+: 
+
+00100 01110 11111 01110 00100 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/blur\+\_\+kernel.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/blur\+\_\+kernel.\+cc\end{DoxyCompactItemize}

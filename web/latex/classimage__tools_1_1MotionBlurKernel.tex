@@ -1,0 +1,49 @@
+\hypertarget{classimage__tools_1_1MotionBlurKernel}{}\section{image\+\_\+tools\+:\+:Motion\+Blur\+Kernel Class Reference}
+\label{classimage__tools_1_1MotionBlurKernel}\index{image\+\_\+tools\+::\+Motion\+Blur\+Kernel@{image\+\_\+tools\+::\+Motion\+Blur\+Kernel}}
+
+
+This class implements a motion blur kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter}. init\+\_\+kernel() constructs the motion blur kernel for this class.  
+
+
+
+
+{\ttfamily \#include $<$motion\+\_\+blur\+\_\+kernel.\+h$>$}
+
+
+
+Inherits \hyperlink{classimage__tools_1_1Kernel}{image\+\_\+tools\+::\+Kernel}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Motion\+Blur\+Kernel} (float motion\+\_\+blur\+\_\+amount, enum \hyperlink{classimage__tools_1_1UICtrl_a56d4f68bf91302769d7bc453d8d57cee}{U\+I\+Ctrl\+::\+Motion\+Blur\+Direction} direction, int \hyperlink{classimage__tools_1_1Kernel_a1235fc3f48da943eb72cc9067a5cf385}{dimension})\hypertarget{classimage__tools_1_1MotionBlurKernel_a552db2e63ad91789f05de30b61598f84}{}\label{classimage__tools_1_1MotionBlurKernel_a552db2e63ad91789f05de30b61598f84}
+
+\item 
+virtual void \hyperlink{classimage__tools_1_1MotionBlurKernel_a4e5bef533ab9aff6c8844c599e212f9c}{Init\+Kernel} (void)\hypertarget{classimage__tools_1_1MotionBlurKernel_a4e5bef533ab9aff6c8844c599e212f9c}{}\label{classimage__tools_1_1MotionBlurKernel_a4e5bef533ab9aff6c8844c599e212f9c}
+
+\begin{DoxyCompactList}\small\item\em Initializes kernel for \hyperlink{classimage__tools_1_1MotionBlurKernel}{Motion\+Blur\+Kernel}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classimage__tools_1_1UICtrl_a56d4f68bf91302769d7bc453d8d57cee}{U\+I\+Ctrl\+::\+Motion\+Blur\+Direction} \hyperlink{classimage__tools_1_1MotionBlurKernel_ae10c96d114f1320d1158842ba452ef96}{direction\+\_\+}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This class implements a motion blur kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter}. init\+\_\+kernel() constructs the motion blur kernel for this class. 
+
+The directions/starts arrays are used to implement the line of weights required for a given direction. See example below\+:
+
+.2 0 0 0 0 0 .2 0 0 0 0 0 .2 0 0 0 0 0 .2 0 0 0 0 0 .2 
+
+\subsection{Member Data Documentation}
+\index{image\+\_\+tools\+::\+Motion\+Blur\+Kernel@{image\+\_\+tools\+::\+Motion\+Blur\+Kernel}!direction\+\_\+@{direction\+\_\+}}
+\index{direction\+\_\+@{direction\+\_\+}!image\+\_\+tools\+::\+Motion\+Blur\+Kernel@{image\+\_\+tools\+::\+Motion\+Blur\+Kernel}}
+\subsubsection[{\texorpdfstring{direction\+\_\+}{direction_}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf U\+I\+Ctrl\+::\+Motion\+Blur\+Direction} image\+\_\+tools\+::\+Motion\+Blur\+Kernel\+::direction\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1MotionBlurKernel_ae10c96d114f1320d1158842ba452ef96}{}\label{classimage__tools_1_1MotionBlurKernel_ae10c96d114f1320d1158842ba452ef96}
+Represents direction of motion of blurring effect 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/motion\+\_\+blur\+\_\+kernel.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/motion\+\_\+blur\+\_\+kernel.\+cc\end{DoxyCompactItemize}
