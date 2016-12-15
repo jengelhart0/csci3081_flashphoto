@@ -10,8 +10,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BASE_GFX_APP_H_
-#define INCLUDE_BASE_GFX_APP_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BASE_GFX_APP_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BASE_GFX_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -280,4 +280,4 @@ class BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_BASE_GFX_APP_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BASE_GFX_APP_H_ */

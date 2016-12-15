@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SATURATE_H_
-#define INCLUDE_SATURATE_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SATURATE_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SATURATE_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "pixel_buffer.h"
-#include "filter.h"
+#include "./pixel_buffer.h"
+#include "./filter.h"
 
 /*******************************************************************************
  * Namespaces
@@ -51,4 +51,4 @@ class Saturate : public Filter {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SATURATE_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SATURATE_H_

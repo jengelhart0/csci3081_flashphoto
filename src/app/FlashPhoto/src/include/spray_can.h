@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SPRAY_CAN_H_
-#define INCLUDE_SPRAY_CAN_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_SPRAY_CAN_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_SPRAY_CAN_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -41,4 +41,4 @@ class SprayCan : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SPRAY_CAN_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_SPRAY_CAN_H_

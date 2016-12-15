@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SHARPEN_KERNEL_H_
-#define INCLUDE_SHARPEN_KERNEL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SHARPEN_KERNEL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SHARPEN_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 
-#include "kernel.h"
+#include "./kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -48,4 +48,4 @@ class SharpenKernel : public Kernel {
      float other_val_; /**< Sum of middle and other pixels will be 1. */
 };
 }  // namespace image_tools
-#endif  // INCLUDE_SHARPEN_KERNEL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SHARPEN_KERNEL_H_

@@ -51,10 +51,6 @@ FilterManager::FilterManager(void) :
  * Member Functions
  ******************************************************************************/
 void FilterManager::ApplyChannel(PixelBuffer* canvas) {
-  std::cout << "Apply has been clicked for Channels with red = "
-            << channel_color_red_
-            << ", green = " << channel_color_green_
-            << ", blue = " << channel_color_blue_ << std::endl;
     ColorChannels filter(canvas);
     filter.red(channel_color_red_);
     filter.green(channel_color_green_);
@@ -63,16 +59,12 @@ void FilterManager::ApplyChannel(PixelBuffer* canvas) {
 }
 
 void FilterManager::ApplySaturate(PixelBuffer* canvas) {
-  std::cout << "Apply has been clicked for Saturate with amount = "
-            << saturation_amount_ << std::endl;
     Saturate filter(canvas);
     filter.saturation(saturation_amount_);
     filter.ApplyFilter();
 }
 
 void FilterManager::ApplyBlur(PixelBuffer *canvas) {
-  std::cout << "Apply has been clicked for Blur with amount = "
-            << blur_amount_ << std::endl;
   ConvolutionFilter convolution_filter(canvas);
   BlurKernel *new_kernel = new BlurKernel(blur_amount_, blur_dimension_);
   convolution_filter.kernel(new_kernel);
@@ -80,8 +72,6 @@ void FilterManager::ApplyBlur(PixelBuffer *canvas) {
 }
 
 void FilterManager::ApplySharpen(PixelBuffer *canvas) {
-  std::cout << "Apply has been clicked for Sharpen with amount = "
-            << sharpen_amount_ << std::endl;
   ConvolutionFilter convolution_filter(canvas);
   SharpenKernel *new_kernel = new SharpenKernel(sharpen_amount_);
   convolution_filter.kernel(new_kernel);
@@ -89,9 +79,6 @@ void FilterManager::ApplySharpen(PixelBuffer *canvas) {
 }
 
 void FilterManager::ApplyMotionBlur(PixelBuffer *canvas) {
-  std::cout << "Apply has been clicked for MotionBlur with amount = "
-            << motion_blur_amount_
-            << " and direction " << motion_blur_direction_ << std::endl;
   ConvolutionFilter convolution_filter(canvas);
   MotionBlurKernel *new_kernel = new MotionBlurKernel(motion_blur_amount_,
                                                       motion_blur_direction_,
@@ -101,7 +88,6 @@ void FilterManager::ApplyMotionBlur(PixelBuffer *canvas) {
 }
 
 void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
-  std::cout << "Apply has been clicked for Edge Detect" << std::endl;
   ConvolutionFilter convolution_filter(canvas);
   EdgeDetectKernel *new_kernel = new EdgeDetectKernel();
   convolution_filter.kernel(new_kernel);
@@ -109,23 +95,18 @@ void FilterManager::ApplyEdgeDetect(PixelBuffer *canvas) {
 }
 
 void FilterManager::ApplyQuantize(PixelBuffer* canvas) {
-    std::cout << "Apply has been clicked for Quantize with bins = "
-      << quantize_bins_ << std::endl;
     Quantize filter(canvas);
     filter.bins(quantize_bins_);
     filter.ApplyFilter();
 }
 
 void FilterManager::ApplyThreshold(PixelBuffer* canvas) {
-    std::cout << "Apply Threshold has been clicked with amount ="
-      << threshold_amount_ << std::endl;
     Threshold filter(canvas);
     filter.threshold(threshold_amount_);
     filter.ApplyFilter();
 }
 
 void FilterManager::ApplySpecial(PixelBuffer* canvas) {
-    std::cout << "Apply has been clicked for Special" << std::endl;
     Sepia filter(canvas);
     filter.ApplyFilter();
 }

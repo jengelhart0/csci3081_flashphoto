@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_FILTER_H_
-#define INCLUDE_FILTER_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include <iostream>
-#include "pixel_buffer.h"
+#include "./pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -52,4 +52,4 @@ class Filter {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_FILTER_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_H_

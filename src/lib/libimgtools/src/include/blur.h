@@ -9,15 +9,15 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BLUR_H_
-#define INCLUDE_BLUR_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
 #include <vector>
-#include "pixel_buffer.h"
-#include "tool.h"
-#include "blur_kernel.h"
+#include "./pixel_buffer.h"
+#include "./tool.h"
+#include "./blur_kernel.h"
 
 /*******************************************************************************
  * Namespaces
@@ -56,8 +56,8 @@ class Blur : public Tool {
     void CalculateKernels(void);
 
  private:
-    std::vector<BlurKernel*> kernels_; /**< kernel vector to hold different sized blur kernels */
+    std::vector<BlurKernel*> kernels_; /**< holds different sized kernels */
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BLUR_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_BLUR_H_

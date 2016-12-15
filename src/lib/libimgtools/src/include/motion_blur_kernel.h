@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MOTION_BLUR_KERNEL_H_
-#define INCLUDE_MOTION_BLUR_KERNEL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_KERNEL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_KERNEL_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -51,7 +51,10 @@ class MotionBlurKernel : public Kernel {
       */
      virtual void InitKernel(void);
  private:
-     enum UICtrl::MotionBlurDirection direction_; /**< Represents direction of motion of blurring effect */
+     /** Blur direction
+      *  Represents the direction of the motion blurring effect
+      */
+     enum UICtrl::MotionBlurDirection direction_;
 };
 }  // namespace image_tools
-#endif  // INCLUDE_MOTION_BLUR_KERNEL_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_KERNEL_H_

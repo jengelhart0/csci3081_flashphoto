@@ -9,8 +9,8 @@
   *
   ******************************************************************************/
 
-#ifndef INCLUDE_FLASHPHOTO_APP_H_
-#define INCLUDE_FLASHPHOTO_APP_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_FLASHPHOTO_APP_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_FLASHPHOTO_APP_H_
 
 /*******************************************************************************
   * Includes
@@ -159,8 +159,8 @@ class FlashPhotoApp : public BaseGfxApp {
     /* App's current drawing tool */
     Tool* tool_;
 
-    float prev_x_; /**< x-coord to help MouseDragged() interpolate b/w Draw() calls */
-    float prev_y_; /**< y-coord to help MouseDragged() interpolate b/w Draw() calls */
+    float prev_x_; /**< x-coord to help MouseDragged() b/w Draw() calls */
+    float prev_y_; /**< y-coord to help MouseDragged() b/w Draw() calls */
 
     /* These are used to store the selections from the GLUI user interface */
     int cur_tool_;  /**< Currently selected tool from UI */
@@ -176,4 +176,4 @@ class FlashPhotoApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  // INCLUDE_FLASHPHOTO_APP_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_FLASHPHOTO_APP_H_

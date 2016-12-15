@@ -1,0 +1,58 @@
+\hypertarget{classimage__tools_1_1ConvolutionFilter}{}\section{image\+\_\+tools\+:\+:Convolution\+Filter Class Reference}
+\label{classimage__tools_1_1ConvolutionFilter}\index{image\+\_\+tools\+::\+Convolution\+Filter@{image\+\_\+tools\+::\+Convolution\+Filter}}
+
+
+This extension of \hyperlink{classimage__tools_1_1Filter}{Filter} overrides the base \hyperlink{classimage__tools_1_1Filter_a109d756cc63f596508b3a8e02e89b4bf}{Apply\+Filter()} to allow to Create\+Kernel(). It also implements \hyperlink{classimage__tools_1_1ConvolutionFilter_a73fa6a5a04b95f36a92fcb1b701a3df0}{Modify\+Pixel()} for all Convolution\+Filters.  
+
+
+
+
+{\ttfamily \#include $<$convolution\+\_\+filter.\+h$>$}
+
+
+
+Inherits \hyperlink{classimage__tools_1_1Filter}{image\+\_\+tools\+::\+Filter}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Convolution\+Filter} (\hyperlink{classimage__tools_1_1PixelBuffer}{Pixel\+Buffer} $\ast$canvas)\hypertarget{classimage__tools_1_1ConvolutionFilter_acce494f3aa246edda19c7e86993b37c2}{}\label{classimage__tools_1_1ConvolutionFilter_acce494f3aa246edda19c7e86993b37c2}
+
+\item 
+virtual void \hyperlink{classimage__tools_1_1ConvolutionFilter_a73fa6a5a04b95f36a92fcb1b701a3df0}{Modify\+Pixel} (int x, int y)\hypertarget{classimage__tools_1_1ConvolutionFilter_a73fa6a5a04b95f36a92fcb1b701a3df0}{}\label{classimage__tools_1_1ConvolutionFilter_a73fa6a5a04b95f36a92fcb1b701a3df0}
+
+\begin{DoxyCompactList}\small\item\em Modifies each pixel in canvas by reading from canvas copy for all pixels in kernel and applying modified pixel to canvas. \end{DoxyCompactList}\item 
+void {\bfseries kernel} (\hyperlink{classimage__tools_1_1Kernel}{Kernel} $\ast$new\+\_\+kernel)\hypertarget{classimage__tools_1_1ConvolutionFilter_a532cb2552180d297009c820b55bc43e0}{}\label{classimage__tools_1_1ConvolutionFilter_a532cb2552180d297009c820b55bc43e0}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classimage__tools_1_1Kernel}{Kernel} $\ast$ \hyperlink{classimage__tools_1_1ConvolutionFilter_afb11679d9c73c3123ea0b1a14ae4d682}{kernel\+\_\+}
+\item 
+\hyperlink{classimage__tools_1_1PixelBuffer}{Pixel\+Buffer} \hyperlink{classimage__tools_1_1ConvolutionFilter_aa347f35852e3258219e191db7872634b}{canvas\+\_\+copy\+\_\+}
+\item 
+int {\bfseries canvas\+\_\+width\+\_\+}\hypertarget{classimage__tools_1_1ConvolutionFilter_acff2289c871cedee381e055a74e06672}{}\label{classimage__tools_1_1ConvolutionFilter_acff2289c871cedee381e055a74e06672}
+
+\item 
+int {\bfseries canvas\+\_\+height\+\_\+}\hypertarget{classimage__tools_1_1ConvolutionFilter_a1678a346b6e2f339c466b8ff12c5d892}{}\label{classimage__tools_1_1ConvolutionFilter_a1678a346b6e2f339c466b8ff12c5d892}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This extension of \hyperlink{classimage__tools_1_1Filter}{Filter} overrides the base \hyperlink{classimage__tools_1_1Filter_a109d756cc63f596508b3a8e02e89b4bf}{Apply\+Filter()} to allow to Create\+Kernel(). It also implements \hyperlink{classimage__tools_1_1ConvolutionFilter_a73fa6a5a04b95f36a92fcb1b701a3df0}{Modify\+Pixel()} for all Convolution\+Filters. 
+
+\subsection{Member Data Documentation}
+\index{image\+\_\+tools\+::\+Convolution\+Filter@{image\+\_\+tools\+::\+Convolution\+Filter}!canvas\+\_\+copy\+\_\+@{canvas\+\_\+copy\+\_\+}}
+\index{canvas\+\_\+copy\+\_\+@{canvas\+\_\+copy\+\_\+}!image\+\_\+tools\+::\+Convolution\+Filter@{image\+\_\+tools\+::\+Convolution\+Filter}}
+\subsubsection[{\texorpdfstring{canvas\+\_\+copy\+\_\+}{canvas_copy_}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Pixel\+Buffer} image\+\_\+tools\+::\+Convolution\+Filter\+::canvas\+\_\+copy\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1ConvolutionFilter_aa347f35852e3258219e191db7872634b}{}\label{classimage__tools_1_1ConvolutionFilter_aa347f35852e3258219e191db7872634b}
+needed so we are reading from an uncorrupted canvas \index{image\+\_\+tools\+::\+Convolution\+Filter@{image\+\_\+tools\+::\+Convolution\+Filter}!kernel\+\_\+@{kernel\+\_\+}}
+\index{kernel\+\_\+@{kernel\+\_\+}!image\+\_\+tools\+::\+Convolution\+Filter@{image\+\_\+tools\+::\+Convolution\+Filter}}
+\subsubsection[{\texorpdfstring{kernel\+\_\+}{kernel_}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Kernel}$\ast$ image\+\_\+tools\+::\+Convolution\+Filter\+::kernel\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1ConvolutionFilter_afb11679d9c73c3123ea0b1a14ae4d682}{}\label{classimage__tools_1_1ConvolutionFilter_afb11679d9c73c3123ea0b1a14ae4d682}
+kernel that provides unique characteristics for a filter 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/convolution\+\_\+filter.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/convolution\+\_\+filter.\+cc\end{DoxyCompactItemize}

@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_ERASER_H_
-#define INCLUDE_ERASER_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_ERASER_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_ERASER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -45,4 +45,4 @@ class Eraser : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_ERASER_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_ERASER_H_

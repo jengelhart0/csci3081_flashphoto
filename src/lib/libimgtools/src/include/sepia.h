@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_SEPIA_H_
-#define INCLUDE_SEPIA_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SEPIA_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SEPIA_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -44,4 +44,4 @@ class Sepia : public Filter {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_SEPIA_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_SEPIA_H_

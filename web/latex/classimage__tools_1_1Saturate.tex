@@ -1,0 +1,42 @@
+\hypertarget{classimage__tools_1_1Saturate}{}\section{image\+\_\+tools\+:\+:Saturate Class Reference}
+\label{classimage__tools_1_1Saturate}\index{image\+\_\+tools\+::\+Saturate@{image\+\_\+tools\+::\+Saturate}}
+
+
+This abstract base class from which all Saturates inherit defines the default implementation for Apply\+Saturate() and declares the interface for \hyperlink{classimage__tools_1_1Saturate_a6bfeebbbbfb3e52c6981336bfda55640}{Modify\+Pixel()}.  
+
+
+
+
+{\ttfamily \#include $<$saturate.\+h$>$}
+
+
+
+Inherits \hyperlink{classimage__tools_1_1Filter}{image\+\_\+tools\+::\+Filter}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Saturate} (\hyperlink{classimage__tools_1_1PixelBuffer}{Pixel\+Buffer} $\ast$canvas)\hypertarget{classimage__tools_1_1Saturate_a6e842bbee50d65afd55380f5e42167e2}{}\label{classimage__tools_1_1Saturate_a6e842bbee50d65afd55380f5e42167e2}
+
+\item 
+void \hyperlink{classimage__tools_1_1Saturate_ae932304b1787a8095065f7a3a0a665c3}{saturation} (float saturation)\hypertarget{classimage__tools_1_1Saturate_ae932304b1787a8095065f7a3a0a665c3}{}\label{classimage__tools_1_1Saturate_ae932304b1787a8095065f7a3a0a665c3}
+
+\begin{DoxyCompactList}\small\item\em Set saturation value. \end{DoxyCompactList}\item 
+void \hyperlink{classimage__tools_1_1Saturate_a6bfeebbbbfb3e52c6981336bfda55640}{Modify\+Pixel} (int x, int y)\hypertarget{classimage__tools_1_1Saturate_a6bfeebbbbfb3e52c6981336bfda55640}{}\label{classimage__tools_1_1Saturate_a6bfeebbbbfb3e52c6981336bfda55640}
+
+\begin{DoxyCompactList}\small\item\em Interpolate between grayscale image and original based on saturation value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries saturation\+\_\+}\hypertarget{classimage__tools_1_1Saturate_a75bcc29104d1e4faec7dc73c1ce9e218}{}\label{classimage__tools_1_1Saturate_a75bcc29104d1e4faec7dc73c1ce9e218}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This abstract base class from which all Saturates inherit defines the default implementation for Apply\+Saturate() and declares the interface for \hyperlink{classimage__tools_1_1Saturate_a6bfeebbbbfb3e52c6981336bfda55640}{Modify\+Pixel()}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/saturate.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/saturate.\+cc\end{DoxyCompactItemize}

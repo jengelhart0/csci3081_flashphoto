@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_FILTER_MANAGER_H_
-#define INCLUDE_FILTER_MANAGER_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_MANAGER_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_MANAGER_H_
 
 /*******************************************************************************
  * Includes
@@ -114,7 +114,9 @@ class FilterManager {
    * @param new_value New value to be used in filter application
    */
   void channel_color_red(float new_value) { channel_color_red_ = new_value; }
-  void channel_color_green(float new_value) { channel_color_green_ = new_value; }
+  void channel_color_green(float new_value) {
+      channel_color_green_ = new_value;
+  }
   void channel_color_blue(float new_value) { channel_color_blue_ = new_value; }
   void saturation_amount(float new_value) { saturation_amount_ = new_value; }
   void threshold_amount(float new_value) { threshold_amount_ = new_value; }
@@ -155,4 +157,4 @@ class FilterManager {
 };
 
 }  /* namespace image_tools */
-#endif  /* INCLUDE_FILTER_MANAGER_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILTER_MANAGER_H_ */

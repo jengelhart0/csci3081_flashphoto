@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_HIGHLIGHTER_H_
-#define INCLUDE_HIGHLIGHTER_H_
+#ifndef SRC_APP_FLASHPHOTO_SRC_INCLUDE_HIGHLIGHTER_H_
+#define SRC_APP_FLASHPHOTO_SRC_INCLUDE_HIGHLIGHTER_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
@@ -45,4 +45,4 @@ class Highlighter : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_HIGHLIGHTER_H_
+#endif  // SRC_APP_FLASHPHOTO_SRC_INCLUDE_HIGHLIGHTER_H_

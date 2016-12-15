@@ -13,14 +13,14 @@
  * Includes
  ******************************************************************************/
 #include "app/MIA/src/include/mia_app.h"
+#include <string>
+#include <iostream>
+#include <cmath>
 #include "lib/libimgtools/src/include/base_gfx_app.h"
 #include "lib/libimgtools/src/include/color_data.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
 #include "lib/libimgtools/src/include/pen.h"
 #include "lib/libimgtools/src/include/stamp.h"
-#include <string>
-#include <iostream>
-#include <cmath>
 
 /*******************************************************************************
  * Namespaces
@@ -85,8 +85,8 @@ MIAApp::~MIAApp(void) {
 void MIAApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed " << x << " " << y << std::endl;
     y = display_buffer_->height() - y;
-	tool_->Draw(x, y, 1.0, 0.0, 0.0, display_buffer_);
-} 
+    tool_->Draw(x, y, 1.0, 0.0, 0.0, display_buffer_);
+}
 
 void MIAApp::InitializeBuffers(ColorData background_color,
                                int width, int height) {
@@ -171,14 +171,14 @@ void MIAApp::GluiControl(int control_id) {
       io_manager_.file_browser()->fbreaddir(".");
       break;
     case UICtrl::UI_NEXT_IMAGE_BUTTON:
-	  PixelBuffer* next_image;
+      PixelBuffer* next_image;
       next_image = io_manager_.LoadNextImage();
       delete(display_buffer_);
       display_buffer_ = next_image;;
       SetWindowDimensions(next_image->width(), next_image->height());
       break;
     case UICtrl::UI_PREV_IMAGE_BUTTON:
-	  PixelBuffer* prev_image;;
+      PixelBuffer* prev_image;;
       prev_image = io_manager_.LoadPreviousImage();
       delete(display_buffer_);
       display_buffer_ = prev_image;

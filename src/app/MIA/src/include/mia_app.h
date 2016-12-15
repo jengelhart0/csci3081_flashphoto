@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_APP_MIA_SRC_MIA_APP_H_
-#define SRC_APP_MIA_SRC_MIA_APP_H_
+#ifndef SRC_APP_MIA_SRC_INCLUDE_MIA_APP_H_
+#define SRC_APP_MIA_SRC_INCLUDE_MIA_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -20,8 +20,8 @@
 #include "lib/libimgtools/src/include/base_gfx_app.h"
 #include "lib/libimgtools/src/include/color_data.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
-#include "mia_filter_manager.h"
-#include "mia_io_manager.h"
+#include "./mia_filter_manager.h"
+#include "./mia_io_manager.h"
 #include "lib/libimgtools/src/include/ui_ctrl.h"
 #include "lib/libimgtools/src/include/state_manager.h"
 #include "lib/libimgtools/src/include/tool.h"
@@ -103,9 +103,9 @@ class MIAApp : public BaseGfxApp {
   std::string marker_fname_;
 
   Tool* tool_;
-  float prev_x_; /**< x-coord to help MouseDragged() interpolate b/w Draw() calls */
-  float prev_y_; /**< y-coord to help MouseDragged() interpolate b/w Draw() calls */
-  
+  float prev_x_; /**< x-coord to help MouseDragged() b/w Draw() calls */
+  float prev_y_; /**< y-coord to help MouseDragged() b/w Draw() calls */
+
   std::vector<Tool*> tools_;  /**< App's collection of tools */
 
 
@@ -114,4 +114,4 @@ class MIAApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  // SRC_APP_MIA_SRC_MIA_APP_H_
+#endif  // SRC_APP_MIA_SRC_INCLUDE_MIA_APP_H_

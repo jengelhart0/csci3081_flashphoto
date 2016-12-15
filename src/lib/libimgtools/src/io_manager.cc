@@ -13,10 +13,10 @@
  * Includes
  ******************************************************************************/
 #include "include/io_manager.h"
-#include <iostream>
 #include <assert.h>
-#include "include/color_data.h"
+#include <iostream>
 #include "../ext/libpng-1.6.16/png.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces
@@ -188,8 +188,6 @@ PixelBuffer* IOManager::LoadPng() {
 }
 
 PixelBuffer* IOManager::LoadImageToCanvas() {
-    std::cout << "Load Canvas has been clicked for file "
-        << file_name_ << std::endl;
     // Currently only support PNG files, but in the future
     // we'll want to add a check for other files types and
     // call the appropriate LoadX for a given image
@@ -197,8 +195,6 @@ PixelBuffer* IOManager::LoadImageToCanvas() {
 }
 
 PixelBuffer* IOManager::LoadImageToStamp(void) {
-  std::cout << "Load Stamp has been clicked for file " <<
-      file_name_ << std::endl;
     // Currently only support PNG files, but in the future
     // we'll want to add a check for other files types and
     // call the appropriate LoadX for a given image
@@ -206,8 +202,6 @@ PixelBuffer* IOManager::LoadImageToStamp(void) {
 }
 
 void IOManager::SaveCanvasToFile(const PixelBuffer &canvas) {
-    std::cout << "Save Canvas been clicked for file " <<
-      file_name_ << std::endl;
     int width = canvas.width();
     int height = canvas.height();
     /* Set image properties */

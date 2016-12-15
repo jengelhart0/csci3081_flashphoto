@@ -1,0 +1,52 @@
+\hypertarget{classimage__tools_1_1SharpenKernel}{}\section{image\+\_\+tools\+:\+:Sharpen\+Kernel Class Reference}
+\label{classimage__tools_1_1SharpenKernel}\index{image\+\_\+tools\+::\+Sharpen\+Kernel@{image\+\_\+tools\+::\+Sharpen\+Kernel}}
+
+
+This class implements an sharpen kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter}. init\+\_\+kernel() constructs the sharpen kernel for this class. The middle kernel coord will be set to the square of the kernel\textquotesingle{}s dim. This is one greater than the sum of all other coord values. All other coords set to -\/1. See example\+:  
+
+
+
+
+{\ttfamily \#include $<$sharpen\+\_\+kernel.\+h$>$}
+
+
+
+Inherits \hyperlink{classimage__tools_1_1Kernel}{image\+\_\+tools\+::\+Kernel}.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Sharpen\+Kernel} (float sharpen\+\_\+amount)\hypertarget{classimage__tools_1_1SharpenKernel_a4724f3d5ccd00013a9afe92c1d4b9944}{}\label{classimage__tools_1_1SharpenKernel_a4724f3d5ccd00013a9afe92c1d4b9944}
+
+\item 
+virtual void \hyperlink{classimage__tools_1_1SharpenKernel_a3a9a001ae2c85277ef658cfdc7046a4b}{Init\+Kernel} (void)\hypertarget{classimage__tools_1_1SharpenKernel_a3a9a001ae2c85277ef658cfdc7046a4b}{}\label{classimage__tools_1_1SharpenKernel_a3a9a001ae2c85277ef658cfdc7046a4b}
+
+\begin{DoxyCompactList}\small\item\em Initializes float values according to the required characteristics of specific kernel subclass. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{classimage__tools_1_1SharpenKernel_ad9221cccfe79053e95ba227de19413ac}{middle\+\_\+val\+\_\+}
+\item 
+float \hyperlink{classimage__tools_1_1SharpenKernel_a12daec6c34459fc770e4d8310e9f7475}{other\+\_\+val\+\_\+}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This class implements an sharpen kernel for use with a \hyperlink{classimage__tools_1_1ConvolutionFilter}{Convolution\+Filter}. init\+\_\+kernel() constructs the sharpen kernel for this class. The middle kernel coord will be set to the square of the kernel\textquotesingle{}s dim. This is one greater than the sum of all other coord values. All other coords set to -\/1. See example\+: 
+
+-\/2 -\/2 -\/2 -\/2 17 -\/2 -\/2 -\/2 -\/2 
+
+\subsection{Member Data Documentation}
+\index{image\+\_\+tools\+::\+Sharpen\+Kernel@{image\+\_\+tools\+::\+Sharpen\+Kernel}!middle\+\_\+val\+\_\+@{middle\+\_\+val\+\_\+}}
+\index{middle\+\_\+val\+\_\+@{middle\+\_\+val\+\_\+}!image\+\_\+tools\+::\+Sharpen\+Kernel@{image\+\_\+tools\+::\+Sharpen\+Kernel}}
+\subsubsection[{\texorpdfstring{middle\+\_\+val\+\_\+}{middle_val_}}]{\setlength{\rightskip}{0pt plus 5cm}float image\+\_\+tools\+::\+Sharpen\+Kernel\+::middle\+\_\+val\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1SharpenKernel_ad9221cccfe79053e95ba227de19413ac}{}\label{classimage__tools_1_1SharpenKernel_ad9221cccfe79053e95ba227de19413ac}
+Represents pixel being modified. \index{image\+\_\+tools\+::\+Sharpen\+Kernel@{image\+\_\+tools\+::\+Sharpen\+Kernel}!other\+\_\+val\+\_\+@{other\+\_\+val\+\_\+}}
+\index{other\+\_\+val\+\_\+@{other\+\_\+val\+\_\+}!image\+\_\+tools\+::\+Sharpen\+Kernel@{image\+\_\+tools\+::\+Sharpen\+Kernel}}
+\subsubsection[{\texorpdfstring{other\+\_\+val\+\_\+}{other_val_}}]{\setlength{\rightskip}{0pt plus 5cm}float image\+\_\+tools\+::\+Sharpen\+Kernel\+::other\+\_\+val\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classimage__tools_1_1SharpenKernel_a12daec6c34459fc770e4d8310e9f7475}{}\label{classimage__tools_1_1SharpenKernel_a12daec6c34459fc770e4d8310e9f7475}
+Sum of middle and other pixels will be 1. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/include/sharpen\+\_\+kernel.\+h\item 
+/home/joeyengelhart/3081\+W/repo-\/group-\/\+C07/src/lib/libimgtools/src/sharpen\+\_\+kernel.\+cc\end{DoxyCompactItemize}

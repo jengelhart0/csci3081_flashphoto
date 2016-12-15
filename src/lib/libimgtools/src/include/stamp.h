@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_STAMP_H_
-#define INCLUDE_STAMP_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_STAMP_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_STAMP_H_
 /*******************************************************************************
  * Includes
  *******************************************************************************/
-#include "pixel_buffer.h"
-#include "tool.h"
+#include "./pixel_buffer.h"
+#include "./tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -49,4 +49,4 @@ class Stamp : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_STAMP_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_STAMP_H_
