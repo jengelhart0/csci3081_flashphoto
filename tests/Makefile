@@ -43,16 +43,16 @@ badinput:
 	@$(EXEC_MIA_CMD) -h > tests/$(USAGEFILE) || true
 	@echo "Testing for bad input handling: missing input file..."
 	@$(EXEC_MIA_CMD) -sharpen 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo -e "Test PASSED\n"; else echo "TEST -e FAILED\n" ; fi
 	@echo "Testing for bad input handling: nonexistent input file..."
 	@$(EXEC_MIA_CMD) badinput.png -sharpen 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true 
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo -e "Test PASSED\n"; else -e echo "TEST FAILED\n" ; fi
 	@echo "Testing for bad input handling: missing filter..."
 	@$(EXEC_MIA_CMD) $(TESTIMG) 25.0 ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi  
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo -e "Test PASSED\n"; else echo -e "TEST FAILED\n" ; fi
 	@echo "Testing for bad input handling: missing filter amount..."
 	@$(EXEC_MIA_CMD) $(TESTIMG) -sharpen ./tests/badoutput.png > tests/$(RESULTFILE) || true
-	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo "Test PASSED\n"; else echo "TEST FAILED\n" ; fi 
+	@diff --brief $(USAGEFILE) $(RESULTFILE) ; if [ $$? -eq 0 ] ; then echo -e "Test PASSED\n"; else echo "TEST -e FAILED\n" ; fi
 	@rm $(USAGEFILE)
 	@rm $(RESULTFILE)
 

@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/mia_app.h"
 #include <iostream>
+#include "include/mia_app.h"
 #include "lib/libimgtools/src/include/color_data.h"
 #include "lib/libimgtools/src/include/pixel_buffer.h"
 #include "include/mia_io_manager.h"
@@ -32,7 +32,7 @@ const char* kBlur = "-blur";
 const char* kSaturate = "-saturate";
 const char* kChannel = "-channel";
 const char* kCompare = "-compare";
-const std::string kMessage = "usage: MIA"
+const char* kMessage = "usage: MIA"
 " [-h] [-edge] [-sharpen <val>] [-threshold <val>] [-quantize <val>]\n"
 "      [-blur <val>] [-saturate <val>] [-channel <red> <green> <blue>]\n"
 "      [-compare <file1> <file2>]\n"
@@ -103,18 +103,16 @@ int main(int argc, char** argv) {
                 outFiles.push_back(temp2.replace(out_first, 3,
                                                  prefix + std::to_string(i)));
             }
-        }
         /* Single file case */
-        else if (io_manager.is_valid_image_file(inFile)) {
+        } else if (io_manager.is_valid_image_file(inFile)) {
             inFiles.push_back(inFile);
             outFiles.push_back(outFile);
-        }
         /*
          * Invalid filenames. One of two cases:
          * 1) Uses "#" but not in form "###.png"
          * 2) Doesn't use "#" and file does not exist
          */
-        else {
+        } else {
             std::cout << kMessage << std::endl;
             return 1;
         }
@@ -194,9 +192,8 @@ int main(int argc, char** argv) {
                             std::cout << "1" << std::endl;
                         else
                             std::cout << "0" << std::endl;
-                    }
                     /* Unknown, misspelled option */
-                    else {
+                    } else {
                         std::cout << kMessage << std::endl;
                         return 1;
                     }
