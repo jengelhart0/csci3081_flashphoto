@@ -7,16 +7,6 @@
 # Original Author : engel429 (format by jharwell)
 #
 #
-#  Products:
-#  Make Target     Product                  Description
-#  ===========     =======                  ===================
-#  all             build/bin/<dirname>      The main application
-#            
-#  sharpentest                              Everything clean removes, +
-#                                           the external libraries
-#  documentation   Various                  Generates documentation for
-#                                           project from the doxygen
-#                                           comments/markup in the code
 ################################################################################
 
 ###############################################################################
